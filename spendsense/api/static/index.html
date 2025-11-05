@@ -20,6 +20,7 @@
             <button class="tab" data-tab="profiles">View Profiles</button>
             <button class="tab" data-tab="signals">Behavioral Signals</button>
             <button class="tab" data-tab="assignment">Persona Assignment</button>
+            <button class="tab" data-tab="recommendations">💡 Recommendations</button>
             <button class="tab" data-tab="stats">Statistics</button>
             <button class="tab" data-tab="personas">Personas</button>
             <button class="tab" data-tab="future">Future Features</button>
@@ -151,6 +152,83 @@
                 <h2>Persona Definitions</h2>
                 <p>SpendSense uses 5 persona archetypes to generate realistic behavioral patterns:</p>
                 <div id="personas-content" class="personas-grid"></div>
+            </div>
+        </div>
+
+        <!-- Recommendations Tab (Epic 4) -->
+        <div id="recommendations" class="tab-content">
+            <div class="card">
+                <h2>💡 Personalized Recommendations (Epic 4)</h2>
+                <p>Generate personalized financial recommendations combining educational content and partner offers with transparent rationales.</p>
+
+                <form id="recommendations-form" class="form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rec-user-id">User ID</label>
+                            <input type="text" id="rec-user-id" placeholder="user_MASKED_000" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="rec-window">Time Window</label>
+                            <select id="rec-window" class="select">
+                                <option value="30d" selected>30 Days</option>
+                                <option value="180d">180 Days</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="rec-force-generate" checked>
+                                Force Generate (ignore cache)
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Generate Recommendations</button>
+                </form>
+
+                <div id="recommendations-loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Generating recommendations...</p>
+                </div>
+
+                <div id="recommendations-result" class="result hidden">
+                    <!-- Summary Card -->
+                    <div class="rec-summary card-header">
+                        <h3>Recommendation Summary</h3>
+                        <div class="rec-meta">
+                            <span class="badge" id="rec-persona"></span>
+                            <span class="badge badge-secondary" id="rec-window-badge"></span>
+                            <span class="badge badge-success" id="rec-time"></span>
+                        </div>
+                    </div>
+
+                    <!-- Mandatory Disclaimer -->
+                    <div class="disclaimer-box">
+                        <strong>⚠️ Disclaimer:</strong>
+                        <p id="rec-disclaimer"></p>
+                    </div>
+
+                    <!-- Signals Detected -->
+                    <div class="signals-box">
+                        <h4>🔍 Signals Detected</h4>
+                        <div id="rec-signals"></div>
+                    </div>
+
+                    <!-- Recommendations List -->
+                    <div class="recommendations-list">
+                        <h3>Your Personalized Recommendations</h3>
+                        <div id="rec-items"></div>
+                    </div>
+
+                    <!-- Metadata -->
+                    <div class="metadata-box">
+                        <h4>📊 Generation Metadata</h4>
+                        <pre id="rec-metadata"></pre>
+                    </div>
+                </div>
+
+                <div id="recommendations-error" class="error hidden"></div>
             </div>
         </div>
 
