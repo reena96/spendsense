@@ -209,10 +209,10 @@ class RankingEngine:
         """Signal relevance for Low Savings persona."""
         boost = 0.0
 
-        if not behavioral_signals.savings:
+        if not behavioral_signals.savings_30d:
             return boost
 
-        emergency_fund_months = behavioral_signals.savings.emergency_fund_months
+        emergency_fund_months = behavioral_signals.savings_30d.emergency_fund_months
 
         # Boost emergency fund recs if user has <1 month saved
         if "emergency_fund" in recommendation.id or "automate" in recommendation.id:
@@ -223,8 +223,8 @@ class RankingEngine:
 
         # Boost subscription review if user has high subscription share
         if "subscription" in recommendation.id:
-            if behavioral_signals.subscriptions:
-                if behavioral_signals.subscriptions.subscription_share > 0.5:
+            if behavioral_signals.subscriptions_30d:
+                if behavioral_signals.subscriptions_30d.subscription_share > 0.5:
                     boost += 0.2
 
         return boost
@@ -237,11 +237,11 @@ class RankingEngine:
         """Signal relevance for High Utilization persona."""
         boost = 0.0
 
-        if not behavioral_signals.credit:
+        if not behavioral_signals.credit_30d:
             return boost
 
-        utilization = behavioral_signals.credit.aggregate_utilization
-        high_util_count = behavioral_signals.credit.high_utilization_count
+        utilization = behavioral_signals.credit_30d.aggregate_utilization
+        high_util_count = behavioral_signals.credit_30d.high_utilization_count
 
         # Boost debt payoff recs if utilization is very high
         if "debt" in recommendation.id or "payoff" in recommendation.id:
@@ -265,11 +265,11 @@ class RankingEngine:
         """Signal relevance for Subscription Heavy persona."""
         boost = 0.0
 
-        if not behavioral_signals.subscriptions:
+        if not behavioral_signals.subscriptions_30d:
             return boost
 
-        subscription_count = behavioral_signals.subscriptions.subscription_count
-        subscription_share = behavioral_signals.subscriptions.subscription_share
+        subscription_count = behavioral_signals.subscriptions_30d.subscription_count
+        subscription_share = behavioral_signals.subscriptions_30d.subscription_share
 
         # Boost audit/cancel recs if many subscriptions
         if "audit" in recommendation.id or "cancel" in recommendation.id:
@@ -293,13 +293,13 @@ class RankingEngine:
         """Signal relevance for Irregular Income persona."""
         boost = 0.0
 
-        if not behavioral_signals.income:
+        if not behavioral_signals.income_30d:
             return boost
 
         # Boost emergency fund recs (irregular income needs larger cushion)
         if "emergency_fund" in recommendation.id:
-            if behavioral_signals.savings:
-                if behavioral_signals.savings.emergency_fund_months < 6.0:
+            if behavioral_signals.savings_30d:
+                if behavioral_signals.savings_30d.emergency_fund_months < 6.0:
                     boost += 0.3
 
         # Boost budgeting/averaging recs
@@ -322,9 +322,9 @@ class RankingEngine:
 
         # Boost optimization recs
         if "optimize" in recommendation.id or "idle" in recommendation.id:
-            if behavioral_signals.savings:
+            if behavioral_signals.savings_30d:
                 # If lots of cash sitting idle, boost optimization
-                if behavioral_signals.savings.total_savings_balance > 10000:
+                if behavioral_signals.savings_30d.total_savings_balance > 10000:
                     boost += 0.2
 
         return boost
@@ -347,9 +347,9 @@ class RankingEngine:
 
         # Boost first card recommendation
         if "first_credit_card" in recommendation.id:
-            if behavioral_signals.credit:
+            if behavioral_signals.credit_30d:
                 # If no or very low credit, boost this
-                if behavioral_signals.credit.aggregate_utilization == 0:
+                if behavioral_signals.credit_30d.aggregate_utilization == 0:
                     boost += 0.3
 
         return boost

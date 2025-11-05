@@ -133,58 +133,55 @@ class PersonalizationEngine:
             - credit_total_limits: Estimated from credit data
         """
         try:
-            # Credit signals
+            # Credit signals (use 30d window)
             if placeholder == "credit_max_utilization_pct":
-                if behavioral_signals.credit:
-                    return behavioral_signals.credit.aggregate_utilization * 100
+                if behavioral_signals.credit_30d:
+                    return behavioral_signals.credit_30d.aggregate_utilization * 100
                 return None
 
             if placeholder == "credit_total_balance":
-                if behavioral_signals.credit:
+                if behavioral_signals.credit_30d:
                     # Estimate from utilization (rough approximation)
                     # This would need actual balance data for precision
                     return None  # Skip if not available
                 return None
 
-            # Savings signals
+            # Savings signals (use 30d window)
             if placeholder == "savings_total_balance":
-                if behavioral_signals.savings:
-                    return behavioral_signals.savings.total_savings_balance
+                if behavioral_signals.savings_30d:
+                    return behavioral_signals.savings_30d.total_savings_balance
                 return None
 
             if placeholder == "savings_emergency_fund_months":
-                if behavioral_signals.savings:
-                    return behavioral_signals.savings.emergency_fund_months
+                if behavioral_signals.savings_30d:
+                    return behavioral_signals.savings_30d.emergency_fund_months
                 return None
 
-            # Subscription signals
+            # Subscription signals (use 30d window)
             if placeholder == "subscription_count":
-                if behavioral_signals.subscriptions:
-                    return behavioral_signals.subscriptions.subscription_count
+                if behavioral_signals.subscriptions_30d:
+                    return behavioral_signals.subscriptions_30d.subscription_count
                 return None
 
             if placeholder == "subscription_share":
-                if behavioral_signals.subscriptions:
-                    return behavioral_signals.subscriptions.subscription_share * 100
+                if behavioral_signals.subscriptions_30d:
+                    return behavioral_signals.subscriptions_30d.subscription_share * 100
                 return None
 
-            # Income signals
+            # Income signals (use 30d window)
             if placeholder == "income_payment_frequency":
-                if behavioral_signals.income:
-                    return behavioral_signals.income.payment_frequency
+                if behavioral_signals.income_30d:
+                    return behavioral_signals.income_30d.payment_frequency
                 return None
 
             # Monthly expenses (estimated from signals)
             if placeholder == "monthly_expenses":
                 # Estimate from savings data if available
-                if behavioral_signals.savings and behavioral_signals.savings.total_savings_balance is not None:
-                    # Rough estimate: if we know emergency fund months, back-calculate expenses
-                    if behavioral_signals.savings.emergency_fund_months > 0:
-                        monthly_expenses = (
-                            behavioral_signals.savings.total_savings_balance /
-                            behavioral_signals.savings.emergency_fund_months
-                        )
-                        return monthly_expenses
+                if behavioral_signals.savings_30d and behavioral_signals.savings_30d.avg_monthly_expenses > 0:
+                    return behavioral_signals.savings_30d.avg_monthly_expenses
+                # Fallback: estimate from spending if available
+                if behavioral_signals.subscriptions_30d:
+                    return behavioral_signals.subscriptions_30d.total_spend
                 return None
 
             # Transaction history days
