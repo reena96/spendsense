@@ -744,6 +744,71 @@ async def get_income_signals(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.get("/api/profile/{user_id}")
+async def get_persona_profile(
+    user_id: str,
+    time_window: Optional[str] = Query(default=None, description="Time window: '30d', '180d', or None for both")
+):
+    """
+    Get persona assignment profile for a user.
+
+    Returns current persona assignment(s) with complete audit trail including
+    all qualifying personas, match evidence, and prioritization reasoning.
+
+    Args:
+        user_id: User identifier
+        time_window: Optional filter for specific time window
+
+    Returns:
+        Persona assignment(s) with audit trail, or 404 if user not found
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        from spendsense.personas.assigner import PersonaAssigner
+
+        assigner = PersonaAssigner(str(DB_PATH))
+
+        # Check if user exists
+        from spendsense.ingestion.database_writer import User
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+
+        engine = create_engine(f'sqlite:///{DB_PATH}')
+        Session = sessionmaker(bind=engine)
+
+        with Session() as session:
+            user = session.query(User).filter(User.user_id == user_id).first()
+            if user is None:
+                raise HTTPException(status_code=404, detail=f"User {user_id} not found")
+
+        # Get assignments
+        if time_window and time_window not in ("30d", "180d"):
+            raise HTTPException(status_code=400, detail="time_window must be '30d' or '180d'")
+
+        if time_window:
+            assignment = assigner.get_assignment(user_id, time_window)
+            return {
+                "user_id": user_id,
+                "assignments": {
+                    time_window: assignment
+                }
+            }
+        else:
+            # Get both windows
+            assignments = assigner.get_assignments_both_windows(user_id)
+            return {
+                "user_id": user_id,
+                "assignments": assignments
+            }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving persona profile: {str(e)}")
+
+
 @app.get("/api/recommendations")
 async def list_recommendations():
     """
