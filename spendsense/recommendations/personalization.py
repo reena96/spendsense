@@ -184,6 +184,16 @@ class PersonalizationEngine:
                     return behavioral_signals.subscriptions_30d.total_spend
                 return None
 
+            # Three-month emergency fund target
+            if placeholder == "three_month_fund_target":
+                # Calculate: 3 months × monthly expenses
+                if behavioral_signals.savings_30d and behavioral_signals.savings_30d.avg_monthly_expenses > 0:
+                    return behavioral_signals.savings_30d.avg_monthly_expenses * 3
+                # Fallback: estimate from total spending
+                if behavioral_signals.subscriptions_30d:
+                    return behavioral_signals.subscriptions_30d.total_spend * 3
+                return None
+
             # Transaction history days
             if placeholder == "transaction_history_days":
                 # Would need to be calculated from transaction data
