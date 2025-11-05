@@ -535,7 +535,7 @@ async def get_liability_stats():
     )
 
 
-@app.get("/api/liabilities/{user_id}")
+@app.get("/api/liabilities/user/{user_id}")
 async def get_user_liabilities(user_id: str):
     """
     Get liabilities for a specific user.
