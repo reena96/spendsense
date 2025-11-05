@@ -17,6 +17,7 @@ from pydantic import ValidationError
 from spendsense.recommendations.models import (
     Recommendation,
     RecommendationCategory,
+    RecommendationType,
     DifficultyLevel,
     TimeCommitment,
     EstimatedImpact,
@@ -31,9 +32,11 @@ def test_valid_recommendation_model():
     """Test creating a valid recommendation."""
     rec = Recommendation(
         id="test-recommendation",
+        type=RecommendationType.ARTICLE,
         category=RecommendationCategory.ACTION,
         title="Test Action Item",
         description="This is a test recommendation with a detailed description.",
+        personas=["test_persona"],
         priority=1,
         difficulty=DifficultyLevel.BEGINNER,
         time_commitment=TimeCommitment.ONE_TIME,
@@ -53,9 +56,11 @@ def test_recommendation_missing_required_field():
     with pytest.raises(ValidationError) as exc_info:
         Recommendation(
             # Missing 'id'
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Test Title",
             description="Test description",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -70,9 +75,11 @@ def test_recommendation_invalid_enum_value():
     with pytest.raises(ValidationError) as exc_info:
         Recommendation(
             id="test-rec",
+            type=RecommendationType.ARTICLE,
             category="invalid_category",  # Invalid enum
             title="Test Title",
             description="Test description",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -88,9 +95,11 @@ def test_recommendation_priority_validation():
     with pytest.raises(ValidationError):
         Recommendation(
             id="test-rec",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Test Title",
             description="Test description",
+            personas=["test_persona"],
             priority=0,  # Invalid: must be >= 1
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -101,9 +110,11 @@ def test_recommendation_priority_validation():
     with pytest.raises(ValidationError):
         Recommendation(
             id="test-rec",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Test Title",
             description="Test description",
+            personas=["test_persona"],
             priority=11,  # Invalid: must be <= 10
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -116,9 +127,11 @@ def test_recommendation_id_format_validation():
     # Valid kebab-case
     rec = Recommendation(
         id="valid-kebab-case-123",
+        type=RecommendationType.ARTICLE,
         category=RecommendationCategory.ACTION,
         title="Test Title",
         description="Test description",
+        personas=["test_persona"],
         priority=1,
         difficulty=DifficultyLevel.BEGINNER,
         time_commitment=TimeCommitment.ONE_TIME,
@@ -130,9 +143,11 @@ def test_recommendation_id_format_validation():
     with pytest.raises(ValidationError) as exc_info:
         Recommendation(
             id="Invalid-ID",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Test Title",
             description="Test description",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -144,9 +159,11 @@ def test_recommendation_id_format_validation():
     with pytest.raises(ValidationError):
         Recommendation(
             id="-invalid-id",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Test Title",
             description="Test description",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -160,9 +177,11 @@ def test_recommendation_title_validation():
     with pytest.raises(ValidationError) as exc_info:
         Recommendation(
             id="test-rec",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Test",  # Only 4 characters, min is 5
             description="Test description that is long enough",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -174,9 +193,11 @@ def test_recommendation_title_validation():
     with pytest.raises(ValidationError) as exc_info:
         Recommendation(
             id="test-rec",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title="Testing",  # 1 word, but long enough for min_length
             description="Test description that is long enough",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -189,9 +210,11 @@ def test_recommendation_title_validation():
     with pytest.raises(ValidationError) as exc_info:
         Recommendation(
             id="test-rec",
+            type=RecommendationType.ARTICLE,
             category=RecommendationCategory.ACTION,
             title=long_title,
             description="Test description",
+            personas=["test_persona"],
             priority=1,
             difficulty=DifficultyLevel.BEGINNER,
             time_commitment=TimeCommitment.ONE_TIME,
@@ -205,9 +228,11 @@ def test_recommendation_helper_properties():
     # High priority recommendation
     high_priority_rec = Recommendation(
         id="test-high",
+        type=RecommendationType.ARTICLE,
         category=RecommendationCategory.ACTION,
         title="High Priority Action",
         description="Test description",
+        personas=["test_persona"],
         priority=2,
         difficulty=DifficultyLevel.INTERMEDIATE,
         time_commitment=TimeCommitment.ONGOING,
@@ -220,9 +245,11 @@ def test_recommendation_helper_properties():
     # Low priority, quick win recommendation
     quick_win_rec = Recommendation(
         id="test-quick",
+        type=RecommendationType.ARTICLE,
         category=RecommendationCategory.TIP,
         title="Quick Win Tip",
         description="Test description",
+        personas=["test_persona"],
         priority=8,
         difficulty=DifficultyLevel.BEGINNER,
         time_commitment=TimeCommitment.ONE_TIME,
@@ -237,9 +264,11 @@ def test_recommendation_to_dict():
     """Test converting recommendation to dictionary."""
     rec = Recommendation(
         id="test-rec",
+        type=RecommendationType.ARTICLE,
         category=RecommendationCategory.EDUCATION,
         title="Test Education Item",
         description="Test description",
+        personas=["test_persona"],
         priority=3,
         difficulty=DifficultyLevel.INTERMEDIATE,
         time_commitment=TimeCommitment.WEEKLY,
@@ -260,24 +289,27 @@ def test_recommendation_to_dict():
 def test_load_valid_yaml_file():
     """Test loading valid YAML file."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "test-rec-1"
-      category: "action"
-      title: "Test Action One"
-      description: "This is the first test recommendation"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-    - id: "test-rec-2"
-      category: "education"
-      title: "Test Education Two"
-      description: "This is the second test recommendation"
-      priority: 2
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "medium"
+educational_content:
+  - id: "test-rec-1"
+    type: "article"
+    category: "action"
+    title: "Test Action One"
+    description: "This is the first test recommendation"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "test-rec-2"
+    type: "article"
+    category: "education"
+    title: "Test Education Two"
+    description: "This is the second test recommendation"
+    personas: ["test_persona"]
+    priority: 2
+    difficulty: "intermediate"
+    time_commitment: "ongoing"
+    estimated_impact: "medium"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -304,12 +336,13 @@ def test_load_missing_file():
 def test_load_invalid_yaml_syntax():
     """Test that invalid YAML syntax raises ValueError."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "test-rec"
-      category: "action"
-      title: "Test"
-      invalid_yaml: [unclosed bracket
+educational_content:
+  - id: "test-rec"
+    type: "article"
+    category: "action"
+    title: "Test Title"
+    personas: ["test_persona"]
+    invalid_yaml: [unclosed bracket
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -327,12 +360,13 @@ recommendations:
 def test_load_invalid_recommendation_structure():
     """Test that invalid recommendation structure raises ValueError."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "test-rec"
-      category: "action"
-      # Missing required fields: title, description, etc.
-      priority: 1
+educational_content:
+  - id: "test-rec"
+    type: "article"
+    category: "action"
+    personas: ["test_persona"]
+    # Missing required fields: title, description, etc.
+    priority: 1
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -375,24 +409,27 @@ def test_load_all_personas_present():
 def test_get_recommendations_by_persona():
     """Test retrieving recommendations by persona ID."""
     yaml_content = """
-recommendations:
-  low_savings:
-    - id: "emergency-fund"
-      category: "action"
-      title: "Build Emergency Fund"
-      description: "Start with $1,000 emergency fund"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-    - id: "automate-savings"
-      category: "action"
-      title: "Automate Savings"
-      description: "Set up automatic transfers"
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
+educational_content:
+  - id: "emergency-fund"
+    type: "article"
+    category: "action"
+    title: "Build Emergency Fund"
+    description: "Start with $1,000 emergency fund"
+    personas: ["low_savings"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "ongoing"
+    estimated_impact: "high"
+  - id: "automate-savings"
+    type: "article"
+    category: "action"
+    title: "Automate Savings"
+    description: "Set up automatic transfers"
+    personas: ["low_savings"]
+    priority: 2
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -413,32 +450,37 @@ recommendations:
 def test_get_recommendations_sorted_by_priority():
     """Test recommendations are sorted by priority (1=highest)."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "rec-low-priority"
-      category: "tip"
-      title: "Low Priority Tip"
-      description: "This should come last"
-      priority: 5
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "low"
-    - id: "rec-high-priority"
-      category: "action"
-      title: "High Priority Action"
-      description: "This should come first"
-      priority: 1
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-    - id: "rec-mid-priority"
-      category: "education"
-      title: "Mid Priority Education"
-      description: "This should come in the middle"
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
+educational_content:
+  - id: "rec-low-priority"
+    type: "article"
+    category: "tip"
+    title: "Low Priority Tip"
+    description: "This should come last"
+    personas: ["test_persona"]
+    priority: 5
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "low"
+  - id: "rec-high-priority"
+    type: "article"
+    category: "action"
+    title: "High Priority Action"
+    description: "This should come first"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "intermediate"
+    time_commitment: "ongoing"
+    estimated_impact: "high"
+  - id: "rec-mid-priority"
+    type: "article"
+    category: "education"
+    title: "Mid Priority Education"
+    description: "This should come in the middle"
+    personas: ["test_persona"]
+    priority: 3
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "medium"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -460,16 +502,17 @@ recommendations:
 def test_get_recommendation_by_id():
     """Test retrieving specific recommendation by ID."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "target-rec"
-      category: "action"
-      title: "Target Recommendation"
-      description: "This is the recommendation we're looking for"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
+educational_content:
+  - id: "target-rec"
+    type: "article"
+    category: "action"
+    title: "Target Recommendation"
+    description: "This is the recommendation we're looking for"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -490,16 +533,17 @@ recommendations:
 def test_get_unknown_persona():
     """Test that unknown persona returns empty list."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "test-rec"
-      category: "action"
-      title: "Test Recommendation"
-      description: "Test description"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
+educational_content:
+  - id: "test-rec"
+    type: "article"
+    category: "action"
+    title: "Test Recommendation"
+    description: "Test description"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -518,16 +562,17 @@ recommendations:
 def test_get_unknown_recommendation_id():
     """Test that unknown recommendation ID returns None."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "test-rec"
-      category: "action"
-      title: "Test Recommendation"
-      description: "Test description"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
+educational_content:
+  - id: "test-rec"
+    type: "article"
+    category: "action"
+    title: "Test Recommendation"
+    description: "Test description"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -549,32 +594,37 @@ recommendations:
 def test_get_by_category():
     """Test filtering recommendations by category."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "action-1"
-      category: "action"
-      title: "Action One"
-      description: "First action"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-    - id: "education-1"
-      category: "education"
-      title: "Education One"
-      description: "First education"
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-    - id: "action-2"
-      category: "action"
-      title: "Action Two"
-      description: "Second action"
-      priority: 3
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
+educational_content:
+  - id: "action-1"
+    type: "article"
+    category: "action"
+    title: "Action One"
+    description: "First action"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "education-1"
+    type: "article"
+    category: "education"
+    title: "Education One"
+    description: "First education"
+    personas: ["test_persona"]
+    priority: 2
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "medium"
+  - id: "action-2"
+    type: "article"
+    category: "action"
+    title: "Action Two"
+    description: "Second action"
+    personas: ["test_persona"]
+    priority: 3
+    difficulty: "intermediate"
+    time_commitment: "ongoing"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -596,40 +646,47 @@ recommendations:
 def test_get_high_priority():
     """Test getting top N priority recommendations."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "rec-1"
-      category: "action"
-      title: "Priority One"
-      description: "Highest priority"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-    - id: "rec-2"
-      category: "action"
-      title: "Priority Two"
-      description: "Second priority"
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-    - id: "rec-3"
-      category: "action"
-      title: "Priority Three"
-      description: "Third priority"
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-    - id: "rec-4"
-      category: "tip"
-      title: "Priority Four"
-      description: "Fourth priority"
-      priority: 4
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "low"
+educational_content:
+  - id: "rec-1"
+    type: "article"
+    category: "action"
+    title: "Priority One"
+    description: "Highest priority"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "rec-2"
+    type: "article"
+    category: "action"
+    title: "Priority Two"
+    description: "Second priority"
+    personas: ["test_persona"]
+    priority: 2
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "rec-3"
+    type: "article"
+    category: "action"
+    title: "Priority Three"
+    description: "Third priority"
+    personas: ["test_persona"]
+    priority: 3
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "medium"
+  - id: "rec-4"
+    type: "article"
+    category: "tip"
+    title: "Priority Four"
+    description: "Fourth priority"
+    personas: ["test_persona"]
+    priority: 4
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "low"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -650,32 +707,37 @@ recommendations:
 def test_get_quick_wins():
     """Test getting quick win recommendations."""
     yaml_content = """
-recommendations:
-  test_persona:
-    - id: "quick-1"
-      category: "tip"
-      title: "Quick Win One"
-      description: "One-time quick action"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-    - id: "not-quick"
-      category: "action"
-      title: "Not a Quick Win"
-      description: "Ongoing advanced action"
-      priority: 2
-      difficulty: "advanced"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-    - id: "quick-2"
-      category: "action"
-      title: "Quick Win Two"
-      description: "Beginner-friendly action"
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "weekly"
-      estimated_impact: "medium"
+educational_content:
+  - id: "quick-1"
+    type: "article"
+    category: "tip"
+    title: "Quick Win One"
+    description: "One-time quick action"
+    personas: ["test_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "not-quick"
+    type: "article"
+    category: "action"
+    title: "Not a Quick Win"
+    description: "Ongoing advanced action"
+    personas: ["test_persona"]
+    priority: 2
+    difficulty: "advanced"
+    time_commitment: "ongoing"
+    estimated_impact: "high"
+  - id: "quick-2"
+    type: "article"
+    category: "action"
+    title: "Quick Win Two"
+    description: "Beginner-friendly action"
+    personas: ["test_persona"]
+    priority: 3
+    difficulty: "beginner"
+    time_commitment: "weekly"
+    estimated_impact: "medium"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -697,33 +759,37 @@ recommendations:
 def test_get_recommendation_count():
     """Test counting recommendations."""
     yaml_content = """
-recommendations:
-  persona_a:
-    - id: "rec-a1"
-      category: "action"
-      title: "Persona A Rec 1"
-      description: "First rec for A"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-    - id: "rec-a2"
-      category: "tip"
-      title: "Persona A Rec 2"
-      description: "Second rec for A"
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-  persona_b:
-    - id: "rec-b1"
-      category: "education"
-      title: "Persona B Rec 1"
-      description: "First rec for B"
-      priority: 1
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
+educational_content:
+  - id: "rec-a1"
+    type: "article"
+    category: "action"
+    title: "Persona A Rec 1"
+    description: "First rec for A"
+    personas: ["persona_a"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "rec-a2"
+    type: "article"
+    category: "tip"
+    title: "Persona A Rec 2"
+    description: "Second rec for A"
+    personas: ["persona_a"]
+    priority: 2
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "medium"
+  - id: "rec-b1"
+    type: "article"
+    category: "education"
+    title: "Persona B Rec 1"
+    description: "First rec for B"
+    personas: ["persona_b"]
+    priority: 1
+    difficulty: "intermediate"
+    time_commitment: "ongoing"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -754,17 +820,17 @@ recommendations:
 def test_empty_persona_recommendations():
     """Test persona with empty recommendations list."""
     yaml_content = """
-recommendations:
-  empty_persona: []
-  normal_persona:
-    - id: "rec-1"
-      category: "action"
-      title: "Normal Recommendation"
-      description: "This persona has recommendations"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
+educational_content:
+  - id: "rec-1"
+    type: "article"
+    category: "action"
+    title: "Normal Recommendation"
+    description: "This persona has recommendations"
+    personas: ["normal_persona"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:
@@ -786,25 +852,27 @@ recommendations:
 def test_duplicate_recommendation_ids_warning(caplog):
     """Test that duplicate recommendation IDs log warning and keep first."""
     yaml_content = """
-recommendations:
-  persona_a:
-    - id: "duplicate-id"
-      category: "action"
-      title: "First Instance"
-      description: "This should be kept"
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-  persona_b:
-    - id: "duplicate-id"
-      category: "education"
-      title: "Second Instance"
-      description: "This should log warning"
-      priority: 1
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "medium"
+educational_content:
+  - id: "duplicate-id"
+    type: "article"
+    category: "action"
+    title: "First Instance"
+    description: "This should be kept"
+    personas: ["persona_a"]
+    priority: 1
+    difficulty: "beginner"
+    time_commitment: "one-time"
+    estimated_impact: "high"
+  - id: "duplicate-id"
+    type: "article"
+    category: "education"
+    title: "Second Instance"
+    description: "This should log warning"
+    personas: ["persona_b"]
+    priority: 1
+    difficulty: "intermediate"
+    time_commitment: "ongoing"
+    estimated_impact: "medium"
 """
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".yaml", delete=False) as f:

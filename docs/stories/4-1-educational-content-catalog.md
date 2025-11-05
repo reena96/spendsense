@@ -2,7 +2,7 @@
 
 **Epic:** 4 - Recommendation Engine & Content Catalog
 **Story ID:** 4.1
-**Status:** in-progress
+**Status:** completed
 
 ## Story
 
@@ -12,16 +12,16 @@ so that **relevant education can be programmatically matched to user needs**.
 
 ## Acceptance Criteria
 
-- [ ] 1. Content catalog created as YAML/JSON configuration file
-- [ ] 2. Each content item includes: ID, title, type (article/template/calculator/video), description
-- [ ] 3. Each item tagged with relevant personas (can apply to multiple personas)
-- [ ] 4. Each item tagged with triggering signals (subscription, savings, credit, income patterns)
-- [ ] 5. Content items defined for all persona educational focus areas
-- [ ] 6. At least 15 unique educational items covering all 6 personas
-- [ ] 7. Content includes: debt paydown strategies, budget templates, subscription audit checklists, emergency fund calculators, credit utilization explainers
-- [ ] 8. Each item includes plain-language summary (grade-8 readability)
-- [ ] 9. Catalog schema validated and documented
-- [ ] 10. Catalog loaded at application startup
+- [x] 1. Content catalog created as YAML/JSON configuration file
+- [x] 2. Each content item includes: ID, title, type (article/template/calculator/video), description
+- [x] 3. Each item tagged with relevant personas (can apply to multiple personas)
+- [x] 4. Each item tagged with triggering signals (subscription, savings, credit, income patterns)
+- [x] 5. Content items defined for all persona educational focus areas
+- [x] 6. At least 15 unique educational items covering all 6 personas
+- [x] 7. Content includes: debt paydown strategies, budget templates, subscription audit checklists, emergency fund calculators, credit utilization explainers
+- [x] 8. Each item includes plain-language summary (grade-8 readability)
+- [x] 9. Catalog schema validated and documented
+- [x] 10. Catalog loaded at application startup
 
 ## Implementation Notes
 
