@@ -302,3 +302,154 @@ function formatPersona(persona) {
         .map(word => word.charAt(0).toUpperCase() + word.slice(1))
         .join(' ');
 }
+
+// ===== Behavioral Signals Tab =====
+const signalsForm = document.getElementById('signals-form');
+const signalsResult = document.getElementById('signals-result');
+
+if (signalsForm) {
+    signalsForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const userId = document.getElementById('signals-user-id').value;
+        const windowDays = document.getElementById('signals-window').value;
+
+        signalsResult.innerHTML = '<p class="loading">Loading behavioral signals...</p>';
+        signalsResult.classList.remove('hidden');
+
+        try {
+            const response = await fetch(`/api/signals/${userId}`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.detail || 'Failed to fetch signals');
+            }
+
+            displayBehavioralSignals(data, windowDays);
+        } catch (error) {
+            signalsResult.innerHTML = `<div class="error">Error: ${error.message}</div>`;
+        }
+    });
+}
+
+function displayBehavioralSignals(data, windowDays) {
+    const window = windowDays === '30' ? '30d' : '180d';
+
+    const subscriptions = data.subscriptions[window];
+    const savings = data.savings[window];
+    const credit = data.credit[window];
+    const income = data.income[window];
+
+    const html = `
+        <div class="signals-grid">
+            <!-- Subscription Signals -->
+            <div class="signal-card">
+                <h3>📺 Subscriptions</h3>
+                <div class="signal-metric">
+                    <span class="label">Subscription Count:</span>
+                    <span class="value">${subscriptions.subscription_count}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Monthly Recurring:</span>
+                    <span class="value">$${subscriptions.monthly_recurring_spend.toFixed(2)}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Share of Spend:</span>
+                    <span class="value">${(subscriptions.subscription_share * 100).toFixed(1)}%</span>
+                </div>
+            </div>
+
+            <!-- Savings Signals -->
+            <div class="signal-card">
+                <h3>💰 Savings</h3>
+                <div class="signal-metric">
+                    <span class="label">Has Savings:</span>
+                    <span class="value ${savings.has_savings_accounts ? 'success' : 'muted'}">
+                        ${savings.has_savings_accounts ? 'Yes' : 'No'}
+                    </span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Total Balance:</span>
+                    <span class="value">$${savings.total_savings_balance.toFixed(2)}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Growth Rate:</span>
+                    <span class="value ${savings.savings_growth_rate > 0 ? 'success' : ''}">
+                        ${(savings.savings_growth_rate * 100).toFixed(1)}%
+                    </span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Emergency Fund:</span>
+                    <span class="value">${savings.emergency_fund_months.toFixed(1)} months</span>
+                </div>
+            </div>
+
+            <!-- Credit Signals -->
+            <div class="signal-card">
+                <h3>💳 Credit</h3>
+                <div class="signal-metric">
+                    <span class="label">Credit Cards:</span>
+                    <span class="value">${credit.num_credit_cards}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Aggregate Utilization:</span>
+                    <span class="value ${getUtilizationClass(credit.aggregate_utilization)}">
+                        ${(credit.aggregate_utilization * 100).toFixed(1)}%
+                    </span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">High Utilization:</span>
+                    <span class="value ${credit.high_utilization_count > 0 ? 'warning' : ''}">
+                        ${credit.high_utilization_count} cards
+                    </span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Overdue:</span>
+                    <span class="value ${credit.overdue_count > 0 ? 'error' : 'success'}">
+                        ${credit.overdue_count} accounts
+                    </span>
+                </div>
+            </div>
+
+            <!-- Income Signals -->
+            <div class="signal-card">
+                <h3>💵 Income</h3>
+                <div class="signal-metric">
+                    <span class="label">Payment Frequency:</span>
+                    <span class="value">${income.payment_frequency}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Income Transactions:</span>
+                    <span class="value">${income.num_income_transactions}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Total Income:</span>
+                    <span class="value">$${income.total_income.toFixed(2)}</span>
+                </div>
+                <div class="signal-metric">
+                    <span class="label">Regular Income:</span>
+                    <span class="value ${income.has_regular_income ? 'success' : 'muted'}">
+                        ${income.has_regular_income ? 'Yes' : 'No'}
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Metadata -->
+        <div class="signals-metadata">
+            <h4>Analysis Metadata</h4>
+            <p><strong>Generated:</strong> ${data.generated_at}</p>
+            <p><strong>Window:</strong> ${windowDays} days</p>
+            <p><strong>Data Completeness:</strong> ${JSON.stringify(data.metadata.data_completeness, null, 2)}</p>
+        </div>
+    `;
+
+    signalsResult.innerHTML = html;
+}
+
+function getUtilizationClass(utilization) {
+    if (utilization >= 0.80) return 'error';
+    if (utilization >= 0.50) return 'warning';
+    if (utilization >= 0.30) return 'caution';
+    return 'success';
+}

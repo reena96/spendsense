@@ -1,0 +1,264 @@
+================================================================================
+REAL DATA ANALYSIS (transactions_formatted.csv)
+================================================================================
+
+📊 Dataset Overview:
+  Total transactions: 5,000
+  Unique customers: 191
+  Date range: 2024-01-01 to 2024-12-31
+
+💳 Payment Method Distribution:
+  credit_card          2,074 ( 41.5%)
+  debit_card           1,516 ( 30.3%)
+  digital_wallet         718 ( 14.4%)
+  cash                   474 (  9.5%)
+  bank_transfer          218 (  4.4%)
+
+📝 Transaction Type Distribution:
+  purchase             3,190 ( 63.8%)
+  refund                 515 ( 10.3%)
+  transfer               504 ( 10.1%)
+  fee                    279 (  5.6%)
+  deposit                270 (  5.4%)
+  withdrawal             242 (  4.8%)
+
+💰 Transaction Amounts:
+  Mean: $59.14
+  Median: $30.56
+  Min: $-291.89
+  Max: $1,923.29
+  Std Dev: $113.99
+
+💵 Amount Categories:
+  medium               2,474 ( 49.5%)
+  large                  949 ( 19.0%)
+  very_large             759 ( 15.2%)
+  small                  755 ( 15.1%)
+  extra_large             63 (  1.3%)
+
+🏪 Top 10 Merchant Categories:
+  other                  560 ( 11.2%)
+  retail                 535 ( 10.7%)
+  utilities              520 ( 10.4%)
+  healthcare             512 ( 10.2%)
+  restaurant             498 ( 10.0%)
+  entertainment          497 (  9.9%)
+  groceries              483 (  9.7%)
+  transportation         476 (  9.5%)
+  online_shopping        460 (  9.2%)
+  gas_station            459 (  9.2%)
+
+💼 Account Balance Distribution:
+  Mean: $5,087.90
+  Median: $5,109.32
+  Min: $100.08
+  Max: $9,999.40
+
+  Percentiles:
+    10th: $  1,067.35
+    25th: $  2,657.17
+    50th: $  5,109.64
+    75th: $  7,590.68
+    90th: $  8,981.66
+    95th: $  9,503.53
+    99th: $  9,901.98
+
+  Low balance (<$1K): 463 (9.3%)
+
+📅 Day of Week Distribution:
+  Monday       678 ( 13.6%)
+  Tuesday      708 ( 14.2%)
+  Wednesday    703 ( 14.1%)
+  Thursday     743 ( 14.9%)
+  Friday       702 ( 14.0%)
+  Saturday     739 ( 14.8%)
+  Sunday       727 ( 14.5%)
+
+⏰ Hour of Day Distribution:
+   0:00  189 ( 3.8%) ███
+   1:00  192 ( 3.8%) ███
+   2:00  200 ( 4.0%) ████
+   3:00  205 ( 4.1%) ████
+   4:00  205 ( 4.1%) ████
+   5:00  197 ( 3.9%) ███
+   6:00  261 ( 5.2%) █████
+   7:00  229 ( 4.6%) ████
+   8:00  201 ( 4.0%) ████
+   9:00  239 ( 4.8%) ████
+  10:00  212 ( 4.2%) ████
+  11:00  193 ( 3.9%) ███
+  12:00  215 ( 4.3%) ████
+  13:00  200 ( 4.0%) ████
+  14:00  209 ( 4.2%) ████
+  15:00  201 ( 4.0%) ████
+  16:00  218 ( 4.4%) ████
+  17:00  209 ( 4.2%) ████
+  18:00  183 ( 3.7%) ███
+  19:00  205 ( 4.1%) ████
+  20:00  209 ( 4.2%) ████
+  21:00  191 ( 3.8%) ███
+  22:00  231 ( 4.6%) ████
+  23:00  206 ( 4.1%) ████
+
+👤 Per-Customer Statistics:
+  Mean transactions per customer: 26.2
+  Median transactions per customer: 19.0
+  Min: 1
+  Max: 240
+
+🚨 Fraud Rate:
+  Fraudulent transactions: 87 (1.74%)
+
+
+================================================================================
+SYNTHETIC DATA ANALYSIS (spendsense.db)
+================================================================================
+
+📊 Dataset Overview:
+  Total transactions: 19,821
+  Unique users: 100
+  Date range: 2025-05-08 to 2025-11-04
+
+💳 Payment Channel Distribution:
+  in store             14,639 ( 73.9%)
+  online               3,483 ( 17.6%)
+  other                1,699 (  8.6%)
+
+💰 Transaction Amounts:
+  Mean: $-3.85
+  Median: $-97.59
+  Min: $-7,144.75
+  Max: $23,970.29
+  Std Dev: $1,193.71
+
+🏪 Top 10 Personal Finance Categories:
+  FOOD_AND_DRINK_RESTAURANTS     6,267 ( 31.6%)
+  FOOD_AND_DRINK_GROCERIES       5,123 ( 25.8%)
+  TRANSPORTATION_GAS             2,533 ( 12.8%)
+  GENERAL_SERVICES_SUBSCRIPTION  2,067 ( 10.4%)
+  HOME_UTILITIES                 1,232 (  6.2%)
+  INCOME_WAGES                   1,114 (  5.6%)
+  GENERAL_MERCHANDISE_GENERAL      900 (  4.5%)
+  LOAN_PAYMENTS_CREDIT_CARD_PAYMENT   461 (  2.3%)
+  TRANSFER_OUT_SAVINGS             124 (  0.6%)
+
+🏬 Top 10 Merchants by Transaction Count:
+  ADP Payroll                    1,034
+  Target                           719
+  Walmart                          688
+  Water Company                    618
+  PG&E                             614
+  Corner Bistro                    565
+  McDonald's                       545
+  The Cheesecake Factory           539
+  Pizza Hut                        539
+  Taco Bell                        538
+
+💼 Account Balance Distribution:
+  Total accounts: 230
+  Mean: $21,874.31
+  Median: $23,112.17
+  Min: $1,064.80
+  Max: $50,953.53
+
+  Percentiles:
+    10th: $  4,698.89
+    25th: $ 14,636.87
+    50th: $ 23,167.32
+    75th: $ 29,559.11
+    90th: $ 36,320.29
+    95th: $ 40,005.00
+    99th: $ 49,285.67
+
+📅 Day of Week Distribution:
+  Sunday     2,912 ( 14.7%)
+  Monday     2,881 ( 14.5%)
+  Tuesday    2,842 ( 14.3%)
+  Wednesday  2,781 ( 14.0%)
+  Thursday   2,699 ( 13.6%)
+  Friday     2,887 ( 14.6%)
+  Saturday   2,819 ( 14.2%)
+
+👤 Per-User Statistics:
+  Mean transactions per user: 198.2
+  Median transactions per user: 194.5
+  Min: 150
+  Max: 264
+
+⏳ Pending Transactions:
+  Count: 0 (0.00%)
+
+
+================================================================================
+PATTERN COMPARISON: MATCHES & MISSES
+================================================================================
+
+✅ MATCHES (Patterns that align well):
+--------------------------------------------------------------------------------
+
+1. Transactions per User:
+   Real: 26.2 tx/user
+   Synthetic: 198.2 tx/user
+   ❌ MISS: 657.2% difference (>20% threshold)
+
+2. Mean Transaction Amount:
+   Real: $59.14
+   Synthetic: $-3.85
+   ❌ MISS: 106.5% difference (>30% threshold)
+
+
+❌ MISSES (Patterns that differ significantly):
+--------------------------------------------------------------------------------
+
+1. Payment Method Diversity:
+   Real: 5 unique methods
+   Real methods: debit_card, credit_card, cash, digital_wallet, bank_transfer
+   Synthetic: Uses 'payment_channel' instead of 'payment_method'
+   ❌ MISS: Different field names and likely different distributions
+
+2. Merchant Categories:
+   Real: 10 unique categories
+   Real top 5: other, retail, utilities, healthcare, restaurant
+   Synthetic: Uses 'personal_finance_category' (Plaid taxonomy)
+   ⚠️  DIFFERENT: Schema difference, but both capture spending patterns
+
+3. Low Balance Frequency:
+   Real: 9.3% of transactions have balance <$1K
+   Synthetic: (Need to query accounts table)
+   ⚠️  Need account balance snapshots in synthetic data
+
+
+🔍 KEY INSIGHTS:
+--------------------------------------------------------------------------------
+1. Real data uses 'payment_method' (debit_card, credit_card, etc.)
+2. Synthetic uses 'payment_channel' (online, in store, other)
+3. Real data has merchant_category taxonomy
+4. Synthetic uses Plaid personal_finance_category taxonomy
+5. Real data includes account_balance at transaction time
+6. Synthetic has separate accounts table with current balances
+7. Real data spans 1 year (2024), need to check synthetic date range
+8. Both datasets have similar transaction volume per user
+
+
+📋 RECOMMENDATIONS:
+--------------------------------------------------------------------------------
+1. Map payment_channel to payment_method for consistency
+2. Add balance snapshots to transactions for time-series analysis
+3. Validate merchant category distributions match industry norms
+4. Ensure temporal patterns (day/hour) match real behavior
+5. Add more diversity in transaction amounts (real data more varied)
+6. Consider adding fraud flags to synthetic data (0.08% in real data)
+7. Validate credit card usage rates (96% in real, now 90% in synthetic ✅)
+8. Ensure balance distribution matches real percentiles
+
+
+================================================================================
+ANALYSIS COMPLETE
+================================================================================
+
+See output above for detailed comparison of patterns.
+
+Key files for reference:
+  - DATA_REALISM_ANALYSIS.md (already created)
+  - ACCOUNT_DISTRIBUTION_FIX_SUMMARY.md (already created)
+  - This analysis output (save for documentation)

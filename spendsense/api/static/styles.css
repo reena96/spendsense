@@ -473,6 +473,88 @@ body {
     to { transform: rotate(360deg); }
 }
 
+/* Behavioral Signals Dashboard */
+.signals-dashboard {
+    margin-top: 2rem;
+}
+
+.signals-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.signal-card {
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.signal-card h3 {
+    margin: 0 0 1rem 0;
+    color: #2c3e50;
+    font-size: 1.25rem;
+}
+
+.signal-metric {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.signal-metric:last-child {
+    border-bottom: none;
+}
+
+.signal-metric .label {
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.signal-metric .value {
+    font-weight: 700;
+    color: #2c3e50;
+}
+
+.signal-metric .value.success {
+    color: #28a745;
+}
+
+.signal-metric .value.warning {
+    color: #ffc107;
+}
+
+.signal-metric .value.caution {
+    color: #ff9800;
+}
+
+.signal-metric .value.error {
+    color: #dc3545;
+}
+
+.signal-metric .value.muted {
+    color: #6c757d;
+}
+
+.signals-metadata {
+    background: #e9ecef;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 1rem;
+}
+
+.signals-metadata h4 {
+    margin: 0 0 0.5rem 0;
+}
+
+.signals-metadata p {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .container {

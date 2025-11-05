@@ -557,17 +557,191 @@ async def get_user_liabilities(user_id: str):
     return liabilities[user_id]
 
 
-@app.get("/api/signals")
-async def list_signals():
-    """
-    [Future] List detected behavioral signals.
+# ===== Behavioral Signal Endpoints (Epic 2) =====
 
-    This endpoint will be implemented in Epic 2.
+from datetime import date
+from spendsense.features import (
+    BehavioralSummaryGenerator,
+    SubscriptionDetector,
+    SavingsDetector,
+    CreditDetector,
+    IncomeDetector
+)
+
+# Path to database
+DB_PATH = Path(__file__).parent.parent.parent / "data" / "processed" / "spendsense.db"
+
+
+@app.get("/api/signals/{user_id}")
+async def get_behavioral_summary(
+    user_id: str,
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD), defaults to today")
+):
     """
-    return {
-        "message": "Signal detection coming in Epic 2",
-        "status": "not_implemented"
-    }
+    Get comprehensive behavioral summary for a user.
+
+    Returns all detected signals: subscriptions, savings, credit, and income
+    patterns for both 30-day and 180-day windows.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        # Parse reference date or use today
+        if reference_date:
+            ref_date = date.fromisoformat(reference_date)
+        else:
+            ref_date = date.today()
+
+        # Generate behavioral summary
+        generator = BehavioralSummaryGenerator(str(DB_PATH))
+        summary = generator.generate_summary(
+            user_id=user_id,
+            reference_date=ref_date
+        )
+
+        # Convert to dict for JSON response
+        return summary.to_dict()
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating summary: {str(e)}")
+
+
+@app.get("/api/signals/{user_id}/subscriptions")
+async def get_subscription_signals(
+    user_id: str,
+    window_days: int = Query(default=30, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get subscription pattern detection results for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = SubscriptionDetector(str(DB_PATH))
+        metrics = detector.detect_subscriptions(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        # Convert to dict
+        from dataclasses import asdict
+        return asdict(metrics)
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/signals/{user_id}/savings")
+async def get_savings_signals(
+    user_id: str,
+    window_days: int = Query(default=30, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get savings behavior detection results for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = SavingsDetector(str(DB_PATH))
+        metrics = detector.detect_savings_patterns(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        from dataclasses import asdict
+        result = asdict(metrics)
+        # Convert date to string
+        result['reference_date'] = result['reference_date'].isoformat()
+        return result
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/signals/{user_id}/credit")
+async def get_credit_signals(
+    user_id: str,
+    window_days: int = Query(default=30, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get credit utilization and debt signals for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = CreditDetector(str(DB_PATH))
+        metrics = detector.detect_credit_patterns(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        from dataclasses import asdict
+        result = asdict(metrics)
+        # Convert date to string
+        result['reference_date'] = result['reference_date'].isoformat()
+        return result
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/signals/{user_id}/income")
+async def get_income_signals(
+    user_id: str,
+    window_days: int = Query(default=180, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get income stability detection results for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = IncomeDetector(str(DB_PATH))
+        metrics = detector.detect_income_patterns(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        from dataclasses import asdict
+        result = asdict(metrics)
+        # Convert dates to strings
+        result['reference_date'] = result['reference_date'].isoformat()
+        result['payroll_dates'] = [d.isoformat() for d in result['payroll_dates']]
+        return result
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 
 @app.get("/api/recommendations")

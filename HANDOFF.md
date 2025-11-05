@@ -1,347 +1,290 @@
-# SpendSense - Implementation Handoff
+# Epic 2 Progress Handoff
 
-**Project:** SpendSense Financial Wellness Platform
-**Status:** Planning & Design Complete ✅ → Ready for Implementation
-**Date:** November 3, 2025
-**Prepared By:** Reena (UX Design & Planning)
-
----
-
-## 🎯 Executive Summary
-
-SpendSense is **ready for implementation**. All planning, architecture, and UX design work is complete. This document provides a handoff to development teams.
-
-**What's Ready:**
-- ✅ Complete Product Requirements (PRD with 7 epics)
-- ✅ Full Technical Architecture
-- ✅ UX Design System & Visual Foundation
-- ✅ 4 User Journey Specifications
-- ✅ Interactive Design Mockups
-
-**What's Next:**
-- Sprint planning
-- Development environment setup
-- Begin implementation (Epic 1: Data Foundation)
+**Date:** 2025-11-04
+**Branch:** `epic-2-behavioral-signals`
+**Status:** ✅ COMPLETE - All 6 stories implemented and tested with 120 passing tests
 
 ---
 
-## 📂 Documentation Overview
+## 🎉 Epic 2: Behavioral Signal Detection Pipeline - COMPLETE
 
-### Core Documents (Must Read)
+All 6 stories of Epic 2 have been successfully implemented with comprehensive test coverage.
 
-| Document | Size | Purpose | Audience |
-|----------|------|---------|----------|
-| **[README.md](docs/README.md)** | - | Documentation index & navigation | Everyone |
-| **[prd.md](docs/prd.md)** | 52KB | Product requirements & epics | PM, Dev, QA |
-| **[architecture.md](docs/architecture.md)** | 66KB | Technical architecture & API specs | Dev, Architect |
-| **[ux-design-specification.md](docs/ux-design-specification.md)** | 46KB | Design system & UX foundation | Designer, FE Dev |
+### ✅ Story 2.1: Time Window Aggregation Framework
+**Status:** DONE - 21 tests passing
 
-### User Journey Specifications
+**Files:** `spendsense/features/time_windows.py`, `tests/test_time_windows.py`
 
-| Journey | File | Size | Status | Purpose |
-|---------|------|------|--------|---------|
-| **1. Onboarding** | [ux-journey-1-onboarding.md](docs/ux-journey-1-onboarding.md) | 31KB | ✅ Fully Detailed | Consent & persona reveal flow |
-| **2. Signal Exploration** | [ux-journey-2-signal-exploration.md](docs/ux-journey-2-signal-exploration.md) | 34KB | ✅ Fully Detailed | Credit/savings/subscription details |
-| **3. Recommendations** | [ux-journey-3-recommendation-flow.md](docs/ux-journey-3-recommendation-flow.md) | 10KB | ⚠️ Summary | Educational content & offers |
-| **4. Chat** | [ux-journey-4-chat-interaction.md](docs/ux-journey-4-chat-interaction.md) | 16KB | ⚠️ Summary | AI chat interface patterns |
+**Key Features:**
+- TimeWindowCalculator class for 30 and 180-day windows
+- Methods: get_transactions_in_window(), get_accounts_snapshot(), get_liabilities_snapshot()
+- Edge case handling: no data, future dates, invalid windows
 
-**Note:** Journeys 3 & 4 are comprehensive summaries sufficient for development. Can be expanded if needed.
+### ✅ Story 2.2: Subscription Pattern Detection
+**Status:** DONE - 20 tests passing
 
-### Interactive Assets
+**Files:** `spendsense/features/subscription_detector.py`, `tests/test_subscription_detector.py`
 
-- **[ux-color-themes.html](docs/ux-color-themes.html)** - Color palette explorer (open in browser)
-- **[ux-design-directions.html](docs/ux-design-directions.html)** - Interactive design mockups (open in browser)
+**Key Features:**
+- SubscriptionDetector detects monthly/weekly/irregular subscriptions
+- Minimum 3 transactions in 180-day lookback
+- Calculates subscription_count, monthly_recurring_spend, subscription_share
 
----
+### ✅ Story 2.3: Savings Behavior Detection
+**Status:** DONE - 23 tests passing
 
-## 🚀 Quick Start for Development Teams
+**Files:** `spendsense/features/savings_detector.py`, `tests/test_savings_detector.py`
 
-### Frontend Developers
+**Key Features:**
+- SavingsDetector analyzes savings-type accounts (savings, money_market, cd, hsa)
+- Calculates net_inflow, savings_growth_rate, emergency_fund_months
+- Computes avg_monthly_expenses from transaction data
+- Handles edge cases: zero balance, no accounts, no transactions
 
-**Start Here:**
-1. Read [architecture.md](docs/architecture.md) - Tech stack section
-2. Read [ux-design-specification.md](docs/ux-design-specification.md) - Sections 1-4 (design system, colors, components)
-3. Review [ux-journey-1-onboarding.md](docs/ux-journey-1-onboarding.md) - First feature to build
+### ✅ Story 2.4: Credit Utilization & Debt Signal Detection
+**Status:** DONE - 21 tests passing
 
-**Key Technical Specs:**
-- **Framework:** React 18 + TypeScript
-- **Styling:** TailwindCSS 3+ with custom config
-- **Components:** shadcn/ui v2.0 (copy-paste model)
-- **Build Tool:** Vite 5+
-- **Primary Color:** #0891b2 (cyan)
-- **Font:** System font stack
+**Files:** `spendsense/features/credit_detector.py`, `tests/test_credit_detector.py`
 
-**First Sprint Tasks:**
-1. Initialize React 18 + TypeScript + Vite project
-2. Install & configure TailwindCSS
-3. Set up shadcn/ui components
-4. Configure design tokens (see ux-design-specification.md Section 9.3)
-5. Build dashboard skeleton
+**Key Features:**
+- CreditDetector calculates per-card and aggregate credit utilization
+- Identifies utilization tiers: low, moderate (<30%), high (≥50%), very high (≥80%)
+- Detects minimum-payment-only behavior
+- Flags overdue status and interest charges
+- Provides PerCardUtilization details for each credit card
 
-### Backend Developers
+### ✅ Story 2.5: Income Stability Detection
+**Status:** DONE - 20 tests passing
 
-**Start Here:**
-1. Read [architecture.md](docs/architecture.md) - Backend section & API specs
-2. Review [prd/epic-1-data-foundation-synthetic-data-generation.md](docs/prd/epic-1-data-foundation-synthetic-data-generation.md)
-3. Review [prd/epic-2-behavioral-signal-detection-pipeline.md](docs/prd/epic-2-behavioral-signal-detection-pipeline.md)
+**Files:** `spendsense/features/income_detector.py`, `tests/test_income_detector.py`
 
-**Key Technical Specs:**
-- **Framework:** Python FastAPI
-- **Database:** PostgreSQL
-- **Key APIs:** /profile, /recommendations, /chat, /consent
-- **First Priority:** Synthetic data generation + signal detection
+**Key Features:**
+- IncomeDetector identifies payroll transactions from INCOME category and large deposits
+- Calculates payment frequency: weekly, biweekly, monthly, irregular
+- Computes income variability (coefficient of variation)
+- Calculates cash flow buffer in months of expenses
+- Provides payroll dates for audit trail
 
-**First Sprint Tasks:**
-1. Set up FastAPI project structure
-2. Configure PostgreSQL database
-3. Create API skeleton (endpoints from architecture.md)
-4. Implement synthetic transaction generator (Epic 1)
-5. Build signal detection algorithms (Epic 2)
+### ✅ Story 2.6: Behavioral Summary Aggregation
+**Status:** DONE - 15 tests passing
 
-### Product Managers
+**Files:** `spendsense/features/behavioral_summary.py`, `tests/test_behavioral_summary.py`
 
-**Start Here:**
-1. Read [prd.md](docs/prd.md) - Product vision & epic overview
-2. Review each epic file in [docs/prd/](docs/prd/)
-3. Use [README.md](docs/README.md) for navigation
-
-**Sprint Planning:**
-- Recommended order: Epic 1 → 2 → 3 → 5 → 4 → 6 → 7
-- Each epic has detailed user stories with acceptance criteria
-- Journey docs provide user experience context
-
-### Designers
-
-**Start Here:**
-1. Read [ux-design-specification.md](docs/ux-design-specification.md) - Complete design system
-2. Open [ux-color-themes.html](docs/ux-color-themes.html) - Explore color palette
-3. Open [ux-design-directions.html](docs/ux-design-directions.html) - See layout options
-4. Review journey docs for screen flows
-
-**Design Tasks:**
-1. Create high-fidelity mockups in Figma/Sketch based on journey specs
-2. Use "Balanced Calm" theme (cyan #0891b2)
-3. Follow shadcn/ui component patterns
-4. Reference journey docs for detailed screen requirements
-
-### QA/Testing
-
-**Start Here:**
-1. Review journey docs for user flows and error scenarios
-2. Review epic files for acceptance criteria
-3. Use journey flows to create test cases
-
-**Testing Focus:**
-- Onboarding flow (Journey 1) - Consent, persona assignment
-- Signal accuracy (Epic 2) - Behavioral detection
-- Recommendation relevance (Epic 4) - Matching logic
-- Chat guardrails (Epic 5, Journey 4) - No financial advice
-- Accessibility (WCAG AA compliance)
+**Key Features:**
+- BehavioralSummaryGenerator aggregates all 4 signal types
+- Combines subscription, savings, credit, and income metrics
+- Provides metrics for both 30-day and 180-day windows
+- Includes metadata: generated_at, data_completeness, fallbacks_applied
+- Supports JSON serialization for recommendation engine
+- Handles errors gracefully with fallback values
 
 ---
 
-## 📊 Implementation Roadmap
+## Test Status
 
-### Phase 4A: Foundation (Sprints 1-4)
-
-**Epic 1: Data Foundation** (Sprints 1-2)
-- Synthetic transaction generator
-- Database schema
-- Basic API endpoints
-
-**Epic 2: Behavioral Signals** (Sprints 3-4)
-- Credit utilization detection
-- Subscription pattern detection
-- Savings pattern detection
-- Income stability detection
-
-### Phase 4B: Core Features (Sprints 5-10)
-
-**Epic 3: Persona Assignment** (Sprints 5-6)
-- Persona matching engine
-- Prioritization logic
-- Audit logging
-
-**Epic 5: Guardrails** (Sprints 7-8)
-- Consent management
-- Eligibility filtering
-- Tone validation
-
-**Frontend Foundation** (Sprints 7-8)
-- Dashboard skeleton
-- Signal cards
-- Navigation
-
-**Journey 1: Onboarding** (Sprints 9-10)
-- Consent screen
-- Persona reveal
-- Dashboard tour
-
-### Phase 4C: User Experience (Sprints 11-16)
-
-**Journey 2: Signal Exploration** (Sprints 11-12)
-- Signal detail views
-- Charts & trends
-- Time window toggles
-
-**Epic 4 + Journey 3: Recommendations** (Sprints 13-14)
-- Content catalog
-- Recommendation matching
-- Feed & detail views
-
-**Journey 4: Chat** (Sprints 15-16)
-- Chat UI components
-- Response patterns
-- Contextual integration
-
-### Phase 4D: Advanced Features (Sprints 17-20)
-
-**Epic 6: Operator Interface** (Sprints 17-18)
-- Admin dashboard
-- Override capabilities
-- Audit log viewer
-
-**Epic 7: Evaluation** (Sprints 19-20)
-- Metrics tracking
-- Fairness analysis
-- Performance monitoring
-
----
-
-## ✅ Pre-Implementation Checklist
-
-### Technical Setup
-- [ ] Repository created (frontend + backend)
-- [ ] CI/CD pipeline configured
-- [ ] Development environments set up (local, staging, prod)
-- [ ] Database provisioned (PostgreSQL)
-- [ ] Authentication/authorization configured
-
-### Team Alignment
-- [ ] All developers have access to documentation
-- [ ] Design system reviewed by frontend team
-- [ ] API specifications reviewed by backend team
-- [ ] Sprint planning session scheduled
-- [ ] Story breakdown completed for Epic 1
-
-### Design Assets
-- [ ] High-fidelity mockups created (optional, can use journey specs)
-- [ ] Design system imported to Figma/Sketch (optional)
-- [ ] Component library set up (shadcn/ui)
-
-### First Sprint Ready
-- [ ] Epic 1 stories estimated and assigned
-- [ ] Development branch strategy defined
-- [ ] Code review process established
-- [ ] QA testing strategy defined
-
----
-
-## 🎨 Design System Quick Reference
-
-### Colors (Balanced Calm Theme)
 ```
-Primary: #0891b2 (cyan-600) - CTAs, links, focus
-Primary Hover: #0e7490 (cyan-700)
-Accent: #06b6d4 (cyan-500) - Highlights, chat
-Success: #10b981 (emerald-500)
-Warning: #f59e0b (amber-500)
-Error: #ef4444 (red-500)
-Background: #ecfeff (cyan-50)
-Surface: #ffffff (white)
-Text Primary: #0f172a (slate-900)
-Text Muted: #64748b (slate-500)
-Border: #cffafe (cyan-100)
+✅ test_time_windows.py:           21 passed
+✅ test_subscription_detector.py:  20 passed
+✅ test_savings_detector.py:       23 passed
+✅ test_credit_detector.py:        21 passed
+✅ test_income_detector.py:        20 passed
+✅ test_behavioral_summary.py:     15 passed
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Total: 120 tests passing (100% success rate)
 ```
 
-### Typography
-```
-Headings: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif
-h1: 36px / Bold (700) / 1.2 line-height
-h2: 30px / Semibold (600) / 1.3
-h3: 24px / Semibold (600) / 1.4
-Body: 16px / Regular (400) / 1.6
-Small: 14px / Regular (400) / 1.5
-```
-
-### Spacing (8px base)
-```
-xs: 4px, sm: 8px, md: 16px, lg: 24px, xl: 32px, 2xl: 48px, 3xl: 64px
+**Run all tests:**
+```bash
+source venv/bin/activate
+pytest tests/test_time_windows.py \
+       tests/test_subscription_detector.py \
+       tests/test_savings_detector.py \
+       tests/test_credit_detector.py \
+       tests/test_income_detector.py \
+       tests/test_behavioral_summary.py -v
 ```
 
-### Components
-- Use shadcn/ui v2.0 components (not npm package, copy-paste model)
-- See ux-design-specification.md Section 1.1 for setup instructions
+---
+
+## Git Status
+
+**Branch:** `epic-2-behavioral-signals`
+
+**New Files to Commit:**
+- spendsense/features/__init__.py (updated)
+- spendsense/features/time_windows.py
+- spendsense/features/subscription_detector.py
+- spendsense/features/savings_detector.py
+- spendsense/features/credit_detector.py
+- spendsense/features/income_detector.py
+- spendsense/features/behavioral_summary.py
+- tests/test_time_windows.py
+- tests/test_subscription_detector.py
+- tests/test_savings_detector.py
+- tests/test_credit_detector.py
+- tests/test_income_detector.py
+- tests/test_behavioral_summary.py
+- docs/stories/2-1-time-window-aggregation-framework.md
+- docs/stories/2-2-subscription-pattern-detection.md
+- docs/stories/2-3-savings-behavior-detection.md
+- docs/stories/2-4-credit-utilization-debt-detection.md
+- docs/stories/2-5-income-stability-detection.md
+- docs/stories/2-6-behavioral-summary-aggregation.md
 
 ---
 
-## 🔗 Key Links
+## Architecture Patterns
 
-### Documentation
-- **Main Index:** [docs/README.md](docs/README.md)
-- **Workflow Status:** [docs/bmm-workflow-status.yaml](docs/bmm-workflow-status.yaml)
+### 1. Detector Pattern
+All detectors follow a consistent pattern:
+```python
+class XDetector:
+    def __init__(self, db_path: str):
+        self.time_calc = TimeWindowCalculator(db_path)
 
-### External Resources
-- **shadcn/ui Docs:** https://ui.shadcn.com/docs
-- **shadcn/ui Vite Setup:** https://ui.shadcn.com/docs/installation/vite
-- **React 18:** https://react.dev
-- **TailwindCSS:** https://tailwindcss.com/docs
-- **WCAG AA Guidelines:** https://www.w3.org/WAI/WCAG21/quickref/?levels=aa
+    def detect_patterns(self, user_id, reference_date, window_days):
+        # Get data via TimeWindowCalculator
+        # Analyze and compute metrics
+        # Return XMetrics dataclass
+```
 
----
+### 2. Metrics Dataclass
+All metrics use dataclasses for type safety:
+```python
+@dataclass
+class XMetrics:
+    user_id: str
+    window_days: int
+    reference_date: date
+    # ... specific metrics
+```
 
-## 📞 Questions & Support
+### 3. Time Window Support
+All detectors support both 30-day and 180-day windows for short-term and long-term analysis.
 
-**For questions about:**
-- **Product requirements:** See prd.md or epic files
-- **Technical architecture:** See architecture.md
-- **UX design decisions:** See ux-design-specification.md
-- **Specific user flows:** See journey docs
+### 4. Edge Case Handling
+- Empty data returns zeros/defaults
+- Missing accounts return empty metrics
+- Future dates raise ValueError
+- Invalid windows raise ValueError
 
-**Project Owner:** Reena
-**Documentation Method:** BMad Method v6.0
-**Last Updated:** November 3, 2025
-
----
-
-## 📈 Success Metrics (To Track During Implementation)
-
-### User Engagement
-- Onboarding completion rate (target: >60%)
-- Signal exploration rate (target: >50%)
-- Chat engagement rate (target: >30%)
-- Recommendation action rate (target: >25%)
-
-### Technical Performance
-- Page load time <3 seconds
-- API response time <500ms
-- Persona assignment <10 seconds
-- Chat response time 1-3 seconds
-
-### Business Metrics
-- User consent rate (target: >70%)
-- Recommendation relevance (user feedback: >4/5)
-- System uptime >99.5%
-- Error rate <5%
+### 5. Testing Strategy
+- ~20 tests per story
+- All acceptance criteria tested
+- Edge cases covered
+- Data structure validation
+- Type checking
 
 ---
 
-## 🎉 You're Ready!
+## Behavioral Signal Summary Structure
 
-**All planning and design work is complete.**
+The `BehavioralSummaryGenerator` provides a complete picture of user financial behavior:
 
-The SpendSense platform has been thoroughly designed with:
-- 334KB of comprehensive documentation
-- 5,700+ lines of specifications
-- 7 detailed epics with acceptance criteria
-- Complete technical architecture
-- Full UX design system
-- 4 user journey specifications
+```python
+summary = generator.generate_summary(user_id="user_001", reference_date=date.today())
 
-**Next step:** Kick off Sprint 1 with Epic 1 (Data Foundation)
+# Access all signals
+summary.subscriptions_30d    # Short-term subscription patterns
+summary.subscriptions_180d   # Long-term subscription patterns
+summary.savings_30d          # Recent savings behavior
+summary.savings_180d         # Historical savings trend
+summary.credit_30d           # Current credit utilization
+summary.credit_180d          # Credit utilization trend
+summary.income_30d           # Recent income stability
+summary.income_180d          # Long-term income patterns
 
-Good luck with implementation! 🚀
+# Metadata
+summary.data_completeness    # Dict of which signals have data
+summary.fallbacks_applied    # List of signals using defaults
+summary.generated_at         # Timestamp of generation
+
+# JSON export
+json_data = summary.to_dict()
+```
 
 ---
 
-**Status:** 📘 Ready for Implementation ✅
+## Known Limitations
+
+1. **Accounts Table Empty**: The current database has no account records, limiting savings and credit detection
+2. **Balance History**: No point-in-time balance snapshots; growth rate is approximated
+3. **Credit Limits**: balance_limit not populated in test data; using heuristics
+4. **Income Detection**: Relies on INCOME category or $500+ deposits; may miss some income sources
+
+---
+
+## ✅ API Integration - COMPLETE
+
+**5 API Endpoints Added** to `spendsense/api/main.py`:
+
+1. **GET /api/signals/{user_id}** - Full behavioral summary
+   - Returns all 4 signal types (subscriptions, savings, credit, income)
+   - Both 30-day and 180-day windows
+   - Includes metadata (data_completeness, fallbacks_applied)
+
+2. **GET /api/signals/{user_id}/subscriptions** - Subscription patterns only
+3. **GET /api/signals/{user_id}/savings** - Savings behavior only
+4. **GET /api/signals/{user_id}/credit** - Credit utilization only
+5. **GET /api/signals/{user_id}/income** - Income stability only
+
+## ✅ UI Integration - COMPLETE
+
+**Behavioral Signals Dashboard** added to `spendsense/api/static/`:
+
+**Files Modified:**
+- ✅ `index.html` - Added Behavioral Signals tab with form and result container
+- ✅ `app.js` - Added fetch logic and displayBehavioralSignals() function
+- ✅ `styles.css` - Added signal-card grid layout with color-coded metrics
+
+**Features:**
+- 🔍 User ID input field with time window selector (30d/180d)
+- 📊 4 signal cards: Subscriptions, Savings, Credit, Income
+- 🎨 Color-coded metrics: green (success), yellow (warning), orange (caution), red (error)
+- 📋 Metadata display: generated_at, window, data_completeness
+
+**Testing:**
+- Server confirmed running at http://localhost:8000
+- API endpoint tested: `/api/signals/user_MASKED_000` returns valid JSON
+- UI verified: Behavioral Signals tab present in navigation
+
+## Next Steps
+
+### Option 1: Commit Epic 2 + UI
+All code is ready to commit:
+- 6 detector modules + 6 test files
+- 5 API endpoints
+- Complete UI integration
+- 120 tests passing
+
+### Option 2: Continue with Epic 3
+Move to Epic 3 (Persona Classification) after commit.
+
+### Option 3: Enhance Test Data
+- Populate accounts table in test database
+- Add balance_limit to credit cards
+- Generate more diverse transaction patterns for better UI demo
+
+---
+
+## Project Paths
+
+- **Code:** `spendsense/features/`
+- **Tests:** `tests/test_*.py`
+- **Stories:** `docs/stories/2-*.md`
+- **Database:** `data/processed/spendsense.db`
+- **Epic PRD:** `docs/prd/epic-2-behavioral-signal-detection-pipeline.md`
+
+---
+
+## Success Metrics
+
+✅ All 6 stories completed
+✅ 120 tests passing (100%)
+✅ Zero test failures
+✅ Comprehensive test coverage (ACs + edge cases)
+✅ Consistent code patterns across all detectors
+✅ Full documentation in story files
+✅ JSON-serializable output for downstream use
+
+**Epic 2: Behavioral Signal Detection Pipeline is COMPLETE and ready for commit! 🎉**
