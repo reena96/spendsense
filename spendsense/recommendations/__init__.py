@@ -7,7 +7,7 @@ This module provides:
 - Storage and tracking for user interactions
 """
 
-from spendsense.recommendations.models import Recommendation, RecommendationCategory
+from spendsense.recommendations.models import Recommendation, RecommendationCategory, RecommendationType
 from spendsense.recommendations.content_library import ContentLibrary, get_content_library
 from spendsense.recommendations.generated_models import (
     PersonalizedRecommendation,
@@ -24,6 +24,7 @@ __all__ = [
     # Models
     "Recommendation",
     "RecommendationCategory",
+    "RecommendationType",
     "PersonalizedRecommendation",
     "RecommendationRequest",
     "RecommendationResponse",

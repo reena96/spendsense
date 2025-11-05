@@ -1,486 +1,786 @@
-# Personalized Financial Recommendations Content Library
+# Educational Content Catalog (PRD-Compliant)
 #
-# This file contains curated recommendations for each persona.
-# Each recommendation includes:
-# - id: Unique identifier (kebab-case)
-# - category: education | action | tip | insight
-# - title: Short, action-oriented title
-# - description: Detailed explanation (1-3 sentences)
-# - priority: 1 (highest) to 10 (lowest)
-# - difficulty: beginner | intermediate | advanced
-# - time_commitment: one-time | daily | weekly | monthly | ongoing
-# - estimated_impact: low | medium | high
-# - content_url: Optional link to detailed content
-# - personalization_template: Optional template for signal substitution
+# Structure per Epic 4 PRD Story 4.1:
+# - type: Content format (article/template/calculator/video)
+# - personas: List of applicable persona IDs
+# - triggering_signals: Behavioral signals that trigger this recommendation
+#
+# Signal types:
+# - credit_utilization: High credit card utilization
+# - savings_balance: Low savings or emergency fund
+# - subscription_count: High subscription spending
+# - income_stability: Irregular or variable income
+#
 
-recommendations:
-  # Persona 1: High Credit Utilization (Priority 1)
-  # Focus: Debt reduction and credit score improvement
-  high_utilization:
-    - id: "understand_credit_utilization"
-      category: "education"
-      title: "Understanding Credit Utilization and Your Score"
-      description: "Learn how credit utilization affects your credit score and why keeping it below 30% matters. Your credit utilization is one of the most important factors in your credit score, accounting for 30% of your FICO score calculation."
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/credit-utilization-101"
-      personalization_template: "You're currently at {credit_max_utilization_pct}% credit utilization. Learn why this matters and how to improve it."
-
-    - id: "debt_payoff_avalanche"
-      category: "action"
-      title: "Pay Off Highest-Interest Debt First"
-      description: "Use the avalanche method to minimize interest costs by focusing extra payments on your highest-interest debt while making minimum payments on others. This mathematically optimal approach can save you thousands in interest charges."
-      priority: 2
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-      content_url: "/content/debt-avalanche-method"
-      personalization_template: "With {credit_total_balance} in credit card debt, focus on your highest-rate card first to save on interest."
-
-    - id: "biweekly_payments"
-      category: "action"
-      title: "Make Bi-Weekly Instead of Monthly Payments"
-      description: "Split your monthly payment in half and pay every two weeks. This results in one extra payment per year (26 half-payments = 13 full payments) and reduces your average daily balance, lowering interest charges."
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "ongoing"
-      estimated_impact: "medium"
-      content_url: "/content/biweekly-payments"
-
-    - id: "request_credit_limit_increase"
-      category: "tip"
-      title: "Request a Credit Limit Increase (But Don't Use It)"
-      description: "Requesting higher credit limits without increasing spending instantly lowers your utilization ratio. Many issuers allow online requests every 6 months. Important: Don't use the additional credit or this strategy backfires."
-      priority: 4
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/credit-limit-increase"
-
-    - id: "balance_transfer_zero_apr"
-      category: "action"
-      title: "Consider a Balance Transfer to 0% APR Card"
-      description: "Transfer high-interest balances to a card with 0% introductory APR (typically 12-21 months). This gives you a window to pay down principal without accumulating interest. Watch out for balance transfer fees (typically 3-5%) and have a payoff plan before the intro period ends."
-      priority: 5
-      difficulty: "intermediate"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/balance-transfer-guide"
-
-    - id: "debt_payoff_timeline"
-      category: "education"
-      title: "Create Your Debt Payoff Timeline"
-      description: "Use a debt calculator to visualize exactly when you'll be debt-free based on your payment strategy. Seeing your progress and end date provides motivation and helps you stay on track. Compare avalanche vs snowball methods to choose your approach."
-      priority: 6
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/debt-calculator"
-
-    - id: "payment_reminders"
-      category: "tip"
-      title: "Set Up Payment Reminders and Autopay"
-      description: "Never miss a payment by setting up autopay for at least the minimum (or more). Late payments hurt your credit score for up to 7 years. Set reminders 5 days before due dates to ensure sufficient funds are available."
-      priority: 7
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/autopay-setup"
-
-    - id: "monthly_interest_cost"
-      category: "insight"
-      title: "See How Much You're Paying in Interest Each Month"
-      description: "Calculate your true interest cost to understand the urgency of paying down debt. This often provides the motivation needed to prioritize debt reduction. Even small additional payments can save hundreds or thousands over time."
-      priority: 8
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/interest-calculator"
-      personalization_template: "You're paying approximately {monthly_interest} in interest charges each month. See how much you could save by paying down balances faster."
-
-  # Persona 2: Irregular Income (Priority 2)
-  # Focus: Cash flow planning and financial stability
-  irregular_income:
-    - id: "variable_income_budgeting"
-      category: "education"
-      title: "Master Variable Income Budgeting Strategies"
-      description: "Learn percentage-based budgeting designed for fluctuating income. Instead of fixed amounts, allocate percentages to spending categories. This approach adapts to both high and low income months while ensuring priorities are always covered."
-      priority: 1
-      difficulty: "intermediate"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/variable-income-budget"
-
-    - id: "build_larger_emergency_fund"
-      category: "action"
-      title: "Build a 6+ Month Emergency Fund"
-      description: "With irregular income, you need a larger safety net than the standard 3-6 months. Aim for 6-12 months of expenses to smooth income volatility. This cushion reduces financial stress during slower months and prevents debt accumulation."
-      priority: 2
-      difficulty: "advanced"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-      content_url: "/content/emergency-fund-irregular-income"
-      personalization_template: "You currently have {savings_emergency_fund_months} months saved. Aim for 6-12 months given your income variability."
-
-    - id: "income_averaging_strategy"
-      category: "action"
-      title: "Smooth Income with Averaging Strategy"
-      description: "Calculate your average monthly income over the past 12 months and budget based on that amount. Save excess during high-earning months to cover shortfalls in low-earning months. This creates artificial income stability."
-      priority: 3
-      difficulty: "intermediate"
-      time_commitment: "monthly"
-      estimated_impact: "high"
-      content_url: "/content/income-averaging"
-
-    - id: "percentage_based_budgeting"
-      category: "tip"
-      title: "Use Percentage-Based Budgeting"
-      description: "Allocate percentages rather than fixed dollar amounts: 50% needs, 30% wants, 20% savings. This automatically adjusts to income fluctuations. In high months, you save more; in low months, you spend less but maintain the same priorities."
-      priority: 4
-      difficulty: "beginner"
-      time_commitment: "ongoing"
-      estimated_impact: "medium"
-      content_url: "/content/percentage-budgeting"
-
-    - id: "set_aside_estimated_taxes"
-      category: "action"
-      title: "Set Aside Estimated Taxes for 1099 Income"
-      description: "If you're self-employed or have 1099 income, set aside 25-30% of each payment for taxes. Open a separate savings account specifically for tax money to avoid spending it. Pay quarterly estimated taxes to avoid penalties and year-end surprises."
-      priority: 5
-      difficulty: "intermediate"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-      content_url: "/content/estimated-taxes"
-
-    - id: "gig_economy_financial_planning"
-      category: "education"
-      title: "Financial Planning for the Gig Economy"
-      description: "Learn specialized strategies for freelancers, contractors, and gig workers including tax planning, retirement savings without employer match, health insurance options, and managing multiple income streams. The gig economy requires different financial tools than traditional employment."
-      priority: 6
-      difficulty: "intermediate"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/gig-economy-finance"
-
-    - id: "income_variability_analysis"
-      category: "insight"
-      title: "Analyze Your Income Variability Patterns"
-      description: "Review your income patterns over the past year to identify seasonal trends or cycles. Understanding when income typically dips helps you prepare and plan. Some months may consistently be lower - budget accordingly and save extra during peak months."
-      priority: 7
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/income-analysis"
-      personalization_template: "Your income frequency is {income_payment_frequency}. Analyze patterns to predict lean months and prepare accordingly."
-
-  # Persona 3: Low Savings (Priority 3)
-  # Focus: Emergency fund and financial resilience
-  low_savings:
-    - id: "emergency_fund_start"
-      category: "action"
-      title: "Start Your Emergency Fund with $1,000"
-      description: "Begin with a mini emergency fund of $1,000 to handle small unexpected expenses without going into debt. This initial goal is achievable and provides immediate financial breathing room. Once reached, work toward 3-6 months of expenses."
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-      content_url: "/content/emergency-fund-starter"
-      personalization_template: "You currently have {savings_total_balance} saved and spend {monthly_expenses} per month. Start with a $1,000 mini emergency fund."
-
-    - id: "automate_savings_transfers"
-      category: "action"
-      title: "Automate Your Savings Transfers"
-      description: "Set up automatic transfers from checking to savings on payday. Start small ($25-50) if needed - consistency matters more than amount. Automation removes willpower from the equation and builds savings effortlessly. Increase the amount as your income grows."
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/automate-savings"
-
-    - id: "review_subscription_spending"
-      category: "tip"
-      title: "Find Savings in Your Subscription Spending"
-      description: "Review your recurring subscriptions and cancel unused services. Most people underestimate their total subscription costs. Finding just $50-100 per month in unnecessary subscriptions can jumpstart your savings. Redirect these funds to your emergency fund."
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/subscription-audit"
-      personalization_template: "With {subscription_count} active subscriptions consuming {subscription_share}% of your spending, there may be opportunities to cut back and redirect funds to savings."
-
-    - id: "open_high_yield_savings"
-      category: "action"
-      title: "Open a High-Yield Savings Account"
-      description: "Move your emergency fund to a high-yield savings account (HYSA) earning 4-5% APY instead of keeping it in checking earning near 0%. Online banks offer FDIC insurance and much higher rates. Your money should work for you even while sitting in savings."
-      priority: 4
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/high-yield-savings"
-
-    - id: "pay_yourself_first"
-      category: "education"
-      title: "Learn the 'Pay Yourself First' Method"
-      description: "Treat savings as your first expense, not what's left over. When you get paid, immediately transfer your savings amount before paying bills or spending. This ensures you prioritize your financial future. Start with 10% if possible, or any amount you can sustain."
-      priority: 5
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/pay-yourself-first"
-
-    - id: "roundup_savings_apps"
-      category: "tip"
-      title: "Use Round-Up Savings Apps"
-      description: "Try apps that round up purchases to the nearest dollar and save the difference. For example, a $3.75 coffee becomes $4.00, saving $0.25. These micro-savings add up to $50-100 per month without feeling painful. It's a painless way to build savings habits."
-      priority: 6
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "low"
-      content_url: "/content/roundup-savings"
-
-    - id: "emergency_fund_importance"
-      category: "education"
-      title: "Why Emergency Funds Are Your Financial Foundation"
-      description: "Understand why emergency funds prevent debt spirals and reduce financial stress. Without savings, unexpected expenses force you to use credit cards, creating a debt cycle. An emergency fund breaks this pattern and provides peace of mind."
-      priority: 7
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/emergency-fund-why"
-
-    - id: "three_month_cushion_goal"
-      category: "insight"
-      title: "Calculate Your 3-Month Expense Cushion"
-      description: "Determine exactly how much you need for a 3-month emergency fund based on your actual expenses. This concrete goal makes saving feel more achievable than an abstract 'save more' directive. Break it into smaller milestones to stay motivated."
-      priority: 8
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/emergency-fund-calculator"
-      personalization_template: "Based on {monthly_expenses} in monthly expenses, your 3-month emergency fund goal is {three_month_fund_target}."
-
-  # Persona 4: Subscription Heavy (Priority 4)
-  # Focus: Subscription optimization and spending awareness
-  subscription_heavy:
-    - id: "audit_all_subscriptions"
-      category: "action"
-      title: "Conduct a Complete Subscription Audit"
-      description: "List every subscription you're paying for - streaming, apps, software, memberships, subscription boxes. Review bank/credit card statements for the past 3 months to catch everything. You'll likely find forgotten subscriptions and services you no longer use."
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/subscription-audit-guide"
-      personalization_template: "With {subscription_count} active subscriptions consuming {subscription_share}% of your spending, a comprehensive audit could identify significant savings opportunities."
-
-    - id: "cancel_unused_services"
-      category: "action"
-      title: "Cancel Unused and Redundant Services"
-      description: "Identify subscriptions you haven't used in 30+ days and cancel them. Look for overlapping services (e.g., multiple streaming platforms, duplicate music services). Most people can save $100-300 per month by cutting services they rarely use. You can always resubscribe if needed."
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/cancel-subscriptions"
-
-    - id: "subscription_management_tool"
-      category: "tip"
-      title: "Use a Subscription Management Tool"
-      description: "Try tools like Truebill, Rocket Money, or Bobby to track and manage subscriptions automatically. These apps identify all your subscriptions, warn before renewals, and can even negotiate lower rates or cancel services for you. Having visibility prevents unwanted renewals."
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/subscription-tools"
-
-    - id: "negotiate_better_rates"
-      category: "action"
-      title: "Negotiate Better Rates on Current Services"
-      description: "Call your internet, phone, and insurance providers to ask for better rates. Mention competitor pricing and say you're considering switching. Many companies offer 'retention discounts' to keep customers. Even a 10-20% reduction adds up over time."
-      priority: 4
-      difficulty: "intermediate"
-      time_commitment: "monthly"
-      estimated_impact: "medium"
-      content_url: "/content/negotiate-bills"
-
-    - id: "spending_alerts_recurring"
-      category: "tip"
-      title: "Set Alerts for Recurring Charges"
-      description: "Enable bank/card notifications for recurring charges so you're aware of every subscription payment. This helps catch unwanted renewals immediately. Many people pay for months after deciding to cancel simply because they forgot. Alerts prevent this money leak."
-      priority: 5
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "low"
-      content_url: "/content/spending-alerts"
-
-    - id: "subscription_spending_psychology"
-      category: "education"
-      title: "Understanding Subscription Spending Psychology"
-      description: "Learn why subscriptions are designed to be 'out of sight, out of mind' and how small recurring charges add up to significant annual costs. Companies bet you'll forget about subscriptions. Understanding this psychology helps you stay vigilant and intentional with recurring spending."
-      priority: 6
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/subscription-psychology"
-
-    - id: "total_monthly_subscription_cost"
-      category: "insight"
-      title: "See Your Total Monthly Subscription Cost"
-      description: "Calculate your total monthly and annual subscription spending. Seeing the aggregate amount ($200/month = $2,400/year) often surprises people and motivates action. This big-picture view helps you decide which subscriptions truly add value to your life."
-      priority: 7
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/subscription-total-cost"
-      personalization_template: "Your {subscription_count} subscriptions cost approximately {monthly_subscription_total} per month or {annual_subscription_total} per year."
-
-  # Persona 5: Cash Flow Optimizer (Priority 5)
-  # Focus: Investment and optimization
-  cash_flow_optimizer:
-    - id: "start_investing_robo_advisor"
-      category: "action"
-      title: "Start Investing with a Robo-Advisor"
-      description: "Begin investing with a robo-advisor like Betterment, Wealthfront, or Vanguard Digital Advisor. These platforms offer low-cost, diversified portfolios with automatic rebalancing. Minimum investments are often just $500. Since you've built your emergency fund, it's time to make your money grow."
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/robo-advisor-guide"
-      personalization_template: "With {savings_emergency_fund_months} months of emergency savings, you're ready to start investing for long-term growth."
-
-    - id: "optimize_idle_cash"
-      category: "action"
-      title: "Optimize Idle Cash: HYSA vs Checking"
-      description: "Keep only 1-2 months of expenses in checking and move the rest to high-yield savings earning 4-5% APY. If you have excess savings beyond 6-12 months emergency fund, consider investing it for higher long-term returns. Idle cash in 0.01% accounts is losing value to inflation."
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/optimize-cash"
-
-    - id: "index_funds_diversification"
-      category: "education"
-      title: "Learn About Index Funds and Diversification"
-      description: "Understand why index funds offer superior diversification at low cost. Learn the basics of asset allocation, risk tolerance, and long-term investing. Index funds that track the S&P 500 or total market historically return 10% annually. Time in the market beats timing the market."
-      priority: 3
-      difficulty: "intermediate"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/index-funds-101"
-
-    - id: "set_long_term_goals"
-      category: "action"
-      title: "Set Long-Term Financial Goals"
-      description: "Define specific goals for the next 5, 10, and 20 years: home purchase, retirement age, major purchases. Having clear goals helps determine appropriate investment strategies and risk levels. Write them down with target amounts and dates to make them concrete."
-      priority: 4
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/financial-goals"
-
-    - id: "tax_advantaged_accounts"
-      category: "education"
-      title: "Maximize Tax-Advantaged Accounts (IRA, HSA, 401k)"
-      description: "Learn about Roth IRAs, Traditional IRAs, HSAs, and 401(k)s. These accounts offer tax benefits that significantly boost long-term returns. If your employer offers 401(k) matching, prioritize getting the full match - it's free money. HSAs offer triple tax advantages for healthcare expenses."
-      priority: 5
-      difficulty: "intermediate"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/tax-advantaged-accounts"
-
-    - id: "investment_vs_savings_opportunity_cost"
-      category: "insight"
-      title: "Calculate Investment vs Savings Opportunity Cost"
-      description: "Understand the long-term cost of keeping too much in savings. Money in savings earns 4-5% while invested money historically earns 10%. Over 30 years, this difference is massive due to compound growth. Calculate how much wealth you could build by investing excess savings."
-      priority: 6
-      difficulty: "intermediate"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/opportunity-cost-calculator"
-      personalization_template: "With {excess_savings} in savings beyond your emergency fund, see how much this could grow if invested over 10, 20, and 30 years."
-
-  # Persona 6: Young Professional (Priority 6)
-  # Focus: Credit building and financial basics
-  young_professional:
-    - id: "credit_101_how_scores_work"
-      category: "education"
-      title: "Credit 101: How Credit Scores Actually Work"
-      description: "Learn the 5 factors that determine your credit score: payment history (35%), credit utilization (30%), length of credit history (15%), credit mix (10%), and new credit (10%). Understanding this helps you make informed decisions about building excellent credit from the start."
-      priority: 1
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/credit-score-basics"
-
-    - id: "open_first_credit_card"
-      category: "action"
-      title: "Open Your First Credit Card Strategically"
-      description: "Choose a secured credit card or student card to begin building credit. Look for cards with no annual fee and automatic reviews for graduation to unsecured. Use it for small recurring charges (like Netflix) and pay in full monthly. This builds positive payment history."
-      priority: 2
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/first-credit-card"
-      personalization_template: "With {transaction_history_days} days of transaction history and {credit_total_limits} in credit limits, you're in the credit-building phase."
-
-    - id: "budgeting_fundamentals"
-      category: "education"
-      title: "Budgeting Fundamentals for Beginners"
-      description: "Master the 50/30/20 rule: 50% needs (rent, food, utilities), 30% wants (entertainment, dining out), 20% savings and debt repayment. This simple framework works for any income level and provides structure without feeling restrictive. Track spending for 30 days to see your current allocation."
-      priority: 3
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/budgeting-basics"
-
-    - id: "understand_account_types"
-      category: "education"
-      title: "Understand Different Account Types"
-      description: "Learn the purposes and differences between checking, savings, money market accounts, and CDs. Know when to use each type and what features matter (interest rates, fees, minimums, access). Opening the right accounts early sets you up for financial success."
-      priority: 4
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/account-types"
-
-    - id: "build_credit_history_responsibly"
-      category: "action"
-      title: "Build Credit History Responsibly"
-      description: "Use credit for planned purchases you can afford, never carry balances, and pay on time always. Set up autopay for the full balance to avoid interest charges. Your goal is building payment history, not spending more. Start with one card and wait 6-12 months before opening another."
-      priority: 5
-      difficulty: "beginner"
-      time_commitment: "ongoing"
-      estimated_impact: "high"
-      content_url: "/content/responsible-credit"
-
-    - id: "start_small_savings_goals"
-      category: "tip"
-      title: "Start Small with Savings Goals"
-      description: "Begin with achievable goals like $500 emergency fund or $1,000 for a specific purchase. Small wins build momentum and savings habits. Increase goals as your income grows. Even $25-50 per paycheck adds up - it's about consistency and building the habit early."
-      priority: 6
-      difficulty: "beginner"
-      time_commitment: "ongoing"
-      estimated_impact: "medium"
-      content_url: "/content/small-savings-goals"
-
-    - id: "compound_interest_basics"
-      category: "education"
-      title: "Learn How Compound Interest Works"
-      description: "Understand compound interest - your greatest asset when saving, your greatest enemy when borrowing. Money invested at age 25 has 40+ years to compound before retirement. Starting early matters more than starting with a lot. Learn why time is your most valuable resource."
-      priority: 7
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "high"
-      content_url: "/content/compound-interest"
-
-    - id: "financial_foundation_checklist"
-      category: "insight"
-      title: "Your Financial Foundation Checklist"
-      description: "Review the essentials every young professional needs: checking account with no fees, high-yield savings, first credit card, basic budget, emergency fund goal, and understanding of credit scores. Having these fundamentals in place positions you for long-term success."
-      priority: 8
-      difficulty: "beginner"
-      time_commitment: "one-time"
-      estimated_impact: "medium"
-      content_url: "/content/foundation-checklist"
+educational_content:
+- id: understand_credit_utilization
+  type: article
+  title: Understanding Credit Utilization and Your Score
+  description: Learn how credit utilization affects your credit score and why keeping
+    it below 30% matters. Your credit utilization is one of the most important factors
+    in your credit score, accounting for 30% of your FICO score calculation.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  category: education
+  priority: 1
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/credit-utilization-101
+  personalization_template: You're currently at {credit_max_utilization_pct}% credit
+    utilization. Learn why this matters and how to improve it.
+- id: debt_payoff_avalanche
+  type: template
+  title: Pay Off Highest-Interest Debt First
+  description: Use the avalanche method to minimize interest costs by focusing extra
+    payments on your highest-interest debt while making minimum payments on others.
+    This mathematically optimal approach can save you thousands in interest charges.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  category: action
+  priority: 2
+  difficulty: intermediate
+  time_commitment: ongoing
+  estimated_impact: high
+  content_url: /content/debt-avalanche-method
+  personalization_template: With {credit_total_balance} in credit card debt, focus
+    on your highest-rate card first to save on interest.
+- id: biweekly_payments
+  type: template
+  title: Make Bi-Weekly Instead of Monthly Payments
+  description: Split your monthly payment in half and pay every two weeks. This results
+    in one extra payment per year (26 half-payments = 13 full payments) and reduces
+    your average daily balance, lowering interest charges.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - income_stability
+  category: action
+  priority: 3
+  difficulty: beginner
+  time_commitment: ongoing
+  estimated_impact: medium
+  content_url: /content/biweekly-payments
+- id: request_credit_limit_increase
+  type: article
+  title: Request a Credit Limit Increase (But Don't Use It)
+  description: 'Requesting higher credit limits without increasing spending instantly
+    lowers your utilization ratio. Many issuers allow online requests every 6 months.
+    Important: Don''t use the additional credit or this strategy backfires.'
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  category: tip
+  priority: 4
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/credit-limit-increase
+- id: balance_transfer_zero_apr
+  type: template
+  title: Consider a Balance Transfer to 0% APR Card
+  description: Transfer high-interest balances to a card with 0% introductory APR
+    (typically 12-21 months). This gives you a window to pay down principal without
+    accumulating interest. Watch out for balance transfer fees (typically 3-5%) and
+    have a payoff plan before the intro period ends.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  category: action
+  priority: 5
+  difficulty: intermediate
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/balance-transfer-guide
+- id: debt_payoff_timeline
+  type: article
+  title: Create Your Debt Payoff Timeline
+  description: Use a debt calculator to visualize exactly when you'll be debt-free
+    based on your payment strategy. Seeing your progress and end date provides motivation
+    and helps you stay on track. Compare avalanche vs snowball methods to choose your
+    approach.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  category: education
+  priority: 6
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/debt-calculator
+- id: payment_reminders
+  type: article
+  title: Set Up Payment Reminders and Autopay
+  description: Never miss a payment by setting up autopay for at least the minimum
+    (or more). Late payments hurt your credit score for up to 7 years. Set reminders
+    5 days before due dates to ensure sufficient funds are available.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  - savings_balance
+  category: tip
+  priority: 7
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/autopay-setup
+- id: monthly_interest_cost
+  type: calculator
+  title: See How Much You're Paying in Interest Each Month
+  description: Calculate your true interest cost to understand the urgency of paying
+    down debt. This often provides the motivation needed to prioritize debt reduction.
+    Even small additional payments can save hundreds or thousands over time.
+  personas:
+  - high_utilization
+  triggering_signals:
+  - credit_utilization
+  category: insight
+  priority: 8
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/interest-calculator
+  personalization_template: You're paying approximately {monthly_interest} in interest
+    charges each month. See how much you could save by paying down balances faster.
+- id: variable_income_budgeting
+  type: article
+  title: Master Variable Income Budgeting Strategies
+  description: Learn percentage-based budgeting designed for fluctuating income. Instead
+    of fixed amounts, allocate percentages to spending categories. This approach adapts
+    to both high and low income months while ensuring priorities are always covered.
+  personas:
+  - irregular_income
+  triggering_signals:
+  - income_stability
+  category: education
+  priority: 1
+  difficulty: intermediate
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/variable-income-budget
+- id: build_larger_emergency_fund
+  type: template
+  title: Build a 6+ Month Emergency Fund
+  description: With irregular income, you need a larger safety net than the standard
+    3-6 months. Aim for 6-12 months of expenses to smooth income volatility. This
+    cushion reduces financial stress during slower months and prevents debt accumulation.
+  personas:
+  - irregular_income
+  triggering_signals:
+  - savings_balance
+  category: action
+  priority: 2
+  difficulty: advanced
+  time_commitment: ongoing
+  estimated_impact: high
+  content_url: /content/emergency-fund-irregular-income
+  personalization_template: You currently have {savings_emergency_fund_months} months
+    saved. Aim for 6-12 months given your income variability.
+- id: income_averaging_strategy
+  type: template
+  title: Smooth Income with Averaging Strategy
+  description: Calculate your average monthly income over the past 12 months and budget
+    based on that amount. Save excess during high-earning months to cover shortfalls
+    in low-earning months. This creates artificial income stability.
+  personas:
+  - irregular_income
+  triggering_signals:
+  - income_stability
+  category: action
+  priority: 3
+  difficulty: intermediate
+  time_commitment: monthly
+  estimated_impact: high
+  content_url: /content/income-averaging
+- id: percentage_based_budgeting
+  type: article
+  title: Use Percentage-Based Budgeting
+  description: 'Allocate percentages rather than fixed dollar amounts: 50% needs,
+    30% wants, 20% savings. This automatically adjusts to income fluctuations. In
+    high months, you save more; in low months, you spend less but maintain the same
+    priorities.'
+  personas:
+  - irregular_income
+  triggering_signals:
+  - income_stability
+  - savings_balance
+  category: tip
+  priority: 4
+  difficulty: beginner
+  time_commitment: ongoing
+  estimated_impact: medium
+  content_url: /content/percentage-budgeting
+- id: set_aside_estimated_taxes
+  type: template
+  title: Set Aside Estimated Taxes for 1099 Income
+  description: If you're self-employed or have 1099 income, set aside 25-30% of each
+    payment for taxes. Open a separate savings account specifically for tax money
+    to avoid spending it. Pay quarterly estimated taxes to avoid penalties and year-end
+    surprises.
+  personas:
+  - irregular_income
+  triggering_signals:
+  - income_stability
+  - savings_balance
+  category: action
+  priority: 5
+  difficulty: intermediate
+  time_commitment: ongoing
+  estimated_impact: high
+  content_url: /content/estimated-taxes
+- id: gig_economy_financial_planning
+  type: article
+  title: Financial Planning for the Gig Economy
+  description: Learn specialized strategies for freelancers, contractors, and gig
+    workers including tax planning, retirement savings without employer match, health
+    insurance options, and managing multiple income streams. The gig economy requires
+    different financial tools than traditional employment.
+  personas:
+  - irregular_income
+  triggering_signals:
+  - income_stability
+  - savings_balance
+  category: education
+  priority: 6
+  difficulty: intermediate
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/gig-economy-finance
+- id: income_variability_analysis
+  type: calculator
+  title: Analyze Your Income Variability Patterns
+  description: Review your income patterns over the past year to identify seasonal
+    trends or cycles. Understanding when income typically dips helps you prepare and
+    plan. Some months may consistently be lower - budget accordingly and save extra
+    during peak months.
+  personas:
+  - irregular_income
+  triggering_signals:
+  - income_stability
+  category: insight
+  priority: 7
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/income-analysis
+  personalization_template: Your income frequency is {income_payment_frequency}. Analyze
+    patterns to predict lean months and prepare accordingly.
+- id: emergency_fund_start
+  type: template
+  title: Start Your Emergency Fund with $1,000
+  description: Begin with a mini emergency fund of $1,000 to handle small unexpected
+    expenses without going into debt. This initial goal is achievable and provides
+    immediate financial breathing room. Once reached, work toward 3-6 months of expenses.
+  personas:
+  - low_savings
+  triggering_signals:
+  - savings_balance
+  category: action
+  priority: 1
+  difficulty: beginner
+  time_commitment: ongoing
+  estimated_impact: high
+  content_url: /content/emergency-fund-starter
+  personalization_template: You currently have {savings_total_balance} saved and spend
+    {monthly_expenses} per month. Start with a $1,000 mini emergency fund.
+- id: automate_savings_transfers
+  type: template
+  title: Automate Your Savings Transfers
+  description: Set up automatic transfers from checking to savings on payday. Start
+    small ($25-50) if needed - consistency matters more than amount. Automation removes
+    willpower from the equation and builds savings effortlessly. Increase the amount
+    as your income grows.
+  personas:
+  - low_savings
+  triggering_signals:
+  - income_stability
+  - savings_balance
+  category: action
+  priority: 2
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/automate-savings
+- id: review_subscription_spending
+  type: article
+  title: Find Savings in Your Subscription Spending
+  description: Review your recurring subscriptions and cancel unused services. Most
+    people underestimate their total subscription costs. Finding just $50-100 per
+    month in unnecessary subscriptions can jumpstart your savings. Redirect these
+    funds to your emergency fund.
+  personas:
+  - low_savings
+  triggering_signals:
+  - subscription_count
+  category: tip
+  priority: 3
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/subscription-audit
+  personalization_template: With {subscription_count} active subscriptions consuming
+    {subscription_share}% of your spending, there may be opportunities to cut back
+    and redirect funds to savings.
+- id: open_high_yield_savings
+  type: template
+  title: Open a High-Yield Savings Account
+  description: Move your emergency fund to a high-yield savings account (HYSA) earning
+    4-5% APY instead of keeping it in checking earning near 0%. Online banks offer
+    FDIC insurance and much higher rates. Your money should work for you even while
+    sitting in savings.
+  personas:
+  - low_savings
+  triggering_signals:
+  - savings_balance
+  category: action
+  priority: 4
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/high-yield-savings
+- id: pay_yourself_first
+  type: article
+  title: Learn the 'Pay Yourself First' Method
+  description: Treat savings as your first expense, not what's left over. When you
+    get paid, immediately transfer your savings amount before paying bills or spending.
+    This ensures you prioritize your financial future. Start with 10% if possible,
+    or any amount you can sustain.
+  personas:
+  - low_savings
+  triggering_signals:
+  - savings_balance
+  category: education
+  priority: 5
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/pay-yourself-first
+- id: roundup_savings_apps
+  type: article
+  title: Use Round-Up Savings Apps
+  description: Try apps that round up purchases to the nearest dollar and save the
+    difference. For example, a $3.75 coffee becomes $4.00, saving $0.25. These micro-savings
+    add up to $50-100 per month without feeling painful. It's a painless way to build
+    savings habits.
+  personas:
+  - low_savings
+  triggering_signals:
+  - savings_balance
+  category: tip
+  priority: 6
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: low
+  content_url: /content/roundup-savings
+- id: emergency_fund_importance
+  type: article
+  title: Why Emergency Funds Are Your Financial Foundation
+  description: Understand why emergency funds prevent debt spirals and reduce financial
+    stress. Without savings, unexpected expenses force you to use credit cards, creating
+    a debt cycle. An emergency fund breaks this pattern and provides peace of mind.
+  personas:
+  - low_savings
+  triggering_signals:
+  - credit_utilization
+  - savings_balance
+  category: education
+  priority: 7
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/emergency-fund-why
+- id: three_month_cushion_goal
+  type: calculator
+  title: Calculate Your 3-Month Expense Cushion
+  description: Determine exactly how much you need for a 3-month emergency fund based
+    on your actual expenses. This concrete goal makes saving feel more achievable
+    than an abstract 'save more' directive. Break it into smaller milestones to stay
+    motivated.
+  personas:
+  - low_savings
+  triggering_signals:
+  - savings_balance
+  category: insight
+  priority: 8
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/emergency-fund-calculator
+  personalization_template: Based on {monthly_expenses} in monthly expenses, your
+    3-month emergency fund goal is {three_month_fund_target}.
+- id: audit_all_subscriptions
+  type: template
+  title: Conduct a Complete Subscription Audit
+  description: List every subscription you're paying for - streaming, apps, software,
+    memberships, subscription boxes. Review bank/credit card statements for the past
+    3 months to catch everything. You'll likely find forgotten subscriptions and services
+    you no longer use.
+  personas:
+  - subscription_heavy
+  triggering_signals:
+  - subscription_count
+  category: action
+  priority: 1
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/subscription-audit-guide
+  personalization_template: With {subscription_count} active subscriptions consuming
+    {subscription_share}% of your spending, a comprehensive audit could identify significant
+    savings opportunities.
+- id: cancel_unused_services
+  type: template
+  title: Cancel Unused and Redundant Services
+  description: Identify subscriptions you haven't used in 30+ days and cancel them.
+    Look for overlapping services (e.g., multiple streaming platforms, duplicate music
+    services). Most people can save $100-300 per month by cutting services they rarely
+    use. You can always resubscribe if needed.
+  personas:
+  - subscription_heavy
+  triggering_signals:
+  - subscription_count
+  category: action
+  priority: 2
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/cancel-subscriptions
+- id: subscription_management_tool
+  type: article
+  title: Use a Subscription Management Tool
+  description: Try tools like Truebill, Rocket Money, or Bobby to track and manage
+    subscriptions automatically. These apps identify all your subscriptions, warn
+    before renewals, and can even negotiate lower rates or cancel services for you.
+    Having visibility prevents unwanted renewals.
+  personas:
+  - subscription_heavy
+  triggering_signals:
+  - subscription_count
+  category: tip
+  priority: 3
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/subscription-tools
+- id: negotiate_better_rates
+  type: template
+  title: Negotiate Better Rates on Current Services
+  description: Call your internet, phone, and insurance providers to ask for better
+    rates. Mention competitor pricing and say you're considering switching. Many companies
+    offer 'retention discounts' to keep customers. Even a 10-20% reduction adds up
+    over time.
+  personas:
+  - subscription_heavy
+  triggering_signals: []
+  category: action
+  priority: 4
+  difficulty: intermediate
+  time_commitment: monthly
+  estimated_impact: medium
+  content_url: /content/negotiate-bills
+- id: spending_alerts_recurring
+  type: article
+  title: Set Alerts for Recurring Charges
+  description: Enable bank/card notifications for recurring charges so you're aware
+    of every subscription payment. This helps catch unwanted renewals immediately.
+    Many people pay for months after deciding to cancel simply because they forgot.
+    Alerts prevent this money leak.
+  personas:
+  - subscription_heavy
+  triggering_signals:
+  - subscription_count
+  category: tip
+  priority: 5
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: low
+  content_url: /content/spending-alerts
+- id: subscription_spending_psychology
+  type: article
+  title: Understanding Subscription Spending Psychology
+  description: Learn why subscriptions are designed to be 'out of sight, out of mind'
+    and how small recurring charges add up to significant annual costs. Companies
+    bet you'll forget about subscriptions. Understanding this psychology helps you
+    stay vigilant and intentional with recurring spending.
+  personas:
+  - subscription_heavy
+  triggering_signals:
+  - subscription_count
+  category: education
+  priority: 6
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/subscription-psychology
+- id: total_monthly_subscription_cost
+  type: calculator
+  title: See Your Total Monthly Subscription Cost
+  description: Calculate your total monthly and annual subscription spending. Seeing
+    the aggregate amount ($200/month = $2,400/year) often surprises people and motivates
+    action. This big-picture view helps you decide which subscriptions truly add value
+    to your life.
+  personas:
+  - subscription_heavy
+  triggering_signals:
+  - subscription_count
+  category: insight
+  priority: 7
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/subscription-total-cost
+  personalization_template: Your {subscription_count} subscriptions cost approximately
+    {monthly_subscription_total} per month or {annual_subscription_total} per year.
+- id: start_investing_robo_advisor
+  type: template
+  title: Start Investing with a Robo-Advisor
+  description: Begin investing with a robo-advisor like Betterment, Wealthfront, or
+    Vanguard Digital Advisor. These platforms offer low-cost, diversified portfolios
+    with automatic rebalancing. Minimum investments are often just $500. Since you've
+    built your emergency fund, it's time to make your money grow.
+  personas:
+  - cash_flow_optimizer
+  triggering_signals:
+  - savings_balance
+  category: action
+  priority: 1
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/robo-advisor-guide
+  personalization_template: With {savings_emergency_fund_months} months of emergency
+    savings, you're ready to start investing for long-term growth.
+- id: optimize_idle_cash
+  type: template
+  title: 'Optimize Idle Cash: HYSA vs Checking'
+  description: Keep only 1-2 months of expenses in checking and move the rest to high-yield
+    savings earning 4-5% APY. If you have excess savings beyond 6-12 months emergency
+    fund, consider investing it for higher long-term returns. Idle cash in 0.01% accounts
+    is losing value to inflation.
+  personas:
+  - cash_flow_optimizer
+  triggering_signals:
+  - savings_balance
+  category: action
+  priority: 2
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/optimize-cash
+- id: index_funds_diversification
+  type: article
+  title: Learn About Index Funds and Diversification
+  description: Understand why index funds offer superior diversification at low cost.
+    Learn the basics of asset allocation, risk tolerance, and long-term investing.
+    Index funds that track the S&P 500 or total market historically return 10% annually.
+    Time in the market beats timing the market.
+  personas:
+  - cash_flow_optimizer
+  triggering_signals:
+  - savings_balance
+  category: education
+  priority: 3
+  difficulty: intermediate
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/index-funds-101
+- id: set_long_term_goals
+  type: template
+  title: Set Long-Term Financial Goals
+  description: 'Define specific goals for the next 5, 10, and 20 years: home purchase,
+    retirement age, major purchases. Having clear goals helps determine appropriate
+    investment strategies and risk levels. Write them down with target amounts and
+    dates to make them concrete.'
+  personas:
+  - cash_flow_optimizer
+  triggering_signals: []
+  category: action
+  priority: 4
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/financial-goals
+- id: tax_advantaged_accounts
+  type: article
+  title: Maximize Tax-Advantaged Accounts (IRA, HSA, 401k)
+  description: Learn about Roth IRAs, Traditional IRAs, HSAs, and 401(k)s. These accounts
+    offer tax benefits that significantly boost long-term returns. If your employer
+    offers 401(k) matching, prioritize getting the full match - it's free money. HSAs
+    offer triple tax advantages for healthcare expenses.
+  personas:
+  - cash_flow_optimizer
+  triggering_signals: []
+  category: education
+  priority: 5
+  difficulty: intermediate
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/tax-advantaged-accounts
+- id: investment_vs_savings_opportunity_cost
+  type: calculator
+  title: Calculate Investment vs Savings Opportunity Cost
+  description: Understand the long-term cost of keeping too much in savings. Money
+    in savings earns 4-5% while invested money historically earns 10%. Over 30 years,
+    this difference is massive due to compound growth. Calculate how much wealth you
+    could build by investing excess savings.
+  personas:
+  - cash_flow_optimizer
+  triggering_signals:
+  - savings_balance
+  category: insight
+  priority: 6
+  difficulty: intermediate
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/opportunity-cost-calculator
+  personalization_template: With {excess_savings} in savings beyond your emergency
+    fund, see how much this could grow if invested over 10, 20, and 30 years.
+- id: credit_101_how_scores_work
+  type: article
+  title: 'Credit 101: How Credit Scores Actually Work'
+  description: 'Learn the 5 factors that determine your credit score: payment history
+    (35%), credit utilization (30%), length of credit history (15%), credit mix (10%),
+    and new credit (10%). Understanding this helps you make informed decisions about
+    building excellent credit from the start.'
+  personas:
+  - young_professional
+  triggering_signals:
+  - credit_utilization
+  category: education
+  priority: 1
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/credit-score-basics
+- id: open_first_credit_card
+  type: template
+  title: Open Your First Credit Card Strategically
+  description: Choose a secured credit card or student card to begin building credit.
+    Look for cards with no annual fee and automatic reviews for graduation to unsecured.
+    Use it for small recurring charges (like Netflix) and pay in full monthly. This
+    builds positive payment history.
+  personas:
+  - young_professional
+  triggering_signals:
+  - credit_utilization
+  category: action
+  priority: 2
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/first-credit-card
+  personalization_template: With {transaction_history_days} days of transaction history
+    and {credit_total_limits} in credit limits, you're in the credit-building phase.
+- id: budgeting_fundamentals
+  type: article
+  title: Budgeting Fundamentals for Beginners
+  description: 'Master the 50/30/20 rule: 50% needs (rent, food, utilities), 30% wants
+    (entertainment, dining out), 20% savings and debt repayment. This simple framework
+    works for any income level and provides structure without feeling restrictive.
+    Track spending for 30 days to see your current allocation.'
+  personas:
+  - young_professional
+  triggering_signals:
+  - credit_utilization
+  - income_stability
+  - savings_balance
+  category: education
+  priority: 3
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/budgeting-basics
+- id: understand_account_types
+  type: article
+  title: Understand Different Account Types
+  description: Learn the purposes and differences between checking, savings, money
+    market accounts, and CDs. Know when to use each type and what features matter
+    (interest rates, fees, minimums, access). Opening the right accounts early sets
+    you up for financial success.
+  personas:
+  - young_professional
+  triggering_signals:
+  - savings_balance
+  category: education
+  priority: 4
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/account-types
+- id: build_credit_history_responsibly
+  type: template
+  title: Build Credit History Responsibly
+  description: Use credit for planned purchases you can afford, never carry balances,
+    and pay on time always. Set up autopay for the full balance to avoid interest
+    charges. Your goal is building payment history, not spending more. Start with
+    one card and wait 6-12 months before opening another.
+  personas:
+  - young_professional
+  triggering_signals:
+  - credit_utilization
+  category: action
+  priority: 5
+  difficulty: beginner
+  time_commitment: ongoing
+  estimated_impact: high
+  content_url: /content/responsible-credit
+- id: start_small_savings_goals
+  type: article
+  title: Start Small with Savings Goals
+  description: Begin with achievable goals like $500 emergency fund or $1,000 for
+    a specific purchase. Small wins build momentum and savings habits. Increase goals
+    as your income grows. Even $25-50 per paycheck adds up - it's about consistency
+    and building the habit early.
+  personas:
+  - young_professional
+  triggering_signals:
+  - income_stability
+  - savings_balance
+  category: tip
+  priority: 6
+  difficulty: beginner
+  time_commitment: ongoing
+  estimated_impact: medium
+  content_url: /content/small-savings-goals
+- id: compound_interest_basics
+  type: article
+  title: Learn How Compound Interest Works
+  description: Understand compound interest - your greatest asset when saving, your
+    greatest enemy when borrowing. Money invested at age 25 has 40+ years to compound
+    before retirement. Starting early matters more than starting with a lot. Learn
+    why time is your most valuable resource.
+  personas:
+  - young_professional
+  triggering_signals: []
+  category: education
+  priority: 7
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: high
+  content_url: /content/compound-interest
+- id: financial_foundation_checklist
+  type: calculator
+  title: Your Financial Foundation Checklist
+  description: 'Review the essentials every young professional needs: checking account
+    with no fees, high-yield savings, first credit card, basic budget, emergency fund
+    goal, and understanding of credit scores. Having these fundamentals in place positions
+    you for long-term success.'
+  personas:
+  - young_professional
+  triggering_signals:
+  - credit_utilization
+  - savings_balance
+  category: insight
+  priority: 8
+  difficulty: beginner
+  time_commitment: one-time
+  estimated_impact: medium
+  content_url: /content/foundation-checklist

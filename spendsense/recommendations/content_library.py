@@ -53,7 +53,7 @@ class ContentLibrary:
 
     def _load_from_yaml(self) -> None:
         """
-        Load recommendations from YAML file.
+        Load recommendations from YAML file (PRD flat structure).
 
         Raises:
             FileNotFoundError: If config file doesn't exist
@@ -68,43 +68,42 @@ class ContentLibrary:
         except yaml.YAMLError as e:
             raise ValueError(f"Invalid YAML in {self.config_path}: {e}")
 
-        if not data or "recommendations" not in data:
-            raise ValueError("YAML must contain 'recommendations' root key")
+        # PRD structure: flat list under 'educational_content'
+        if not data or "educational_content" not in data:
+            raise ValueError("YAML must contain 'educational_content' root key")
 
-        recommendations_data = data["recommendations"]
-        if not isinstance(recommendations_data, dict):
-            raise ValueError("'recommendations' must be a dictionary")
+        recommendations_data = data["educational_content"]
+        if not isinstance(recommendations_data, list):
+            raise ValueError("'educational_content' must be a list")
 
-        # Load and validate each persona's recommendations
-        for persona_id, recs in recommendations_data.items():
-            if not isinstance(recs, list):
-                raise ValueError(f"Recommendations for '{persona_id}' must be a list")
+        # Load all recommendations from flat list
+        for rec_data in recommendations_data:
+            try:
+                rec = Recommendation(**rec_data)
 
-            persona_recommendations = []
-            for rec_data in recs:
-                try:
-                    rec = Recommendation(**rec_data)
-                    persona_recommendations.append(rec)
+                # Add to global index for ID lookup
+                if rec.id in self._recommendation_index:
+                    logger.warning(
+                        f"Duplicate recommendation ID '{rec.id}' found (keeping first occurrence)"
+                    )
+                else:
+                    self._recommendation_index[rec.id] = rec
 
-                    # Add to global index for ID lookup
-                    if rec.id in self._recommendation_index:
-                        existing = self._recommendation_index[rec.id]
-                        logger.warning(
-                            f"Duplicate recommendation ID '{rec.id}' found for personas "
-                            f"(keeping first occurrence)"
-                        )
-                    else:
-                        self._recommendation_index[rec.id] = rec
+                # Add to each persona it applies to (PRD AC3: multi-persona support)
+                for persona_id in rec.personas:
+                    if persona_id not in self.recommendations:
+                        self.recommendations[persona_id] = []
+                    self.recommendations[persona_id].append(rec)
 
-                except ValidationError as e:
-                    logger.error(f"Invalid recommendation in '{persona_id}': {e}")
-                    raise ValueError(
-                        f"Invalid recommendation in '{persona_id}': {rec_data.get('id', 'unknown')}"
-                    ) from e
+            except ValidationError as e:
+                logger.error(f"Invalid recommendation: {e}")
+                raise ValueError(
+                    f"Invalid recommendation: {rec_data.get('id', 'unknown')}"
+                ) from e
 
-            # Sort by priority (1=highest)
-            persona_recommendations.sort(key=lambda r: r.priority)
-            self.recommendations[persona_id] = persona_recommendations
+        # Sort each persona's recommendations by priority (1=highest)
+        for persona_id in self.recommendations:
+            self.recommendations[persona_id].sort(key=lambda r: r.priority)
 
         # Validate all expected personas are present
         self._validate_persona_coverage()
@@ -269,6 +268,50 @@ class ContentLibrary:
         """
         all_recs = self.get_by_persona(persona_id)
         return [r for r in all_recs if r.is_quick_win]
+
+    def get_by_signal(self, signal_type: str) -> List[Recommendation]:
+        """
+        Get all recommendations triggered by a specific signal (PRD AC4).
+
+        Args:
+            signal_type: Signal type (e.g., "credit_utilization", "savings_balance")
+
+        Returns:
+            List of recommendations that trigger on this signal, sorted by priority
+
+        Example:
+            >>> library = ContentLibrary("config/recommendations.yaml")
+            >>> recs = library.get_by_signal("credit_utilization")
+            >>> print([r.title for r in recs[:3]])
+        """
+        matching_recs = [
+            rec for rec in self._recommendation_index.values()
+            if signal_type in rec.triggering_signals
+        ]
+        matching_recs.sort(key=lambda r: r.priority)
+        return matching_recs
+
+    def get_by_type(self, content_type: str) -> List[Recommendation]:
+        """
+        Get all recommendations of a specific content type (PRD AC2).
+
+        Args:
+            content_type: Type of content (article/template/calculator/video)
+
+        Returns:
+            List of recommendations of this type, sorted by priority
+
+        Example:
+            >>> library = ContentLibrary("config/recommendations.yaml")
+            >>> calculators = library.get_by_type("calculator")
+            >>> print([r.title for r in calculators])
+        """
+        matching_recs = [
+            rec for rec in self._recommendation_index.values()
+            if rec.type.value == content_type
+        ]
+        matching_recs.sort(key=lambda r: r.priority)
+        return matching_recs
 
     def __repr__(self) -> str:
         """String representation for debugging."""

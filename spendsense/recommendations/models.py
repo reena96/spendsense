@@ -5,7 +5,7 @@ Defines Pydantic models for recommendations with validation.
 """
 
 from enum import Enum
-from typing import Optional
+from typing import Optional, List
 from pydantic import BaseModel, Field, field_validator
 
 
@@ -15,6 +15,14 @@ class RecommendationCategory(str, Enum):
     ACTION = "action"
     TIP = "tip"
     INSIGHT = "insight"
+
+
+class RecommendationType(str, Enum):
+    """Content types per PRD specification."""
+    ARTICLE = "article"
+    TEMPLATE = "template"
+    CALCULATOR = "calculator"
+    VIDEO = "video"
 
 
 class DifficultyLevel(str, Enum):
@@ -46,9 +54,12 @@ class Recommendation(BaseModel):
 
     Attributes:
         id: Unique identifier (kebab-case)
-        category: Type of recommendation (education, action, tip, insight)
+        type: Content type per PRD (article/template/calculator/video) - AC2
         title: Short, action-oriented title (5-10 words)
         description: Detailed explanation (1-3 sentences)
+        personas: List of applicable persona IDs - AC3
+        triggering_signals: List of signal types that trigger this rec - AC4
+        category: Internal classification (education, action, tip, insight)
         priority: Integer ranking (1=highest priority)
         difficulty: Skill level required (beginner, intermediate, advanced)
         time_commitment: Effort required (one-time, daily, weekly, monthly, ongoing)
@@ -58,9 +69,12 @@ class Recommendation(BaseModel):
     """
 
     id: str = Field(..., description="Unique identifier in kebab-case")
-    category: RecommendationCategory = Field(..., description="Recommendation category")
+    type: RecommendationType = Field(..., description="Content type (PRD AC2)")
     title: str = Field(..., min_length=5, max_length=100, description="Action-oriented title")
     description: str = Field(..., min_length=10, max_length=500, description="Detailed explanation")
+    personas: List[str] = Field(..., min_items=1, description="Applicable persona IDs (PRD AC3)")
+    triggering_signals: List[str] = Field(default_factory=list, description="Signal types that trigger this (PRD AC4)")
+    category: RecommendationCategory = Field(..., description="Internal classification")
     priority: int = Field(..., ge=1, le=10, description="Priority ranking (1=highest)")
     difficulty: DifficultyLevel = Field(..., description="Skill level required")
     time_commitment: TimeCommitment = Field(..., description="Effort required")
@@ -139,9 +153,12 @@ class Recommendation(BaseModel):
         """Convert to dictionary for API responses."""
         return {
             "id": self.id,
-            "category": self.category.value,
+            "type": self.type.value,
             "title": self.title,
             "description": self.description,
+            "personas": self.personas,
+            "triggering_signals": self.triggering_signals,
+            "category": self.category.value,
             "priority": self.priority,
             "difficulty": self.difficulty.value,
             "time_commitment": self.time_commitment.value,
