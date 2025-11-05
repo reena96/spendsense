@@ -37,7 +37,7 @@ recommendations:
       time_commitment: "ongoing"
       estimated_impact: "high"
       content_url: "/content/debt-avalanche-method"
-      personalization_template: "With ${credit_total_balance} in credit card debt, focus on your highest-rate card first to save on interest."
+      personalization_template: "With {credit_total_balance} in credit card debt, focus on your highest-rate card first to save on interest."
 
     - id: "biweekly_payments"
       category: "action"
@@ -98,7 +98,7 @@ recommendations:
       time_commitment: "one-time"
       estimated_impact: "high"
       content_url: "/content/interest-calculator"
-      personalization_template: "You're paying approximately ${monthly_interest} in interest charges each month. See how much you could save by paying down balances faster."
+      personalization_template: "You're paying approximately {monthly_interest} in interest charges each month. See how much you could save by paying down balances faster."
 
   # Persona 2: Irregular Income (Priority 2)
   # Focus: Cash flow planning and financial stability
@@ -187,7 +187,7 @@ recommendations:
       time_commitment: "ongoing"
       estimated_impact: "high"
       content_url: "/content/emergency-fund-starter"
-      personalization_template: "You currently have ${savings_total_balance} saved and spend ${monthly_expenses} per month. Start with a $1,000 mini emergency fund."
+      personalization_template: "You currently have {savings_total_balance} saved and spend {monthly_expenses} per month. Start with a $1,000 mini emergency fund."
 
     - id: "automate_savings_transfers"
       category: "action"
@@ -259,7 +259,7 @@ recommendations:
       time_commitment: "one-time"
       estimated_impact: "medium"
       content_url: "/content/emergency-fund-calculator"
-      personalization_template: "Based on ${monthly_expenses} in monthly expenses, your 3-month emergency fund goal is ${three_month_fund_target}."
+      personalization_template: "Based on {monthly_expenses} in monthly expenses, your 3-month emergency fund goal is {three_month_fund_target}."
 
   # Persona 4: Subscription Heavy (Priority 4)
   # Focus: Subscription optimization and spending awareness
@@ -334,7 +334,7 @@ recommendations:
       time_commitment: "one-time"
       estimated_impact: "high"
       content_url: "/content/subscription-total-cost"
-      personalization_template: "Your {subscription_count} subscriptions cost approximately ${monthly_subscription_total} per month or ${annual_subscription_total} per year."
+      personalization_template: "Your {subscription_count} subscriptions cost approximately {monthly_subscription_total} per month or {annual_subscription_total} per year."
 
   # Persona 5: Cash Flow Optimizer (Priority 5)
   # Focus: Investment and optimization
@@ -399,7 +399,7 @@ recommendations:
       time_commitment: "one-time"
       estimated_impact: "medium"
       content_url: "/content/opportunity-cost-calculator"
-      personalization_template: "With ${excess_savings} in savings beyond your emergency fund, see how much this could grow if invested over 10, 20, and 30 years."
+      personalization_template: "With {excess_savings} in savings beyond your emergency fund, see how much this could grow if invested over 10, 20, and 30 years."
 
   # Persona 6: Young Professional (Priority 6)
   # Focus: Credit building and financial basics
@@ -423,7 +423,7 @@ recommendations:
       time_commitment: "one-time"
       estimated_impact: "high"
       content_url: "/content/first-credit-card"
-      personalization_template: "With {transaction_history_days} days of transaction history and ${credit_total_limits} in credit limits, you're in the credit-building phase."
+      personalization_template: "With {transaction_history_days} days of transaction history and {credit_total_limits} in credit limits, you're in the credit-building phase."
 
     - id: "budgeting_fundamentals"
       category: "education"
