@@ -1,0 +1,1765 @@
+{
+  "user_MASKED_000": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_000_credit_0",
+        "aprs": [
+          0.18650175910214717
+        ],
+        "minimum_payment_amount": 28.28,
+        "last_payment_amount": 89.77012497679186,
+        "last_statement_balance": 1332.23,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_001": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_002": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_002_credit_0",
+        "aprs": [
+          0.17178783316628424
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3372.5532246514076,
+        "last_statement_balance": 633.87,
+        "is_overdue": true,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_003": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_003_credit_0",
+        "aprs": [
+          0.16678079283846634
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 5890.933653620484,
+        "last_statement_balance": 444.27,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      },
+      {
+        "account_id": "acc_user_MASKED_003_credit_1",
+        "aprs": [
+          0.15621917999247126
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 5890.933653620484,
+        "last_statement_balance": 415.11,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_004": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_005": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_005_credit_0",
+        "aprs": [
+          0.1858712520333208
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 75.66007506496082,
+        "last_statement_balance": 1123.61,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_006": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_006_credit_0",
+        "aprs": [
+          0.20771838796966663
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2108.0338162238972,
+        "last_statement_balance": 578.84,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_007": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_007_credit_0",
+        "aprs": [
+          0.18736327781612644
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2951.7091078466533,
+        "last_statement_balance": 334.14,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      },
+      {
+        "account_id": "acc_user_MASKED_007_credit_1",
+        "aprs": [
+          0.1797592458293651
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2951.7091078466533,
+        "last_statement_balance": 520.4,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_008": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_008_credit_0",
+        "aprs": [
+          0.15684554592792388
+        ],
+        "minimum_payment_amount": 25.71,
+        "last_payment_amount": 5149.811054628389,
+        "last_statement_balance": 878.58,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      },
+      {
+        "account_id": "acc_user_MASKED_008_credit_1",
+        "aprs": [
+          0.16297130937661286
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 5149.811054628389,
+        "last_statement_balance": 807.69,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-24"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_009": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_009_credit_0",
+        "aprs": [
+          0.22478816745113273
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3443.76284656622,
+        "last_statement_balance": 484.98,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_010": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_010_credit_0",
+        "aprs": [
+          0.19753111115524394
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 73.76025067872887,
+        "last_statement_balance": 1005.57,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_011": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_012": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_012_credit_0",
+        "aprs": [
+          0.17334131699782623
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4130.053164344129,
+        "last_statement_balance": 1056.86,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_013": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_013_credit_0",
+        "aprs": [
+          0.15438596521402637
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4529.254083919838,
+        "last_statement_balance": 325.16,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_014": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_015": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_015_credit_0",
+        "aprs": [
+          0.19808299326708065
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 69.68413384250793,
+        "last_statement_balance": 1004.66,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_016": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_017": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_017_credit_0",
+        "aprs": [
+          0.20221821982452773
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3056.507132707592,
+        "last_statement_balance": 1047.09,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      },
+      {
+        "account_id": "acc_user_MASKED_017_credit_1",
+        "aprs": [
+          0.21332552367859464
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3056.507132707592,
+        "last_statement_balance": 723.21,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_018": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_018_credit_0",
+        "aprs": [
+          0.1619377916579453
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4259.824448239029,
+        "last_statement_balance": 253.31,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_019": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_020": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_020_credit_0",
+        "aprs": [
+          0.20182122033171065
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 66.03294634492633,
+        "last_statement_balance": 945.18,
+        "is_overdue": true,
+        "next_payment_due_date": "2025-11-24"
+      },
+      {
+        "account_id": "acc_user_MASKED_020_credit_1",
+        "aprs": [
+          0.1884508475241597
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 66.03294634492633,
+        "last_statement_balance": 1241.37,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_021": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_021_credit_0",
+        "aprs": [
+          0.2982387594941867
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 1596.7607183721345,
+        "last_statement_balance": 589.82,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_022": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_022_credit_0",
+        "aprs": [
+          0.20639563504895775
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3997.9135501732,
+        "last_statement_balance": 732.64,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      },
+      {
+        "account_id": "acc_user_MASKED_022_credit_1",
+        "aprs": [
+          0.210301217578297
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3997.9135501732,
+        "last_statement_balance": 943.64,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_023": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_023_credit_0",
+        "aprs": [
+          0.17353234873828932
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4963.135666521403,
+        "last_statement_balance": 178.29,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_024": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_024_credit_0",
+        "aprs": [
+          0.1718847774831811
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3584.3635144977766,
+        "last_statement_balance": 705.44,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      },
+      {
+        "account_id": "acc_user_MASKED_024_credit_1",
+        "aprs": [
+          0.22613085443484027
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3584.3635144977766,
+        "last_statement_balance": 780.27,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_025": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_025_credit_0",
+        "aprs": [
+          0.19586307094438266
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 82.35216397882675,
+        "last_statement_balance": 769.11,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      },
+      {
+        "account_id": "acc_user_MASKED_025_credit_1",
+        "aprs": [
+          0.17363676044462084
+        ],
+        "minimum_payment_amount": 30.12,
+        "last_payment_amount": 82.35216397882675,
+        "last_statement_balance": 1170.53,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_026": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_027": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_027_credit_0",
+        "aprs": [
+          0.19531289839006427
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3297.3157974447377,
+        "last_statement_balance": 720.4,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      },
+      {
+        "account_id": "acc_user_MASKED_027_credit_1",
+        "aprs": [
+          0.17587452369209602
+        ],
+        "minimum_payment_amount": 29.72,
+        "last_payment_amount": 3297.3157974447377,
+        "last_statement_balance": 1129.89,
+        "is_overdue": true,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_028": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_028_credit_0",
+        "aprs": [
+          0.15665244442415655
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4645.317218687015,
+        "last_statement_balance": 270.8,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_029": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_029_credit_0",
+        "aprs": [
+          0.19342530545526881
+        ],
+        "minimum_payment_amount": 26.87,
+        "last_payment_amount": 3902.590744564723,
+        "last_statement_balance": 970.42,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      },
+      {
+        "account_id": "acc_user_MASKED_029_credit_1",
+        "aprs": [
+          0.18139387203605825
+        ],
+        "minimum_payment_amount": 29.29,
+        "last_payment_amount": 3902.590744564723,
+        "last_statement_balance": 1204.0,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_030": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_030_credit_0",
+        "aprs": [
+          0.20505065566753827
+        ],
+        "minimum_payment_amount": 34.61,
+        "last_payment_amount": 85.98620314539774,
+        "last_statement_balance": 1480.55,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      },
+      {
+        "account_id": "acc_user_MASKED_030_credit_1",
+        "aprs": [
+          0.20570210638700168
+        ],
+        "minimum_payment_amount": 26.74,
+        "last_payment_amount": 85.98620314539774,
+        "last_statement_balance": 946.62,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_031": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_032": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_032_credit_0",
+        "aprs": [
+          0.2071628906199262
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3388.0147064527287,
+        "last_statement_balance": 588.83,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_033": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_033_credit_0",
+        "aprs": [
+          0.15954743810463384
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 6809.112767121148,
+        "last_statement_balance": 772.38,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-24"
+      },
+      {
+        "account_id": "acc_user_MASKED_033_credit_1",
+        "aprs": [
+          0.15037261827536985
+        ],
+        "minimum_payment_amount": 29.07,
+        "last_payment_amount": 6809.112767121148,
+        "last_statement_balance": 1123.06,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_034": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_035": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_035_credit_0",
+        "aprs": [
+          0.22599556267962256
+        ],
+        "minimum_payment_amount": 25.34,
+        "last_payment_amount": 93.48834621397785,
+        "last_statement_balance": 946.49,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_036": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_037": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_037_credit_0",
+        "aprs": [
+          0.1881510285787334
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3370.6405974228396,
+        "last_statement_balance": 531.2,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_038": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_038_credit_0",
+        "aprs": [
+          0.1765355485986431
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4425.861125362538,
+        "last_statement_balance": 371.06,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_039": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_039_credit_0",
+        "aprs": [
+          0.18690537628747367
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2772.240988573317,
+        "last_statement_balance": 808.92,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      },
+      {
+        "account_id": "acc_user_MASKED_039_credit_1",
+        "aprs": [
+          0.22448954277311434
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2772.240988573317,
+        "last_statement_balance": 782.7,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_040": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_040_credit_0",
+        "aprs": [
+          0.2082268026380828
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 97.50807649663312,
+        "last_statement_balance": 1005.24,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      },
+      {
+        "account_id": "acc_user_MASKED_040_credit_1",
+        "aprs": [
+          0.22670305634279836
+        ],
+        "minimum_payment_amount": 30.95,
+        "last_payment_amount": 97.50807649663312,
+        "last_statement_balance": 1069.34,
+        "is_overdue": true,
+        "next_payment_due_date": "2025-11-24"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_041": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_042": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_042_credit_0",
+        "aprs": [
+          0.17764673115692833
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2942.118544787876,
+        "last_statement_balance": 498.56,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_043": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_043_credit_0",
+        "aprs": [
+          0.15998118956891696
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 6386.2445174520635,
+        "last_statement_balance": 1010.26,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_044": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_045": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_045_credit_0",
+        "aprs": [
+          0.2255458293541734
+        ],
+        "minimum_payment_amount": 42.02,
+        "last_payment_amount": 102.13641484405416,
+        "last_statement_balance": 1751.88,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_046": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_046_credit_0",
+        "aprs": [
+          0.21419386830530493
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2559.9623947618984,
+        "last_statement_balance": 825.51,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_047": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_047_credit_0",
+        "aprs": [
+          0.15432382505611827
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4285.582585846427,
+        "last_statement_balance": 747.88,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_048": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_048_credit_0",
+        "aprs": [
+          0.2222793821517805
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3738.0573568988093,
+        "last_statement_balance": 187.22,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      },
+      {
+        "account_id": "acc_user_MASKED_048_credit_1",
+        "aprs": [
+          0.1867474995633123
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3738.0573568988093,
+        "last_statement_balance": 233.48,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_049": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_049_credit_0",
+        "aprs": [
+          0.18508153646302242
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4571.463261183611,
+        "last_statement_balance": 826.7,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      },
+      {
+        "account_id": "acc_user_MASKED_049_credit_1",
+        "aprs": [
+          0.17914180242610817
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4571.463261183611,
+        "last_statement_balance": 795.4,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_050": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_050_credit_0",
+        "aprs": [
+          0.17266319202279387
+        ],
+        "minimum_payment_amount": 37.36,
+        "last_payment_amount": 90.24465689147,
+        "last_statement_balance": 1539.64,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      },
+      {
+        "account_id": "acc_user_MASKED_050_credit_1",
+        "aprs": [
+          0.21023771026597998
+        ],
+        "minimum_payment_amount": 37.48,
+        "last_payment_amount": 90.24465689147,
+        "last_statement_balance": 1449.0,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-24"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_051": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_052": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_052_credit_0",
+        "aprs": [
+          0.17747751893986208
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3778.3026069809957,
+        "last_statement_balance": 675.53,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-24"
+      },
+      {
+        "account_id": "acc_user_MASKED_052_credit_1",
+        "aprs": [
+          0.1776372679435492
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3778.3026069809957,
+        "last_statement_balance": 610.82,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_053": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_053_credit_0",
+        "aprs": [
+          0.17191748852542793
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4362.121277393136,
+        "last_statement_balance": 294.95,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      },
+      {
+        "account_id": "acc_user_MASKED_053_credit_1",
+        "aprs": [
+          0.1676714406735181
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4362.121277393136,
+        "last_statement_balance": 308.84,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_054": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_055": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_055_credit_0",
+        "aprs": [
+          0.20983123017829994
+        ],
+        "minimum_payment_amount": 30.28,
+        "last_payment_amount": 82.2121572580356,
+        "last_statement_balance": 1061.98,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_056": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_056_credit_0",
+        "aprs": [
+          0.18194779596359462
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2191.9544861800177,
+        "last_statement_balance": 885.21,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_057": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_057_credit_0",
+        "aprs": [
+          0.2045402539645591
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2986.878857672609,
+        "last_statement_balance": 768.15,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_058": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_058_credit_0",
+        "aprs": [
+          0.1800385790647389
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 5782.4809978236235,
+        "last_statement_balance": 332.94,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      },
+      {
+        "account_id": "acc_user_MASKED_058_credit_1",
+        "aprs": [
+          0.16858199538297008
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 5782.4809978236235,
+        "last_statement_balance": 482.54,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_059": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_059_credit_0",
+        "aprs": [
+          0.2292735471839869
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2199.050188466018,
+        "last_statement_balance": 912.61,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_060": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_060_credit_0",
+        "aprs": [
+          0.19560444541151933
+        ],
+        "minimum_payment_amount": 51.91,
+        "last_payment_amount": 101.64605249492581,
+        "last_statement_balance": 1766.52,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      },
+      {
+        "account_id": "acc_user_MASKED_060_credit_1",
+        "aprs": [
+          0.22039177327051526
+        ],
+        "minimum_payment_amount": 33.37,
+        "last_payment_amount": 101.64605249492581,
+        "last_statement_balance": 1546.57,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_061": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_062": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_062_credit_0",
+        "aprs": [
+          0.18714368905178916
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3064.342394246804,
+        "last_statement_balance": 690.64,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      },
+      {
+        "account_id": "acc_user_MASKED_062_credit_1",
+        "aprs": [
+          0.1791683159946289
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3064.342394246804,
+        "last_statement_balance": 698.87,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_063": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_063_credit_0",
+        "aprs": [
+          0.19520861106640555
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4437.737291016667,
+        "last_statement_balance": 434.61,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_064": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_065": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_065_credit_0",
+        "aprs": [
+          0.19110552816030948
+        ],
+        "minimum_payment_amount": 27.44,
+        "last_payment_amount": 84.17494844923736,
+        "last_statement_balance": 1066.84,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      },
+      {
+        "account_id": "acc_user_MASKED_065_credit_1",
+        "aprs": [
+          0.2179920902564761
+        ],
+        "minimum_payment_amount": 36.36,
+        "last_payment_amount": 84.17494844923736,
+        "last_statement_balance": 1251.77,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_066": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_067": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_067_credit_0",
+        "aprs": [
+          0.210748513101701
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2817.7840836028927,
+        "last_statement_balance": 511.23,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      },
+      {
+        "account_id": "acc_user_MASKED_067_credit_1",
+        "aprs": [
+          0.2244157317552061
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2817.7840836028927,
+        "last_statement_balance": 955.55,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_068": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_068_credit_0",
+        "aprs": [
+          0.15201138533954509
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 6568.484241702212,
+        "last_statement_balance": 899.38,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_069": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_069_credit_0",
+        "aprs": [
+          0.16686259307034956
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4554.227560261106,
+        "last_statement_balance": 755.47,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_070": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_070_credit_0",
+        "aprs": [
+          0.20900864559499252
+        ],
+        "minimum_payment_amount": 30.42,
+        "last_payment_amount": 61.405607206842355,
+        "last_statement_balance": 1126.82,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_071": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_072": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_072_credit_0",
+        "aprs": [
+          0.17914294074708742
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3663.5519301073577,
+        "last_statement_balance": 743.38,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-22"
+      },
+      {
+        "account_id": "acc_user_MASKED_072_credit_1",
+        "aprs": [
+          0.1921337104593765
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3663.5519301073577,
+        "last_statement_balance": 955.94,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_073": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_073_credit_0",
+        "aprs": [
+          0.15102713701989864
+        ],
+        "minimum_payment_amount": 26.23,
+        "last_payment_amount": 5724.260702395518,
+        "last_statement_balance": 1174.87,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      },
+      {
+        "account_id": "acc_user_MASKED_073_credit_1",
+        "aprs": [
+          0.1736839144499941
+        ],
+        "minimum_payment_amount": 32.44,
+        "last_payment_amount": 5724.260702395518,
+        "last_statement_balance": 1087.0,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_074": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_074_credit_0",
+        "aprs": [
+          0.1772633039040389
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3459.145922954784,
+        "last_statement_balance": 707.13,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      },
+      {
+        "account_id": "acc_user_MASKED_074_credit_1",
+        "aprs": [
+          0.20885259524340832
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3459.145922954784,
+        "last_statement_balance": 542.58,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-25"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_075": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_075_credit_0",
+        "aprs": [
+          0.2197224386601475
+        ],
+        "minimum_payment_amount": 43.79,
+        "last_payment_amount": 77.28269092466887,
+        "last_statement_balance": 1596.74,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_076": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_077": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_077_credit_0",
+        "aprs": [
+          0.17152691625793023
+        ],
+        "minimum_payment_amount": 29.87,
+        "last_payment_amount": 3808.7133712739073,
+        "last_statement_balance": 1187.18,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_078": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_078_credit_0",
+        "aprs": [
+          0.18738487514456
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 5335.885378105743,
+        "last_statement_balance": 787.76,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_079": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_079_credit_0",
+        "aprs": [
+          0.15114799991080358
+        ],
+        "minimum_payment_amount": 41.1,
+        "last_payment_amount": 4711.753986943126,
+        "last_statement_balance": 1349.76,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      },
+      {
+        "account_id": "acc_user_MASKED_079_credit_1",
+        "aprs": [
+          0.17804735001328806
+        ],
+        "minimum_payment_amount": 31.55,
+        "last_payment_amount": 4711.753986943126,
+        "last_statement_balance": 1250.42,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_080": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_080_credit_0",
+        "aprs": [
+          0.20331057269491165
+        ],
+        "minimum_payment_amount": 28.58,
+        "last_payment_amount": 110.28456178825131,
+        "last_statement_balance": 1269.78,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_081": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_082": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_082_credit_0",
+        "aprs": [
+          0.1588638560189012
+        ],
+        "minimum_payment_amount": 26.08,
+        "last_payment_amount": 4378.8950444695065,
+        "last_statement_balance": 931.35,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_083": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_083_credit_0",
+        "aprs": [
+          0.18986525855837327
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4292.43816432564,
+        "last_statement_balance": 664.04,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_084": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_084_credit_0",
+        "aprs": [
+          0.18155505760709106
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3086.3471595690135,
+        "last_statement_balance": 343.69,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-21"
+      },
+      {
+        "account_id": "acc_user_MASKED_084_credit_1",
+        "aprs": [
+          0.18658997761812138
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3086.3471595690135,
+        "last_statement_balance": 393.1,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-20"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_085": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_085_credit_0",
+        "aprs": [
+          0.1916528641489632
+        ],
+        "minimum_payment_amount": 27.23,
+        "last_payment_amount": 86.60977405682853,
+        "last_statement_balance": 1232.14,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_086": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_087": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_087_credit_0",
+        "aprs": [
+          0.21184504357461167
+        ],
+        "minimum_payment_amount": 29.57,
+        "last_payment_amount": 3560.30998484289,
+        "last_statement_balance": 1493.3,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-19"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_088": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_088_credit_0",
+        "aprs": [
+          0.19642812788816064
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 3800.7296733798125,
+        "last_statement_balance": 337.13,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-26"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_089": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_090": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_090_credit_0",
+        "aprs": [
+          0.1995047936174641
+        ],
+        "minimum_payment_amount": 28.14,
+        "last_payment_amount": 98.73977866680175,
+        "last_statement_balance": 1132.78,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      },
+      {
+        "account_id": "acc_user_MASKED_090_credit_1",
+        "aprs": [
+          0.18489145731260698
+        ],
+        "minimum_payment_amount": 42.57,
+        "last_payment_amount": 98.73977866680175,
+        "last_statement_balance": 1636.34,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_091": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_092": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_092_credit_0",
+        "aprs": [
+          0.19703086789332527
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4006.8424052384757,
+        "last_statement_balance": 624.41,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      },
+      {
+        "account_id": "acc_user_MASKED_092_credit_1",
+        "aprs": [
+          0.22760652664605796
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4006.8424052384757,
+        "last_statement_balance": 667.24,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_093": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_093_credit_0",
+        "aprs": [
+          0.15695254193305738
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 4787.201442958604,
+        "last_statement_balance": 701.28,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_094": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_095": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_095_credit_0",
+        "aprs": [
+          0.18728629337562136
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 73.19757471547041,
+        "last_statement_balance": 939.25,
+        "is_overdue": true,
+        "next_payment_due_date": "2025-11-22"
+      },
+      {
+        "account_id": "acc_user_MASKED_095_credit_1",
+        "aprs": [
+          0.20750348042985334
+        ],
+        "minimum_payment_amount": 33.47,
+        "last_payment_amount": 73.19757471547041,
+        "last_statement_balance": 1366.89,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-27"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_096": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_096_credit_0",
+        "aprs": [
+          0.18593794829843843
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2431.5623155150115,
+        "last_statement_balance": 481.64,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-28"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_097": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_097_credit_0",
+        "aprs": [
+          0.18731663529835052
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2754.9045546919765,
+        "last_statement_balance": 861.27,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      },
+      {
+        "account_id": "acc_user_MASKED_097_credit_1",
+        "aprs": [
+          0.17482651111395808
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 2754.9045546919765,
+        "last_statement_balance": 717.38,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-23"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_098": {
+    "credit_cards": [
+      {
+        "account_id": "acc_user_MASKED_098_credit_0",
+        "aprs": [
+          0.17697193468688685
+        ],
+        "minimum_payment_amount": 25.0,
+        "last_payment_amount": 6818.361397485893,
+        "last_statement_balance": 835.95,
+        "is_overdue": false,
+        "next_payment_due_date": "2025-11-29"
+      }
+    ],
+    "student_loans": [],
+    "mortgages": []
+  },
+  "user_MASKED_099": {
+    "credit_cards": [],
+    "student_loans": [],
+    "mortgages": []
+  }
+}

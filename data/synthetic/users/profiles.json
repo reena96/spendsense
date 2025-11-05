@@ -1,0 +1,2870 @@
+[
+  {
+    "user_id": "user_MASKED_000",
+    "name": "Allison Hill",
+    "persona": "high_utilization",
+    "annual_income": 54000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.73,
+      "target_savings_monthly": 10.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2250.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 15000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_001",
+    "name": "Noah Rhodes",
+    "persona": "variable_income",
+    "annual_income": 75000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.37,
+      "target_savings_monthly": 90.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 3,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1562.5
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_002",
+    "name": "Angie Henderson",
+    "persona": "subscription_heavy",
+    "annual_income": 64000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.38,
+      "target_savings_monthly": 120.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5333.33
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 13000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_003",
+    "name": "Daniel Wagner",
+    "persona": "savings_builder",
+    "annual_income": 110000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.11,
+      "target_savings_monthly": 700.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 13750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 27500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 11400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_004",
+    "name": "Cristian Santos",
+    "persona": "control",
+    "annual_income": 46000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.27,
+      "target_savings_monthly": 190.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2875.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 3833.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_005",
+    "name": "Connie Lawrence",
+    "persona": "high_utilization",
+    "annual_income": 51000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.74,
+      "target_savings_monthly": 40.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2125.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 14000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_006",
+    "name": "Abigail Shaffer",
+    "persona": "variable_income",
+    "annual_income": 40000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.59,
+      "target_savings_monthly": 50.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 833.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_007",
+    "name": "Gina Moore",
+    "persona": "subscription_heavy",
+    "annual_income": 63000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.23,
+      "target_savings_monthly": 240.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7875.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_008",
+    "name": "Gabrielle Davis",
+    "persona": "savings_builder",
+    "annual_income": 103000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.25,
+      "target_savings_monthly": 630.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 12875.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 25750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7800.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5200.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_009",
+    "name": "Ryan Munoz",
+    "persona": "control",
+    "annual_income": 73000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.22,
+      "target_savings_monthly": 110.0,
+      "income_stability": "regular",
+      "subscription_count_target": 6
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4562.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 6083.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 12000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_010",
+    "name": "Monica Herrera",
+    "persona": "high_utilization",
+    "annual_income": 43000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.72,
+      "target_savings_monthly": 60.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1791.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 16000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_011",
+    "name": "Jamie Arnold",
+    "persona": "variable_income",
+    "annual_income": 44000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.53,
+      "target_savings_monthly": 140.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 916.67
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_012",
+    "name": "Lisa Hensley",
+    "persona": "subscription_heavy",
+    "annual_income": 84000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.31,
+      "target_savings_monthly": 210.0,
+      "income_stability": "regular",
+      "subscription_count_target": 7
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 7000.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 10500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 8000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_013",
+    "name": "Michele Williams",
+    "persona": "savings_builder",
+    "annual_income": 91000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.14,
+      "target_savings_monthly": 370.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 11375.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 22750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 19000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_014",
+    "name": "Dylan Miller",
+    "persona": "control",
+    "annual_income": 52000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.38,
+      "target_savings_monthly": 140.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 4333.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_015",
+    "name": "Brian Ramirez",
+    "persona": "high_utilization",
+    "annual_income": 45000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.69,
+      "target_savings_monthly": 30.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1875.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 15000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_016",
+    "name": "Holly Wood",
+    "persona": "variable_income",
+    "annual_income": 31000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.51,
+      "target_savings_monthly": 130.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 645.83
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_017",
+    "name": "Derek Zuniga",
+    "persona": "subscription_heavy",
+    "annual_income": 59000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.45,
+      "target_savings_monthly": 210.0,
+      "income_stability": "regular",
+      "subscription_count_target": 8
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4916.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7375.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_018",
+    "name": "Lisa Jackson",
+    "persona": "savings_builder",
+    "annual_income": 82000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.07,
+      "target_savings_monthly": 630.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 10250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 20500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 20000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_019",
+    "name": "Carla Gray",
+    "persona": "control",
+    "annual_income": 85000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.4,
+      "target_savings_monthly": 110.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5312.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7083.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_020",
+    "name": "Margaret Hawkins DDS",
+    "persona": "high_utilization",
+    "annual_income": 42000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.65,
+      "target_savings_monthly": 20.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 8400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_021",
+    "name": "Patty Perez",
+    "persona": "variable_income",
+    "annual_income": 31000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.52,
+      "target_savings_monthly": 70.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 3,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 645.83
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_022",
+    "name": "Ethan Adams",
+    "persona": "subscription_heavy",
+    "annual_income": 78000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.31,
+      "target_savings_monthly": 240.0,
+      "income_stability": "regular",
+      "subscription_count_target": 6
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 6500.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 9750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_023",
+    "name": "Tommy Walter",
+    "persona": "savings_builder",
+    "annual_income": 97000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.07,
+      "target_savings_monthly": 510.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 12125.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 24250.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 20000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_024",
+    "name": "Matthew Foster",
+    "persona": "control",
+    "annual_income": 76000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.39,
+      "target_savings_monthly": 200.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 6333.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4800.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3200.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_025",
+    "name": "Judy Baker",
+    "persona": "high_utilization",
+    "annual_income": 49000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.61,
+      "target_savings_monthly": 40.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2041.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_026",
+    "name": "Justin Baker",
+    "persona": "variable_income",
+    "annual_income": 44000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.59,
+      "target_savings_monthly": 120.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 916.67
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_027",
+    "name": "Stephanie Ross",
+    "persona": "subscription_heavy",
+    "annual_income": 68000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.4,
+      "target_savings_monthly": 230.0,
+      "income_stability": "regular",
+      "subscription_count_target": 7
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5666.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4200.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 2800.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_028",
+    "name": "Zachary Hicks",
+    "persona": "savings_builder",
+    "annual_income": 83000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.08,
+      "target_savings_monthly": 610.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 10375.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 20750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 27000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_029",
+    "name": "Anthony Rodriguez",
+    "persona": "control",
+    "annual_income": 75000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.49,
+      "target_savings_monthly": 240.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4687.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 6250.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7200.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4800.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_030",
+    "name": "Rebecca Henderson",
+    "persona": "high_utilization",
+    "annual_income": 54000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.75,
+      "target_savings_monthly": 40.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2250.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_031",
+    "name": "James Ferrell",
+    "persona": "variable_income",
+    "annual_income": 65000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.55,
+      "target_savings_monthly": 70.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1354.17
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_032",
+    "name": "Tricia Valencia",
+    "persona": "subscription_heavy",
+    "annual_income": 63000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.31,
+      "target_savings_monthly": 140.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7875.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 12000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_033",
+    "name": "Nathan Maldonado",
+    "persona": "savings_builder",
+    "annual_income": 126000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.2,
+      "target_savings_monthly": 670.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 15750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 31500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_034",
+    "name": "Debra Davidson",
+    "persona": "control",
+    "annual_income": 67000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.46,
+      "target_savings_monthly": 240.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4187.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 5583.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_035",
+    "name": "Jeffrey Chavez",
+    "persona": "high_utilization",
+    "annual_income": 53000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.61,
+      "target_savings_monthly": 60.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2208.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 13000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_036",
+    "name": "Sherri Baker",
+    "persona": "variable_income",
+    "annual_income": 59000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.52,
+      "target_savings_monthly": 90.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 3,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1229.17
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_037",
+    "name": "Cassandra Gaines",
+    "persona": "subscription_heavy",
+    "annual_income": 64000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.24,
+      "target_savings_monthly": 180.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5333.33
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 12000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_038",
+    "name": "Elizabeth Fowler",
+    "persona": "savings_builder",
+    "annual_income": 90000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.12,
+      "target_savings_monthly": 910.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 11250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 22500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 15000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_039",
+    "name": "Brittany Farmer",
+    "persona": "control",
+    "annual_income": 50000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.48,
+      "target_savings_monthly": 230.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3125.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 4166.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_040",
+    "name": "Paula Moreno",
+    "persona": "high_utilization",
+    "annual_income": 55000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.66,
+      "target_savings_monthly": 90.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2291.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_041",
+    "name": "Fred Smith",
+    "persona": "variable_income",
+    "annual_income": 63000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.43,
+      "target_savings_monthly": 100.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1312.5
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_042",
+    "name": "Sherry Decker",
+    "persona": "subscription_heavy",
+    "annual_income": 53000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.27,
+      "target_savings_monthly": 180.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4416.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 6625.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_043",
+    "name": "Anthony Humphrey",
+    "persona": "savings_builder",
+    "annual_income": 127000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.2,
+      "target_savings_monthly": 340.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 15875.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 31750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 24000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_044",
+    "name": "Angelica Tucker",
+    "persona": "control",
+    "annual_income": 34000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.22,
+      "target_savings_monthly": 70.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2125.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 2833.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_045",
+    "name": "Philip Cannon",
+    "persona": "high_utilization",
+    "annual_income": 62000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.7,
+      "target_savings_monthly": 40.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2583.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 12000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_046",
+    "name": "John Pierce",
+    "persona": "variable_income",
+    "annual_income": 46000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.46,
+      "target_savings_monthly": 90.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 3,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 958.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 8000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_047",
+    "name": "Shane Henderson",
+    "persona": "subscription_heavy",
+    "annual_income": 83000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.27,
+      "target_savings_monthly": 210.0,
+      "income_stability": "regular",
+      "subscription_count_target": 8
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 6916.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 10375.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 12000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_048",
+    "name": "Joshua Blair",
+    "persona": "savings_builder",
+    "annual_income": 79000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.07,
+      "target_savings_monthly": 650.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 9875.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 19750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 14400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_049",
+    "name": "Eric Carney",
+    "persona": "control",
+    "annual_income": 92000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.32,
+      "target_savings_monthly": 180.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7666.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_050",
+    "name": "Jessica Holmes",
+    "persona": "high_utilization",
+    "annual_income": 56000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.73,
+      "target_savings_monthly": 50.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2333.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 8400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_051",
+    "name": "Danny Morgan",
+    "persona": "variable_income",
+    "annual_income": 22000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.52,
+      "target_savings_monthly": 120.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 458.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_052",
+    "name": "Crystal Robinson",
+    "persona": "subscription_heavy",
+    "annual_income": 71000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.26,
+      "target_savings_monthly": 210.0,
+      "income_stability": "regular",
+      "subscription_count_target": 6
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5916.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8875.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_053",
+    "name": "Mark Perez",
+    "persona": "savings_builder",
+    "annual_income": 91000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.1,
+      "target_savings_monthly": 670.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 11375.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 22750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 11400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_054",
+    "name": "Shannon Jones",
+    "persona": "control",
+    "annual_income": 40000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.44,
+      "target_savings_monthly": 260.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2500.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 3333.33
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_055",
+    "name": "Michael Lewis",
+    "persona": "high_utilization",
+    "annual_income": 46000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.73,
+      "target_savings_monthly": 50.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1916.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 18000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_056",
+    "name": "Timothy Duncan",
+    "persona": "variable_income",
+    "annual_income": 47000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.58,
+      "target_savings_monthly": 100.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 979.17
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_057",
+    "name": "Richard Aguirre",
+    "persona": "subscription_heavy",
+    "annual_income": 64000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.35,
+      "target_savings_monthly": 190.0,
+      "income_stability": "regular",
+      "subscription_count_target": 8
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5333.33
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 11000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_058",
+    "name": "Brent Jordan",
+    "persona": "savings_builder",
+    "annual_income": 124000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.09,
+      "target_savings_monthly": 300.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 15500.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 31000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 10800.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 7200.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_059",
+    "name": "John Daniel",
+    "persona": "control",
+    "annual_income": 44000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.48,
+      "target_savings_monthly": 220.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 3666.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 10000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_060",
+    "name": "Victoria Garcia",
+    "persona": "high_utilization",
+    "annual_income": 58000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.74,
+      "target_savings_monthly": 70.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2416.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_061",
+    "name": "Gerald Hensley",
+    "persona": "variable_income",
+    "annual_income": 51000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.35,
+      "target_savings_monthly": 70.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1062.5
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_062",
+    "name": "Connor West",
+    "persona": "subscription_heavy",
+    "annual_income": 63000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.42,
+      "target_savings_monthly": 170.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7875.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_063",
+    "name": "Donald Wright",
+    "persona": "savings_builder",
+    "annual_income": 79000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.18,
+      "target_savings_monthly": 770.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 9875.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 19750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 19000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_064",
+    "name": "Jessica Callahan",
+    "persona": "control",
+    "annual_income": 57000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.49,
+      "target_savings_monthly": 100.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3562.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 4750.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_065",
+    "name": "Amber Kidd",
+    "persona": "high_utilization",
+    "annual_income": 49000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.72,
+      "target_savings_monthly": 70.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2041.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_066",
+    "name": "Tracy House",
+    "persona": "variable_income",
+    "annual_income": 48000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.34,
+      "target_savings_monthly": 130.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_067",
+    "name": "Carol Tucker",
+    "persona": "subscription_heavy",
+    "annual_income": 57000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.39,
+      "target_savings_monthly": 180.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7125.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_068",
+    "name": "James Brown",
+    "persona": "savings_builder",
+    "annual_income": 126000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.28,
+      "target_savings_monthly": 590.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 15750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 31500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 22000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_069",
+    "name": "William Baker",
+    "persona": "control",
+    "annual_income": 84000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.28,
+      "target_savings_monthly": 90.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 11000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_070",
+    "name": "Jordan Henderson",
+    "persona": "high_utilization",
+    "annual_income": 41000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.66,
+      "target_savings_monthly": 60.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1708.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 15000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_071",
+    "name": "Whitney Peters",
+    "persona": "variable_income",
+    "annual_income": 49000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.44,
+      "target_savings_monthly": 120.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1020.83
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_072",
+    "name": "Brittney Phillips",
+    "persona": "subscription_heavy",
+    "annual_income": 78000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.36,
+      "target_savings_monthly": 180.0,
+      "income_stability": "regular",
+      "subscription_count_target": 6
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 6500.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 9750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4800.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3200.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_073",
+    "name": "Lauren Daniels",
+    "persona": "savings_builder",
+    "annual_income": 111000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.27,
+      "target_savings_monthly": 760.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 13875.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 27750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_074",
+    "name": "Amy Silva",
+    "persona": "control",
+    "annual_income": 67000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.25,
+      "target_savings_monthly": 220.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4187.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 5583.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_075",
+    "name": "Sarah Moore",
+    "persona": "high_utilization",
+    "annual_income": 48000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.8,
+      "target_savings_monthly": 70.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 12000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_076",
+    "name": "Angela Lopez",
+    "persona": "variable_income",
+    "annual_income": 56000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.5,
+      "target_savings_monthly": 80.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 3,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1166.67
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_077",
+    "name": "Megan Young",
+    "persona": "subscription_heavy",
+    "annual_income": 80000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.48,
+      "target_savings_monthly": 130.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 6666.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 10000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 8000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_078",
+    "name": "Steve Sanchez",
+    "persona": "savings_builder",
+    "annual_income": 115000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.24,
+      "target_savings_monthly": 530.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 14375.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 28750.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 21000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_079",
+    "name": "Lisa Barnes",
+    "persona": "control",
+    "annual_income": 100000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.42,
+      "target_savings_monthly": 150.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 6250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8333.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_080",
+    "name": "Kelly Donovan",
+    "persona": "high_utilization",
+    "annual_income": 64000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.7,
+      "target_savings_monthly": 70.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2666.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 16000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_081",
+    "name": "Mike Allen",
+    "persona": "variable_income",
+    "annual_income": 65000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.49,
+      "target_savings_monthly": 100.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 1,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1354.17
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_082",
+    "name": "Michael Evans",
+    "persona": "subscription_heavy",
+    "annual_income": 92000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.3,
+      "target_savings_monthly": 190.0,
+      "income_stability": "regular",
+      "subscription_count_target": 7
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 7666.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 11500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 11000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_083",
+    "name": "Paul Jones",
+    "persona": "savings_builder",
+    "annual_income": 86000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.24,
+      "target_savings_monthly": 580.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 10750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 21500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 22000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_084",
+    "name": "Zachary Ferrell",
+    "persona": "control",
+    "annual_income": 55000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.23,
+      "target_savings_monthly": 270.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3437.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 4583.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6600.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 4400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_085",
+    "name": "Daniel Baker",
+    "persona": "high_utilization",
+    "annual_income": 52000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.61,
+      "target_savings_monthly": 50.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2166.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 17000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_086",
+    "name": "Shirley Suarez",
+    "persona": "variable_income",
+    "annual_income": 39000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.43,
+      "target_savings_monthly": 20.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 2,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 812.5
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_087",
+    "name": "Christopher Bass",
+    "persona": "subscription_heavy",
+    "annual_income": 71000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.47,
+      "target_savings_monthly": 190.0,
+      "income_stability": "regular",
+      "subscription_count_target": 6
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 5916.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 8875.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 10000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_088",
+    "name": "Lisa Archer",
+    "persona": "savings_builder",
+    "annual_income": 77000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.14,
+      "target_savings_monthly": 560.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 9625.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 19250.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 19000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_089",
+    "name": "Aimee Montoya",
+    "persona": "control",
+    "annual_income": 63000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.48,
+      "target_savings_monthly": 160.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3937.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 5250.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_090",
+    "name": "Matthew Mcmillan",
+    "persona": "high_utilization",
+    "annual_income": 57000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.78,
+      "target_savings_monthly": 20.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 2375.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 8400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_091",
+    "name": "Brian Rodriguez",
+    "persona": "variable_income",
+    "annual_income": 24000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.53,
+      "target_savings_monthly": 60.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 3,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 500.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_092",
+    "name": "Denise Jacobs",
+    "persona": "subscription_heavy",
+    "annual_income": 72000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.28,
+      "target_savings_monthly": 260.0,
+      "income_stability": "regular",
+      "subscription_count_target": 5
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 6000.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 9000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_093",
+    "name": "Christina Walters",
+    "persona": "savings_builder",
+    "annual_income": 86000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.27,
+      "target_savings_monthly": 600.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 10750.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 21500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 22000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_094",
+    "name": "John Whitehead",
+    "persona": "control",
+    "annual_income": 56000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.44,
+      "target_savings_monthly": 160.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3500.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 4666.67
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_095",
+    "name": "Anna Henderson",
+    "persona": "high_utilization",
+    "annual_income": 46000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.64,
+      "target_savings_monthly": 50.0,
+      "income_stability": "regular",
+      "subscription_count_target": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1916.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 9000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_096",
+    "name": "Aaron Wise",
+    "persona": "variable_income",
+    "annual_income": 52000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.38,
+      "target_savings_monthly": 40.0,
+      "income_stability": "irregular",
+      "subscription_count_target": 2,
+      "median_pay_gap_days": 50
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1083.33
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 6000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_097",
+    "name": "Deborah Figueroa",
+    "persona": "subscription_heavy",
+    "annual_income": 56000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.39,
+      "target_savings_monthly": 170.0,
+      "income_stability": "regular",
+      "subscription_count_target": 9
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 4666.67
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 7000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 5400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 3600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_098",
+    "name": "Jessica Smith",
+    "persona": "savings_builder",
+    "annual_income": 122000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.28,
+      "target_savings_monthly": 490.0,
+      "income_stability": "regular",
+      "subscription_count_target": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 15250.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 30500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 0.0,
+        "limit": 21000.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_099",
+    "name": "Stephen Mckee",
+    "persona": "control",
+    "annual_income": 59000.0,
+    "characteristics": {
+      "target_credit_utilization": 0.37,
+      "target_savings_monthly": 240.0,
+      "income_stability": "regular",
+      "subscription_count_target": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 3687.5
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 4916.67
+      }
+    ]
+  }
+]

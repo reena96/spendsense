@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendSense Dashboard</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>🎯 SpendSense Dashboard</h1>
+            <p class="subtitle">Synthetic Data Generation & Testing Platform</p>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="tabs">
+            <button class="tab active" data-tab="generate">Generate Profiles</button>
+            <button class="tab" data-tab="profiles">View Profiles</button>
+            <button class="tab" data-tab="stats">Statistics</button>
+            <button class="tab" data-tab="personas">Personas</button>
+            <button class="tab" data-tab="future">Future Features</button>
+        </nav>
+
+        <!-- Generate Tab -->
+        <div id="generate" class="tab-content active">
+            <div class="card">
+                <h2>Generate Synthetic User Profiles</h2>
+                <p>Create realistic user profiles with persona-based financial characteristics.</p>
+
+                <form id="generate-form" class="form">
+                    <div class="form-group">
+                        <label for="num-users">Number of Users (50-100)</label>
+                        <input type="number" id="num-users" min="50" max="100" value="100" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="seed">Random Seed</label>
+                        <input type="number" id="seed" value="42" required>
+                        <small>Use the same seed for reproducible results</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Generate Profiles</button>
+                </form>
+
+                <div id="generate-result" class="result hidden"></div>
+            </div>
+        </div>
+
+        <!-- Profiles Tab -->
+        <div id="profiles" class="tab-content">
+            <div class="card">
+                <div class="card-header">
+                    <h2>User Profiles</h2>
+                    <div class="filters">
+                        <select id="persona-filter" class="select">
+                            <option value="">All Personas</option>
+                            <option value="high_utilization">High Utilization</option>
+                            <option value="variable_income">Variable Income</option>
+                            <option value="subscription_heavy">Subscription Heavy</option>
+                            <option value="savings_builder">Savings Builder</option>
+                            <option value="control">Control</option>
+                        </select>
+                        <button id="refresh-profiles" class="btn btn-secondary">Refresh</button>
+                    </div>
+                </div>
+
+                <div id="profiles-list" class="profiles-list">
+                    <p class="text-muted">Generate profiles to see them here...</p>
+                </div>
+
+                <div id="profile-pagination" class="pagination hidden"></div>
+            </div>
+        </div>
+
+        <!-- Stats Tab -->
+        <div id="stats" class="tab-content">
+            <div class="card">
+                <h2>Profile Statistics</h2>
+                <div id="stats-content">
+                    <p class="text-muted">Generate profiles to see statistics...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personas Tab -->
+        <div id="personas" class="tab-content">
+            <div class="card">
+                <h2>Persona Definitions</h2>
+                <p>SpendSense uses 5 persona archetypes to generate realistic behavioral patterns:</p>
+                <div id="personas-content" class="personas-grid"></div>
+            </div>
+        </div>
+
+        <!-- Future Features Tab -->
+        <div id="future" class="tab-content">
+            <div class="card">
+                <h2>Coming Soon</h2>
+                <p>These features will be added in future stories:</p>
+
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <h3>📊 Story 1.4: Transaction Data</h3>
+                        <p>Generate synthetic transactions based on user profiles and personas</p>
+                        <span class="badge">Epic 1</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <h3>🔍 Epic 2: Signal Detection</h3>
+                        <p>Detect behavioral patterns like high utilization, variable income, etc.</p>
+                        <span class="badge">Epic 2</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <h3>👤 Epic 3: Persona Assignment</h3>
+                        <p>Match users to personas based on detected signals</p>
+                        <span class="badge">Epic 3</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <h3>💡 Epic 4: Recommendations</h3>
+                        <p>Generate personalized financial recommendations</p>
+                        <span class="badge">Epic 4</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <h3>🛡️ Epic 5: Guardrails</h3>
+                        <p>Consent management, eligibility filtering, tone validation</p>
+                        <span class="badge">Epic 5</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <h3>👁️ Epic 6: Operator View</h3>
+                        <p>Dashboard for oversight and approval workflows</p>
+                        <span class="badge">Epic 6</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>SpendSense v1.0 | Built with FastAPI & Vanilla JS</p>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

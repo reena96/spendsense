@@ -1,0 +1,260 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Project Setup & Infrastructure</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-04</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-1-project-setup-infrastructure.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>project scaffolding with repository structure, dependency management, and basic CI/CD configuration</iWant>
+    <soThat>the team has a solid foundation for collaborative development with automated testing</soThat>
+    <tasks>
+### Infrastructure Setup
+- Initialize git repository with appropriate .gitignore
+- Create README.md with setup instructions
+- Create directory structure per architecture
+
+### Dependency Management
+- Create requirements.txt (Python) with FastAPI, pytest, pydantic, pyarrow, pyyaml
+- Create package.json (Node) for React frontend dependencies
+- Document one-command setup process
+
+### Testing & Configuration
+- Configure pytest with example test
+- Set up configuration file system (YAML)
+- Configure logging framework (Python logging module)
+- Verify setup on clean environment
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Repository initialized with `.gitignore` for Python/Node.js
+2. README.md created with project overview and setup instructions
+3. Directory structure created matching technical architecture (`ingest/`, `features/`, `personas/`, `recommend/`, `guardrails/`, `ui/`, `eval/`, `docs/`)
+4. Dependency file created (`requirements.txt` or `package.json`) with core libraries
+5. One-command setup script created and documented in README
+6. Basic test framework configured (pytest/jest) with example test
+7. Configuration file system established using YAML/JSON
+8. Logging framework configured with structured output
+9. All setup executes successfully on clean environment
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>SpendSense Product Requirements Document</title>
+        <section>Technical Assumptions - Repository Structure</section>
+        <snippet>Monorepo architecture with clear module separation (ingest, features, personas, recommend, guardrails, ui, eval, api). NFR9 requires one-command setup via requirements.txt. NFR10 requires local operation without external dependencies.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture</title>
+        <section>Tech Stack & Repository Structure</section>
+        <snippet>Python 3.10+, FastAPI 0.104+, React 18, TypeScript, Vite 5, TailwindCSS 3. Modular monolith with SQLite database, Parquet analytics storage. Directory structure: spendsense/ with submodules ingest/, features/, personas/, recommend/, guardrails/, ui/, eval/, api/.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd/epic-1-data-foundation-synthetic-data-generation.md</path>
+        <title>Epic 1 - Data Foundation & Synthetic Data Generation</title>
+        <section>Story 1.1 Details</section>
+        <snippet>Establish project infrastructure with git repository, directory structure matching architecture (ingest/, features/, personas/, recommend/, guardrails/, ui/, eval/, docs/), dependency management (requirements.txt for Python with FastAPI, pytest, pydantic, pyarrow, pyyaml; package.json for React frontend), basic testing framework (pytest/jest), configuration system (YAML), and logging framework.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Development Workflow</title>
+        <section>Local Development Setup</section>
+        <snippet>Python 3.10+ required, venv for virtual environment, pip install -r requirements.txt for one-command setup. Frontend uses npm install in ui/ directory. Core dependencies: FastAPI, Pydantic, pytest, pyarrow, pyyaml for backend; React 18, Vite, TypeScript for frontend.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- Greenfield project: No existing code to reference. Story 1.1 will create foundational structure. -->
+      <note>This is a greenfield project. Story 1.1 establishes the initial project structure, so no existing code artifacts are available for reference.</note>
+    </code>
+    <dependencies>
+      <python>
+        <core>
+          <package>python</package>
+          <version>3.10+</version>
+          <purpose>Core runtime (from architecture)</purpose>
+        </core>
+        <backend_framework>
+          <package>fastapi</package>
+          <version>0.104+</version>
+          <purpose>REST API server with auto-generated OpenAPI docs</purpose>
+        </backend_framework>
+        <data_validation>
+          <package>pydantic</package>
+          <version>2.5+</version>
+          <purpose>Schema validation and type safety</purpose>
+        </data_validation>
+        <testing>
+          <package>pytest</package>
+          <version>7.4+</version>
+          <purpose>Unit and integration testing framework</purpose>
+        </testing>
+        <testing_coverage>
+          <package>pytest-cov</package>
+          <version>4.1+</version>
+          <purpose>Code coverage measurement</purpose>
+        </testing_coverage>
+        <analytics_storage>
+          <package>pyarrow</package>
+          <version>10+</version>
+          <purpose>Parquet file format for analytics</purpose>
+        </analytics_storage>
+        <config_parsing>
+          <package>pyyaml</package>
+          <version>6.0+</version>
+          <purpose>YAML configuration file parsing</purpose>
+        </config_parsing>
+        <data_processing>
+          <package>pandas</package>
+          <version>2.1+</version>
+          <purpose>DataFrame operations for future stories</purpose>
+        </data_processing>
+        <logging>
+          <package>structlog</package>
+          <version>23+</version>
+          <purpose>Structured JSON logging for audit trails</purpose>
+        </logging>
+        <linting>
+          <package>ruff</package>
+          <version>0.1+</version>
+          <purpose>Fast Python linter</purpose>
+        </linting>
+        <formatting>
+          <package>black</package>
+          <version>23+</version>
+          <purpose>Code formatting</purpose>
+        </formatting>
+        <type_checking>
+          <package>mypy</package>
+          <version>1.7+</version>
+          <purpose>Static type analysis</purpose>
+        </type_checking>
+      </python>
+      <frontend>
+        <runtime>
+          <package>node</package>
+          <version>18+</version>
+          <purpose>JavaScript runtime for React development</purpose>
+        </runtime>
+        <framework>
+          <package>react</package>
+          <version>18+</version>
+          <purpose>UI framework for operator interface</purpose>
+        </framework>
+        <language>
+          <package>typescript</package>
+          <version>5+</version>
+          <purpose>Type-safe JavaScript for frontend</purpose>
+        </language>
+        <build_tool>
+          <package>vite</package>
+          <version>5+</version>
+          <purpose>Fast development server and build tool</purpose>
+        </build_tool>
+        <styling>
+          <package>tailwindcss</package>
+          <version>3+</version>
+          <purpose>Utility-first CSS framework</purpose>
+        </styling>
+        <routing>
+          <package>react-router</package>
+          <version>6+</version>
+          <purpose>Client-side routing</purpose>
+        </routing>
+        <state_management>
+          <package>@tanstack/react-query</package>
+          <version>5+</version>
+          <purpose>Server state management and caching</purpose>
+        </state_management>
+        <testing>
+          <package>jest</package>
+          <version>29+</version>
+          <purpose>Frontend testing framework</purpose>
+        </testing>
+      </frontend>
+      <database>
+        <embedded>
+          <package>sqlite3</package>
+          <version>3.40+ (bundled with Python)</version>
+          <purpose>Local relational database</purpose>
+        </embedded>
+      </database>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Must follow architecture directory structure: spendsense/ with submodules ingest/, features/, personas/, recommend/, guardrails/, ui/, eval/, api/, db/, config/</constraint>
+    <constraint>Python must be 3.10+ (specified in architecture)</constraint>
+    <constraint>Must use pip + requirements.txt for dependency management (not Poetry or other tools initially)</constraint>
+    <constraint>Must use venv for virtual environment (built-in Python tool)</constraint>
+    <constraint>React UI must use Vite 5 as build tool (not webpack or create-react-app)</constraint>
+    <constraint>Must support one-command setup (NFR9): pip install -r requirements.txt for backend, npm install for frontend</constraint>
+    <constraint>Repository must be git-based with .gitignore for Python/Node.js</constraint>
+    <constraint>Must include data/ directory structure: synthetic/, sqlite/, parquet/, logs/</constraint>
+    <constraint>Must configure pytest for Python backend, jest for React frontend</constraint>
+    <constraint>Configuration files must use YAML format (per architecture decision)</constraint>
+    <constraint>Logging must use Python's logging module with structured output (structlog to be added later)</constraint>
+    <constraint>Code formatting: black for Python, prettier for TypeScript/JavaScript (to be configured)</constraint>
+    <constraint>Linting: ruff for Python (fast, comprehensive), ESLint for frontend</constraint>
+    <constraint>Must include README.md with project overview and setup instructions</constraint>
+  </constraints>
+
+  <interfaces>
+    <!-- No existing interfaces in greenfield project. Future stories will define module interfaces. -->
+    <note>Story 1.1 establishes project structure only. Module interfaces (API endpoints, data models, service contracts) will be defined in subsequent stories (1.2-1.6).</note>
+  </interfaces>
+  <tests>
+    <standards>
+Testing framework: pytest (backend), jest (frontend). Architecture requires ≥10 unit/integration tests (NFR8). Use pytest fixtures for data setup, parametrized testing for edge cases. Test organization follows testing pyramid: ~60% unit tests, ~30% integration tests, ~10% E2E tests. All tests must be deterministic (use fixed seeds where needed). Code coverage tracked via pytest-cov. Critical rules: All new functions need at least one unit test; complex functions need edge case tests.
+    </standards>
+    <locations>
+      <location>tests/</location>
+      <location>tests/integration/</location>
+      <location>tests/e2e/</location>
+      <location>spendsense/ui/src/__tests__/ (frontend)</location>
+    </locations>
+    <ideas>
+      <test id="AC1" acceptance_criteria="1">
+        <description>Verify .gitignore excludes Python cache files (__pycache__, *.pyc), virtual environment (venv/), Node modules (node_modules/), and environment files (.env)</description>
+      </test>
+      <test id="AC2" acceptance_criteria="2">
+        <description>Verify README.md contains project title, overview, prerequisites section, and setup instructions with commands</description>
+      </test>
+      <test id="AC3" acceptance_criteria="3">
+        <description>Verify all required directories exist: spendsense/ingest, spendsense/features, spendsense/personas, spendsense/recommend, spendsense/guardrails, spendsense/ui, spendsense/eval, tests/, data/</description>
+      </test>
+      <test id="AC4" acceptance_criteria="4">
+        <description>Verify requirements.txt exists and contains required packages with version constraints (fastapi>=0.104, pydantic>=2.5, pytest>=7.4, pyarrow>=10, pyyaml>=6.0)</description>
+      </test>
+      <test id="AC4b" acceptance_criteria="4">
+        <description>Verify package.json exists in spendsense/ui/ and contains required frontend dependencies (react>=18, vite>=5, typescript>=5, tailwindcss>=3)</description>
+      </test>
+      <test id="AC5" acceptance_criteria="5">
+        <description>Verify setup script (setup.sh or Makefile) exists and includes commands for creating venv, installing dependencies, and initializing data directories</description>
+      </test>
+      <test id="AC6" acceptance_criteria="6">
+        <description>Verify pytest.ini configuration file exists with test discovery settings</description>
+      </test>
+      <test id="AC6b" acceptance_criteria="6">
+        <description>Verify example test file (tests/test_example.py) exists and passes when pytest is run</description>
+      </test>
+      <test id="AC7" acceptance_criteria="7">
+        <description>Verify config/ directory exists and contains example YAML configuration file</description>
+      </test>
+      <test id="AC8" acceptance_criteria="8">
+        <description>Verify basic logging configuration in Python code (can import logging module, configure basic logger)</description>
+      </test>
+      <test id="AC9" acceptance_criteria="9">
+        <description>Integration test: Run full setup script on clean environment (in CI) and verify: venv created, dependencies installed, example test passes, no errors during setup</description>
+      </test>
+    </ideas>
+  </tests>
+</story-context>

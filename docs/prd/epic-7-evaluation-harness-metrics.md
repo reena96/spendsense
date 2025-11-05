@@ -12,7 +12,7 @@ so that **system completeness and data quality can be quantified**.
 
 1. Coverage metric calculated: % of users with assigned persona (target 100%)
 2. Coverage metric calculated: % of users with ≥3 detected behavioral signals (target 100%)
-3. Coverage by persona calculated: distribution of users across 5 personas
+3. Coverage by persona calculated: distribution of users across 6 personas
 4. Coverage by time window calculated: 30-day vs. 180-day completion rates
 5. Missing data analysis performed: users with insufficient history
 6. Coverage metrics computed for both synthetic test dataset and any real data

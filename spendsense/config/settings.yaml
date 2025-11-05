@@ -1,0 +1,63 @@
+# SpendSense Configuration File
+# This file contains application settings and configuration
+
+# Application Settings
+app:
+  name: "SpendSense"
+  version: "0.1.0"
+  environment: "development"  # development, staging, production
+  debug: true
+
+# Database Configuration
+database:
+  type: "sqlite"
+  path: "data/sqlite/spendsense.db"
+  echo_sql: false  # Set to true to log SQL queries
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  reload: true  # Auto-reload on code changes (development only)
+  cors_origins:
+    - "http://localhost:5173"  # React dev server
+    - "http://localhost:3000"
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "json"  # json or text
+  output: "console"  # console, file, or both
+
+# Authentication
+auth:
+  operator_api_key_env: "OPERATOR_API_KEY"
+  require_https: false  # Set to true in production
+
+# Data Processing
+data:
+  synthetic_data_seed: 42
+  time_windows:
+    - "30_day"
+    - "180_day"
+
+# Guardrails
+guardrails:
+  consent_required: true
+  tone_validation_enabled: true
+  eligibility_checks_enabled: true
+
+# Evaluation Metrics
+evaluation:
+  target_coverage: 1.0  # 100%
+  target_explainability: 1.0  # 100%
+  max_latency_seconds: 5.0
+
+# File Paths
+paths:
+  data_dir: "data"
+  synthetic_data: "data/synthetic"
+  sqlite_db: "data/sqlite"
+  parquet_storage: "data/parquet"
+  audit_logs: "data/logs"
+  config_dir: "spendsense/config"

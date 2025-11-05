@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendSense Color Theme Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f5f5f5;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.125rem;
+            color: #666;
+        }
+
+        .themes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .theme-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .theme-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .theme-header h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .theme-subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+
+        .theme-description {
+            font-size: 0.875rem;
+            color: #888;
+            line-height: 1.5;
+        }
+
+        .color-palette {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .color-box {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .color-info {
+            flex: 1;
+        }
+
+        .color-name {
+            font-weight: 600;
+            font-size: 0.875rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .color-hex {
+            font-size: 0.75rem;
+            color: #888;
+            font-family: 'Monaco', 'Courier New', monospace;
+        }
+
+        .color-usage {
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .components-section {
+            margin-top: 2rem;
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .buttons-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .card-example {
+            border-radius: 8px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 0.75rem;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-icon {
+            font-size: 1.25rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        .label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .input {
+            width: 100%;
+            padding: 0.625rem;
+            border-radius: 6px;
+            border: 2px solid;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+
+        .input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.1);
+        }
+
+        /* Theme 1: Trust Blue */
+        .theme-1 {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #64748b;
+            --accent: #0ea5e9;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+        }
+
+        .theme-1 .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-1 .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .theme-1 .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .theme-1 .btn-ghost {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .theme-1 .card-example {
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .theme-1 .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success);
+        }
+
+        .theme-1 .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid var(--warning);
+        }
+
+        .theme-1 .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--error);
+        }
+
+        .theme-1 .input {
+            border-color: var(--border);
+            background: var(--surface);
+        }
+
+        .theme-1 .input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Theme 2: Growth Green */
+        .theme-2 {
+            --primary: #059669;
+            --primary-hover: #047857;
+            --secondary: #6b7280;
+            --accent: #14b8a6;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #f0fdf4;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --text-muted: #6b7280;
+            --border: #d1fae5;
+        }
+
+        .theme-2 .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-2 .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .theme-2 .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .theme-2 .btn-ghost {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .theme-2 .card-example {
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .theme-2 .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success);
+        }
+
+        .theme-2 .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid var(--warning);
+        }
+
+        .theme-2 .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--error);
+        }
+
+        .theme-2 .input {
+            border-color: var(--border);
+            background: var(--surface);
+        }
+
+        .theme-2 .input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Theme 3: Balanced Calm */
+        .theme-3 {
+            --primary: #0891b2;
+            --primary-hover: #0e7490;
+            --secondary: #64748b;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #ecfeff;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #cffafe;
+        }
+
+        .theme-3 .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-3 .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .theme-3 .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .theme-3 .btn-ghost {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .theme-3 .card-example {
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .theme-3 .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success);
+        }
+
+        .theme-3 .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid var(--warning);
+        }
+
+        .theme-3 .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--error);
+        }
+
+        .theme-3 .input {
+            border-color: var(--border);
+            background: var(--surface);
+        }
+
+        .theme-3 .input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Theme 4: Modern Fintech */
+        .theme-4 {
+            --primary: #7c3aed;
+            --primary-hover: #6d28d9;
+            --secondary: #64748b;
+            --accent: #a78bfa;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --bg: #faf5ff;
+            --surface: #ffffff;
+            --text: #1e1b4b;
+            --text-muted: #64748b;
+            --border: #e9d5ff;
+        }
+
+        .theme-4 .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .theme-4 .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .theme-4 .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .theme-4 .btn-ghost {
+            background: var(--bg);
+            color: var(--text);
+        }
+
+        .theme-4 .card-example {
+            background: var(--surface);
+            border: 1px solid var(--border);
+        }
+
+        .theme-4 .alert-success {
+            background: #d1fae5;
+            color: #065f46;
+            border-left: 4px solid var(--success);
+        }
+
+        .theme-4 .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid var(--warning);
+        }
+
+        .theme-4 .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid var(--error);
+        }
+
+        .theme-4 .input {
+            border-color: var(--border);
+            background: var(--surface);
+        }
+
+        .theme-4 .input:focus {
+            border-color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎨 SpendSense Color Theme Explorer</h1>
+        <p>Explore 4 distinct color directions for the end-user dashboard and chat interface</p>
+    </div>
+
+    <div class="themes-grid">
+        <!-- Theme 1: Trust Blue -->
+        <div class="theme-card theme-1">
+            <div class="theme-header">
+                <h2>1. Trust Blue</h2>
+                <p class="theme-subtitle">Professional • Stable • Confident</p>
+                <p class="theme-description">Classic financial services aesthetic with deep blue as the foundation. Conveys reliability, security, and professional expertise. Best for users who value traditional banking trust.</p>
+            </div>
+
+            <div class="section-title">Color Palette</div>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #2563eb;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-hex">#2563eb</div>
+                        <div class="color-usage">Actions, links, focus</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #64748b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Secondary</div>
+                        <div class="color-hex">#64748b</div>
+                        <div class="color-usage">Supporting content</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10b981;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-hex">#10b981</div>
+                        <div class="color-usage">Positive signals</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #f59e0b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-hex">#f59e0b</div>
+                        <div class="color-usage">Needs attention</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Buttons</div>
+            <div class="buttons-row">
+                <button class="btn btn-primary">View Recommendations</button>
+                <button class="btn btn-secondary">Learn More</button>
+                <button class="btn btn-ghost">Cancel</button>
+            </div>
+
+            <div class="section-title">Cards</div>
+            <div class="card-example">
+                <div class="card-title">High Credit Utilization</div>
+                <div class="card-text">Your Visa ending in 4523 is at 68% utilization ($3,400 of $5,000 limit). Bringing this below 30% could improve your credit score.</div>
+            </div>
+
+            <div class="section-title">Alerts</div>
+            <div class="alert alert-success">
+                <span class="alert-icon">✓</span>
+                <span>Great job! Your savings increased by 12% this month.</span>
+            </div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠</span>
+                <span>Your credit utilization is above the recommended 30%.</span>
+            </div>
+
+            <div class="section-title">Forms</div>
+            <div class="input-group">
+                <label class="label">Ask me about your finances</label>
+                <input class="input" type="text" placeholder="e.g., Why is my credit utilization high?">
+            </div>
+        </div>
+
+        <!-- Theme 2: Growth Green -->
+        <div class="theme-card theme-2">
+            <div class="theme-header">
+                <h2>2. Growth Green</h2>
+                <p class="theme-subtitle">Optimistic • Educational • Fresh</p>
+                <p class="theme-description">Vibrant green emphasizing growth, learning, and positive financial progress. Feels encouraging and forward-looking. Best for users focused on building better financial habits.</p>
+            </div>
+
+            <div class="section-title">Color Palette</div>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #059669;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-hex">#059669</div>
+                        <div class="color-usage">Actions, links, focus</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #6b7280;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Secondary</div>
+                        <div class="color-hex">#6b7280</div>
+                        <div class="color-usage">Supporting content</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10b981;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-hex">#10b981</div>
+                        <div class="color-usage">Positive signals</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #f59e0b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-hex">#f59e0b</div>
+                        <div class="color-usage">Needs attention</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Buttons</div>
+            <div class="buttons-row">
+                <button class="btn btn-primary">View Recommendations</button>
+                <button class="btn btn-secondary">Learn More</button>
+                <button class="btn btn-ghost">Cancel</button>
+            </div>
+
+            <div class="section-title">Cards</div>
+            <div class="card-example">
+                <div class="card-title">High Credit Utilization</div>
+                <div class="card-text">Your Visa ending in 4523 is at 68% utilization ($3,400 of $5,000 limit). Bringing this below 30% could improve your credit score.</div>
+            </div>
+
+            <div class="section-title">Alerts</div>
+            <div class="alert alert-success">
+                <span class="alert-icon">✓</span>
+                <span>Great job! Your savings increased by 12% this month.</span>
+            </div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠</span>
+                <span>Your credit utilization is above the recommended 30%.</span>
+            </div>
+
+            <div class="section-title">Forms</div>
+            <div class="input-group">
+                <label class="label">Ask me about your finances</label>
+                <input class="input" type="text" placeholder="e.g., Why is my credit utilization high?">
+            </div>
+        </div>
+
+        <!-- Theme 3: Balanced Calm -->
+        <div class="theme-card theme-3">
+            <div class="theme-header">
+                <h2>3. Balanced Calm</h2>
+                <p class="theme-subtitle">Harmonious • Supportive • Clear</p>
+                <p class="theme-description">Cyan/teal blending blue's trust with green's growth. Creates a balanced, calming experience that feels both professional and approachable. Best for reducing financial anxiety.</p>
+            </div>
+
+            <div class="section-title">Color Palette</div>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #0891b2;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-hex">#0891b2</div>
+                        <div class="color-usage">Actions, links, focus</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #64748b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Secondary</div>
+                        <div class="color-hex">#64748b</div>
+                        <div class="color-usage">Supporting content</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10b981;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-hex">#10b981</div>
+                        <div class="color-usage">Positive signals</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #f59e0b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-hex">#f59e0b</div>
+                        <div class="color-usage">Needs attention</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Buttons</div>
+            <div class="buttons-row">
+                <button class="btn btn-primary">View Recommendations</button>
+                <button class="btn btn-secondary">Learn More</button>
+                <button class="btn btn-ghost">Cancel</button>
+            </div>
+
+            <div class="section-title">Cards</div>
+            <div class="card-example">
+                <div class="card-title">High Credit Utilization</div>
+                <div class="card-text">Your Visa ending in 4523 is at 68% utilization ($3,400 of $5,000 limit). Bringing this below 30% could improve your credit score.</div>
+            </div>
+
+            <div class="section-title">Alerts</div>
+            <div class="alert alert-success">
+                <span class="alert-icon">✓</span>
+                <span>Great job! Your savings increased by 12% this month.</span>
+            </div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠</span>
+                <span>Your credit utilization is above the recommended 30%.</span>
+            </div>
+
+            <div class="section-title">Forms</div>
+            <div class="input-group">
+                <label class="label">Ask me about your finances</label>
+                <input class="input" type="text" placeholder="e.g., Why is my credit utilization high?">
+            </div>
+        </div>
+
+        <!-- Theme 4: Modern Fintech -->
+        <div class="theme-card theme-4">
+            <div class="theme-header">
+                <h2>4. Modern Fintech</h2>
+                <p class="theme-subtitle">Innovative • Contemporary • Distinctive</p>
+                <p class="theme-description">Purple with blue undertones for a modern, tech-forward feel. Stands out from traditional financial services while maintaining trust. Best for attracting younger, tech-savvy users.</p>
+            </div>
+
+            <div class="section-title">Color Palette</div>
+            <div class="color-palette">
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #7c3aed;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Primary</div>
+                        <div class="color-hex">#7c3aed</div>
+                        <div class="color-usage">Actions, links, focus</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #64748b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Secondary</div>
+                        <div class="color-hex">#64748b</div>
+                        <div class="color-usage">Supporting content</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #10b981;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Success</div>
+                        <div class="color-hex">#10b981</div>
+                        <div class="color-usage">Positive signals</div>
+                    </div>
+                </div>
+                <div class="color-swatch">
+                    <div class="color-box" style="background: #f59e0b;"></div>
+                    <div class="color-info">
+                        <div class="color-name">Warning</div>
+                        <div class="color-hex">#f59e0b</div>
+                        <div class="color-usage">Needs attention</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-title">Buttons</div>
+            <div class="buttons-row">
+                <button class="btn btn-primary">View Recommendations</button>
+                <button class="btn btn-secondary">Learn More</button>
+                <button class="btn btn-ghost">Cancel</button>
+            </div>
+
+            <div class="section-title">Cards</div>
+            <div class="card-example">
+                <div class="card-title">High Credit Utilization</div>
+                <div class="card-text">Your Visa ending in 4523 is at 68% utilization ($3,400 of $5,000 limit). Bringing this below 30% could improve your credit score.</div>
+            </div>
+
+            <div class="section-title">Alerts</div>
+            <div class="alert alert-success">
+                <span class="alert-icon">✓</span>
+                <span>Great job! Your savings increased by 12% this month.</span>
+            </div>
+            <div class="alert alert-warning">
+                <span class="alert-icon">⚠</span>
+                <span>Your credit utilization is above the recommended 30%.</span>
+            </div>
+
+            <div class="section-title">Forms</div>
+            <div class="input-group">
+                <label class="label">Ask me about your finances</label>
+                <input class="input" type="text" placeholder="e.g., Why is my credit utilization high?">
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -121,3 +121,9 @@ coverage/
 # Distribution / packaging
 *.tar.gz
 *.zip
+
+# BMAD v4 backup
+v4-backup-bmad-core/
+
+# BMAD temporary files
+bmad-temp/

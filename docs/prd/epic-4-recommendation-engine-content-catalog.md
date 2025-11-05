@@ -15,7 +15,7 @@ so that **relevant education can be programmatically matched to user needs**.
 3. Each item tagged with relevant personas (can apply to multiple personas)
 4. Each item tagged with triggering signals (subscription, savings, credit, income patterns)
 5. Content items defined for all persona educational focus areas
-6. At least 15 unique educational items covering all 5 personas
+6. At least 15 unique educational items covering all 6 personas
 7. Content includes: debt paydown strategies, budget templates, subscription audit checklists, emergency fund calculators, credit utilization explainers
 8. Each item includes plain-language summary (grade-8 readability)
 9. Catalog schema validated and documented
@@ -34,7 +34,7 @@ so that **relevant financial products can be recommended only to eligible users*
 3. Each offer includes eligibility criteria (minimum income, credit requirements, account exclusions)
 4. Each offer tagged with relevant personas
 5. Partner offers defined covering all personas: balance transfer cards, high-yield savings, budgeting apps, subscription management tools
-6. At least 10 unique partner offers covering all 5 personas
+6. At least 10 unique partner offers covering all 6 personas
 7. Harmful/predatory products explicitly excluded from catalog
 8. Each offer includes plain-language summary
 9. Catalog schema validated and documented

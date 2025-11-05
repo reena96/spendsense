@@ -1,0 +1,182 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.3</storyId>
+    <title>Synthetic User Profile Generator</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-04</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-3-synthetic-user-profile-generator.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>data engineer</asA>
+    <iWant>generation of 50-100 diverse synthetic user profiles with persona assignments and realistic financial characteristics</iWant>
+    <soThat>the system can generate behavioral transaction patterns that trigger specific personas for testing</soThat>
+    <tasks>
+      - Define 4 persona archetypes + control group with behavioral rules
+      - Create persona definitions module with constraints per persona
+      - Document persona triggers and expected behaviors
+      - Write unit tests for persona assignment logic
+      - Implement base user profile generator using Faker
+      - Create user ID generation (masked format)
+      - Generate realistic names, demographics
+      - Implement fixed seed for reproducibility
+      - Write unit tests for profile generation
+      - Implement persona-based financial characteristic generation
+      - Generate income levels per persona
+      - Generate credit limits and target utilization per persona
+      - Generate savings targets per persona
+      - Determine account structure per persona (checking/savings/credit cards)
+      - Write unit tests for persona-specific characteristics
+      - Implement profile validation and storage
+      - Validate persona distribution (20% each)
+      - Validate income range distribution
+      - Save profiles to JSON format
+      - Write integration tests for end-to-end generation
+      - Create generator documentation
+      - Document persona system and behavioral rules
+      - Provide usage examples and CLI interface
+      - Document profile JSON schema
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">User profile generator creates 50-100 unique users with fake names and masked IDs</criterion>
+    <criterion id="2">Users assigned to 4 core personas + control group (20% each): Persona 1: High Utilization (60-80% credit usage), Persona 2: Variable Income (>45 day median pay gap), Persona 3: Subscription-Heavy (≥3 recurring merchants), Persona 4: Savings Builder (>$200/month savings), Control/Mixed: No strong persona signals</criterion>
+    <criterion id="3">Profiles include diverse income levels ($20K-$200K annual range)</criterion>
+    <criterion id="4">Profiles include persona-specific financial characteristics (credit limits, income patterns, savings targets)</criterion>
+    <criterion id="5">Profiles include account structure (checking, savings, credit cards) based on persona</criterion>
+    <criterion id="6">Generation uses fixed seed for reproducibility</criterion>
+    <criterion id="7">Profile distribution validated for 20% per persona group</criterion>
+    <criterion id="8">Generated profiles stored in JSON format</criterion>
+    <criterion id="9">Profile generator documented with persona definitions and usage examples</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-1-data-foundation-synthetic-data-generation.md</path>
+        <title>Epic 1: Data Foundation & Synthetic Data Generation</title>
+        <section>Story 1.3</section>
+        <snippet>Build a synthetic data generator producing realistic Plaid-style financial data for 50-100 users with diverse behavioral patterns. Profiles include diverse income levels, varied credit behaviors, different saving patterns, and varied debt levels.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>SpendSense PRD</title>
+        <section>FR1: Synthetic Data Requirements</section>
+        <snippet>System shall generate synthetic Plaid-style data for 50-100 users with diverse financial situations (various income levels, credit behaviors, saving patterns). FR12-FR17 define 6 personas including High Utilization, Variable Income, Subscription-Heavy, and Savings Builder.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Architecture</title>
+        <section>Data Sources & Storage</section>
+        <snippet>Local-first system uses SQLite for relational data and Parquet for analytics. Synthetic data generation provides test data matching Plaid structure. Python 3.10+ with modular monolith architecture.</snippet>
+      </doc>
+      <doc>
+        <path>docs/schemas.md</path>
+        <title>SpendSense Data Schemas</title>
+        <section>Account Schema</section>
+        <snippet>Pydantic 2.5+ schemas define Account (with balances, type/subtype, currency), Transaction, and Liability models. Account types: depository (checking, savings, CD, money market), credit (credit card), loan (mortgage, student, personal). All defined in spendsense/db/models.py.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/1-2-synthetic-data-schema-definition.md</path>
+        <title>Story 1.2: Synthetic Data Schema Definition</title>
+        <section>Completion Notes</section>
+        <snippet>Comprehensive Pydantic schemas created for accounts, transactions, and liabilities. 5 enums for type safety (AccountType, AccountSubtype, HolderCategory, PaymentChannel). 15+ custom validators. Validation utilities in spendsense/db/validators.py. 66 tests passing. Use Decimal for financial precision, 'from __future__ import annotations' for Python 3.14 compatibility.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/db/models.py</path>
+        <kind>module</kind>
+        <symbol>Account, AccountType, AccountSubtype, AccountBalances</symbol>
+        <lines>1-236</lines>
+        <reason>Pydantic schema definitions for accounts - use these enums and models when defining account structures in user profiles</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/db/validators.py</path>
+        <kind>module</kind>
+        <symbol>validate_account, ValidationResult</symbol>
+        <lines>1-268</lines>
+        <reason>Validation utilities for account data - use validate_account() to verify generated account structures are valid</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/config/logging_config.py</path>
+        <kind>module</kind>
+        <symbol>logging configuration</symbol>
+        <lines>all</lines>
+        <reason>Structured logging available via structlog for generator output and debugging</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="faker" version=">=20.0.0">Synthetic data generation - names, demographics</package>
+        <package name="pydantic" version=">=2.5.0">Data validation and schema definition</package>
+        <package name="numpy" version=">=1.24.0">Statistical distributions for persona assignment and characteristics</package>
+        <package name="pytest" version=">=7.4.0">Testing framework</package>
+        <package name="pyyaml" version=">=6.0.0">Configuration management</package>
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint id="1">Use Faker library for realistic name and demographic generation</constraint>
+    <constraint id="2">Implement fixed seed (configurable) for reproducible generation across runs</constraint>
+    <constraint id="3">Use Decimal type for all financial amounts (income, balances, credit limits) for precision</constraint>
+    <constraint id="4">Follow Python 3.14 compatibility: use 'from __future__ import annotations' in all modules</constraint>
+    <constraint id="5">Profile JSON schema must validate against Pydantic models from spendsense/db/models.py</constraint>
+    <constraint id="6">Persona assignment must be deterministic - each user_id maps to same persona every time with same seed</constraint>
+    <constraint id="7">Account structures must use AccountType and AccountSubtype enums from models.py</constraint>
+    <constraint id="8">Output directory: data/synthetic/users/ (create if doesn't exist)</constraint>
+    <constraint id="9">Persona distribution must be exactly 20% each (10-20 users per persona for 50-100 users)</constraint>
+    <constraint id="10">Income range must span $20K-$200K with realistic distribution (not uniform)</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Account Schema (from Story 1.2)</name>
+      <kind>Pydantic Model</kind>
+      <signature>Account(account_id: str, type: AccountType, subtype: AccountSubtype, balances: AccountBalances, iso_currency_code: str, holder_category: HolderCategory = HolderCategory.PERSONAL)</signature>
+      <path>spendsense/db/models.py</path>
+    </interface>
+    <interface>
+      <name>AccountType Enum</name>
+      <kind>Enum</kind>
+      <signature>AccountType: DEPOSITORY, CREDIT, LOAN</signature>
+      <path>spendsense/db/models.py</path>
+    </interface>
+    <interface>
+      <name>AccountSubtype Enum</name>
+      <kind>Enum</kind>
+      <signature>AccountSubtype: CHECKING, SAVINGS, CD, MONEY_MARKET, CREDIT_CARD, MORTGAGE, STUDENT, PERSONAL</signature>
+      <path>spendsense/db/models.py</path>
+    </interface>
+    <interface>
+      <name>validate_account()</name>
+      <kind>Function</kind>
+      <signature>validate_account(data: dict) -> ValidationResult</signature>
+      <path>spendsense/db/validators.py</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Follow pytest patterns established in Story 1.2: Use @pytest.mark.unit for unit tests, @pytest.mark.parametrize for testing multiple cases, create separate test classes per component (TestPersonaAssignment, TestProfileGenerator, TestAccountStructureGeneration). Aim for 100% coverage of validation and generation logic. Use fixtures for common test data (sample personas, expected distributions).</standards>
+    <locations>tests/test_profile_generator.py, tests/test_persona_assignment.py</locations>
+    <ideas>
+      <idea ac="1">Test user ID generation creates unique, masked IDs in correct format (user_MASKED_XXX)</idea>
+      <idea ac="1">Test Faker generates realistic names with fixed seed producing same names</idea>
+      <idea ac="2">Test persona assignment distributes exactly 20% to each of 5 groups</idea>
+      <idea ac="2">Test each persona receives correct behavioral characteristics (High Utilization gets 60-80% target, Variable Income gets irregular patterns)</idea>
+      <idea ac="3">Test income distribution spans $20K-$200K with realistic spread (not uniform)</idea>
+      <idea ac="4">Test High Utilization personas get high credit limits and high target utilization</idea>
+      <idea ac="4">Test Savings Builder personas get savings targets >$200/month and low credit utilization</idea>
+      <idea ac="5">Test account structures match persona rules (High Utilization has 1-2 credit cards, Savings Builder has savings account)</idea>
+      <idea ac="6">Test fixed seed produces identical profiles across multiple runs</idea>
+      <idea ac="7">Test profile distribution validation catches incorrect persona percentages</idea>
+      <idea ac="8">Test generated JSON validates against expected profile schema</idea>
+      <idea ac="8">Test JSON file is properly formatted and loadable</idea>
+      <idea ac="9">Integration test: Generate 50 profiles, validate all pass schema validation from Story 1.2</idea>
+    </ideas>
+  </tests>
+</story-context>

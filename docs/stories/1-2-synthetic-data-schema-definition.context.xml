@@ -1,0 +1,189 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.2</storyId>
+    <title>Synthetic Data Schema Definition</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-04</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-2-synthetic-data-schema-definition.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>data engineer</asA>
+    <iWant>comprehensive data schemas matching Plaid's structure for accounts, transactions, and liabilities</iWant>
+    <soThat>synthetic data generation and validation can enforce realistic constraints</soThat>
+    <tasks>
+### Schema Definition
+- Define Account schema using Pydantic models (AC: 1, 5)
+  - Create `spendsense/db/models.py` with Account model
+  - Add validation rules (non-negative balances, valid currency codes)
+  - Write unit tests for Account schema validation
+- Define Transaction schema using Pydantic models (AC: 2, 5)
+  - Create Transaction model in `spendsense/db/models.py`
+  - Add validation rules (chronological order, valid amounts)
+  - Write unit tests for Transaction schema validation
+- Define Liability schemas (credit cards, mortgages, student loans) (AC: 3, 4, 5)
+  - Create CreditCardLiability model
+  - Create MortgageLiability and StudentLoanLiability models
+  - Add validation rules for all liability types
+  - Write unit tests for Liability schema validation
+
+### Documentation & Examples
+- Create `docs/schemas.md` with comprehensive documentation (AC: 6)
+  - Document Account schema with field descriptions and examples
+  - Document Transaction schema with field descriptions and examples
+  - Document Liability schemas with field descriptions and examples
+  - Include validation rules and constraints
+- Create example data files for testing (AC: 8)
+  - Create `data/synthetic/example_valid_accounts.json`
+  - Create `data/synthetic/example_valid_transactions.json`
+  - Create `data/synthetic/example_valid_liabilities.json`
+  - Create invalid examples for each schema type
+
+### Schema Validation Implementation
+- Implement schema validation functions (AC: 7)
+  - Create `spendsense/db/validators.py` with validation utilities
+  - Implement validate_account(), validate_transaction(), validate_liability()
+  - Add batch validation functions for lists of records
+  - Write comprehensive tests covering edge cases
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Account schema defined with fields: account_id, type/subtype, balances (available/current/limit), iso_currency_code, holder_category
+2. Transaction schema defined with fields: account_id, date, amount, merchant_name/entity_id, payment_channel, personal_finance_category, pending status
+3. Liability schema defined for credit cards: APRs, minimum_payment_amount, last_payment_amount, is_overdue, next_payment_due_date, last_statement_balance
+4. Liability schema defined for mortgages/student loans: interest_rate, next_payment_due_date
+5. Schema validation rules documented: non-negative balances, chronological order, valid currency codes
+6. Schema documentation created in `docs/schemas.md` with examples
+7. Schema validation functions implemented and tested
+8. Example valid and invalid data created for testing
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>SpendSense PRD - Functional Requirements</title>
+        <section>FR1-FR4: Data Generation and Validation</section>
+        <snippet>FR1: Generate synthetic Plaid-style data for 50-100 users. FR3: Validate all input data against schema constraints (non-negative balances, chronological transaction order, valid currency codes). FR4: Store validated data in both SQLite (relational) and Parquet (analytics) formats.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>SpendSense PRD - Non-Functional Requirements</title>
+        <section>NFR1, NFR14: Data Quality Standards</section>
+        <snippet>NFR1: System shall use only anonymized synthetic data with fake names and masked account numbers. NFR14: System shall validate realistic statistical distributions in synthetic data (spend frequency, seasonal variation, pay cycles).</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Architecture - Repository Structure</title>
+        <section>Package Organization</section>
+        <snippet>Monorepo with modular boundaries: spendsense/ingest/ (data loading and validation), spendsense/features/ (signal detection), SQLite for relational data, Parquet for analytics.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd/epic-1-data-foundation-synthetic-data-generation.md</path>
+        <title>Epic 1 - Story 1.2 Details</title>
+        <section>Synthetic Data Schema Definition</section>
+        <snippet>Define comprehensive data schemas matching Plaid's structure: Account schema (account_id, type/subtype, balances, currency codes), Transaction schema (account_id, date, amount, merchant, payment_channel, personal_finance_category, pending status), Liability schemas for credit cards, mortgages, and student loans with APRs, payment amounts, and due dates.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- Greenfield project: db module exists but contains only __init__.py -->
+      <note>Story 1.2 will create the first code in spendsense/db/: models.py (Pydantic schemas) and validators.py (validation functions). No existing code to reference beyond project structure from Story 1.1.</note>
+    </code>
+    <dependencies>
+      <python>
+        <core>
+          <package>python</package>
+          <version>3.10+</version>
+          <purpose>Core runtime</purpose>
+        </core>
+        <validation>
+          <package>pydantic</package>
+          <version>2.5+</version>
+          <purpose>Schema definition and runtime validation with custom validators</purpose>
+        </validation>
+        <testing>
+          <package>pytest</package>
+          <version>7.4+</version>
+          <purpose>Unit testing framework for schema validation tests</purpose>
+        </testing>
+        <testing_support>
+          <package>pytest-cov</package>
+          <version>4.1+</version>
+          <purpose>Code coverage measurement (target: 100% for validators)</purpose>
+        </testing_support>
+        <database_prep>
+          <package>sqlalchemy</package>
+          <version>2.0+</version>
+          <purpose>Database models preparation (for Story 1.6)</purpose>
+        </database_prep>
+      </python>
+      <data_formats>
+        <json>
+          <package>json</package>
+          <version>built-in</version>
+          <purpose>Example data file format</purpose>
+        </json>
+      </data_formats>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Must use Pydantic 2.5+ for schema definition and runtime validation</constraint>
+    <constraint>Schema validation rules must enforce: non-negative balances, chronological transaction order, valid currency codes (ISO 4217)</constraint>
+    <constraint>Account types must match Plaid structure: depository (checking, savings, CD, money market), credit (credit cards), loan (mortgage, student, personal)</constraint>
+    <constraint>Transaction fields must follow Plaid Transactions API structure</constraint>
+    <constraint>Liability fields must follow Plaid Liabilities API structure</constraint>
+    <constraint>Schemas must support both SQLite storage (Story 1.6) and Parquet analytics storage</constraint>
+    <constraint>All data must be anonymized with fake names and masked account IDs (NFR1)</constraint>
+    <constraint>Validation functions must be reusable across CSV/JSON ingestion pipelines (Story 1.6)</constraint>
+    <constraint>Example data must demonstrate both valid and invalid cases for testing</constraint>
+    <constraint>Documentation must be created in docs/schemas.md with comprehensive field descriptions</constraint>
+  </constraints>
+
+  <interfaces>
+    <!-- No existing interfaces - Story 1.2 defines foundational schemas that will become interfaces for Stories 1.3-1.6 -->
+    <note>Story 1.2 establishes the foundational data schemas (Account, Transaction, Liability) that will serve as interfaces for subsequent stories. Story 1.3-1.5 will generate data conforming to these schemas. Story 1.6 will validate against these schemas during ingestion.</note>
+  </interfaces>
+  <tests>
+    <standards>
+Testing framework: pytest 7.4+. Use pytest markers (@pytest.mark.unit) for categorization. Parametrized tests (@pytest.mark.parametrize) for edge cases. Coverage target: 100% for validation functions (critical path). Follow testing pyramid: ~60% unit tests, ~30% integration, ~10% E2E. Tests must be deterministic. Use fixtures for data setup. Story 1.1 established pytest.ini with test discovery patterns.
+    </standards>
+    <locations>
+      <location>tests/test_db_schemas.py</location>
+      <location>tests/test_db_validators.py</location>
+      <location>tests/integration/</location>
+    </locations>
+    <ideas>
+      <test id="AC1" acceptance_criteria="1">
+        <description>Test Account schema validation: verify required fields (account_id, type, subtype, balances), test non-negative balance validation, test valid currency codes (USD, EUR, GBP), test invalid currency code rejection, test holder_category values</description>
+      </test>
+      <test id="AC2" acceptance_criteria="2">
+        <description>Test Transaction schema validation: verify required fields (account_id, date, amount), test merchant_name and entity_id, test payment_channel enum values, test personal_finance_category values, test pending status boolean, test chronological order validation</description>
+      </test>
+      <test id="AC3" acceptance_criteria="3">
+        <description>Test CreditCardLiability schema: verify APR range validation (0-100%), test minimum_payment_amount calculation, test last_payment_amount field, test is_overdue boolean, test next_payment_due_date format, test last_statement_balance non-negative</description>
+      </test>
+      <test id="AC4" acceptance_criteria="4">
+        <description>Test MortgageLiability and StudentLoanLiability schemas: verify interest_rate validation, test next_payment_due_date format, test realistic interest rate ranges (2-12% for mortgages, 3-8% for student loans)</description>
+      </test>
+      <test id="AC5" acceptance_criteria="5">
+        <description>Test all validation rules: non-negative balances across all schemas, chronological order for transaction lists, valid ISO 4217 currency codes, realistic value ranges</description>
+      </test>
+      <test id="AC6" acceptance_criteria="6">
+        <description>Verify docs/schemas.md exists, contains Account/Transaction/Liability sections with field descriptions, includes JSON examples for each schema type</description>
+      </test>
+      <test id="AC7" acceptance_criteria="7">
+        <description>Test validation functions: validate_account() with valid/invalid inputs, validate_transaction() with edge cases, validate_liability() for all types, batch validation functions for lists of records</description>
+      </test>
+      <test id="AC8" acceptance_criteria="8">
+        <description>Verify example JSON files exist and parse correctly: data/synthetic/example_valid_accounts.json, example_valid_transactions.json, example_valid_liabilities.json, plus invalid examples that trigger validation errors</description>
+      </test>
+      <test id="INTEGRATION" acceptance_criteria="all">
+        <description>Integration test: Load example valid JSON files, validate with schemas, verify all pass. Load invalid examples, verify validation errors with specific messages.</description>
+      </test>
+    </ideas>
+  </tests>
+</story-context>
