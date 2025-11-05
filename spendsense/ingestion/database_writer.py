@@ -12,7 +12,7 @@ from decimal import Decimal
 from pathlib import Path
 from typing import Any, Dict, List
 
-from sqlalchemy import create_engine, Column, String, Integer, Float, Date, Boolean, JSON, Text, ForeignKey
+from sqlalchemy import create_engine, Column, String, Integer, Float, Date, Boolean, JSON, Text, ForeignKey, DateTime, Index
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 
@@ -94,6 +94,32 @@ class Liability(Base):
     last_payment_amount = Column(Float, nullable=True)
     last_statement_balance = Column(Float, nullable=True)
     is_overdue = Column(Boolean, nullable=True)
+
+
+class PersonaAssignmentRecord(Base):
+    """
+    Persona assignment records with complete audit trail.
+
+    Stores persona assignments per user per time window with full decision
+    history including all qualifying personas, match evidence, and prioritization logic.
+    """
+    __tablename__ = 'persona_assignments'
+
+    assignment_id = Column(String, primary_key=True)
+    user_id = Column(String, ForeignKey('users.user_id'), nullable=False)
+    time_window = Column(String, nullable=False)  # "30d" or "180d"
+    assigned_persona_id = Column(String, nullable=False)  # Persona ID or "unclassified"
+    assigned_at = Column(DateTime, nullable=False)
+    priority = Column(Integer, nullable=True)  # None for unclassified
+    qualifying_personas = Column(JSON, nullable=False)  # List[str] of persona IDs
+    match_evidence = Column(JSON, nullable=False)  # Dict[str, Dict] with evidence per persona
+    prioritization_reason = Column(Text, nullable=False)
+    signal_id = Column(String, nullable=True)  # Future: link to behavioral_signals table
+
+    # Performance index for common queries
+    __table_args__ = (
+        Index('idx_assignments_user_window', 'user_id', 'time_window'),
+    )
 
 
 class DatabaseWriter:

@@ -1,0 +1,197 @@
+# Persona Registry for SpendSense
+# Defines the 6 personas used for behavioral classification
+#
+# Schema:
+#   id: string - Unique persona identifier (snake_case)
+#   name: string - Display name
+#   description: string - Plain-language description
+#   priority: integer - Prioritization rank (1 = highest priority)
+#   criteria: object - Matching criteria using behavioral signals
+#     operator: "AND" or "OR" - How to combine conditions
+#     conditions: list - Signal comparisons
+#       - signal: string - Signal field name from BehavioralSignal
+#         operator: string - Comparison operator (>=, <=, <, >, ==)
+#         value: number/string - Threshold value
+#   focus_areas: list[string] - Educational focus topics
+#   content_types: object - Recommended content categories
+#     education: list[string] - Education content topics
+#     partner_offers: list[string] - Partner offer categories (optional)
+
+personas:
+  - id: high_utilization
+    name: "High Credit Utilization"
+    description: "Credit cards >50% utilized. Focus on debt reduction and interest cost education."
+    priority: 1
+    criteria:
+      operator: "AND"
+      conditions:
+        - signal: "credit_max_utilization_pct"
+          operator: ">="
+          value: 50.0
+    focus_areas:
+      - "Debt management strategies"
+      - "Credit utilization impact on credit score"
+      - "Interest cost reduction"
+      - "Debt paydown methods (avalanche vs snowball)"
+      - "Balance transfer options"
+    content_types:
+      education:
+        - "Debt paydown strategies"
+        - "Credit utilization explained"
+        - "Interest savings calculator"
+        - "Balance transfer guide"
+      partner_offers:
+        - "Balance transfer credit cards"
+        - "Debt consolidation loans"
+
+  - id: irregular_income
+    name: "Variable Income Budgeter"
+    description: "Irregular income patterns with cash flow challenges. Focus on budgeting for variable income."
+    priority: 2
+    criteria:
+      operator: "OR"
+      conditions:
+        - signal: "income_median_pay_gap_days"
+          operator: ">"
+          value: 45.0
+        - signal: "income_payroll_count"
+          operator: "<"
+          value: 2
+          time_window: "30_day"
+    focus_areas:
+      - "Cash flow budgeting for irregular income"
+      - "Emergency fund building"
+      - "Income smoothing strategies"
+      - "Gig economy financial planning"
+      - "Variable income budgeting methods"
+    content_types:
+      education:
+        - "Budgeting with irregular income"
+        - "Emergency fund for freelancers"
+        - "Income smoothing techniques"
+        - "Gig economy tax tips"
+
+  - id: low_savings
+    name: "Low Savings / Emergency Fund Builder"
+    description: "Minimal savings buffer (<3 months expenses). Focus on building financial resilience."
+    priority: 3
+    criteria:
+      operator: "AND"
+      conditions:
+        - signal: "savings_emergency_fund_months"
+          operator: "<"
+          value: 3.0
+    focus_areas:
+      - "Emergency fund building"
+      - "Automated savings strategies"
+      - "Savings account types (HYSA, money market)"
+      - "Pay yourself first method"
+      - "Financial resilience fundamentals"
+    content_types:
+      education:
+        - "Emergency fund 101"
+        - "Automated savings setup"
+        - "High-yield savings accounts"
+        - "Savings challenges and games"
+      partner_offers:
+        - "High-yield savings accounts"
+        - "Savings automation tools"
+
+  - id: subscription_heavy
+    name: "Subscription-Heavy Spending"
+    description: "High recurring spend (≥20% of expenses). Focus on subscription optimization."
+    priority: 4
+    criteria:
+      operator: "AND"
+      conditions:
+        - signal: "subscription_share_pct"
+          operator: ">="
+          value: 0.20
+    focus_areas:
+      - "Subscription audit and tracking"
+      - "Recurring cost optimization"
+      - "Subscription alternatives and bundling"
+      - "Spending consciousness"
+      - "Value assessment for recurring services"
+    content_types:
+      education:
+        - "Subscription management guide"
+        - "How to audit your subscriptions"
+        - "Subscription alternatives"
+        - "Bundling strategies"
+
+  - id: cash_flow_optimizer
+    name: "Cash Flow Optimizer"
+    description: "High liquidity (≥6 months expenses) with low debt usage (<10% utilization). Opportunity for better allocation."
+    priority: 5
+    criteria:
+      operator: "AND"
+      conditions:
+        - signal: "savings_emergency_fund_months"
+          operator: ">="
+          value: 6.0
+        - signal: "credit_max_utilization_pct"
+          operator: "<"
+          value: 10.0
+    focus_areas:
+      - "Investment basics for beginners"
+      - "High-yield savings optimization"
+      - "Financial goal planning"
+      - "Wealth building fundamentals"
+      - "Asset allocation principles"
+    content_types:
+      education:
+        - "Investing 101"
+        - "High-yield savings account comparison"
+        - "Setting financial goals"
+        - "Index fund basics"
+        - "Roth IRA vs Traditional IRA"
+      partner_offers:
+        - "Investment platforms (robo-advisors)"
+        - "High-yield savings accounts"
+        - "Financial planning services"
+
+  - id: young_professional
+    name: "Young Professional / Credit Builder"
+    description: "Limited transaction history (<180 days) or low credit limits (<$3000). Building financial foundation."
+    priority: 6
+    criteria:
+      operator: "OR"
+      conditions:
+        - signal: "transaction_history_days"
+          operator: "<"
+          value: 180
+        - signal: "credit_total_limits"
+          operator: "<"
+          value: 3000.0
+          # Note: Only applies if user has credit accounts
+    focus_areas:
+      - "Credit building fundamentals"
+      - "Budgeting basics"
+      - "Financial literacy foundations"
+      - "Starter financial accounts"
+      - "Building credit history"
+    content_types:
+      education:
+        - "Credit 101: How credit works"
+        - "Budgeting fundamentals"
+        - "Types of bank accounts explained"
+        - "Building credit from scratch"
+        - "Financial wellness basics"
+      partner_offers:
+        - "Starter credit cards"
+        - "Credit builder loans"
+        - "Financial literacy apps"
+
+# Prioritization notes:
+# - If multiple personas match, assign the one with the LOWEST priority number
+# - Priority 1 (high_utilization) = highest urgency / most critical need
+# - Priority 6 (young_professional) = lowest urgency / foundational education
+#
+# Rationale for priority order:
+# 1. High credit utilization = immediate financial stress, high interest costs
+# 2. Irregular income = cash flow instability, immediate planning needs
+# 3. Low savings = financial vulnerability, emergency risk
+# 4. Subscription heavy = optimization opportunity, not urgent
+# 5. Cash flow optimizer = already stable, seeking growth
+# 6. Young professional = foundational education, no immediate crisis

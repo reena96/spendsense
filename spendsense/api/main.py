@@ -557,17 +557,256 @@ async def get_user_liabilities(user_id: str):
     return liabilities[user_id]
 
 
-@app.get("/api/signals")
-async def list_signals():
-    """
-    [Future] List detected behavioral signals.
+# ===== Behavioral Signal Endpoints (Epic 2) =====
 
-    This endpoint will be implemented in Epic 2.
+from datetime import date
+from spendsense.features import (
+    BehavioralSummaryGenerator,
+    SubscriptionDetector,
+    SavingsDetector,
+    CreditDetector,
+    IncomeDetector
+)
+
+# Path to database
+DB_PATH = Path(__file__).parent.parent.parent / "data" / "processed" / "spendsense.db"
+
+
+@app.get("/api/signals/{user_id}")
+async def get_behavioral_summary(
+    user_id: str,
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD), defaults to today")
+):
     """
-    return {
-        "message": "Signal detection coming in Epic 2",
-        "status": "not_implemented"
-    }
+    Get comprehensive behavioral summary for a user.
+
+    Returns all detected signals: subscriptions, savings, credit, and income
+    patterns for both 30-day and 180-day windows.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        # Parse reference date or use today
+        if reference_date:
+            ref_date = date.fromisoformat(reference_date)
+        else:
+            ref_date = date.today()
+
+        # Generate behavioral summary
+        generator = BehavioralSummaryGenerator(str(DB_PATH))
+        summary = generator.generate_summary(
+            user_id=user_id,
+            reference_date=ref_date
+        )
+
+        # Convert to dict for JSON response
+        return summary.to_dict()
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error generating summary: {str(e)}")
+
+
+@app.get("/api/signals/{user_id}/subscriptions")
+async def get_subscription_signals(
+    user_id: str,
+    window_days: int = Query(default=30, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get subscription pattern detection results for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = SubscriptionDetector(str(DB_PATH))
+        metrics = detector.detect_subscriptions(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        # Convert to dict
+        from dataclasses import asdict
+        return asdict(metrics)
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/signals/{user_id}/savings")
+async def get_savings_signals(
+    user_id: str,
+    window_days: int = Query(default=30, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get savings behavior detection results for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = SavingsDetector(str(DB_PATH))
+        metrics = detector.detect_savings_patterns(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        from dataclasses import asdict
+        result = asdict(metrics)
+        # Convert date to string
+        result['reference_date'] = result['reference_date'].isoformat()
+        return result
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/signals/{user_id}/credit")
+async def get_credit_signals(
+    user_id: str,
+    window_days: int = Query(default=30, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get credit utilization and debt signals for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = CreditDetector(str(DB_PATH))
+        metrics = detector.detect_credit_patterns(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        from dataclasses import asdict
+        result = asdict(metrics)
+        # Convert date to string
+        result['reference_date'] = result['reference_date'].isoformat()
+        return result
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/signals/{user_id}/income")
+async def get_income_signals(
+    user_id: str,
+    window_days: int = Query(default=180, description="Time window in days (30 or 180)"),
+    reference_date: Optional[str] = Query(default=None, description="Reference date (YYYY-MM-DD)")
+):
+    """
+    Get income stability detection results for a user.
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        ref_date = date.fromisoformat(reference_date) if reference_date else date.today()
+
+        detector = IncomeDetector(str(DB_PATH))
+        metrics = detector.detect_income_patterns(
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        from dataclasses import asdict
+        result = asdict(metrics)
+        # Convert dates to strings
+        result['reference_date'] = result['reference_date'].isoformat()
+        result['payroll_dates'] = [d.isoformat() for d in result['payroll_dates']]
+        return result
+
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/profile/{user_id}")
+async def get_persona_profile(
+    user_id: str,
+    time_window: Optional[str] = Query(default=None, description="Time window: '30d', '180d', or None for both")
+):
+    """
+    Get persona assignment profile for a user.
+
+    Returns current persona assignment(s) with complete audit trail including
+    all qualifying personas, match evidence, and prioritization reasoning.
+
+    Args:
+        user_id: User identifier
+        time_window: Optional filter for specific time window
+
+    Returns:
+        Persona assignment(s) with audit trail, or 404 if user not found
+    """
+    if not DB_PATH.exists():
+        raise HTTPException(status_code=503, detail="Database not available")
+
+    try:
+        from spendsense.personas.assigner import PersonaAssigner
+
+        assigner = PersonaAssigner(str(DB_PATH))
+
+        # Check if user exists
+        from spendsense.ingestion.database_writer import User
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+
+        engine = create_engine(f'sqlite:///{DB_PATH}')
+        Session = sessionmaker(bind=engine)
+
+        with Session() as session:
+            user = session.query(User).filter(User.user_id == user_id).first()
+            if user is None:
+                raise HTTPException(status_code=404, detail=f"User {user_id} not found")
+
+        # Get assignments
+        if time_window and time_window not in ("30d", "180d"):
+            raise HTTPException(status_code=400, detail="time_window must be '30d' or '180d'")
+
+        if time_window:
+            assignment = assigner.get_assignment(user_id, time_window)
+            return {
+                "user_id": user_id,
+                "assignments": {
+                    time_window: assignment
+                }
+            }
+        else:
+            # Get both windows
+            assignments = assigner.get_assignments_both_windows(user_id)
+            return {
+                "user_id": user_id,
+                "assignments": assignments
+            }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving persona profile: {str(e)}")
 
 
 @app.get("/api/recommendations")
