@@ -822,6 +822,141 @@ async def list_recommendations():
     }
 
 
+@app.get("/api/recommendations/{user_id}")
+async def get_recommendations(
+    user_id: str,
+    time_window: str = Query(default="30d", description="Time window (30d or 180d)"),
+    generate: bool = Query(default=False, description="Generate new recommendations if true")
+):
+    """
+    Get personalized recommendations for a user (Epic 4 Story 4.5).
+
+    Returns assembled recommendations with education content, partner offers,
+    rationales, and mandatory disclaimer.
+
+    Args:
+        user_id: User identifier
+        time_window: Time window for recommendations (30d or 180d)
+        generate: If true, generates new recommendations; if false, returns cached
+
+    Returns:
+        Assembled recommendation set with full details
+    """
+    from pathlib import Path
+    from spendsense.recommendations.content_library import ContentLibrary
+    from spendsense.recommendations.partner_offer_library import PartnerOfferLibrary
+    from spendsense.recommendations.assembler import RecommendationAssembler
+    from spendsense.recommendations.storage import RecommendationStorage
+
+    # Validate time window
+    if time_window not in ["30d", "180d"]:
+        raise HTTPException(
+            status_code=400,
+            detail="time_window must be '30d' or '180d'"
+        )
+
+    # Initialize storage
+    storage = RecommendationStorage(str(DATA_DIR / "recommendations"))
+
+    # If not generating new, try to return cached
+    if not generate:
+        cached = storage.get_latest_by_user(user_id, time_window)
+        if cached:
+            return cached
+
+    # Need to generate new recommendations
+    if not DB_PATH.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Database not available. Ingest data first."
+        )
+
+    try:
+        # Get user's persona (from Epic 3)
+        from spendsense.personas.assigner import PersonaAssigner
+        assigner = PersonaAssigner(str(DB_PATH))
+        persona_result = assigner.assign_persona(user_id)
+
+        if not persona_result:
+            raise HTTPException(
+                status_code=404,
+                detail=f"User {user_id} not found or no persona assigned"
+            )
+
+        # Get behavioral signals
+        from spendsense.features.behavioral_summary import generate_behavioral_summary
+        from datetime import date, timedelta
+
+        ref_date = date.today()
+        window_days = 30 if time_window == "30d" else 180
+
+        behavioral_summary = generate_behavioral_summary(
+            db_path=str(DB_PATH),
+            user_id=user_id,
+            reference_date=ref_date,
+            window_days=window_days
+        )
+
+        # Extract signals from behavioral summary
+        signals = []
+        if behavioral_summary.credit_utilization and behavioral_summary.credit_utilization.high_utilization_detected:
+            signals.append("credit_utilization")
+        if behavioral_summary.income and behavioral_summary.income.irregular_income_detected:
+            signals.append("irregular_income")
+        if behavioral_summary.savings and behavioral_summary.savings.low_savings_rate:
+            signals.append("savings_balance")
+        if behavioral_summary.subscriptions and len(behavioral_summary.subscriptions.subscriptions) >= 3:
+            signals.append("subscription_count")
+
+        # Build user data for eligibility checking
+        user_data = {
+            "annual_income": behavioral_summary.income.estimated_annual_income if behavioral_summary.income else 50000,
+            "credit_score": 700,  # Default - would come from external source
+            "existing_accounts": [],
+            "credit_utilization": behavioral_summary.credit_utilization.max_utilization_pct if behavioral_summary.credit_utilization else 0,
+            "age": 30,  # Default - would come from profile
+            "is_employed": True,  # Default - would come from profile
+        }
+
+        # Add personalization data for rationales
+        if behavioral_summary.credit_utilization:
+            user_data["credit_max_utilization_pct"] = behavioral_summary.credit_utilization.max_utilization_pct
+            user_data["account_name"] = "Credit Card ****0000"  # Placeholder
+
+        if behavioral_summary.savings:
+            user_data["savings_balance"] = behavioral_summary.savings.total_balance
+            user_data["months_expenses"] = behavioral_summary.savings.months_of_expenses_saved
+
+        # Initialize libraries and assembler
+        config_dir = Path(__file__).parent.parent / "config"
+        content_library = ContentLibrary(str(config_dir / "recommendations.yaml"))
+        partner_library = PartnerOfferLibrary(str(config_dir / "partner_offers.yaml"))
+        assembler = RecommendationAssembler(content_library, partner_library)
+
+        # Assemble recommendations
+        rec_set = assembler.assemble_recommendations(
+            user_id=user_id,
+            persona_id=persona_result.persona_id,
+            signals=signals,
+            user_data=user_data,
+            time_window=time_window,
+        )
+
+        # Save to storage
+        storage.save_recommendation_set(rec_set)
+
+        # Return as dict
+        return rec_set.to_dict()
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error generating recommendations: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
