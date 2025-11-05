@@ -9,10 +9,31 @@ This module provides:
 
 from spendsense.recommendations.models import Recommendation, RecommendationCategory
 from spendsense.recommendations.content_library import ContentLibrary, get_content_library
+from spendsense.recommendations.generated_models import (
+    PersonalizedRecommendation,
+    RecommendationRequest,
+    RecommendationResponse,
+    FilterReason,
+)
+from spendsense.recommendations.engine import RecommendationEngine
+from spendsense.recommendations.filtering import FilterEngine
+from spendsense.recommendations.personalization import PersonalizationEngine
+from spendsense.recommendations.ranking import RankingEngine
 
 __all__ = [
+    # Models
     "Recommendation",
     "RecommendationCategory",
+    "PersonalizedRecommendation",
+    "RecommendationRequest",
+    "RecommendationResponse",
+    "FilterReason",
+    # Library
     "ContentLibrary",
     "get_content_library",
+    # Engines
+    "RecommendationEngine",
+    "FilterEngine",
+    "PersonalizationEngine",
+    "RankingEngine",
 ]
