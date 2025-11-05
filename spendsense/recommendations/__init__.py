@@ -7,8 +7,16 @@ This module provides:
 - Storage and tracking for user interactions
 """
 
-from spendsense.recommendations.models import Recommendation, RecommendationCategory, RecommendationType
+from spendsense.recommendations.models import (
+    Recommendation,
+    RecommendationCategory,
+    RecommendationType,
+    PartnerOffer,
+    PartnerOfferType,
+    EligibilityCriteria,
+)
 from spendsense.recommendations.content_library import ContentLibrary, get_content_library
+from spendsense.recommendations.partner_offer_library import PartnerOfferLibrary, get_partner_offer_library
 from spendsense.recommendations.generated_models import (
     PersonalizedRecommendation,
     RecommendationRequest,
@@ -25,6 +33,9 @@ __all__ = [
     "Recommendation",
     "RecommendationCategory",
     "RecommendationType",
+    "PartnerOffer",
+    "PartnerOfferType",
+    "EligibilityCriteria",
     "PersonalizedRecommendation",
     "RecommendationRequest",
     "RecommendationResponse",
@@ -32,6 +43,8 @@ __all__ = [
     # Library
     "ContentLibrary",
     "get_content_library",
+    "PartnerOfferLibrary",
+    "get_partner_offer_library",
     # Engines
     "RecommendationEngine",
     "FilterEngine",
