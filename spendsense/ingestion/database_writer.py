@@ -33,6 +33,11 @@ class User(Base):
     annual_income = Column(Float)
     characteristics = Column(JSON)  # Stores dict as JSON
 
+    # Consent management fields (Epic 5 - Story 5.1)
+    consent_status = Column(String, default='opted_out')  # 'opted_in' or 'opted_out'
+    consent_timestamp = Column(DateTime, nullable=True)
+    consent_version = Column(String, nullable=True, default='1.0')
+
     # Relationships
     accounts = relationship("Account", back_populates="user", cascade="all, delete-orphan")
 
