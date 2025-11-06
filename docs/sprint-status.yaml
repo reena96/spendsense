@@ -87,13 +87,13 @@ development_status:
   epic-5-retrospective: optional
 
   # Epic 6: Operator View & Oversight Interface
-  epic-6: backlog
-  6-1-operator-authentication-authorization: backlog
-  6-2-user-signal-dashboard: backlog
-  6-3-persona-assignment-review-interface: backlog
-  6-4-recommendation-review-approval-queue: backlog
-  6-5-audit-trail-compliance-reporting: backlog
-  6-6-consent-management-interface: backlog
+  epic-6: in-progress
+  6-1-operator-authentication-authorization: done
+  6-2-user-signal-dashboard: ready-for-dev
+  6-3-persona-assignment-review-interface: ready-for-dev
+  6-4-recommendation-review-approval-queue: drafted
+  6-5-audit-trail-compliance-reporting: drafted
+  6-6-consent-management-interface: drafted
   epic-6-retrospective: optional
 
   # Epic 7: Evaluation Harness & Metrics

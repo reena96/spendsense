@@ -37,3 +37,8 @@ faker>=20.0.0
 
 # HTTP Client for testing
 httpx>=0.25.0
+
+# Authentication & Security (Epic 6)
+python-jose[cryptography]>=3.3.0
+bcrypt>=5.0.0
+python-multipart>=0.0.6

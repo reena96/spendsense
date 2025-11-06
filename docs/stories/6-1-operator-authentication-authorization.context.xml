@@ -1,0 +1,210 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>1</storyId>
+    <title>Operator Authentication & Authorization</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-1-operator-authentication-authorization.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>system administrator</asA>
+    <iWant>secure operator authentication with role-based access control</iWant>
+    <soThat>only authorized personnel can access sensitive user data and override decisions</soThat>
+    <tasks>
+- Task 1: Design authentication system architecture (AC: #1, #2, #3)
+- Task 2: Implement operator user model and database schema (AC: #1, #2)
+- Task 3: Implement authentication endpoints (AC: #1, #3, #7, #8)
+- Task 4: Implement session management and token validation (AC: #3, #5)
+- Task 5: Implement RBAC middleware and decorators (AC: #2, #4)
+- Task 6: Implement audit logging for authentication events (AC: #5, #6)
+- Task 7: Integrate authentication with Epic 5 consent endpoints (AC: #4)
+- Task 8: Write comprehensive unit and integration tests (AC: #9)
+- Task 9: Security review and hardening (AC: #10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Operator login system implemented with username/password authentication
+2. Role-based permissions defined: viewer (read-only), reviewer (approve/flag), admin (override)
+3. Session management implemented with secure tokens
+4. Access control enforced on all operator endpoints
+5. Unauthorized access attempts logged and blocked
+6. Operator actions logged with operator ID and timestamp
+7. Password security requirements enforced (minimum length, complexity)
+8. Login failures limited to prevent brute force attacks
+9. Unit tests verify access control enforcement
+10. Security review completed for authentication implementation
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-6-operator-view-oversight-interface.md</path>
+        <title>Epic 6 PRD - Operator View & Oversight Interface</title>
+        <section>Story 6.1: Operator Authentication & Authorization</section>
+        <snippet>Secure operator authentication with role-based access control. Three roles defined: viewer (read-only), reviewer (approve/flag), admin (override). Password security requirements enforced with brute force prevention.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Authentication Strategy</section>
+        <snippet>Current: Simple API key via X-API-Key header. Epic 6 upgrade: Username/password with session tokens (JWT). Future: OAuth2 (Google/GitHub) for production multi-operator use. Backend: FastAPI with Pydantic validation.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/5-5-guardrails-integration-testing.md</path>
+        <title>Story 5.5 - Guardrails Integration Testing</title>
+        <section>Learnings: Audit Logging Patterns</section>
+        <snippet>Established structlog pattern for audit trails (metadata.audit_trail). Integration testing approach with FastAPI TestClient. All Epic 5 guardrails execute in under 500ms.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database_models</kind>
+        <symbol>User, Account, Transaction, Liability</symbol>
+        <lines>26-100</lines>
+        <reason>Existing database models using SQLAlchemy ORM. Story 6.1 needs to add Operator, OperatorSession, and AuthAuditLog tables following same pattern.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/api/main.py</path>
+        <kind>api_endpoints</kind>
+        <symbol>FastAPI app</symbol>
+        <lines>1-100</lines>
+        <reason>Main FastAPI application. Need to add authentication middleware and protect operator endpoints. Epic 5 consent endpoints at lines 1017-1147 require authentication integration.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/consent.py</path>
+        <kind>guardrail</kind>
+        <symbol>ConsentGuardrail</symbol>
+        <lines>all</lines>
+        <reason>Epic 5 consent system that needs authentication on API endpoints (POST /api/consent, GET /api/consent/{user_id}).</reason>
+      </artifact>
+      <artifact>
+        <path>tests/test_savings_detector.py</path>
+        <kind>test_example</kind>
+        <symbol>pytest fixtures</symbol>
+        <lines>all</lines>
+        <reason>Example of existing test patterns using pytest. Story 6.1 tests should follow same structure with fixtures and assertions.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="fastapi" version=">=0.104.0" />
+        <package name="pydantic" version=">=2.5.0" />
+        <package name="pytest" version=">=7.4.0" />
+        <package name="pytest-cov" version=">=4.1.0" />
+        <package name="pytest-asyncio" version=">=0.21.0" />
+        <package name="structlog" version=">=23.0.0" />
+        <package name="sqlalchemy" version=">=2.0.0" />
+        <package name="httpx" version=">=0.25.0" />
+        <package name="python-jose[cryptography]" version=">=3.3.0" note="NEW - JWT token generation" />
+        <package name="passlib[bcrypt]" version=">=1.7.4" note="NEW - Password hashing" />
+        <package name="python-multipart" version=">=0.0.6" note="NEW - Form data parsing" />
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- **Database Pattern**: Use SQLAlchemy ORM models following existing pattern in database_writer.py (Base class, relationships, Column types)
+- **API Framework**: FastAPI with async endpoints, Pydantic models for request/response validation
+- **Authentication**: JWT tokens with HS256 signing, stored in Authorization header (Bearer token format)
+- **Password Security**: bcrypt with 12 rounds minimum, password complexity requirements (12+ chars, upper/lower/digit/special)
+- **Rate Limiting**: Max 5 failed login attempts per 15 minutes per IP/username combination
+- **Audit Logging**: Use structlog for structured JSON logs, following Epic 5 audit trail pattern
+- **RBAC Hierarchy**: viewer (level 0) < reviewer (level 1) < admin (level 2) - higher roles inherit lower permissions
+- **Session Tokens**: Access tokens expire in 1 hour, refresh tokens expire in 7 days
+- **Testing**: pytest with FastAPI TestClient, achieve 15-20 tests minimum for security-critical authentication
+- **Epic 5 Integration**: Must add authentication to consent endpoints (POST /api/consent = admin only, GET /api/consent/{user_id} = reviewer or admin)
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>POST /api/operator/login</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Request: { "username": str, "password": str }
+Response: { "access_token": str, "refresh_token": str, "token_type": "bearer", "operator_id": str, "role": str }
+Status: 200 OK | 401 Unauthorized | 429 Too Many Requests
+      </signature>
+      <path>spendsense/api/operator_auth.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/logout</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Headers: Authorization: Bearer {token}
+Response: { "message": "Logged out successfully" }
+Status: 200 OK | 401 Unauthorized
+      </signature>
+      <path>spendsense/api/operator_auth.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/refresh</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Request: { "refresh_token": str }
+Response: { "access_token": str, "token_type": "bearer" }
+Status: 200 OK | 401 Unauthorized
+      </signature>
+      <path>spendsense/api/operator_auth.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>@require_role decorator</name>
+      <kind>RBAC decorator</kind>
+      <signature>
+def require_role(required_role: str) -> Callable
+  - Extracts JWT token from Authorization header
+  - Validates token and extracts operator info
+  - Checks if operator role >= required role
+  - Returns 401 if no token, 403 if insufficient permissions
+  - Injects current_operator: TokenData into endpoint kwargs
+      </signature>
+      <path>spendsense/auth/rbac.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>Operator database model</name>
+      <kind>SQLAlchemy model</kind>
+      <signature>
+class Operator(Base):
+  operator_id: str (PK)
+  username: str (UNIQUE, NOT NULL)
+  password_hash: str (NOT NULL)
+  role: str (CHECK IN viewer/reviewer/admin)
+  created_at: datetime
+  last_login_at: datetime (nullable)
+  is_active: bool (default True)
+      </signature>
+      <path>spendsense/auth/operator.py (NEW)</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Use pytest with FastAPI TestClient for all tests. Follow existing test patterns in tests/ directory. Create separate test files for unit tests (test_operator_auth.py) and integration tests (test_operator_rbac.py). Use fixtures for test database setup and operator creation. Achieve minimum 15-20 tests for security-critical authentication functionality. Test coverage should include: password hashing, token generation/validation, RBAC enforcement, rate limiting, audit logging, and Epic 5 consent endpoint protection.
+    </standards>
+    <locations>
+tests/test_operator_auth.py (NEW - unit tests for auth functions)
+tests/test_operator_rbac.py (NEW - integration tests for RBAC and endpoints)
+    </locations>
+    <ideas>
+AC1: Test POST /api/operator/login with valid credentials returns tokens and operator info
+AC1: Test POST /api/operator/login with invalid credentials returns 401
+AC2: Test RBAC decorator allows viewer to access viewer-required endpoints
+AC2: Test RBAC decorator blocks viewer from accessing admin-required endpoints
+AC3: Test token validation accepts valid unexpired tokens
+AC3: Test token validation rejects expired tokens
+AC4: Test Epic 5 consent endpoint POST /api/consent requires admin role
+AC4: Test Epic 5 consent endpoint GET /api/consent/{user_id} allows reviewer role
+AC5: Test unauthorized access without token returns 401
+AC6: Test successful login creates audit log entry with operator_id and timestamp
+AC7: Test password validation rejects passwords shorter than 12 characters
+AC7: Test password validation rejects passwords without complexity requirements
+AC8: Test rate limiting blocks login after 5 failed attempts
+AC9: Full integration test: create operator, login, access protected endpoint with token
+AC10: Security review: verify bcrypt rounds >= 12, JWT secret from environment variable
+    </ideas>
+  </tests>
+</story-context>

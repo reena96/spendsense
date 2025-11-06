@@ -1,0 +1,229 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>2</storyId>
+    <title>User Signal Dashboard</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-2-user-signal-dashboard.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>operator</asA>
+    <iWant>comprehensive view of detected behavioral signals for any user</iWant>
+    <soThat>I can verify signal detection accuracy and understand persona assignment rationale</soThat>
+    <tasks>
+- Task 1: Create backend API endpoints for signal data (AC: #1, #8, #9)
+- Task 2: Design and implement React dashboard UI (AC: #1, #6, #7)
+- Task 3: Implement subscription metrics display (AC: #2)
+- Task 4: Implement savings metrics display (AC: #3)
+- Task 5: Implement credit metrics display (AC: #4)
+- Task 6: Implement income metrics display (AC: #5)
+- Task 7: Implement side-by-side comparison view (AC: #6)
+- Task 8: Implement raw data view and export (AC: #8, #9, #10)
+- Task 9: Write comprehensive unit and integration tests (AC: #1-10)
+- Task 10: Integration with existing signal detection pipeline (AC: #8, #9)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. User search interface allows lookup by user ID or masked account number
+2. Signal dashboard displays subscription metrics: recurring merchants, monthly spend, subscription share
+3. Signal dashboard displays savings metrics: net inflow, growth rate, emergency fund coverage
+4. Signal dashboard displays credit metrics: utilization by card, minimum payment behavior, overdue status
+5. Signal dashboard displays income metrics: pay frequency, median gap, cash-flow buffer
+6. Dashboard shows signals for both 30-day and 180-day windows side-by-side
+7. Time window toggle allows switching between short-term and long-term views
+8. Raw signal values displayed alongside computed metrics
+9. Signal calculation timestamps shown
+10. Export functionality allows downloading signal data as CSV
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-6-operator-view-oversight-interface.md</path>
+        <title>Epic 6 PRD - Operator View & Oversight Interface</title>
+        <section>Story 6.2: User Signal Dashboard</section>
+        <snippet>Comprehensive view of behavioral signals for any user. Display subscription, savings, credit, and income metrics for both 30-day and 180-day windows. Provide CSV export for compliance and analysis.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Frontend Technology Stack</section>
+        <snippet>React 18 + TypeScript + Vite + TailwindCSS. Component library: shadcn/ui or Material-UI. State management: React Query for server state caching and refetching.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-1-operator-authentication-authorization.md</path>
+        <title>Story 6.1 - Operator Authentication & Authorization</title>
+        <section>RBAC Implementation</section>
+        <snippet>JWT-based authentication with viewer/reviewer/admin roles. Use @require_role('viewer') decorator for operator endpoints. Viewer role grants read-only access to user data.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/features/behavioral_summary.py</path>
+        <kind>signal_aggregation</kind>
+        <symbol>BehavioralSummary</symbol>
+        <lines>22-70</lines>
+        <reason>Epic 2 behavioral summary dataclass containing all signal metrics (subscriptions, savings, credit, income) for 30d and 180d windows. This is the data structure the dashboard needs to display.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/subscription_detector.py</path>
+        <kind>signal_detector</kind>
+        <symbol>SubscriptionMetrics</symbol>
+        <lines>all</lines>
+        <reason>Subscription signal detection from Epic 2. Provides recurring_merchants, monthly_spend, subscription_share_pct metrics that AC#2 requires displaying.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/savings_detector.py</path>
+        <kind>signal_detector</kind>
+        <symbol>SavingsMetrics</symbol>
+        <lines>all</lines>
+        <reason>Savings signal detection from Epic 2. Provides net_inflow, growth_rate_pct, emergency_fund_months metrics that AC#3 requires.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/credit_detector.py</path>
+        <kind>signal_detector</kind>
+        <symbol>CreditMetrics</symbol>
+        <lines>all</lines>
+        <reason>Credit signal detection from Epic 2. Provides max_utilization_pct, has_interest_charges, minimum_payment_only, overdue_status metrics that AC#4 requires.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/income_detector.py</path>
+        <kind>signal_detector</kind>
+        <symbol>IncomeMetrics</symbol>
+        <lines>all</lines>
+        <reason>Income signal detection from Epic 2. Provides payroll_count, median_pay_gap_days, cash_flow_buffer_months metrics that AC#5 requires.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/auth/rbac.py</path>
+        <kind>authentication</kind>
+        <symbol>require_role</symbol>
+        <lines>all</lines>
+        <reason>RBAC decorator from Story 6.1. Signal endpoints need @require_role('viewer') to enforce authentication.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/api/main.py</path>
+        <kind>api_main</kind>
+        <symbol>FastAPI app</symbol>
+        <lines>58-94</lines>
+        <reason>Main FastAPI application where operator_signals routes will be registered.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="fastapi" version=">=0.104.0" />
+        <package name="pydantic" version=">=2.5.0" />
+        <package name="pandas" version=">=2.1.0" note="For CSV export generation" />
+        <package name="pytest" version=">=7.4.0" />
+        <package name="httpx" version=">=0.25.0" note="For API testing" />
+      </python>
+      <frontend>
+        <package name="react" version="18" />
+        <package name="typescript" version="latest" />
+        <package name="vite" version="5+" />
+        <package name="tailwindcss" version="3+" />
+        <package name="@tanstack/react-query" version="5+" note="Server state management" />
+        <package name="react-router-dom" version="6+" note="Routing" />
+        <package name="recharts" version="latest" note="Optional - for metric visualization" />
+      </frontend>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- **Authentication Required**: All signal endpoints must use @require_role('viewer') from Story 6.1
+- **Data Source**: Read from behavioral_signals table populated by Epic 2 signal detection pipeline (Stories 2.1-2.6)
+- **Time Windows**: Support both 30-day and 180-day windows, stored as separate records in database
+- **Response Format**: JSON with nested signal categories (subscription, savings, credit, income)
+- **CSV Export**: Must include headers, user_id, time_window, metric_name, metric_value, computed_at timestamp
+- **Frontend Framework**: React 18 + TypeScript + TailwindCSS (no class components)
+- **State Management**: Use React Query for API data caching and automatic refetching
+- **Responsive Design**: Must work on desktop (1920x1080) and tablet (1024x768) viewports
+- **Error Handling**: Display user-friendly messages for 404 (user not found), 403 (unauthorized), 500 (server error)
+- **Loading States**: Show skeleton loaders while fetching data, not blank screens
+- **Read-Only**: Dashboard is view-only, no editing or modification of signal data
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>GET /api/operator/users/search</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Query Params: q={user_id or name fragment}
+Headers: Authorization: Bearer {token}
+Response: { "users": [{"user_id": str, "name": str, "persona": str}] }
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_signals.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/signals/{user_id}</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Query Params: time_window={30_day|180_day|both} (optional, default: both)
+Headers: Authorization: Bearer {token}
+Response: {
+  "user_id": str,
+  "30_day": { subscription: {...}, savings: {...}, credit: {...}, income: {...}, computed_at: timestamp },
+  "180_day": { subscription: {...}, savings: {...}, credit: {...}, income: {...}, computed_at: timestamp }
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_signals.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/signals/{user_id}/export</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Query Params: format={csv|json} (optional, default: csv)
+Headers: Authorization: Bearer {token}
+Response: CSV file download or JSON array
+Headers: Content-Disposition: attachment; filename="signals_{user_id}.csv"
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_signals.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>SignalDashboard React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: None (uses URL params for user_id)
+State: user search query, selected time window (30d|180d|both)
+Hooks: useSignalData(userId, timeWindow) - React Query hook
+Renders: UserSearch, TimeWindowToggle, SignalCategory components
+      </signature>
+      <path>ui/src/pages/SignalDashboard.tsx (NEW)</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Backend: pytest with FastAPI TestClient. Frontend: Jest + React Testing Library. Achieve minimum 10-15 tests covering API authorization, data retrieval, component rendering, CSV export, and time window toggling.
+    </standards>
+    <locations>
+tests/test_operator_signals.py (NEW - backend API tests)
+ui/src/tests/SignalDashboard.test.tsx (NEW - frontend component tests)
+    </locations>
+    <ideas>
+AC1: Test user search API returns matching users by ID
+AC1: Test user search API returns matching users by name fragment
+AC2-5: Test signals API returns complete data for all 4 signal categories (subscription, savings, credit, income)
+AC6: Test signals API returns both 30-day and 180-day data when time_window=both
+AC7: Test time window toggle switches between 30d, 180d, and side-by-side views
+AC8: Test raw data view displays all signal values with full precision
+AC9: Test signal timestamps are displayed in response
+AC10: Test CSV export generates correct format with headers
+AC10: Test CSV export download triggers in browser
+Test authentication: 401 without token, 403 without viewer role
+Test error handling: 404 when user not found
+Test React component renders all signal categories correctly
+Test side-by-side comparison calculates percentage changes
+Test loading state displays while fetching data
+Test responsive layout on mobile and desktop viewports
+    </ideas>
+  </tests>
+</story-context>

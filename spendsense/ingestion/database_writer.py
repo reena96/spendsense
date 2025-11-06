@@ -127,6 +127,80 @@ class PersonaAssignmentRecord(Base):
     )
 
 
+class Operator(Base):
+    """
+    Operator user accounts for authentication (Epic 6 - Story 6.1).
+
+    Stores operator credentials and role-based access control information.
+    """
+    __tablename__ = 'operators'
+
+    operator_id = Column(String, primary_key=True)
+    username = Column(String, unique=True, nullable=False)
+    password_hash = Column(String, nullable=False)
+    role = Column(String, nullable=False)  # 'viewer', 'reviewer', or 'admin'
+    created_at = Column(DateTime, nullable=False)
+    last_login_at = Column(DateTime, nullable=True)
+    is_active = Column(Boolean, default=True)
+
+    # Relationships
+    sessions = relationship("OperatorSession", back_populates="operator", cascade="all, delete-orphan")
+
+    # Performance indexes
+    __table_args__ = (
+        Index('idx_operators_username', 'username'),
+    )
+
+
+class OperatorSession(Base):
+    """
+    Active operator sessions for token tracking (Epic 6 - Story 6.1).
+
+    Stores session tokens with expiration for logout and token invalidation.
+    """
+    __tablename__ = 'operator_sessions'
+
+    session_id = Column(String, primary_key=True)
+    operator_id = Column(String, ForeignKey('operators.operator_id'), nullable=False)
+    token_hash = Column(String, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, nullable=False)
+
+    # Relationships
+    operator = relationship("Operator", back_populates="sessions")
+
+    # Performance indexes
+    __table_args__ = (
+        Index('idx_sessions_operator', 'operator_id'),
+        Index('idx_sessions_expires', 'expires_at'),
+    )
+
+
+class AuthAuditLog(Base):
+    """
+    Authentication event audit log (Epic 6 - Story 6.1).
+
+    Tracks all authentication events for security monitoring and compliance.
+    """
+    __tablename__ = 'auth_audit_log'
+
+    log_id = Column(String, primary_key=True)
+    operator_id = Column(String, nullable=True)  # Nullable for failed login attempts
+    event_type = Column(String, nullable=False)  # 'login_success', 'login_failure', 'logout', 'unauthorized_access'
+    endpoint = Column(String, nullable=True)
+    ip_address = Column(String, nullable=True)
+    user_agent = Column(String, nullable=True)
+    timestamp = Column(DateTime, nullable=False)
+    details = Column(Text, nullable=True)  # JSON string with additional context
+
+    # Performance indexes
+    __table_args__ = (
+        Index('idx_auth_audit_timestamp', 'timestamp'),
+        Index('idx_auth_audit_operator', 'operator_id'),
+        Index('idx_auth_audit_event', 'event_type'),
+    )
+
+
 class DatabaseWriter:
     """
     Database writer for storing validated data in SQLite.
