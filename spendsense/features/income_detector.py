@@ -286,8 +286,8 @@ class IncomeDetector:
         accounts_df = pd.DataFrame(accounts_result.data)
 
         # Sum checking and savings accounts (liquid assets)
-        liquid_types = {'checking', 'savings'}
-        liquid_accounts = accounts_df[accounts_df['type'].isin(liquid_types)]
+        # Note: 'depository' is the type, checking/savings are subtypes
+        liquid_accounts = accounts_df[accounts_df['type'] == 'depository']
 
         total_liquid = liquid_accounts['balance'].sum() if not liquid_accounts.empty else 0.0
 

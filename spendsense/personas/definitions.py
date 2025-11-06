@@ -24,6 +24,7 @@ class PersonaType(str, Enum):
     VARIABLE_INCOME = "variable_income"
     SUBSCRIPTION_HEAVY = "subscription_heavy"
     SAVINGS_BUILDER = "savings_builder"
+    YOUNG_PROFESSIONAL = "young_professional"
     CONTROL = "control"
 
 
