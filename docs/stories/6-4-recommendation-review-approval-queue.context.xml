@@ -1,0 +1,358 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>4</storyId>
+    <title>Recommendation Review & Approval Queue</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-4-recommendation-review-approval-queue.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>operator</asA>
+    <iWant>review queue of generated recommendations with approve/override/flag capabilities</iWant>
+    <soThat>I can ensure recommendation quality and appropriateness before user delivery</soThat>
+    <tasks>
+- Task 1: Create database schema for review queue (AC: #1, EPIC 5 DEFERRED AC7/AC5)
+- Task 2: Create backend API endpoints for review queue (AC: #1, #9, #10)
+- Task 3: Integrate with Epic 5 guardrail pipeline (AC: #3, EPIC 5 INTEGRATION)
+- Task 4: Design and implement review queue UI (AC: #1, #2, #9)
+- Task 5: Implement recommendation detail view (AC: #2, #4)
+- Task 6: Implement guardrail results display (AC: #3)
+- Task 7: Implement approve/override/flag actions (AC: #5, #6, #7, #8)
+- Task 8: Implement batch approval (AC: #10)
+- Task 9: Implement filters and search (AC: #9)
+- Task 10: Write comprehensive unit and integration tests (AC: #1-10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Review queue displays pending recommendations requiring operator approval
+2. Each recommendation shown with full details: content/offer, rationale, persona match, signal citations
+3. Guardrail check results displayed: consent status, eligibility pass/fail, tone validation
+4. Decision trace displayed showing why recommendation was generated
+5. Operator can approve recommendation (marks as ready for delivery)
+6. Operator can override recommendation (blocks delivery and requires justification)
+7. Operator can flag recommendation for further review (adds to watch list)
+8. Approval/override actions logged in audit trail
+9. Filters available: persona type, recommendation type, guardrail failures
+10. Batch approval capability for high-confidence recommendations
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-6-operator-view-oversight-interface.md</path>
+        <title>Epic 6 PRD - Operator View & Oversight Interface</title>
+        <section>Story 6.4: Recommendation Review & Approval Queue</section>
+        <snippet>Review queue with approve/override/flag capabilities. Display full recommendation details, guardrail results, and decision traces. Support batch approval for efficiency.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Recommendation System Architecture</section>
+        <snippet>Recommendation assembler orchestrates content library, partner offers, matching, and guardrails (consent, eligibility, tone). FastAPI backend with React frontend.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/5-3-tone-validation-language-safety.md</path>
+        <title>Story 5.3 - Tone Validation & Language Safety</title>
+        <section>AC7 Deferred</section>
+        <snippet>AC7: Recommendations with problematic tone flagged for manual operator review with logging - LOGGING IMPLEMENTED, DATABASE FLAGGING DEFERRED to Epic 6.4</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/5-5-guardrails-integration-testing.md</path>
+        <title>Story 5.5 - Guardrails Integration Testing</title>
+        <section>AC5 Partially Implemented</section>
+        <snippet>AC5: Failed recommendations flagged for manual review - PARTIALLY IMPLEMENTED (logging), DATABASE PERSISTENCE DEFERRED to Epic 6.4</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-1-operator-authentication-authorization.md</path>
+        <title>Story 6.1 - Operator Authentication & Authorization</title>
+        <section>RBAC Implementation</section>
+        <snippet>Use @require_role('reviewer') for approve/flag actions, @require_role('admin') for override actions. All actions logged with operator_id.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-2-user-signal-dashboard.md</path>
+        <title>Story 6.2 - User Signal Dashboard</title>
+        <section>Signal Display</section>
+        <snippet>Link to Signal Dashboard to show user's behavioral signals that triggered recommendation matching.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-3-persona-assignment-review-interface.md</path>
+        <title>Story 6.3 - Persona Assignment Review Interface</title>
+        <section>Persona Context</section>
+        <snippet>Link to Persona View to show persona assignment and match evidence that led to recommendation.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/guardrails/tone.py</path>
+        <kind>guardrail</kind>
+        <symbol>ToneValidator</symbol>
+        <lines>1-100</lines>
+        <reason>Epic 5 tone validation. Story 5.3 AC7 deferred database flagging. Need to add database insert for flagged recommendations when tone validation fails.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/eligibility.py</path>
+        <kind>guardrail</kind>
+        <symbol>EligibilityChecker</symbol>
+        <lines>1-100</lines>
+        <reason>Epic 5 eligibility filtering. Story 5.5 AC5 partially implemented. Need to add database insert for flagged recommendations when eligibility checks fail.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/consent.py</path>
+        <kind>guardrail</kind>
+        <symbol>ConsentService</symbol>
+        <lines>1-100</lines>
+        <reason>Epic 5 consent management. Provides consent status that needs to be displayed in review queue for each recommendation.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/assembler.py</path>
+        <kind>recommendation_orchestration</kind>
+        <symbol>RecommendationAssembler</symbol>
+        <lines>1-50</lines>
+        <reason>Orchestrates recommendation generation. Need to integrate with review queue to check manual flag status before delivery.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/models.py</path>
+        <kind>data_models</kind>
+        <symbol>Recommendation, PartnerOffer</symbol>
+        <lines>1-100</lines>
+        <reason>Recommendation data models. Review queue needs to display full recommendation details including content, rationale, persona match.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database_models</kind>
+        <symbol>User, Account, Transaction</symbol>
+        <lines>26-100</lines>
+        <reason>Existing database models. Need to add FlaggedRecommendation table following same SQLAlchemy ORM pattern.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/auth/rbac.py</path>
+        <kind>authentication</kind>
+        <symbol>require_role</symbol>
+        <lines>all</lines>
+        <reason>RBAC decorator from Story 6.1. Review endpoints need @require_role('reviewer') for approve/flag, @require_role('admin') for override.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="fastapi" version=">=0.104.0" />
+        <package name="pydantic" version=">=2.5.0" />
+        <package name="sqlalchemy" version=">=2.0.0" />
+        <package name="structlog" version=">=23.0.0" note="For audit logging" />
+        <package name="pytest" version=">=7.4.0" />
+        <package name="httpx" version=">=0.25.0" note="For API testing" />
+      </python>
+      <frontend>
+        <package name="react" version="18" />
+        <package name="typescript" version="latest" />
+        <package name="@tanstack/react-query" version="5+" note="Server state management" />
+        <package name="react-router-dom" version="6+" />
+        <package name="tailwindcss" version="3+" />
+        <package name="lucide-react" version="latest" note="Icons for actions" />
+      </frontend>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- **Database Pattern**: Use SQLAlchemy ORM model for flagged_recommendations table following existing pattern in database_writer.py
+- **Epic 5 Integration**: Modify tone.py and eligibility.py to insert flagged recommendations into database when guardrails fail
+- **Authentication Required**: @require_role('reviewer') for approve/flag, @require_role('admin') for override
+- **Audit Logging**: All review actions logged with operator_id, recommendation_id, action, justification, timestamp
+- **Justification Required**: Override actions require min 50 characters justification text
+- **Decision Transparency**: Display complete guardrail check results (consent, eligibility, tone) and decision trace
+- **Batch Operations**: Support bulk approval for efficiency, but maintain individual audit trails
+- **Status Management**: Review statuses: pending, approved, overridden, escalated
+- **Flagging Logic**: Auto-flag recommendations that fail tone or eligibility checks, plus manual flags
+- **Integration Points**: Link to Signal Dashboard (Story 6.2) and Persona View (Story 6.3) for user context
+- **Frontend Framework**: React 18 + TypeScript + TailwindCSS, no class components
+- **State Management**: React Query for API data caching and automatic refetching
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>GET /api/operator/review/queue</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Query Params: status (pending/approved/overridden/flagged), persona, guardrail_status, limit, offset
+Headers: Authorization: Bearer {token}
+Response: {
+  "recommendations": [
+    {
+      "recommendation_id": str,
+      "user_id": str,
+      "content_id": str,
+      "content_title": str,
+      "content_type": "education" | "partner_offer",
+      "rationale": str,
+      "persona_id": str,
+      "persona_name": str,
+      "flagged_at": timestamp,
+      "flagged_by": str,  // operator_id or 'system'
+      "flag_reason": str,  // eligibility_fail, tone_fail, manual_flag
+      "review_status": str,
+      "guardrail_status": {
+        "consent": { "status": str, "passed": bool },
+        "eligibility": { "passed": bool, "reasons": [] },
+        "tone": { "passed": bool, "violations": [] }
+      }
+    }
+  ],
+  "total_count": int,
+  "pending_count": int
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_review.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/review/{recommendation_id}</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: recommendation_id (str)
+Headers: Authorization: Bearer {token}
+Response: {
+  "recommendation_id": str,
+  "user_id": str,
+  "content": { /* full content/offer details */ },
+  "rationale": str,
+  "persona_match": { "persona_id": str, "match_evidence": [] },
+  "signal_citations": [],
+  "decision_trace": { /* why recommendation was generated */ },
+  "guardrail_results": {
+    "consent": { "status": str, "timestamp": timestamp },
+    "eligibility": { "passed": bool, "checks": {}, "reasons": [] },
+    "tone": { "passed": bool, "flagged_phrases": [], "severity": str }
+  },
+  "flagged_at": timestamp,
+  "review_status": str
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_review.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/review/{recommendation_id}/approve</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: recommendation_id (str)
+Headers: Authorization: Bearer {token} (reviewer or admin role required)
+Response: { "success": true, "status": "approved" }
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_review.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/review/{recommendation_id}/override</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: recommendation_id (str)
+Request: { "justification": str (min 50 chars) }
+Headers: Authorization: Bearer {token} (admin role required)
+Response: { "success": true, "status": "overridden" }
+Status: 200 OK | 400 Bad Request | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_review.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/review/{recommendation_id}/flag</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: recommendation_id (str)
+Request: { "flag_reason": str, "notes": str (optional) }
+Headers: Authorization: Bearer {token} (reviewer or admin role required)
+Response: { "success": true, "status": "escalated" }
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_review.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/review/batch-approve</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Request: { "recommendation_ids": [str] }
+Headers: Authorization: Bearer {token} (reviewer or admin role required)
+Response: {
+  "success_count": int,
+  "failure_count": int,
+  "failed_items": [{ "recommendation_id": str, "error": str }]
+}
+Status: 200 OK | 400 Bad Request | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_review.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>FlaggedRecommendation database model</name>
+      <kind>SQLAlchemy model</kind>
+      <signature>
+class FlaggedRecommendation(Base):
+  recommendation_id: str (PK)
+  user_id: str (FK to users)
+  content_id: str
+  content_title: str
+  content_type: str (CHECK: education, partner_offer)
+  rationale: str
+  flagged_at: datetime
+  flagged_by: str (operator_id or 'system')
+  flag_reason: str (eligibility_fail, tone_fail, manual_flag)
+  guardrail_status: str (JSON)
+  decision_trace: str (JSON)
+  review_status: str (CHECK: pending, approved, overridden, escalated)
+  reviewed_at: datetime (nullable)
+  reviewed_by: str (FK to operators, nullable)
+  review_notes: str (nullable)
+      </signature>
+      <path>spendsense/models/review_queue.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>ReviewQueue React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: None
+State: filters (status, persona, guardrail), selected items (for batch)
+Hooks: useReviewQueue() - React Query hook
+Renders: ReviewQueueTable, ReviewActions, BatchApproval components
+      </signature>
+      <path>ui/src/pages/ReviewQueue.tsx (NEW)</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Backend: pytest with FastAPI TestClient. Frontend: Jest + React Testing Library. Achieve minimum 20 tests given critical Epic 5 integration. Test coverage: database schema, guardrail integration, API authorization, approve/override/flag actions, batch operations, and frontend rendering.
+    </standards>
+    <locations>
+tests/test_review_queue.py (NEW - backend API tests)
+tests/test_review_queue_integration.py (NEW - guardrail integration tests)
+ui/src/tests/ReviewQueue.test.tsx (NEW - frontend component tests)
+    </locations>
+    <ideas>
+AC1: Test review queue API returns pending recommendations with filters
+AC1: Test pending count displayed correctly in queue
+AC2: Test recommendation detail API returns full content, rationale, persona match, signal citations
+AC3: Test guardrail results display consent status, eligibility checks, tone validation results
+AC3: Test guardrail status includes pass/fail for each check
+AC4: Test decision trace explains why recommendation was generated (persona + signals)
+AC5: Test approve endpoint updates status to 'approved' and logs action
+AC5: Test approve requires reviewer or admin role
+AC6: Test override endpoint updates status to 'overridden' and logs action with justification
+AC6: Test override requires admin role (403 for reviewer)
+AC6: Test override requires justification min 50 characters (400 if missing)
+AC7: Test flag endpoint updates status to 'escalated' and logs action
+AC8: Test all actions logged to audit trail with operator_id, recommendation_id, timestamp
+AC9: Test filters: status, persona type, guardrail failure type
+AC9: Test search by user ID or content ID
+AC10: Test batch approval processes multiple recommendations
+AC10: Test batch approval returns success/failure counts
+Test Epic 5 integration: tone validation failure saves to flagged_recommendations table
+Test Epic 5 integration: eligibility failure saves to flagged_recommendations table
+Test assembler checks review status before delivery
+Test React component renders queue with correct data
+Test action buttons visible based on role (override admin-only)
+Test batch selection and approval UI
+Test guardrail results color coding (green pass, red fail)
+    </ideas>
+  </tests>
+</story-context>

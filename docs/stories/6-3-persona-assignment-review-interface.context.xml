@@ -1,0 +1,283 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>3</storyId>
+    <title>Persona Assignment Review Interface</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-3-persona-assignment-review-interface.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>operator</asA>
+    <iWant>view of persona assignments with complete decision trace</iWant>
+    <soThat>I can audit persona classification accuracy and understand prioritization logic</soThat>
+    <tasks>
+- Task 1: Create backend API endpoints for persona data (AC: #1, #2, #3, #4, #7)
+- Task 2: Design and implement persona assignment UI (AC: #1, #2, #5)
+- Task 3: Implement qualifying personas and match evidence display (AC: #3)
+- Task 4: Implement prioritization logic explanation (AC: #4)
+- Task 5: Implement persona change history display (AC: #8)
+- Task 6: Implement manual persona override (AC: #9, #10)
+- Task 7: Integrate with persona registry and definitions (AC: #5)
+- Task 8: Implement confidence level display (AC: #6)
+- Task 9: Implement timestamp and data version display (AC: #7)
+- Task 10: Write comprehensive unit and integration tests (AC: #1-10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Persona assignment displayed prominently for selected user
+2. Both 30-day and 180-day persona assignments shown
+3. All qualifying personas listed with match evidence (specific signal values that triggered match)
+4. Prioritization logic explanation shown (why highest-priority persona was selected)
+5. Persona definition displayed: criteria, educational focus, priority rank
+6. Assignment confidence level displayed if applicable
+7. Assignment timestamp and data version shown
+8. Persona change history displayed if persona shifted between time windows
+9. Manual persona override capability for admin role
+10. Override actions logged with operator ID and justification required
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-6-operator-view-oversight-interface.md</path>
+        <title>Epic 6 PRD - Operator View & Oversight Interface</title>
+        <section>Story 6.3: Persona Assignment Review Interface</section>
+        <snippet>View persona assignments with complete decision trace. Display all qualifying personas with match evidence and prioritization logic. Support manual override for admin role with audit trail.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Persona System</section>
+        <snippet>6 personas with deterministic priority ranking. PersonaAssignment table stores assigned_persona_id, qualifying_personas (JSON), match_evidence (JSON), prioritization_reason. Transparent decision traces for auditability.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-1-operator-authentication-authorization.md</path>
+        <title>Story 6.1 - Operator Authentication & Authorization</title>
+        <section>RBAC Implementation</section>
+        <snippet>Use @require_role('viewer') for GET endpoints, @require_role('admin') for POST override. Audit logging with operator_id and justification required for manual overrides.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-2-user-signal-dashboard.md</path>
+        <title>Story 6.2 - User Signal Dashboard</title>
+        <section>Signal Display Integration</section>
+        <snippet>Match evidence should link to Signal Dashboard to show full context. Display signal values that triggered persona match with citations.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/personas/assigner.py</path>
+        <kind>persona_assignment</kind>
+        <symbol>PersonaAssigner</symbol>
+        <lines>24-60</lines>
+        <reason>Epic 3 persona assigner orchestrates matching, prioritization, and storage. Provides get_assignment() method to retrieve persona assignments with audit trails.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/matcher.py</path>
+        <kind>persona_matching</kind>
+        <symbol>PersonaMatcher</symbol>
+        <lines>all</lines>
+        <reason>Persona matching logic from Epic 3. Returns PersonaMatch objects with match evidence (which signals triggered match). Needed for AC#3 to display qualifying personas.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/prioritizer.py</path>
+        <kind>persona_prioritization</kind>
+        <symbol>PersonaPrioritizer</symbol>
+        <lines>all</lines>
+        <reason>Deterministic prioritization logic from Epic 3. Generates prioritization_reason explaining why highest-priority persona was selected. Needed for AC#4.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/registry.py</path>
+        <kind>persona_definitions</kind>
+        <symbol>PersonaRegistry</symbol>
+        <lines>all</lines>
+        <reason>Persona registry with all 6 persona definitions (criteria, educational focus, priority rank). Needed for AC#5 to display persona details.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/definitions.py</path>
+        <kind>persona_models</kind>
+        <symbol>Persona</symbol>
+        <lines>all</lines>
+        <reason>Persona dataclass definition with id, name, criteria, educational_focus, priority_rank fields. Needed to display persona information in UI.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database_model</kind>
+        <symbol>PersonaAssignmentRecord</symbol>
+        <lines>all</lines>
+        <reason>Database model for persona assignments. Contains assignment_id, user_id, assigned_persona_id, qualifying_personas (JSON), match_evidence (JSON), assigned_at timestamp.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/auth/rbac.py</path>
+        <kind>authentication</kind>
+        <symbol>require_role</symbol>
+        <lines>all</lines>
+        <reason>RBAC decorator from Story 6.1. Persona endpoints need @require_role('viewer') for GET, @require_role('admin') for override POST.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="fastapi" version=">=0.104.0" />
+        <package name="pydantic" version=">=2.5.0" />
+        <package name="sqlalchemy" version=">=2.0.0" />
+        <package name="structlog" version=">=23.0.0" note="For audit logging" />
+      </python>
+      <frontend>
+        <package name="react" version="18" />
+        <package name="typescript" version="latest" />
+        <package name="@tanstack/react-query" version="5+" note="Server state management" />
+        <package name="react-router-dom" version="6+" />
+        <package name="lucide-react" version="latest" note="Icons for persona badges" />
+      </frontend>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- **Authentication Required**: GET endpoints use @require_role('viewer'), POST override uses @require_role('admin')
+- **Data Source**: Read from persona_assignments table populated by Epic 3 persona assignment system
+- **Time Windows**: Support both 30-day and 180-day assignments side-by-side
+- **Audit Logging**: All manual overrides must log operator_id, user_id, old_persona, new_persona, justification, timestamp
+- **Justification Required**: Override requests must include min 20 character justification text
+- **Decision Transparency**: Display ALL qualifying personas, not just assigned one. Show complete match evidence.
+- **Prioritization Display**: Explain in plain language why selected persona was chosen over others (priority rank)
+- **Persona Definitions**: Load from persona registry (Epic 3) - 6 personas with deterministic priority
+- **Override Indicator**: Visually distinguish manual overrides from automatic assignments
+- **Change History**: Display timeline of persona changes with reasons (signal changes or manual override)
+- **Signal Integration**: Link match evidence to Signal Dashboard (Story 6.2) for full context
+- **Read-Only for Viewer**: Only admin role can override personas, viewer role can only view
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>GET /api/operator/personas/{user_id}</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Query Params: time_window={30_day|180_day|both} (optional, default: both)
+Headers: Authorization: Bearer {token}
+Response: {
+  "user_id": str,
+  "assignments": {
+    "30_day": {
+      "assignment_id": str,
+      "assigned_persona_id": str,
+      "assigned_persona_name": str,
+      "assigned_at": timestamp,
+      "priority_rank": int,
+      "qualifying_personas": [{ persona_id, persona_name, priority_rank, match_evidence }],
+      "prioritization_reason": str,
+      "confidence_level": float | null,
+      "is_override": bool,
+      "override_by": str | null,
+      "override_justification": str | null
+    },
+    "180_day": { /* same structure */ }
+  }
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_personas.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/personas/{user_id}/history</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Query Params: limit={int}, time_window={30_day|180_day} (optional)
+Headers: Authorization: Bearer {token}
+Response: {
+  "user_id": str,
+  "change_history": [
+    {
+      "changed_at": timestamp,
+      "previous_persona_id": str,
+      "previous_persona_name": str,
+      "new_persona_id": str,
+      "new_persona_name": str,
+      "reason": str,
+      "is_override": bool,
+      "operator_id": str | null
+    }
+  ]
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_personas.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/operator/personas/{user_id}/override</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Request: {
+  "new_persona_id": str,
+  "time_window": "30_day" | "180_day",
+  "justification": str (min 20 chars)
+}
+Headers: Authorization: Bearer {token} (admin role required)
+Response: {
+  "success": true,
+  "assignment_id": str,
+  "assigned_persona_id": str,
+  "assigned_persona_name": str,
+  "assigned_at": timestamp
+}
+Status: 200 OK | 400 Bad Request | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_personas.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/personas/definitions</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Headers: Authorization: Bearer {token}
+Response: {
+  "personas": [
+    {
+      "persona_id": str,
+      "name": str,
+      "educational_focus": str,
+      "priority_rank": int,
+      "criteria": { /* matching criteria dict */ }
+    }
+  ]
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_personas.py (NEW)</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Backend: pytest with FastAPI TestClient. Frontend: Jest + React Testing Library. Achieve minimum 10-15 tests covering persona retrieval, match evidence display, override authorization, audit logging, and role-based UI visibility.
+    </standards>
+    <locations>
+tests/test_operator_personas.py (NEW - backend API tests)
+ui/src/tests/PersonaAssignmentView.test.tsx (NEW - frontend component tests)
+    </locations>
+    <ideas>
+AC1: Test persona API returns assigned persona for user
+AC2: Test persona API returns both 30-day and 180-day assignments
+AC3: Test qualifying_personas array includes all matching personas with evidence
+AC4: Test prioritization_reason explains why selected persona was chosen
+AC5: Test persona definitions endpoint returns all 6 personas with criteria
+AC6: Test confidence_level displayed if present (null for deterministic assignments)
+AC7: Test assigned_at timestamp included in response
+AC8: Test persona change history includes previous and new personas with reasons
+AC9: Test override POST requires admin role (403 for viewer)
+AC9: Test override POST requires justification (400 if missing or too short)
+AC10: Test override logs audit entry with operator_id, user_id, old_persona, new_persona, justification
+AC10: Test override updates assignment and sets is_override=true flag
+Test React component renders assigned persona prominently
+Test qualifying personas list shows match evidence with signal values
+Test override modal only visible to admin role
+Test override success refreshes assignment view
+Test match evidence links to Signal Dashboard
+Test persona change timeline renders correctly
+    </ideas>
+  </tests>
+</story-context>

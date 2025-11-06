@@ -121,6 +121,21 @@ class ConsentService:
             timestamp=timestamp.isoformat()
         )
 
+        # Epic 6 Story 6.5: Log to audit_log table for compliance reporting
+        if previous_status != consent_status.value:
+            try:
+                from spendsense.services.audit_service import AuditService
+                AuditService.log_consent_changed(
+                    user_id=user_id,
+                    old_status=previous_status or "opted_out",
+                    new_status=consent_status.value,
+                    consent_version=consent_version,
+                    session=self.db_session
+                )
+            except Exception as e:
+                # Log but don't fail consent operation if audit logging fails
+                logger.warning("audit_log_failed", error=str(e), user_id=user_id)
+
         return ConsentResult(
             user_id=user_id,
             consent_status=ConsentStatus(consent_status.value),

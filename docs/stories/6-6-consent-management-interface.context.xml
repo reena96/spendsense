@@ -1,0 +1,337 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>6</storyId>
+    <title>Consent Management Interface</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-6-consent-management-interface.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>operator</asA>
+    <iWant>interface to view and manage user consent status with proper authorization</iWant>
+    <soThat>I can assist users with consent issues and handle edge cases while maintaining audit trails</soThat>
+    <tasks>
+- Task 1: Verify Epic 5 consent API endpoints (AC: #1-14, EPIC 5 INTEGRATION)
+- Task 2: Create batch consent API endpoints (AC: #10)
+- Task 3: Create consent history API endpoint (AC: #9)
+- Task 4: Design and implement consent management UI (AC: #1, #2, #3, #4)
+- Task 5: Implement consent status change UI (AC: #5, #6, #7, #8)
+- Task 6: Implement consent change history display (AC: #9)
+- Task 7: Implement batch consent operations (AC: #10)
+- Task 8: Implement consent status filters and list view (AC: #11)
+- Task 9: Implement consent report export (AC: #12)
+- Task 10: Implement access control and audit logging (AC: #1, #13, #14)
+- Task 11: Write comprehensive unit and integration tests (AC: #1-14)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Consent management interface accessible to admin and reviewer roles only
+2. User search allows lookup by user ID or name
+3. Current consent status displayed prominently: opted-in or opted-out badge
+4. Consent timestamp and version displayed
+5. Toggle switch or buttons to change consent status (opt-in/opt-out)
+6. Confirmation dialog required before changing consent status
+7. Reason field required when changing consent (for audit trail)
+8. Visual feedback shown when consent status changes successfully
+9. Consent change history displayed: timeline of all status changes with timestamps
+10. Batch consent operations available: bulk opt-in/opt-out for multiple users (admin only)
+11. Consent status filters: view all opted-in users, all opted-out users, recently changed
+12. Export consent report functionality (CSV/JSON) for compliance officers
+13. All consent changes logged in audit trail with operator ID and reason
+14. Unauthorized access attempts blocked and logged
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-6-operator-view-oversight-interface.md</path>
+        <title>Epic 6 PRD - Operator View & Oversight Interface</title>
+        <section>Story 6.6: Consent Management Interface</section>
+        <snippet>Interface to view and manage user consent status. Integrates with Epic 5 consent API. Batch operations for admin. Consent change history and export for compliance.</snippet>
+      </doc>
+      <doc>
+        <path>docs/backlog.md</path>
+        <title>Product Backlog</title>
+        <section>Epic 5 Deferred Items</section>
+        <snippet>Consent Management UI: Operator interface for managing user consent (toggle opt-in/opt-out, view history) - DEFERRED to Epic 6.6</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/5-1-consent-management-system.md</path>
+        <title>Story 5.1 - Consent Management System</title>
+        <section>Epic 5 Consent API</section>
+        <snippet>Backend consent system complete: POST /api/consent, GET /api/consent/{user_id}. Database schema includes consent_status, consent_timestamp, consent_version in users table.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-1-operator-authentication-authorization.md</path>
+        <title>Story 6.1 - Operator Authentication & Authorization</title>
+        <section>RBAC Implementation</section>
+        <snippet>Use @require_role('admin') for batch consent operations, @require_role('reviewer') for individual consent changes. All actions logged with operator_id.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-5-audit-trail-compliance-reporting.md</path>
+        <title>Story 6.5 - Audit Trail & Compliance Reporting</title>
+        <section>Consent Change History</section>
+        <snippet>Query audit_log table for event_type='consent_changed' to retrieve consent change history. Export pattern: CSV/JSON generation with streaming.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/api/main.py</path>
+        <kind>api_endpoints</kind>
+        <symbol>POST /api/consent, GET /api/consent/{user_id}</symbol>
+        <lines>1017-1147</lines>
+        <reason>Epic 5 consent API endpoints (Story 5.1). POST records consent changes, GET retrieves current status. Story 6.6 adds authentication and operator UI.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/consent.py</path>
+        <kind>consent_service</kind>
+        <symbol>ConsentService</symbol>
+        <lines>48-100</lines>
+        <reason>Epic 5 ConsentService handles consent recording with audit logging. UI will call this service via API endpoints with operator authentication.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database_model</kind>
+        <symbol>User</symbol>
+        <lines>26-100</lines>
+        <reason>User table contains consent_status, consent_timestamp, consent_version columns (added in Story 5.1). Consent UI displays and updates these fields.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/auth/rbac.py</path>
+        <kind>authentication</kind>
+        <symbol>require_role</symbol>
+        <lines>all</lines>
+        <reason>RBAC decorator from Story 6.1. Consent endpoints need @require_role('admin') for batch ops, @require_role('reviewer') for individual changes.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/models/audit_log.py</path>
+        <kind>audit_logging</kind>
+        <symbol>AuditLog</symbol>
+        <lines>all</lines>
+        <reason>Story 6.5 audit log table. Consent change history retrieved from audit_log where event_type='consent_changed' for timeline display.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="fastapi" version=">=0.104.0" />
+        <package name="pydantic" version=">=2.5.0" />
+        <package name="sqlalchemy" version=">=2.0.0" />
+        <package name="structlog" version=">=23.0.0" note="For audit logging" />
+        <package name="pandas" version=">=2.1.0" note="For CSV export generation" />
+        <package name="pytest" version=">=7.4.0" />
+        <package name="httpx" version=">=0.25.0" note="For API testing" />
+      </python>
+      <frontend>
+        <package name="react" version="18" />
+        <package name="typescript" version="latest" />
+        <package name="@tanstack/react-query" version="5+" note="Server state management" />
+        <package name="react-router-dom" version="6+" />
+        <package name="tailwindcss" version="3+" />
+        <package name="lucide-react" version="latest" note="Icons for badges and actions" />
+      </frontend>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- **Epic 5 Integration**: Uses POST /api/consent and GET /api/consent/{user_id} endpoints from Story 5.1
+- **Authentication Required**: @require_role('admin') for batch operations, @require_role('reviewer') for individual changes
+- **Audit Logging**: All consent changes logged to audit_log table (Story 6.5) with event_type='consent_changed'
+- **Justification Required**: Reason field min 20 characters for all consent changes
+- **Confirmation Dialogs**: Prevent accidental changes with confirmation modal
+- **Consent Change History**: Query audit_log table for event_type='consent_changed' and user_id
+- **Batch Operations**: Admin-only, process multiple users with individual audit trails
+- **Export Functionality**: CSV/JSON export for compliance reporting following Story 6.5 pattern
+- **Consent Status Values**: opted_in, opted_out (from Epic 5 ConsentStatus enum)
+- **Consent Version**: Track consent version for regulatory compliance (default: "1.0")
+- **Frontend Framework**: React 18 + TypeScript + TailwindCSS, no class components
+- **State Management**: React Query for API data caching and optimistic updates
+- **Responsive Design**: Must work on desktop and tablet viewports
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>POST /api/operator/consent/batch</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Request: {
+  "user_ids": [str],
+  "consent_status": "opted_in" | "opted_out",
+  "reason": str (min 20 chars)
+}
+Headers: Authorization: Bearer {token} (admin role required)
+Response: {
+  "success_count": int,
+  "failure_count": int,
+  "failed_users": [{ "user_id": str, "error": str }]
+}
+Status: 200 OK | 400 Bad Request | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_consent.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/consent/users</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Query Params: consent_status (opted_in/opted_out/all), changed_since (date), limit, offset
+Headers: Authorization: Bearer {token} (admin or reviewer role required)
+Response: {
+  "users": [
+    {
+      "user_id": str,
+      "name": str,
+      "consent_status": str,
+      "consent_timestamp": timestamp,
+      "consent_version": str
+    }
+  ],
+  "total_count": int
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_consent.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/consent/{user_id}/history</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Headers: Authorization: Bearer {token} (admin or reviewer role required)
+Response: {
+  "user_id": str,
+  "change_history": [
+    {
+      "timestamp": timestamp,
+      "previous_status": str,
+      "new_status": str,
+      "changed_by": str,  // operator_id or 'user'
+      "reason": str,
+      "consent_version": str
+    }
+  ]
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden | 404 Not Found
+      </signature>
+      <path>spendsense/api/operator_consent.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>POST /api/consent (Epic 5 endpoint)</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Request: {
+  "user_id": str,
+  "consent_status": "opted_in" | "opted_out",
+  "consent_version": str (default: "1.0")
+}
+Response: {
+  "user_id": str,
+  "consent_status": str,
+  "consent_timestamp": str,
+  "consent_version": str,
+  "message": str
+}
+Status: 201 Created | 400 Bad Request | 404 Not Found | 500 Internal Server Error
+      </signature>
+      <path>spendsense/api/main.py:1035-1093 (EXISTING - Story 5.1)</path>
+    </interface>
+    <interface>
+      <name>GET /api/consent/{user_id} (Epic 5 endpoint)</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Path Params: user_id (str)
+Response: {
+  "user_id": str,
+  "consent_status": str,
+  "consent_timestamp": str,
+  "consent_version": str,
+  "message": str
+}
+Status: 200 OK | 404 Not Found | 500 Internal Server Error
+      </signature>
+      <path>spendsense/api/main.py:1096-1147 (EXISTING - Story 5.1)</path>
+    </interface>
+    <interface>
+      <name>ConsentManagement React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: None (uses URL params for user_id if direct link)
+State: selected_user, consent_filters (status, date_range)
+Hooks: useConsent(userId) - React Query hook for consent CRUD
+Renders: UserSearch, ConsentStatus, ConsentChangeModal, ConsentHistory components
+      </signature>
+      <path>ui/src/pages/ConsentManagement.tsx (NEW)</path>
+    </interface>
+    <interface>
+      <name>ConsentListView React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: None
+State: filters (consent_status, changed_since), selected_users (for batch)
+Hooks: useConsentUsers(filters) - React Query hook
+Renders: User list table with consent status badges, filter panel, batch operations
+      </signature>
+      <path>ui/src/components/ConsentListView.tsx (NEW)</path>
+    </interface>
+    <interface>
+      <name>BatchConsentModal React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: { selectedUsers: string[], onSuccess: () => void }
+State: consent_status, reason, is_submitting
+Hooks: useBatchConsent() - React Query mutation
+Renders: Consent status selector, reason textarea, confirmation warning, progress indicator
+      </signature>
+      <path>ui/src/components/BatchConsentModal.tsx (NEW)</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Backend: pytest with FastAPI TestClient. Frontend: Jest + React Testing Library. Achieve minimum 15 tests covering batch operations, consent history retrieval, RBAC enforcement, audit logging, and UI interactions.
+    </standards>
+    <locations>
+tests/test_operator_consent.py (NEW - backend API tests)
+tests/test_consent_integration.py (NEW - Epic 5 integration tests)
+ui/src/tests/ConsentManagement.test.tsx (NEW - frontend component tests)
+ui/src/tests/BatchConsentModal.test.tsx (NEW - batch operations tests)
+    </locations>
+    <ideas>
+AC1: Test consent management page requires admin or reviewer role
+AC1: Test 403 for viewer role attempting access
+AC2: Test user search API returns matching users by ID
+AC2: Test user search API returns matching users by name fragment
+AC3: Test current consent status badge displays correctly (green opted_in, red opted_out)
+AC4: Test consent timestamp and version displayed
+AC5: Test toggle switch updates consent status
+AC6: Test confirmation dialog displays before consent change
+AC6: Test confirmation dialog cancellation prevents change
+AC7: Test reason field required with min 20 characters
+AC7: Test 400 error if reason too short
+AC8: Test success toast displays after consent change
+AC8: Test consent status refreshes after successful change
+AC9: Test consent history API returns timeline of changes
+AC9: Test consent history displays previous and new status
+AC9: Test consent history shows changed_by (operator_id or 'user')
+AC10: Test batch consent API processes multiple users
+AC10: Test batch operations require admin role (403 for reviewer)
+AC10: Test batch consent returns success and failure counts
+AC11: Test consent filters: opted_in, opted_out, recently changed
+AC11: Test recently changed filter (last 30 days)
+AC12: Test export generates CSV with correct format
+AC12: Test export generates JSON with full consent details
+AC13: Test consent changes logged to audit_log table
+AC13: Test audit log includes operator_id, user_id, old_status, new_status, reason
+AC14: Test unauthorized access attempts return 401
+Test Epic 5 integration: POST /api/consent endpoint works with authentication
+Test Epic 5 integration: GET /api/consent/{user_id} endpoint works with authentication
+Test React component renders consent status correctly
+Test confirmation modal prevents accidental changes
+Test batch selection UI allows multiple user selection
+Test export triggers browser download
+Test consent change history timeline renders correctly
+    </ideas>
+  </tests>
+</story-context>

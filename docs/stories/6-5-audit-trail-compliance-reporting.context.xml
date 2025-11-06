@@ -1,0 +1,330 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>6</epicId>
+    <storyId>5</storyId>
+    <title>Audit Trail & Compliance Reporting</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/6-5-audit-trail-compliance-reporting.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>compliance officer</asA>
+    <iWant>comprehensive audit trail of all system decisions and operator actions</iWant>
+    <soThat>the system can demonstrate compliance with ethical guidelines and regulatory requirements</soThat>
+    <tasks>
+- Task 1: Design consolidated audit log database schema (AC: #1-5, #9)
+- Task 2: Integrate audit logging with Epic 5 guardrails (AC: #1-4)
+- Task 3: Integrate audit logging with Epic 6 operator actions (AC: #5)
+- Task 4: Create backend API endpoints for audit log (AC: #6, #7, #10)
+- Task 5: Implement compliance metrics calculation (AC: #8)
+- Task 6: Design and implement audit log UI (AC: #1-5, #6)
+- Task 7: Implement export functionality (AC: #7)
+- Task 8: Implement compliance metrics dashboard (AC: #8)
+- Task 9: Implement data retention and archival (AC: #9)
+- Task 10: Write comprehensive unit and integration tests (AC: #1-10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Audit log displays all recommendation decisions with full trace
+2. Audit log displays all consent changes with timestamps
+3. Audit log displays all eligibility check results
+4. Audit log displays all tone validation results
+5. Audit log displays all operator actions (approvals, overrides, flags)
+6. Search and filter capabilities: date range, user ID, operator ID, action type
+7. Export functionality allows downloading audit logs as CSV/JSON
+8. Compliance metrics displayed: consent opt-in rate, eligibility failure reasons, tone validation issues
+9. Data retention policy documented for audit logs
+10. Audit log access restricted to admin and compliance roles
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-6-operator-view-oversight-interface.md</path>
+        <title>Epic 6 PRD - Operator View & Oversight Interface</title>
+        <section>Story 6.5: Audit Trail & Compliance Reporting</section>
+        <snippet>Comprehensive audit trail of all system decisions and operator actions. Export to CSV/JSON for regulatory reporting. Compliance metrics dashboard. 7-year data retention.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Tech Stack</section>
+        <snippet>Backend: FastAPI with structlog for structured logging. Database: SQLite with potential PostgreSQL migration for high-volume production. Parquet for archival storage.</snippet>
+      </doc>
+      <doc>
+        <path>docs/GUARDRAILS_OVERVIEW.md</path>
+        <title>Epic 5 Guardrails Overview</title>
+        <section>Audit Trail Patterns</section>
+        <snippet>All guardrails include audit_trail metadata in results. Epic 5 established patterns for structured logging with consent, eligibility, and tone validation events.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-1-operator-authentication-authorization.md</path>
+        <title>Story 6.1 - Operator Authentication & Authorization</title>
+        <section>Auth Audit Logging</section>
+        <snippet>Login attempts, unauthorized access, and operator actions logged with operator_id, timestamp. May consolidate auth_audit_log into main audit_log table.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-3-persona-assignment-review-interface.md</path>
+        <title>Story 6.3 - Persona Assignment Review Interface</title>
+        <section>Persona Override Logging</section>
+        <snippet>Manual persona overrides logged with operator_id, old_persona, new_persona, justification, timestamp.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/6-4-recommendation-review-approval-queue.md</path>
+        <title>Story 6.4 - Recommendation Review & Approval Queue</title>
+        <section>Operator Action Logging</section>
+        <snippet>Approve, override, flag actions logged with operator_id, recommendation_id, action, justification, timestamp.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/guardrails/consent.py</path>
+        <kind>guardrail</kind>
+        <symbol>ConsentService.record_consent</symbol>
+        <lines>64-100</lines>
+        <reason>Epic 5 consent service. Need to add audit log insertion for consent changes (event_type: consent_changed) with old_status, new_status, consent_version.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/eligibility.py</path>
+        <kind>guardrail</kind>
+        <symbol>EligibilityChecker.check_eligibility</symbol>
+        <lines>62-100</lines>
+        <reason>Epic 5 eligibility checker. Need to add audit log insertion for eligibility checks (event_type: eligibility_checked) with pass/fail, failure_reasons, thresholds.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/tone.py</path>
+        <kind>guardrail</kind>
+        <symbol>ToneValidator</symbol>
+        <lines>1-100</lines>
+        <reason>Epic 5 tone validator. Need to add audit log insertion for tone validations (event_type: tone_validated) with pass/fail, detected_violations, severity.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/assembler.py</path>
+        <kind>recommendation_orchestration</kind>
+        <symbol>RecommendationAssembler</symbol>
+        <lines>1-50</lines>
+        <reason>Recommendation assembler orchestrates guardrails. Need to add audit log insertion for recommendation generation (event_type: recommendation_generated) with persona, content_ids, guardrail_results.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/auth/rbac.py</path>
+        <kind>authentication</kind>
+        <symbol>require_role</symbol>
+        <lines>all</lines>
+        <reason>RBAC decorator from Story 6.1. Audit endpoints need @require_role('admin') or @require_role('compliance') for access control.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database_models</kind>
+        <symbol>Base</symbol>
+        <lines>26-100</lines>
+        <reason>Existing database models. Need to add AuditLog table following same SQLAlchemy ORM pattern with indexes on timestamp, event_type, user_id, operator_id.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="fastapi" version=">=0.104.0" />
+        <package name="pydantic" version=">=2.5.0" />
+        <package name="sqlalchemy" version=">=2.0.0" />
+        <package name="structlog" version=">=23.0.0" note="Structured logging for audit events" />
+        <package name="pandas" version=">=2.1.0" note="For CSV export generation" />
+        <package name="pyarrow" version=">=14.0.0" note="For Parquet archival storage" />
+        <package name="pytest" version=">=7.4.0" />
+        <package name="httpx" version=">=0.25.0" note="For API testing" />
+      </python>
+      <frontend>
+        <package name="react" version="18" />
+        <package name="typescript" version="latest" />
+        <package name="@tanstack/react-query" version="5+" note="Server state management" />
+        <package name="tailwindcss" version="3+" />
+        <package name="recharts" version="latest" note="Charts for compliance metrics" />
+        <package name="date-fns" version="latest" note="Date range picker" />
+      </frontend>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- **Database Pattern**: Use SQLAlchemy ORM model for audit_log table with indexes on timestamp (DESC), event_type, user_id, operator_id
+- **Event Types**: recommendation_generated, consent_changed, eligibility_checked, tone_validated, operator_action, persona_assigned, persona_overridden, login_attempt, unauthorized_access
+- **JSON Storage**: event_data column stores full trace as JSON for flexibility and complete audit trail
+- **Authentication Required**: All audit endpoints require @require_role('admin') or @require_role('compliance')
+- **Data Retention**: 7-year retention for financial services compliance. Active: 2 years in database. Archived: 2-7 years in Parquet files. Deletion: After 7 years.
+- **Export Streaming**: Stream large exports to avoid memory issues for regulatory reporting
+- **Compliance Metrics**: Consent opt-in rate, eligibility failure reasons breakdown, tone violation categories, operator action distribution
+- **Audit Security**: Include ip_address and user_agent for security analysis
+- **structlog Integration**: Use Epic 5 structured logging pattern for consistency
+- **Archival Strategy**: Monthly archival script moves logs >2 years to Parquet files in data/audit_archives/YYYY-MM/
+- **Frontend Framework**: React 18 + TypeScript + TailwindCSS with Recharts for visualizations
+- **Date Range Filters**: Support last 7/30/90 days, custom ranges for compliance reporting
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>GET /api/operator/audit/log</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Query Params: event_type, user_id, operator_id, start_date, end_date, limit, offset
+Headers: Authorization: Bearer {token} (admin or compliance role required)
+Response: {
+  "audit_entries": [
+    {
+      "log_id": str,
+      "event_type": str,
+      "user_id": str | null,
+      "operator_id": str | null,
+      "recommendation_id": str | null,
+      "timestamp": timestamp,
+      "event_data": { /* full trace as JSON */ },
+      "ip_address": str,
+      "user_agent": str
+    }
+  ],
+  "total_count": int
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_audit.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/audit/export</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Query Params: format (csv/json), event_type, user_id, operator_id, start_date, end_date
+Headers: Authorization: Bearer {token} (admin or compliance role required)
+Response: CSV file download or JSON array (streamed)
+Headers: Content-Disposition: attachment; filename="audit_log_{timestamp}.{format}"
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_audit.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>GET /api/operator/audit/metrics</name>
+      <kind>REST endpoint</kind>
+      <signature>
+Query Params: start_date, end_date (optional, defaults to last 30 days)
+Headers: Authorization: Bearer {token} (admin or compliance role required)
+Response: {
+  "consent_metrics": {
+    "total_users": int,
+    "opted_in_count": int,
+    "opted_out_count": int,
+    "opt_in_rate_pct": float,
+    "consent_changes_over_time": [{ "month": str, "changes": int }]
+  },
+  "eligibility_metrics": {
+    "total_checks": int,
+    "passed": int,
+    "failed": int,
+    "pass_rate_pct": float,
+    "failure_reasons": [{ "reason": str, "count": int }]
+  },
+  "tone_metrics": {
+    "total_validations": int,
+    "passed": int,
+    "failed": int,
+    "pass_rate_pct": float,
+    "violations_by_category": [{ "category": str, "count": int }]
+  },
+  "operator_metrics": {
+    "total_actions": int,
+    "approvals": int,
+    "overrides": int,
+    "flags": int,
+    "actions_by_operator": [{ "operator_id": str, "count": int }]
+  }
+}
+Status: 200 OK | 401 Unauthorized | 403 Forbidden
+      </signature>
+      <path>spendsense/api/operator_audit.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>AuditLog database model</name>
+      <kind>SQLAlchemy model</kind>
+      <signature>
+class AuditLog(Base):
+  log_id: str (PK)
+  event_type: str (CHECK: recommendation_generated, consent_changed, etc.)
+  user_id: str (FK to users, nullable)
+  operator_id: str (FK to operators, nullable)
+  recommendation_id: str (nullable)
+  timestamp: datetime (indexed DESC)
+  event_data: str (JSON)
+  ip_address: str (nullable)
+  user_agent: str (nullable)
+
+Indexes:
+  - idx_audit_timestamp (timestamp DESC)
+  - idx_audit_event_type (event_type)
+  - idx_audit_user (user_id)
+  - idx_audit_operator (operator_id)
+      </signature>
+      <path>spendsense/models/audit_log.py (NEW)</path>
+    </interface>
+    <interface>
+      <name>AuditLog React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: None
+State: filters (event_type, date_range, user_id, operator_id), pagination
+Hooks: useAuditLog(filters) - React Query hook
+Renders: AuditLogTable, FilterPanel, ExportButton components
+      </signature>
+      <path>ui/src/pages/AuditLog.tsx (NEW)</path>
+    </interface>
+    <interface>
+      <name>ComplianceMetrics React Component</name>
+      <kind>React component</kind>
+      <signature>
+Props: None
+State: time_range (30d, 90d, 1y, all)
+Hooks: useComplianceMetrics(timeRange) - React Query hook
+Renders: ConsentMetricsChart, EligibilityMetricsChart, ToneMetricsChart, OperatorMetricsChart
+Uses: Recharts for pie charts, bar charts, line charts
+      </signature>
+      <path>ui/src/pages/ComplianceMetrics.tsx (NEW)</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Backend: pytest with FastAPI TestClient. Frontend: Jest + React Testing Library. Achieve minimum 15 tests covering audit log insertion, API filtering, export generation, metrics calculation, archival script, and RBAC enforcement.
+    </standards>
+    <locations>
+tests/test_audit_log.py (NEW - backend API tests)
+tests/test_audit_integration.py (NEW - guardrail and operator action integration tests)
+tests/test_audit_archival.py (NEW - archival script tests)
+ui/src/tests/AuditLog.test.tsx (NEW - frontend audit log tests)
+ui/src/tests/ComplianceMetrics.test.tsx (NEW - frontend metrics tests)
+    </locations>
+    <ideas>
+AC1: Test recommendation_generated events logged with persona, content_ids, guardrail_results
+AC2: Test consent_changed events logged with old_status, new_status, consent_version
+AC3: Test eligibility_checked events logged with pass/fail, failure_reasons, thresholds
+AC4: Test tone_validated events logged with pass/fail, detected_violations, severity
+AC5: Test operator_action events logged for approve, override, flag with operator_id, justification
+AC6: Test audit log API filters by event_type
+AC6: Test audit log API filters by date range
+AC6: Test audit log API filters by user_id and operator_id
+AC7: Test CSV export generates correct format with flattened JSON
+AC7: Test JSON export includes full event_data
+AC7: Test export streaming for large datasets
+AC8: Test consent metrics calculate opt-in rate correctly
+AC8: Test eligibility metrics breakdown failure reasons
+AC8: Test tone metrics categorize violations
+AC8: Test operator metrics show action distribution by operator
+AC9: Test archival script moves logs >2 years to Parquet files
+AC9: Test archived logs compressed and stored in correct directory structure
+AC10: Test audit log access requires admin or compliance role
+AC10: Test 403 for viewer or reviewer roles
+Test Epic 5 integration: consent changes create audit entries
+Test Epic 6 integration: persona overrides create audit entries
+Test Epic 6 integration: review actions create audit entries
+Test React audit log table renders correctly
+Test React compliance metrics charts display data
+Test date range picker filters audit entries
+Test export triggers browser download
+    </ideas>
+  </tests>
+</story-context>

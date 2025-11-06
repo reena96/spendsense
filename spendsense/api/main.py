@@ -11,7 +11,7 @@ import json
 from pathlib import Path
 from typing import Optional
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Depends
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
@@ -24,12 +24,19 @@ from spendsense.generators import (
     LiabilityGenerator,
     generate_synthetic_liabilities,
 )
+from spendsense.api.operator_auth import router as operator_auth_router
+from spendsense.api.operator_signals import router as operator_signals_router
+from spendsense.api.operator_personas import router as operator_personas_router
+from spendsense.api.operator_review import router as operator_review_router
+from spendsense.api.operator_audit import router as operator_audit_router
+from spendsense.auth.rbac import require_role
+from spendsense.auth.tokens import TokenData
 
 
 # API Models
 class GenerateProfilesRequest(BaseModel):
     """Request model for profile generation."""
-    num_users: int = Field(ge=50, le=100, default=100, description="Number of profiles to generate (50-100)")
+    num_users: int = Field(ge=50, le=120, default=120, description="Number of profiles to generate (50-120)")
     seed: int = Field(default=42, description="Random seed for reproducibility")
 
 
@@ -59,8 +66,65 @@ class StatsResponse(BaseModel):
 app = FastAPI(
     title="SpendSense API",
     description="Backend API for SpendSense synthetic data generation and testing",
-    version="1.0.0"
+    version="1.0.0",
+    swagger_ui_parameters={
+        "persistAuthorization": True  # Keep authorization between page refreshes
+    }
 )
+
+# Configure OpenAPI security scheme for Bearer token authentication
+# This adds the "Authorize" button to Swagger UI
+from fastapi.openapi.utils import get_openapi
+
+def custom_openapi():
+    if app.openapi_schema:
+        return app.openapi_schema
+    openapi_schema = get_openapi(
+        title=app.title,
+        version=app.version,
+        description=app.description,
+        routes=app.routes,
+    )
+    # Add Bearer token security scheme
+    openapi_schema["components"]["securitySchemes"] = {
+        "BearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT",
+            "description": "Enter your JWT token in the format: `<your_token>` (no 'Bearer' prefix needed)"
+        }
+    }
+
+    # Mark protected endpoints (consent endpoints) as requiring BearerAuth
+    # This makes the Authorize button auto-fill the authorization header
+    protected_paths = [
+        ("/api/consent", "post"),
+        ("/api/consent/{user_id}", "get"),
+    ]
+
+    for path, method in protected_paths:
+        if path in openapi_schema["paths"] and method in openapi_schema["paths"][path]:
+            # Add security requirement
+            openapi_schema["paths"][path][method]["security"] = [{"BearerAuth": []}]
+
+            # Remove the confusing authorization parameter from the UI
+            # The Authorize button handles authentication instead
+            if "parameters" in openapi_schema["paths"][path][method]:
+                openapi_schema["paths"][path][method]["parameters"] = [
+                    p for p in openapi_schema["paths"][path][method]["parameters"]
+                    if p.get("name") != "authorization"
+                ]
+
+            # Add a note to the endpoint description about authentication
+            current_desc = openapi_schema["paths"][path][method].get("description", "")
+            if "🔒" not in current_desc:
+                auth_note = "\n\n🔒 **Authentication Required:** Use the 'Authorize' button (top right) to provide your JWT token. Once authorized, you can execute this endpoint directly."
+                openapi_schema["paths"][path][method]["description"] = current_desc + auth_note
+
+    app.openapi_schema = openapi_schema
+    return app.openapi_schema
+
+app.openapi = custom_openapi
 
 # Path to static files and data
 STATIC_DIR = Path(__file__).parent / "static"
@@ -82,6 +146,21 @@ LIABILITIES_DIR.mkdir(parents=True, exist_ok=True)
 
 # Serve static files for UI
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
+# Include operator authentication router (Epic 6 - Story 6.1)
+app.include_router(operator_auth_router)
+
+# Include operator signals router (Epic 6 - Story 6.2)
+app.include_router(operator_signals_router)
+
+# Include operator personas router (Epic 6 - Story 6.3)
+app.include_router(operator_personas_router)
+
+# Include operator review router (Epic 6 - Story 6.4)
+app.include_router(operator_review_router)
+
+# Include operator audit router (Epic 6 - Story 6.5)
+app.include_router(operator_audit_router)
 
 
 @app.get("/")
@@ -136,7 +215,67 @@ async def list_profiles(
     List generated profiles with pagination and filtering.
 
     Returns a paginated list of profiles. Can filter by persona type.
+    Reads from database if available, falls back to JSON file.
     """
+    # Try database first (preferred)
+    if DB_PATH.exists():
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+        from spendsense.ingestion.database_writer import User, Account
+
+        try:
+            engine = create_engine(f'sqlite:///{DB_PATH}')
+            Session = sessionmaker(bind=engine)
+
+            with Session() as session:
+                # Query users
+                query = session.query(User)
+
+                # Filter by persona if specified
+                if persona:
+                    query = query.filter(User.persona == persona)
+
+                # Get total count
+                total = query.count()
+
+                # Apply pagination
+                users = query.order_by(User.user_id).offset(offset).limit(limit).all()
+
+                # Build profile list
+                profiles = []
+                for user in users:
+                    # Get user's accounts
+                    accounts = session.query(Account).filter(Account.user_id == user.user_id).all()
+
+                    account_list = []
+                    for acc in accounts:
+                        account_list.append({
+                            "type": acc.type,
+                            "subtype": acc.subtype,
+                            "initial_balance": float(acc.balance_current or 0),
+                            "limit": float(acc.balance_limit) if acc.balance_limit else None
+                        })
+
+                    profiles.append({
+                        "user_id": user.user_id,
+                        "name": user.name,
+                        "persona": user.persona,
+                        "annual_income": float(user.annual_income) if user.annual_income else 0,
+                        "characteristics": user.characteristics or {},
+                        "accounts": account_list
+                    })
+
+                return ProfileListResponse(
+                    total=total,
+                    profiles=profiles
+                )
+        except Exception as e:
+            # If database read fails, fall through to JSON file
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Database read failed, falling back to JSON: {e}")
+
+    # Fallback to JSON file
     if not DEFAULT_PROFILES_FILE.exists():
         raise HTTPException(
             status_code=404,
@@ -166,7 +305,54 @@ async def get_profile(user_id: str):
     Get a specific profile by user ID.
 
     Returns the full profile details for the specified user.
+    Reads from database if available, falls back to JSON file.
     """
+    # Try database first (preferred)
+    if DB_PATH.exists():
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+        from spendsense.ingestion.database_writer import User, Account
+
+        try:
+            engine = create_engine(f'sqlite:///{DB_PATH}')
+            Session = sessionmaker(bind=engine)
+
+            with Session() as session:
+                # Query user
+                user = session.query(User).filter(User.user_id == user_id).first()
+
+                if not user:
+                    raise HTTPException(status_code=404, detail=f"Profile {user_id} not found")
+
+                # Get user's accounts
+                accounts = session.query(Account).filter(Account.user_id == user.user_id).all()
+
+                account_list = []
+                for acc in accounts:
+                    account_list.append({
+                        "type": acc.type,
+                        "subtype": acc.subtype,
+                        "initial_balance": float(acc.balance_current or 0),
+                        "limit": float(acc.balance_limit) if acc.balance_limit else None
+                    })
+
+                return {
+                    "user_id": user.user_id,
+                    "name": user.name,
+                    "persona": user.persona,
+                    "annual_income": float(user.annual_income) if user.annual_income else 0,
+                    "characteristics": user.characteristics or {},
+                    "accounts": account_list
+                }
+        except HTTPException:
+            raise
+        except Exception as e:
+            # If database read fails, fall through to JSON file
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Database read failed for user {user_id}, falling back to JSON: {e}")
+
+    # Fallback to JSON file
     if not DEFAULT_PROFILES_FILE.exists():
         raise HTTPException(status_code=404, detail="No profiles found")
 
@@ -187,7 +373,77 @@ async def get_stats():
     Get statistics about generated profiles.
 
     Returns persona distribution, income range, and validation status.
+    Reads from database if available, falls back to JSON file.
     """
+    # Try database first (preferred)
+    if DB_PATH.exists():
+        from sqlalchemy import create_engine, func
+        from sqlalchemy.orm import sessionmaker
+        from spendsense.ingestion.database_writer import User
+
+        try:
+            engine = create_engine(f'sqlite:///{DB_PATH}')
+            Session = sessionmaker(bind=engine)
+
+            with Session() as session:
+                # Get total count
+                total = session.query(User).count()
+
+                if total == 0:
+                    raise HTTPException(status_code=404, detail="No profiles found")
+
+                # Get persona distribution
+                persona_counts = session.query(
+                    User.persona,
+                    func.count(User.user_id)
+                ).group_by(User.persona).all()
+
+                persona_distribution = {persona: count for persona, count in persona_counts}
+
+                # Get income range
+                income_stats = session.query(
+                    func.min(User.annual_income),
+                    func.max(User.annual_income)
+                ).first()
+
+                income_range = (float(income_stats[0] or 0), float(income_stats[1] or 0))
+
+                # Validate distribution
+                persona_percentages = {
+                    persona: (count / total) * 100
+                    for persona, count in persona_distribution.items()
+                }
+
+                validation_errors = []
+                # Note: With 6 personas, expected distribution is ~16.7% each, not 20%
+                # We'll use a looser validation for now
+                for persona, percentage in persona_percentages.items():
+                    if percentage < 5.0 or percentage > 30.0:  # Loose bounds
+                        validation_errors.append(
+                            f"Persona {persona} has {percentage:.1f}% (unusual distribution)"
+                        )
+
+                validation = {
+                    "valid": len(validation_errors) == 0,
+                    "errors": validation_errors,
+                    "persona_percentages": persona_percentages
+                }
+
+                return StatsResponse(
+                    total_profiles=total,
+                    persona_distribution=persona_distribution,
+                    income_range=income_range,
+                    validation=validation
+                )
+        except HTTPException:
+            raise
+        except Exception as e:
+            # If database read fails, fall through to JSON file
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Database read failed, falling back to JSON: {e}")
+
+    # Fallback to JSON file
     if not DEFAULT_PROFILES_FILE.exists():
         raise HTTPException(status_code=404, detail="No profiles found")
 
@@ -1018,9 +1274,9 @@ async def get_recommendations(
 
 class ConsentRequest(BaseModel):
     """Request model for consent recording."""
-    user_id: str
-    consent_status: str  # 'opted_in' or 'opted_out'
-    consent_version: str = "1.0"
+    user_id: str = Field(default="user_MASKED_000", description="User ID to update consent for")
+    consent_status: str = Field(default="opted_in", description="Consent status: 'opted_in' or 'opted_out'")
+    consent_version: str = Field(default="1.0", description="Consent version")
 
 
 class ConsentResponse(BaseModel):
@@ -1033,20 +1289,27 @@ class ConsentResponse(BaseModel):
 
 
 @app.post("/api/consent", response_model=ConsentResponse, status_code=201)
-async def record_consent(request: ConsentRequest):
+async def record_consent(
+    consent_request: ConsentRequest,
+    current_operator: TokenData = Depends(require_role("admin"))
+):
     """
-    Record user consent change (Epic 5 - Story 5.1 AC8).
+    Record user consent change (Epic 5 - Story 5.1 AC8, Epic 6 - Story 6.1 AC4).
 
     Operators can record when users opt-in or opt-out of data processing.
     All consent changes are logged in audit trail.
+    **Requires admin role.**
 
     Args:
-        request: Consent request with user_id, consent_status, consent_version
+        consent_request: Consent request with user_id, consent_status, consent_version
+        current_operator: Operator info from JWT token (injected by FastAPI Depends)
 
     Returns:
         ConsentResponse with updated consent status
 
     Raises:
+        HTTPException 401: Unauthorized (missing or invalid token)
+        HTTPException 403: Forbidden (insufficient permissions)
         HTTPException 400: Invalid consent status
         HTTPException 404: User not found
         HTTPException 500: Database error
@@ -1056,10 +1319,10 @@ async def record_consent(request: ConsentRequest):
     from spendsense.guardrails.consent import ConsentService, ConsentStatus, ConsentNotGrantedError
 
     # Validate consent status
-    if request.consent_status not in ['opted_in', 'opted_out']:
+    if consent_request.consent_status not in ['opted_in', 'opted_out']:
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid consent_status: {request.consent_status}. Must be 'opted_in' or 'opted_out'"
+            detail=f"Invalid consent_status: {consent_request.consent_status}. Must be 'opted_in' or 'opted_out'"
         )
 
     try:
@@ -1069,11 +1332,11 @@ async def record_consent(request: ConsentRequest):
             consent_service = ConsentService(session)
 
             # Record consent
-            consent_status_enum = ConsentStatus(request.consent_status)
+            consent_status_enum = ConsentStatus(consent_request.consent_status)
             result = consent_service.record_consent(
-                user_id=request.user_id,
+                user_id=consent_request.user_id,
                 consent_status=consent_status_enum,
-                consent_version=request.consent_version
+                consent_version=consent_request.consent_version
             )
 
             return ConsentResponse(
@@ -1094,20 +1357,27 @@ async def record_consent(request: ConsentRequest):
 
 
 @app.get("/api/consent/{user_id}", response_model=ConsentResponse)
-async def get_consent(user_id: str):
+async def get_consent(
+    user_id: str,
+    current_operator: TokenData = Depends(require_role("reviewer"))
+):
     """
-    Get user consent status (Epic 5 - Story 5.1 AC9).
+    Get user consent status (Epic 5 - Story 5.1 AC9, Epic 6 - Story 6.1 AC4).
 
     Operators can check consent status for any user to verify
     data processing permissions.
+    **Requires reviewer or admin role.**
 
     Args:
         user_id: User identifier
+        current_operator: Operator info from JWT token (injected by FastAPI Depends)
 
     Returns:
         ConsentResponse with current consent status
 
     Raises:
+        HTTPException 401: Unauthorized (missing or invalid token)
+        HTTPException 403: Forbidden (insufficient permissions)
         HTTPException 404: User not found
         HTTPException 500: Database error
     """

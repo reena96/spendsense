@@ -1,0 +1,141 @@
+/**
+ * SpendSense UI - Main App Component
+ * React 18 + TypeScript + React Router + React Query
+ */
+
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { SignalDashboard } from './pages/SignalDashboard';
+import AuditLog from './pages/AuditLog';
+import ComplianceMetrics from './pages/ComplianceMetrics';
+import Login from './pages/Login';
+
+// Create React Query client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
+
+// Protected Route Component - redirects to login if not authenticated
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const isAuthenticated = !!localStorage.getItem('operator_token');
+
+  if (!isAuthenticated) {
+    // Redirect to login, but save the attempted URL
+    return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  return <>{children}</>;
+}
+
+function Navigation() {
+  const navigate = useNavigate();
+  const isAuthenticated = !!localStorage.getItem('operator_token');
+  const operatorRole = localStorage.getItem('operator_role');
+
+  const handleLogout = () => {
+    localStorage.removeItem('operator_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('operator_id');
+    localStorage.removeItem('operator_role');
+    navigate('/login');
+  };
+
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return (
+    <nav className="bg-white shadow-sm border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex items-center">
+            <Link to="/" className="text-xl font-bold text-gray-900">
+              SpendSense
+            </Link>
+            <div className="ml-10 flex items-baseline space-x-4">
+              <Link
+                to="/signals"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+              >
+                Signal Dashboard
+              </Link>
+              <Link
+                to="/audit"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+              >
+                Audit Log
+              </Link>
+              <Link
+                to="/compliance"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+              >
+                Compliance Metrics
+              </Link>
+            </div>
+          </div>
+          <div className="flex items-center space-x-4">
+            <span className="text-sm text-gray-600">
+              Role: <span className="font-medium">{operatorRole}</span>
+            </span>
+            <button
+              onClick={handleLogout}
+              className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <div className="min-h-screen bg-gray-50">
+          <Navigation />
+          {/* Routes */}
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+            <Route path="/signals" element={<ProtectedRoute><SignalDashboard /></ProtectedRoute>} />
+            <Route path="/audit" element={<ProtectedRoute><AuditLog /></ProtectedRoute>} />
+            <Route path="/compliance" element={<ProtectedRoute><ComplianceMetrics /></ProtectedRoute>} />
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+}
+
+function HomePage() {
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          Welcome to SpendSense
+        </h1>
+        <p className="text-xl text-gray-600 mb-8">
+          Operator Dashboard for Behavioral Signal Analysis
+        </p>
+        <Link
+          to="/signals"
+          className="inline-block px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          View Signal Dashboard
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export default App;

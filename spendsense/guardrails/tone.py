@@ -192,6 +192,23 @@ class ToneValidator:
                 text_id=text_id
             )
 
+        # Epic 6 Story 6.5: Log to audit_log table for compliance reporting
+        try:
+            from spendsense.services.audit_service import AuditService
+            severity = "critical" if not passes_tone else ("warning" if not passes_readability else "none")
+            AuditService.log_tone_validated(
+                user_id="unknown",  # Tone validation may not have user context
+                recommendation_id=text_id,
+                passed=passes,
+                detected_violations=[f.phrase for f in flagged_phrases],
+                severity=severity,
+                original_text=text[:200],  # First 200 chars for audit
+                session=None  # Will create its own session
+            )
+        except Exception as e:
+            # Log but don't fail tone validation if audit logging fails
+            logger.warning("audit_log_failed", error=str(e), text_id=text_id)
+
         # Create result
         text_snippet = text[:100] + "..." if len(text) > 100 else text
 
