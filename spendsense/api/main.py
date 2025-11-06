@@ -822,6 +822,173 @@ async def list_recommendations():
     }
 
 
+@app.get("/api/recommendations/{user_id}")
+async def get_recommendations(
+    user_id: str,
+    time_window: str = Query(default="30d", description="Time window (30d or 180d)"),
+    generate: bool = Query(default=False, description="Generate new recommendations if true")
+):
+    """
+    Get personalized recommendations for a user (Epic 4 Story 4.5).
+
+    Returns assembled recommendations with education content, partner offers,
+    rationales, and mandatory disclaimer.
+
+    Args:
+        user_id: User identifier
+        time_window: Time window for recommendations (30d or 180d)
+        generate: If true, generates new recommendations; if false, returns cached
+
+    Returns:
+        Assembled recommendation set with full details
+    """
+    from pathlib import Path
+    from spendsense.recommendations.content_library import ContentLibrary
+    from spendsense.recommendations.partner_offer_library import PartnerOfferLibrary
+    from spendsense.recommendations.assembler import RecommendationAssembler
+    from spendsense.recommendations.storage import RecommendationStorage
+
+    # Validate time window
+    if time_window not in ["30d", "180d"]:
+        raise HTTPException(
+            status_code=400,
+            detail="time_window must be '30d' or '180d'"
+        )
+
+    # Initialize storage
+    storage = RecommendationStorage(str(DATA_DIR / "recommendations"))
+
+    # If not generating new, try to return cached
+    if not generate:
+        cached = storage.get_latest_by_user(user_id, time_window)
+        if cached:
+            return cached
+
+    # Need to generate new recommendations
+    if not DB_PATH.exists():
+        raise HTTPException(
+            status_code=503,
+            detail="Database not available. Ingest data first."
+        )
+
+    try:
+        # Get user's persona (from Epic 3)
+        from spendsense.personas.assigner import PersonaAssigner
+        from datetime import date
+
+        assigner = PersonaAssigner(str(DB_PATH))
+        ref_date = date.today()
+        persona_result = assigner.assign_persona(user_id, ref_date, time_window)
+
+        if not persona_result:
+            raise HTTPException(
+                status_code=404,
+                detail=f"User {user_id} not found or no persona assigned"
+            )
+
+        # Get behavioral signals
+        from spendsense.features.behavioral_summary import BehavioralSummaryGenerator
+
+        summary_generator = BehavioralSummaryGenerator(str(DB_PATH))
+        behavioral_summary = summary_generator.generate_summary(user_id, ref_date)
+
+        # Extract signals from behavioral summary based on time window
+        # Use the appropriate time window data (30d or 180d)
+        credit_data = behavioral_summary.credit_30d if time_window == "30d" else behavioral_summary.credit_180d
+        income_data = behavioral_summary.income_30d if time_window == "30d" else behavioral_summary.income_180d
+        savings_data = behavioral_summary.savings_30d if time_window == "30d" else behavioral_summary.savings_180d
+        subscriptions_data = behavioral_summary.subscriptions_30d if time_window == "30d" else behavioral_summary.subscriptions_180d
+
+        signals = []
+        # Derive signals from metrics using correct attribute names
+        if credit_data and credit_data.high_utilization_count > 0:
+            signals.append("credit_utilization")
+        if income_data and income_data.payment_frequency == "irregular":
+            signals.append("irregular_income")
+        if savings_data and savings_data.emergency_fund_months < 3:
+            signals.append("savings_balance")
+        if subscriptions_data and subscriptions_data.subscription_count >= 3:
+            signals.append("subscription_count")
+
+        # Build user data for eligibility checking
+        # Calculate annualized income from window data
+        annual_income = 50000  # Default
+        if income_data and income_data.total_income > 0:
+            # Annualize based on window size
+            multiplier = 365 / income_data.window_days
+            annual_income = income_data.total_income * multiplier
+
+        user_data = {
+            "annual_income": annual_income,
+            "credit_score": 700,  # Default - would come from external source
+            "existing_accounts": [],
+            "credit_utilization": credit_data.aggregate_utilization if credit_data else 0,
+            "age": 30,  # Default - would come from profile
+            "is_employed": True,  # Default - would come from profile
+        }
+
+        # Add personalization data for rationales
+        if credit_data:
+            user_data["credit_max_utilization_pct"] = credit_data.aggregate_utilization * 100  # Convert to percentage
+            user_data["account_name"] = "Credit Card ****0000"  # Placeholder
+
+        if savings_data:
+            user_data["savings_balance"] = savings_data.total_savings_balance
+            user_data["savings_total_balance"] = savings_data.total_savings_balance  # Alias for templates
+            user_data["months_expenses"] = savings_data.emergency_fund_months
+            user_data["monthly_expenses"] = savings_data.avg_monthly_expenses
+            user_data["monthly_spend"] = savings_data.avg_monthly_expenses  # Alias for templates
+            user_data["emergency_fund_goal"] = savings_data.avg_monthly_expenses * 3  # 3-month goal
+            user_data["three_month_fund_target"] = savings_data.avg_monthly_expenses * 3
+            user_data["target_savings"] = savings_data.avg_monthly_expenses * 6  # 6-month goal
+            user_data["category_count"] = 10  # Default estimate for spending categories
+
+            # Calculate interest projections for high-yield savings offers
+            user_data["current_interest"] = savings_data.total_savings_balance * 0.005  # Assume 0.5% current rate
+            user_data["projected_interest"] = savings_data.total_savings_balance * 0.044  # 4.4% high-yield rate
+
+        if subscriptions_data:
+            user_data["subscription_count"] = subscriptions_data.subscription_count
+            user_data["subscription_share"] = subscriptions_data.subscription_share * 100  # Convert to percentage
+            user_data["monthly_subscription_cost"] = subscriptions_data.monthly_recurring_spend
+            user_data["monthly_subscription_total"] = subscriptions_data.monthly_recurring_spend
+            user_data["annual_subscription_total"] = subscriptions_data.monthly_recurring_spend * 12
+            user_data["potential_savings"] = subscriptions_data.monthly_recurring_spend * 0.3  # Assume 30% savings potential
+            user_data["bill_count"] = subscriptions_data.subscription_count  # Alias for templates
+
+        if income_data:
+            user_data["has_irregular_income"] = income_data.payment_frequency == "irregular"
+
+        # Initialize libraries and assembler
+        config_dir = Path(__file__).parent.parent / "config"
+        content_library = ContentLibrary(str(config_dir / "recommendations.yaml"))
+        partner_library = PartnerOfferLibrary(str(config_dir / "partner_offers.yaml"))
+        assembler = RecommendationAssembler(content_library, partner_library)
+
+        # Assemble recommendations
+        rec_set = assembler.assemble_recommendations(
+            user_id=user_id,
+            persona_id=persona_result.assigned_persona_id,
+            signals=signals,
+            user_data=user_data,
+            time_window=time_window,
+        )
+
+        # Save to storage
+        storage.save_recommendation_set(rec_set)
+
+        # Return as dict
+        return rec_set.to_dict()
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error generating recommendations: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)

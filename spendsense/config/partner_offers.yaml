@@ -1,0 +1,334 @@
+# Partner Offer Catalog (PRD-Compliant)
+#
+# Structure per Epic 4 PRD Story 4.2:
+# - type: Offer type (savings_account/credit_card/app/tool)
+# - personas: List of applicable persona IDs
+# - eligibility: Criteria (min_income, min_credit_score, excluded_accounts, etc.)
+#
+# Personas:
+# - high_utilization: Users with high credit card utilization
+# - irregular_income: Users with variable income patterns
+# - low_savings: Users with insufficient emergency fund
+# - subscription_heavy: Users with high subscription spending
+# - cash_flow_optimizer: Users optimizing cash flow
+# - young_professional: Early-career professionals
+#
+# AC7: Predatory products explicitly excluded (payday loans, high-fee credit cards, etc.)
+
+partner_offers:
+- id: balance_transfer_chase_slate
+  type: credit_card
+  title: "Chase Slate Edge℠ - 0% Intro APR Balance Transfer"
+  description: "Transfer high-interest credit card balances and pay 0% intro APR for 18 months on balance transfers (then variable APR). No annual fee. Balance transfer fee applies. Ideal for consolidating credit card debt and saving on interest while paying down balances."
+  personas:
+  - high_utilization
+  eligibility:
+    min_income: 30000
+    min_credit_score: 670
+    excluded_accounts:
+    - chase_credit_cards
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 1
+  provider: "Chase"
+  offer_url: "https://www.chase.com/personal/credit-cards/balance-transfer"
+  key_benefits:
+  - "0% intro APR for 18 months on balance transfers"
+  - "No annual fee"
+  - "Consolidate multiple high-interest balances"
+  - "Save money on interest charges"
+  rationale_template: "Your {account_name} card is at {utilization_pct}% utilization. Transferring ${balance} to this 0% APR card could save you ${interest_savings}/month in interest charges while you pay down the balance."
+  disclaimer: "Credit approval required. See Chase.com for complete terms. Balance transfer fee applies. Regular APR applies after promotional period."
+
+- id: citi_diamond_balance_transfer
+  type: credit_card
+  title: "Citi® Diamond Preferred® Card - 21 Month Balance Transfer"
+  description: "Industry-leading 0% intro APR for 21 months on balance transfers (then variable APR). No annual fee. Transfer high-interest balances and get almost 2 years to pay them off interest-free. Balance transfer fee applies."
+  personas:
+  - high_utilization
+  eligibility:
+    min_income: 35000
+    min_credit_score: 680
+    excluded_accounts:
+    - citi_credit_cards
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 2
+  provider: "Citi"
+  offer_url: "https://www.citi.com/credit-cards/citi-diamond-preferred-credit-card"
+  key_benefits:
+  - "0% intro APR for 21 months on balance transfers"
+  - "No annual fee"
+  - "Longest balance transfer period available"
+  - "Citi Entertainment access"
+  rationale_template: "With {utilization_pct}% utilization across your cards, this 21-month 0% APR period gives you time to pay down ${total_balance} while saving on interest."
+  disclaimer: "Credit approval required. Balance transfer fee applies. See Citi.com for complete terms."
+
+- id: ally_high_yield_savings
+  type: savings_account
+  title: "Ally Bank High-Yield Savings Account - 4.35% APY"
+  description: "Earn 4.35% APY on all balances with no minimum deposit and no monthly maintenance fees. FDIC insured up to $250,000. Access your money anytime with no withdrawal penalties. Perfect for building emergency funds and short-term savings goals."
+  personas:
+  - low_savings
+  - cash_flow_optimizer
+  - young_professional
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 1
+  provider: "Ally Bank"
+  offer_url: "https://www.ally.com/bank/online-savings-account/"
+  key_benefits:
+  - "4.35% APY on all balances"
+  - "No minimum balance required"
+  - "No monthly maintenance fees"
+  - "FDIC insured up to $250,000"
+  - "24/7 customer support"
+  rationale_template: "Your current savings balance of ${savings_balance} earns minimal interest. Moving it to this account would earn ${projected_interest}/year instead of ${current_interest}/year."
+  disclaimer: "APY accurate as of account opening date and subject to change. FDIC insured. Member FDIC."
+
+- id: marcus_high_yield_savings
+  type: savings_account
+  title: "Marcus by Goldman Sachs High-Yield Savings - 4.40% APY"
+  description: "Competitive 4.40% APY with no fees and no minimum deposit. FDIC insured. Easy transfers to and from external accounts. Build your emergency fund with one of the highest savings rates available from a trusted financial institution."
+  personas:
+  - low_savings
+  - irregular_income
+  - cash_flow_optimizer
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 2
+  provider: "Marcus by Goldman Sachs"
+  offer_url: "https://www.marcus.com/us/en/savings/high-yield-savings"
+  key_benefits:
+  - "4.40% APY competitive rate"
+  - "No transaction fees"
+  - "No minimum deposit to open"
+  - "FDIC insured"
+  - "Mobile app access"
+  rationale_template: "Building an emergency fund is critical with irregular income. At 4.40% APY, your ${target_savings} goal would earn ${projected_interest}/year."
+  disclaimer: "Annual Percentage Yield (APY) is accurate as of date of account opening and subject to change. FDIC insured. Member FDIC."
+
+- id: rocket_money_subscription_manager
+  type: app
+  title: "Rocket Money - Subscription Tracking & Cancellation"
+  description: "Track all your subscriptions in one place, get alerts before renewals, and cancel unwanted subscriptions with one tap. Rocket Money has helped members save an average of $720/year by identifying and canceling forgotten or unused subscriptions."
+  personas:
+  - subscription_heavy
+  - cash_flow_optimizer
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 1
+  provider: "Rocket Money"
+  offer_url: "https://www.rocketmoney.com/"
+  key_benefits:
+  - "Track all subscriptions automatically"
+  - "Cancel subscriptions with one tap"
+  - "Average savings of $720/year"
+  - "Price negotiation assistance"
+  - "Budget tracking features"
+  rationale_template: "You have ${subscription_count} active subscriptions totaling ${monthly_subscription_cost}/month. Rocket Money can help identify unused services costing you ${potential_savings}/month."
+  disclaimer: "Savings data based on Rocket Money user reports. Individual results may vary. Premium features require subscription."
+
+- id: truebill_budget_optimizer
+  type: app
+  title: "Truebill - Smart Budget & Bill Negotiation"
+  description: "Truebill helps you create smart budgets, track spending by category, and automatically negotiates bills like internet, phone, and cable to lower your monthly costs. Users save an average of $96/year on negotiated bills alone."
+  personas:
+  - subscription_heavy
+  - cash_flow_optimizer
+  - young_professional
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 2
+  provider: "Truebill (Rocket Companies)"
+  offer_url: "https://www.truebill.com/"
+  key_benefits:
+  - "Automatic bill negotiation"
+  - "Smart budgeting tools"
+  - "Subscription tracking"
+  - "Spending insights by category"
+  - "Average savings of $96/year on bills"
+  rationale_template: "Your monthly spending patterns show potential for optimization. Truebill can analyze ${bill_count} bills and negotiate lower rates automatically."
+  disclaimer: "Savings based on average user experience. Truebill takes a percentage of negotiated savings. See Truebill.com for details."
+
+- id: ynab_budget_method
+  type: app
+  title: "YNAB (You Need A Budget) - Zero-Based Budgeting"
+  description: "Master zero-based budgeting with YNAB's proven methodology. Give every dollar a job, break the paycheck-to-paycheck cycle, and build savings systematically. YNAB users report saving an average of $600 in their first two months and $6,000 in their first year."
+  personas:
+  - irregular_income
+  - low_savings
+  - young_professional
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 1
+  provider: "YNAB"
+  offer_url: "https://www.youneedabudget.com/"
+  key_benefits:
+  - "Zero-based budgeting methodology"
+  - "Handle irregular income effectively"
+  - "Average savings of $600 in first 2 months"
+  - "Real-time sync across devices"
+  - "Free 34-day trial"
+  rationale_template: "With irregular income patterns, YNAB's envelope budgeting can help you smooth out cash flow and build ${emergency_fund_goal} emergency fund systematically."
+  disclaimer: "Savings data based on YNAB user surveys. Individual results vary. Subscription required after trial period."
+
+- id: discover_secured_credit_builder
+  type: credit_card
+  title: "Discover it® Secured - Build Credit with Cash Back"
+  description: "Build or rebuild your credit with a secured credit card that earns 2% cash back at gas stations and restaurants (up to $1,000 combined per quarter, then 1%), plus 1% on all other purchases. Discover automatically reviews for graduation to unsecured card in as little as 7 months. No annual fee."
+  personas:
+  - young_professional
+  - high_utilization
+  eligibility:
+    min_income: 15000
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 3
+  provider: "Discover"
+  offer_url: "https://www.discover.com/credit-cards/secured/"
+  key_benefits:
+  - "Build credit with responsible use"
+  - "2% cash back at gas & restaurants"
+  - "Automatic review for upgrade to unsecured"
+  - "No annual fee"
+  - "Free FICO credit score tracking"
+  rationale_template: "Building credit history is important for your financial future. This secured card lets you earn rewards while establishing credit, with potential upgrade in 7 months."
+  disclaimer: "Credit approval required. Cash back earned is unlimited and never expires. Security deposit required. See Discover.com for terms."
+
+- id: wealthfront_cash_account
+  type: savings_account
+  title: "Wealthfront Cash Account - 5.00% APY with Planning Tools"
+  description: "Earn 5.00% APY on uninvested cash plus access to integrated financial planning tools. FDIC insured up to $8 million through partner banks. Automatic transfers, bill pay, and mobile check deposit. Perfect for tech-savvy savers who want planning tools alongside savings."
+  personas:
+  - young_professional
+  - cash_flow_optimizer
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 3
+  provider: "Wealthfront"
+  offer_url: "https://www.wealthfront.com/cash"
+  key_benefits:
+  - "5.00% APY on cash"
+  - "Integrated financial planning tools"
+  - "FDIC insured up to $8 million"
+  - "No account fees"
+  - "Automatic savings features"
+  rationale_template: "As a young professional, Wealthfront combines high-yield savings (5.00% APY) with financial planning. Your ${savings_balance} would earn ${projected_interest}/year."
+  disclaimer: "APY subject to change. FDIC insurance provided through partner banks. See Wealthfront.com for details."
+
+- id: credit_karma_savings
+  type: savings_account
+  title: "Credit Karma Savings - High-Yield with Credit Monitoring"
+  description: "Earn competitive APY with no minimum balance and no fees, plus get free credit score monitoring and personalized financial insights. FDIC insured through MVB Bank. Seamlessly integrated with Credit Karma's free credit monitoring tools."
+  personas:
+  - low_savings
+  - young_professional
+  - high_utilization
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 4
+  provider: "Credit Karma"
+  offer_url: "https://www.creditkarma.com/savings"
+  key_benefits:
+  - "Competitive high-yield APY"
+  - "Free credit score monitoring"
+  - "No minimum balance or fees"
+  - "FDIC insured"
+  - "Personalized financial insights"
+  rationale_template: "Build emergency savings while monitoring your credit health. Combining savings (${current_savings}) with credit tracking helps you reach financial goals faster."
+  disclaimer: "APY subject to change. FDIC insured through MVB Bank, Inc. Credit Karma Savings accounts are opened through MVB Bank, Inc., Member FDIC."
+
+- id: copilot_money_tracker
+  type: app
+  title: "Copilot Money - Premium Budgeting for iOS"
+  description: "Beautifully designed budgeting app for iPhone and iPad with automatic categorization, spending insights, subscription tracking, and custom budgets. Focused on privacy with bank-level security. No ads, no data selling - just clean financial tracking."
+  personas:
+  - cash_flow_optimizer
+  - subscription_heavy
+  - young_professional
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 3
+  provider: "Copilot Money"
+  offer_url: "https://copilot.money/"
+  key_benefits:
+  - "Beautiful, intuitive iOS interface"
+  - "Automatic transaction categorization"
+  - "Subscription tracking & alerts"
+  - "Custom budget categories"
+  - "Privacy-focused (no data selling)"
+  rationale_template: "Track ${monthly_spend} in monthly spending across ${category_count} categories with beautiful, privacy-focused iOS app. See exactly where your money goes."
+  disclaimer: "iOS only. Subscription required. Free trial available. See Copilot.money for pricing."
+
+- id: qapital_automated_savings
+  type: app
+  title: "Qapital - Automated Savings with Smart Rules"
+  description: "Automate your savings with customizable rules like round-up purchases, save-when-you-spend triggers, and payday percentages. Qapital makes saving effortless by moving small amounts automatically based on your daily activities. FDIC insured savings account included."
+  personas:
+  - low_savings
+  - irregular_income
+  - cash_flow_optimizer
+  eligibility:
+    min_income: null
+    min_credit_score: null
+    excluded_accounts: []
+    max_credit_utilization: null
+    min_age: 18
+    employment_required: false
+  priority: 2
+  provider: "Qapital"
+  offer_url: "https://www.qapital.com/"
+  key_benefits:
+  - "Automated savings rules"
+  - "Round-up purchases feature"
+  - "FDIC insured savings account"
+  - "Set multiple savings goals"
+  - "Average users save $2,500/year"
+  rationale_template: "Automate savings effortlessly with round-ups and smart rules. Build your ${emergency_fund_goal} emergency fund without thinking about it."
+  disclaimer: "Savings data based on Qapital user averages. Subscription required for premium features. FDIC insurance through partner bank."

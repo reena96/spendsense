@@ -1,0 +1,305 @@
+{
+  "user_id": "user_MASKED_000",
+  "persona_id": "low_savings",
+  "time_window": "30d",
+  "recommendations": [
+    {
+      "item_type": "education",
+      "item_id": "emergency_fund_importance",
+      "content": {
+        "id": "emergency_fund_importance",
+        "type": "article",
+        "title": "Why Emergency Funds Are Your Financial Foundation",
+        "description": "Understand why emergency funds prevent debt spirals and reduce financial stress. Without savings, unexpected expenses force you to use credit cards, creating a debt cycle. An emergency fund breaks this pattern and provides peace of mind.",
+        "personas": [
+          "low_savings"
+        ],
+        "triggering_signals": [
+          "credit_utilization",
+          "savings_balance"
+        ],
+        "category": "education",
+        "priority": 7,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "medium",
+        "content_url": "/content/emergency-fund-why",
+        "personalization_template": null
+      },
+      "rationale": "We recommend this article because it can help you Understand why emergency funds prevent debt spiral... This is relevant to your current financial situation.",
+      "persona_match_reason": "Why Emergency Funds Are Your Financial Foundation is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "education",
+      "item_id": "emergency_fund_start",
+      "content": {
+        "id": "emergency_fund_start",
+        "type": "template",
+        "title": "Start Your Emergency Fund with $1,000",
+        "description": "Begin with a mini emergency fund of $1,000 to handle small unexpected expenses without going into debt. This initial goal is achievable and provides immediate financial breathing room. Once reached, work toward 3-6 months of expenses.",
+        "personas": [
+          "low_savings"
+        ],
+        "triggering_signals": [
+          "savings_balance"
+        ],
+        "category": "action",
+        "priority": 1,
+        "difficulty": "beginner",
+        "time_commitment": "ongoing",
+        "estimated_impact": "high",
+        "content_url": "/content/emergency-fund-starter",
+        "personalization_template": "You currently have {savings_total_balance} saved and spend {monthly_expenses} per month. Start with a $1,000 mini emergency fund."
+      },
+      "rationale": "You currently have {savings_total_balance} saved and spend {monthly_expenses} per month. Start with a $1,000 mini emergency fund.",
+      "persona_match_reason": "Start Your Emergency Fund with $1,000 is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": [
+        "Amount: $1,000"
+      ]
+    },
+    {
+      "item_type": "education",
+      "item_id": "three_month_cushion_goal",
+      "content": {
+        "id": "three_month_cushion_goal",
+        "type": "calculator",
+        "title": "Calculate Your 3-Month Expense Cushion",
+        "description": "Determine exactly how much you need for a 3-month emergency fund based on your actual expenses. This concrete goal makes saving feel more achievable than an abstract 'save more' directive. Break it into smaller milestones to stay motivated.",
+        "personas": [
+          "low_savings"
+        ],
+        "triggering_signals": [
+          "savings_balance"
+        ],
+        "category": "insight",
+        "priority": 8,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "medium",
+        "content_url": "/content/emergency-fund-calculator",
+        "personalization_template": "Based on {monthly_expenses} in monthly expenses, your 3-month emergency fund goal is {three_month_fund_target}."
+      },
+      "rationale": "Based on {monthly_expenses} in monthly expenses, your 3-month emergency fund goal is {three_month_fund_target}.",
+      "persona_match_reason": "Calculate Your 3-Month Expense Cushion is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "education",
+      "item_id": "automate_savings_transfers",
+      "content": {
+        "id": "automate_savings_transfers",
+        "type": "template",
+        "title": "Automate Your Savings Transfers",
+        "description": "Set up automatic transfers from checking to savings on payday. Start small ($25-50) if needed - consistency matters more than amount. Automation removes willpower from the equation and builds savings effortlessly. Increase the amount as your income grows.",
+        "personas": [
+          "low_savings"
+        ],
+        "triggering_signals": [
+          "income_stability",
+          "savings_balance"
+        ],
+        "category": "action",
+        "priority": 2,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "high",
+        "content_url": "/content/automate-savings",
+        "personalization_template": null
+      },
+      "rationale": "We recommend this template because it can help you Set up automatic transfers from checking to saving... This is relevant to your current financial situation.",
+      "persona_match_reason": "Automate Your Savings Transfers is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "education",
+      "item_id": "review_subscription_spending",
+      "content": {
+        "id": "review_subscription_spending",
+        "type": "article",
+        "title": "Find Savings in Your Subscription Spending",
+        "description": "Review your recurring subscriptions and cancel unused services. Most people underestimate their total subscription costs. Finding just $50-100 per month in unnecessary subscriptions can jumpstart your savings. Redirect these funds to your emergency fund.",
+        "personas": [
+          "low_savings"
+        ],
+        "triggering_signals": [
+          "subscription_count"
+        ],
+        "category": "tip",
+        "priority": 3,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "medium",
+        "content_url": "/content/subscription-audit",
+        "personalization_template": "With {subscription_count} active subscriptions consuming {subscription_share}% of your spending, there may be opportunities to cut back and redirect funds to savings."
+      },
+      "rationale": "With {subscription_count} active subscriptions consuming {subscription_share}% of your spending, there may be opportunities to cut back and redirect funds to savings.",
+      "persona_match_reason": "Find Savings in Your Subscription Spending is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "partner_offer",
+      "item_id": "ally_high_yield_savings",
+      "content": {
+        "id": "ally_high_yield_savings",
+        "type": "savings_account",
+        "title": "Ally Bank High-Yield Savings Account - 4.35% APY",
+        "description": "Earn 4.35% APY on all balances with no minimum deposit and no monthly maintenance fees. FDIC insured up to $250,000. Access your money anytime with no withdrawal penalties. Perfect for building emergency funds and short-term savings goals.",
+        "personas": [
+          "low_savings",
+          "cash_flow_optimizer",
+          "young_professional"
+        ],
+        "eligibility": {
+          "min_income": null,
+          "min_credit_score": null,
+          "excluded_accounts": [],
+          "max_credit_utilization": null,
+          "min_age": 18,
+          "employment_required": false
+        },
+        "priority": 1,
+        "provider": "Ally Bank",
+        "offer_url": "https://www.ally.com/bank/online-savings-account/",
+        "key_benefits": [
+          "4.35% APY on all balances",
+          "No minimum balance required",
+          "No monthly maintenance fees",
+          "FDIC insured up to $250,000",
+          "24/7 customer support"
+        ],
+        "rationale_template": "Your current savings balance of ${savings_balance} earns minimal interest. Moving it to this account would earn ${projected_interest}/year instead of ${current_interest}/year.",
+        "disclaimer": "APY accurate as of account opening date and subject to change. FDIC insured. Member FDIC."
+      },
+      "rationale": "Your current savings balance of $$0 earns minimal interest. Moving it to this account would earn ${projected_interest}/year instead of ${current_interest}/year.",
+      "persona_match_reason": "Ally Bank High-Yield Savings Account - 4.35% APY is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": [
+        "Amount: $0"
+      ]
+    },
+    {
+      "item_type": "partner_offer",
+      "item_id": "ynab_budget_method",
+      "content": {
+        "id": "ynab_budget_method",
+        "type": "app",
+        "title": "YNAB (You Need A Budget) - Zero-Based Budgeting",
+        "description": "Master zero-based budgeting with YNAB's proven methodology. Give every dollar a job, break the paycheck-to-paycheck cycle, and build savings systematically. YNAB users report saving an average of $600 in their first two months and $6,000 in their first year.",
+        "personas": [
+          "irregular_income",
+          "low_savings",
+          "young_professional"
+        ],
+        "eligibility": {
+          "min_income": null,
+          "min_credit_score": null,
+          "excluded_accounts": [],
+          "max_credit_utilization": null,
+          "min_age": 18,
+          "employment_required": false
+        },
+        "priority": 1,
+        "provider": "YNAB",
+        "offer_url": "https://www.youneedabudget.com/",
+        "key_benefits": [
+          "Zero-based budgeting methodology",
+          "Handle irregular income effectively",
+          "Average savings of $600 in first 2 months",
+          "Real-time sync across devices",
+          "Free 34-day trial"
+        ],
+        "rationale_template": "With irregular income patterns, YNAB's envelope budgeting can help you smooth out cash flow and build ${emergency_fund_goal} emergency fund systematically.",
+        "disclaimer": "Savings data based on YNAB user surveys. Individual results vary. Subscription required after trial period."
+      },
+      "rationale": "With irregular income patterns, YNAB's envelope budgeting can help you smooth out cash flow and build ${emergency_fund_goal} emergency fund systematically.",
+      "persona_match_reason": "YNAB (You Need A Budget) - Zero-Based Budgeting is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "partner_offer",
+      "item_id": "marcus_high_yield_savings",
+      "content": {
+        "id": "marcus_high_yield_savings",
+        "type": "savings_account",
+        "title": "Marcus by Goldman Sachs High-Yield Savings - 4.40% APY",
+        "description": "Competitive 4.40% APY with no fees and no minimum deposit. FDIC insured. Easy transfers to and from external accounts. Build your emergency fund with one of the highest savings rates available from a trusted financial institution.",
+        "personas": [
+          "low_savings",
+          "irregular_income",
+          "cash_flow_optimizer"
+        ],
+        "eligibility": {
+          "min_income": null,
+          "min_credit_score": null,
+          "excluded_accounts": [],
+          "max_credit_utilization": null,
+          "min_age": 18,
+          "employment_required": false
+        },
+        "priority": 2,
+        "provider": "Marcus by Goldman Sachs",
+        "offer_url": "https://www.marcus.com/us/en/savings/high-yield-savings",
+        "key_benefits": [
+          "4.40% APY competitive rate",
+          "No transaction fees",
+          "No minimum deposit to open",
+          "FDIC insured",
+          "Mobile app access"
+        ],
+        "rationale_template": "Building an emergency fund is critical with irregular income. At 4.40% APY, your ${target_savings} goal would earn ${projected_interest}/year.",
+        "disclaimer": "Annual Percentage Yield (APY) is accurate as of date of account opening and subject to change. FDIC insured. Member FDIC."
+      },
+      "rationale": "Building an emergency fund is critical with irregular income. At 4.40% APY, your ${target_savings} goal would earn ${projected_interest}/year.",
+      "persona_match_reason": "Marcus by Goldman Sachs High-Yield Savings - 4.40% APY is recommended for users building emergency savings based on your current financial behavior.",
+      "signal_citations": [
+        "Percentage: 4.40%"
+      ]
+    }
+  ],
+  "disclaimer": "This is educational content, not financial advice. Consult a licensed advisor for personalized guidance.",
+  "metadata": {
+    "total_recommendations": 8,
+    "education_count": 5,
+    "partner_offer_count": 3,
+    "generation_time_ms": 0.45,
+    "time_window": "30d",
+    "signals_detected": [
+      "credit_utilization",
+      "savings_balance",
+      "subscription_count"
+    ],
+    "matching_audit_trail": {
+      "persona_id": "low_savings",
+      "signals": [
+        "credit_utilization",
+        "savings_balance",
+        "subscription_count"
+      ],
+      "excluded_content_count": 0,
+      "excluded_offer_count": 0,
+      "timestamp": "2025-11-06T00:18:44.282420",
+      "persona_content_count": 8,
+      "ranked_content_count": 8,
+      "available_content_count": 8,
+      "selected_education_count": 5,
+      "selected_education_types": [
+        "article",
+        "template",
+        "calculator",
+        "template",
+        "article"
+      ],
+      "persona_offer_count": 5,
+      "eligible_offer_count": 5,
+      "ineligible_offer_count": 0,
+      "ineligibility_reasons": {},
+      "selected_offer_count": 3,
+      "selected_offer_ids": [
+        "ally_high_yield_savings",
+        "ynab_budget_method",
+        "marcus_high_yield_savings"
+      ]
+    }
+  },
+  "generated_at": "2025-11-06T00:18:44.282860"
+}

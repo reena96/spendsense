@@ -626,3 +626,180 @@ function formatDateTime(isoString) {
     const date = new Date(isoString);
     return date.toLocaleString();
 }
+
+// ===== Recommendations Tab (Epic 4) =====
+
+document.getElementById('recommendations-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const userId = document.getElementById('rec-user-id').value;
+    const timeWindow = document.getElementById('rec-window').value;
+    const forceGenerate = document.getElementById('rec-force-generate').checked;
+
+    const loadingDiv = document.getElementById('recommendations-loading');
+    const resultDiv = document.getElementById('recommendations-result');
+    const errorDiv = document.getElementById('recommendations-error');
+
+    // Show loading
+    loadingDiv.classList.remove('hidden');
+    resultDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+
+    try {
+        const response = await fetch(
+            `/api/recommendations/${userId}?time_window=${timeWindow}&generate=${forceGenerate}`
+        );
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Failed to fetch recommendations');
+        }
+
+        const data = await response.json();
+        displayRecommendations(data);
+
+    } catch (error) {
+        console.error('Error:', error);
+        errorDiv.textContent = `Error: ${error.message}`;
+        errorDiv.classList.remove('hidden');
+    } finally {
+        loadingDiv.classList.add('hidden');
+    }
+});
+
+function displayRecommendations(data) {
+    const resultDiv = document.getElementById('recommendations-result');
+
+    // Summary
+    document.getElementById('rec-persona').textContent = formatPersonaName(data.persona_id);
+    document.getElementById('rec-window-badge').textContent = data.time_window;
+    document.getElementById('rec-time').textContent = `${data.metadata.generation_time_ms.toFixed(1)}ms`;
+
+    // Disclaimer
+    document.getElementById('rec-disclaimer').textContent = data.disclaimer;
+
+    // Signals
+    const signalsDiv = document.getElementById('rec-signals');
+    if (data.metadata.signals_detected && data.metadata.signals_detected.length > 0) {
+        signalsDiv.innerHTML = data.metadata.signals_detected
+            .map(signal => `<span class="badge badge-info">${formatSignalName(signal)}</span>`)
+            .join(' ');
+    } else {
+        signalsDiv.innerHTML = '<span class="text-muted">No specific signals detected</span>';
+    }
+
+    // Recommendations
+    const itemsDiv = document.getElementById('rec-items');
+    itemsDiv.innerHTML = data.recommendations.map((rec, index) =>
+        createRecommendationCard(rec, index + 1)
+    ).join('');
+
+    // Metadata
+    document.getElementById('rec-metadata').textContent = JSON.stringify({
+        total_recommendations: data.metadata.total_recommendations,
+        education_count: data.metadata.education_count,
+        partner_offer_count: data.metadata.partner_offer_count,
+        generation_time_ms: data.metadata.generation_time_ms,
+        signals_detected: data.metadata.signals_detected,
+        generated_at: data.generated_at
+    }, null, 2);
+
+    resultDiv.classList.remove('hidden');
+}
+
+function createRecommendationCard(rec, index) {
+    const isEducation = rec.item_type === 'education';
+    const typeIcon = isEducation ? '📚' : '🎁';
+    const typeLabel = isEducation ? 'Educational Content' : 'Partner Offer';
+    const typeBadge = isEducation ? 'badge-primary' : 'badge-success';
+
+    return `
+        <div class="recommendation-card">
+            <div class="rec-header">
+                <div class="rec-number">${index}</div>
+                <div class="rec-title-section">
+                    <div class="rec-type">
+                        ${typeIcon} <span class="badge ${typeBadge}">${typeLabel}</span>
+                    </div>
+                    <h4 class="rec-title">${rec.content.title}</h4>
+                    ${rec.content.provider ? `<p class="rec-provider">by ${rec.content.provider}</p>` : ''}
+                </div>
+            </div>
+
+            <div class="rec-body">
+                <p class="rec-description">${rec.content.description}</p>
+
+                <div class="rec-rationale-box">
+                    <strong>💬 Why this recommendation:</strong>
+                    <p>${rec.rationale}</p>
+                </div>
+
+                <div class="rec-persona-match">
+                    <strong>🎯 Persona Match:</strong>
+                    <p>${rec.persona_match_reason}</p>
+                </div>
+
+                ${rec.signal_citations && rec.signal_citations.length > 0 ? `
+                    <div class="rec-citations">
+                        <strong>📊 Data Citations:</strong>
+                        <ul>
+                            ${rec.signal_citations.map(citation => `<li>${citation}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+
+                <div class="rec-details">
+                    ${isEducation ? `
+                        <span class="badge">${rec.content.type}</span>
+                        <span class="badge ${getPriorityClass(rec.content.priority)}">Priority ${rec.content.priority}</span>
+                        <span class="badge">${rec.content.difficulty}</span>
+                        <span class="badge">${rec.content.time_commitment}</span>
+                        <span class="badge">${rec.content.estimated_impact} impact</span>
+                    ` : `
+                        <span class="badge">${rec.content.type}</span>
+                        <span class="badge ${getPriorityClass(rec.content.priority)}">Priority ${rec.content.priority}</span>
+                    `}
+                </div>
+
+                ${rec.content.key_benefits && rec.content.key_benefits.length > 0 ? `
+                    <div class="rec-benefits">
+                        <strong>✨ Key Benefits:</strong>
+                        <ul>
+                            ${rec.content.key_benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+
+                ${rec.content.content_url || rec.content.offer_url ? `
+                    <a href="${rec.content.content_url || rec.content.offer_url}"
+                       target="_blank"
+                       class="btn btn-primary btn-sm">
+                        Learn More →
+                    </a>
+                ` : ''}
+            </div>
+        </div>
+    `;
+}
+
+function formatPersonaName(personaId) {
+    const names = {
+        'high_utilization': 'High Utilization',
+        'irregular_income': 'Irregular Income',
+        'low_savings': 'Low Savings',
+        'subscription_heavy': 'Subscription Heavy',
+        'cash_flow_optimizer': 'Cash Flow Optimizer',
+        'young_professional': 'Young Professional'
+    };
+    return names[personaId] || personaId;
+}
+
+function formatSignalName(signal) {
+    const names = {
+        'credit_utilization': 'Credit Utilization',
+        'irregular_income': 'Irregular Income',
+        'savings_balance': 'Low Savings',
+        'subscription_count': 'High Subscriptions'
+    };
+    return names[signal] || signal;
+}

@@ -40,41 +40,41 @@ story_location: "{project-root}/docs/stories"
 
 development_status:
   # Epic 1: Data Foundation & Synthetic Data Generation
-  epic-1: backlog
-  1-1-project-setup-infrastructure: review
-  1-2-synthetic-data-schema-definition: review
+  epic-1: done
+  1-1-project-setup-infrastructure: done
+  1-2-synthetic-data-schema-definition: done
   1-3-synthetic-user-profile-generator: done
   1-4-synthetic-transaction-data-generator: done
   1-5-synthetic-liability-data-generator: done
-  1-6-data-ingestion-validation-pipeline: review
+  1-6-data-ingestion-validation-pipeline: done
   epic-1-retrospective: optional
 
   # Epic 2: Behavioral Signal Detection Pipeline
-  epic-2: backlog
-  2-1-time-window-aggregation-framework: backlog
-  2-2-subscription-pattern-detection: backlog
-  2-3-savings-behavior-detection: backlog
-  2-4-credit-utilization-debt-signal-detection: backlog
-  2-5-income-stability-detection: backlog
-  2-6-behavioral-summary-aggregation: backlog
+  epic-2: done
+  2-1-time-window-aggregation-framework: done
+  2-2-subscription-pattern-detection: done
+  2-3-savings-behavior-detection: done
+  2-4-credit-utilization-debt-signal-detection: done
+  2-5-income-stability-detection: done
+  2-6-behavioral-summary-aggregation: done
   epic-2-retrospective: optional
 
   # Epic 3: Persona Assignment System
-  epic-3: backlog
-  3-1-persona-definition-registry: backlog
-  3-2-persona-matching-engine: backlog
-  3-3-deterministic-prioritization-logic: backlog
-  3-4-persona-assignment-audit-logging: backlog
-  3-5-custom-personas-5-6-implementation: backlog
+  epic-3: done
+  3-1-persona-definition-registry: done
+  3-2-persona-matching-engine: done
+  3-3-deterministic-prioritization-logic: done
+  3-4-persona-assignment-audit-logging: done
+  3-5-custom-personas-5-6-implementation: done
   epic-3-retrospective: optional
 
   # Epic 4: Recommendation Engine & Content Catalog
-  epic-4: backlog
-  4-1-educational-content-catalog: backlog
-  4-2-partner-offer-catalog: backlog
-  4-3-recommendation-matching-logic: backlog
-  4-4-rationale-generation-engine: backlog
-  4-5-recommendation-assembly-output: backlog
+  epic-4: in-progress
+  4-1-recommendation-content-library: done  # Combined educational + partner catalog
+  4-2-recommendation-engine: done  # Combined matching, ranking, personalization
+  4-3-recommendation-matching-logic: done  # Integrated into 4.2
+  4-4-rationale-generation-engine: backlog  # Next story
+  4-5-recommendation-assembly-output: backlog  # Next story
   epic-4-retrospective: optional
 
   # Epic 5: Consent, Eligibility & Tone Guardrails
