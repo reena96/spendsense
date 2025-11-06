@@ -97,4 +97,41 @@ so that **the system can demonstrate compliance with ethical guidelines and regu
 9. Data retention policy documented for audit logs
 10. Audit log access restricted to admin and compliance roles
 
+## Story 6.6: Consent Management Interface
+
+As an **operator**,
+I want **interface to view and manage user consent status with proper authorization**,
+so that **I can assist users with consent issues and handle edge cases while maintaining audit trails**.
+
+### Acceptance Criteria
+
+1. Consent management interface accessible to admin and reviewer roles only
+2. User search allows lookup by user ID or name
+3. Current consent status displayed prominently: opted-in or opted-out badge
+4. Consent timestamp and version displayed
+5. Toggle switch or buttons to change consent status (opt-in/opt-out)
+6. Confirmation dialog required before changing consent status
+7. Reason field required when changing consent (for audit trail)
+8. Visual feedback shown when consent status changes successfully
+9. Consent change history displayed: timeline of all status changes with timestamps
+10. Batch consent operations available: bulk opt-in/opt-out for multiple users (admin only)
+11. Consent status filters: view all opted-in users, all opted-out users, recently changed
+12. Export consent report functionality (CSV/JSON) for compliance officers
+13. All consent changes logged in audit trail with operator ID and reason
+14. Unauthorized access attempts blocked and logged
+
+### Implementation Notes
+
+- Integrates with Epic 5 consent API endpoints (POST /api/consent, GET /api/consent/{user_id})
+- Uses Epic 6.1 authentication and RBAC system
+- Consent changes trigger audit log entries (Epic 6.5)
+- UI should be part of operator dashboard navigation
+- Real-time status updates if consent changed externally (via API)
+
+### Dependencies
+
+- Epic 5: Consent API endpoints must exist
+- Story 6.1: Authentication and RBAC system
+- Story 6.5: Audit trail logging infrastructure
+
 ---

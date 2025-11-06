@@ -16,6 +16,8 @@ from spendsense.recommendations.partner_offer_library import PartnerOfferLibrary
 from spendsense.recommendations.matcher import RecommendationMatcher, MatchingResult
 from spendsense.recommendations.rationale_generator import RationaleGenerator, GeneratedRationale
 from spendsense.recommendations.models import Recommendation, PartnerOffer
+from spendsense.guardrails.eligibility import EligibilityChecker
+from spendsense.guardrails.tone import ToneValidator
 
 logger = logging.getLogger(__name__)
 
@@ -134,8 +136,10 @@ class RecommendationAssembler:
         self.partner_library = partner_library
         self.matcher = RecommendationMatcher(content_library, partner_library)
         self.rationale_generator = RationaleGenerator()
+        self.eligibility_checker = EligibilityChecker()  # Epic 5 Story 5.2
+        self.tone_validator = ToneValidator()  # Epic 5 Story 5.3
 
-        logger.info("RecommendationAssembler initialized")
+        logger.info("RecommendationAssembler initialized with eligibility and tone checking")
 
     def assemble_recommendations(
         self,
@@ -209,8 +213,21 @@ class RecommendationAssembler:
             )
             assembled_items.append(assembled_item)
 
-        # Process partner offer items
+        # Process partner offer items with eligibility filtering (Epic 5 Story 5.2 AC6, AC7)
+        eligibility_results = []
         for offer_item in matching_result.partner_offers:
+            # Check eligibility before adding offer (AC7)
+            offer_dict = offer_item.to_dict() if hasattr(offer_item, 'to_dict') else offer_item
+            eligibility_result = self.eligibility_checker.check_eligibility(user_data, offer_dict)
+            eligibility_results.append(eligibility_result)
+
+            # Only include eligible offers (AC7)
+            if not eligibility_result.eligible:
+                logger.info(
+                    f"Offer {eligibility_result.offer_id} filtered out: {eligibility_result.reasons}"
+                )
+                continue
+
             rationale = self.rationale_generator.generate_for_offer(
                 offer=offer_item,
                 user_data=user_data,
@@ -224,16 +241,52 @@ class RecommendationAssembler:
                 persona_id=persona_id,
                 signals=signals,
             )
+            # Add eligibility check result to item metadata (AC8)
+            assembled_item.content["eligibility_check"] = {
+                "eligible": eligibility_result.eligible,
+                "checks_performed": eligibility_result.checks_performed
+            }
             assembled_items.append(assembled_item)
+
+        # Tone validation for all recommendations (Epic 5 Story 5.3 AC5, AC6, AC7, AC8)
+        tone_results = []
+        validated_items = []
+        for item in assembled_items:
+            rationale = item.rationale
+            item_id = item.item_id
+
+            # Validate tone (AC5)
+            tone_result = self.tone_validator.validate_tone(rationale, text_id=item_id)
+            tone_results.append(tone_result)
+
+            # Only include items passing tone validation (AC5, AC7)
+            if tone_result.passes:
+                validated_items.append(item)
+            else:
+                # Log failure with flagged phrases (AC6)
+                logger.info(
+                    f"Recommendation {item_id} filtered by tone validation: {[f.phrase for f in tone_result.flagged_phrases]}"
+                )
+
+        # Replace assembled_items with validated_items
+        assembled_items = validated_items
 
         # Calculate generation time
         generation_time_ms = (time.time() - start_time) * 1000
 
-        # AC3, AC7: Build metadata
+        # AC3, AC7: Build metadata including eligibility and tone results (Epic 5 Story 5.2 AC8, Story 5.3 AC8)
         metadata = {
             "total_recommendations": len(assembled_items),
             "education_count": len(matching_result.educational_items),
             "partner_offer_count": len(matching_result.partner_offers),
+            "offers_checked": len(matching_result.partner_offers),
+            "offers_eligible": len([r for r in eligibility_results if r.eligible]),
+            "offers_filtered": len([r for r in eligibility_results if not r.eligible]),
+            "eligibility_audit_trail": [r.audit_trail for r in eligibility_results],
+            "tone_checked": len(tone_results),
+            "tone_passed": len([r for r in tone_results if r.passes]),
+            "tone_filtered": len([r for r in tone_results if not r.passes]),
+            "tone_audit_trail": [r.audit_trail for r in tone_results],
             "generation_time_ms": round(generation_time_ms, 2),
             "time_window": time_window,
             "signals_detected": signals,

@@ -841,7 +841,32 @@ async def get_recommendations(
 
     Returns:
         Assembled recommendation set with full details
+
+    Raises:
+        HTTPException 403: User has not granted consent for data processing
     """
+    # ===== CONSENT CHECK (Epic 5 - Story 5.1 AC4) =====
+    # Check user consent before any data processing or recommendation generation
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    from spendsense.guardrails.consent import ConsentService, ConsentNotGrantedError
+
+    try:
+        engine = create_engine(f"sqlite:///{str(DB_PATH)}")
+        Session = sessionmaker(bind=engine)
+        with Session() as session:
+            consent_service = ConsentService(session)
+            consent_service.require_consent(user_id)
+    except ConsentNotGrantedError as e:
+        raise HTTPException(
+            status_code=403,
+            detail=f"Consent required: {str(e)}"
+        )
+    except ValueError:
+        # User not found - let it proceed, will be caught below
+        pass
+    # ===== END CONSENT CHECK =====
+
     from pathlib import Path
     from spendsense.recommendations.content_library import ContentLibrary
     from spendsense.recommendations.partner_offer_library import PartnerOfferLibrary
@@ -986,6 +1011,133 @@ async def get_recommendations(
         import logging
         logger = logging.getLogger(__name__)
         logger.error(f"Error generating recommendations: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ===== Consent Management Endpoints (Epic 5 - Story 5.1) =====
+
+class ConsentRequest(BaseModel):
+    """Request model for consent recording."""
+    user_id: str
+    consent_status: str  # 'opted_in' or 'opted_out'
+    consent_version: str = "1.0"
+
+
+class ConsentResponse(BaseModel):
+    """Response model for consent operations."""
+    user_id: str
+    consent_status: str
+    consent_timestamp: str
+    consent_version: str
+    message: str
+
+
+@app.post("/api/consent", response_model=ConsentResponse, status_code=201)
+async def record_consent(request: ConsentRequest):
+    """
+    Record user consent change (Epic 5 - Story 5.1 AC8).
+
+    Operators can record when users opt-in or opt-out of data processing.
+    All consent changes are logged in audit trail.
+
+    Args:
+        request: Consent request with user_id, consent_status, consent_version
+
+    Returns:
+        ConsentResponse with updated consent status
+
+    Raises:
+        HTTPException 400: Invalid consent status
+        HTTPException 404: User not found
+        HTTPException 500: Database error
+    """
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    from spendsense.guardrails.consent import ConsentService, ConsentStatus, ConsentNotGrantedError
+
+    # Validate consent status
+    if request.consent_status not in ['opted_in', 'opted_out']:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Invalid consent_status: {request.consent_status}. Must be 'opted_in' or 'opted_out'"
+        )
+
+    try:
+        engine = create_engine(f"sqlite:///{str(DB_PATH)}")
+        Session = sessionmaker(bind=engine)
+        with Session() as session:
+            consent_service = ConsentService(session)
+
+            # Record consent
+            consent_status_enum = ConsentStatus(request.consent_status)
+            result = consent_service.record_consent(
+                user_id=request.user_id,
+                consent_status=consent_status_enum,
+                consent_version=request.consent_version
+            )
+
+            return ConsentResponse(
+                user_id=result.user_id,
+                consent_status=result.consent_status.value,
+                consent_timestamp=result.consent_timestamp.isoformat() if result.consent_timestamp else "",
+                consent_version=result.consent_version,
+                message=f"Consent recorded: {result.consent_status.value}"
+            )
+
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error recording consent: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/consent/{user_id}", response_model=ConsentResponse)
+async def get_consent(user_id: str):
+    """
+    Get user consent status (Epic 5 - Story 5.1 AC9).
+
+    Operators can check consent status for any user to verify
+    data processing permissions.
+
+    Args:
+        user_id: User identifier
+
+    Returns:
+        ConsentResponse with current consent status
+
+    Raises:
+        HTTPException 404: User not found
+        HTTPException 500: Database error
+    """
+    from sqlalchemy import create_engine
+    from sqlalchemy.orm import sessionmaker
+    from spendsense.guardrails.consent import ConsentService
+
+    try:
+        engine = create_engine(f"sqlite:///{str(DB_PATH)}")
+        Session = sessionmaker(bind=engine)
+        with Session() as session:
+            consent_service = ConsentService(session)
+
+            # Check consent
+            result = consent_service.check_consent(user_id)
+
+            return ConsentResponse(
+                user_id=result.user_id,
+                consent_status=result.consent_status.value,
+                consent_timestamp=result.consent_timestamp.isoformat() if result.consent_timestamp else "",
+                consent_version=result.consent_version,
+                message=f"Current consent status: {result.consent_status.value}"
+            )
+
+    except ValueError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error retrieving consent: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=str(e))
 
 

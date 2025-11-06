@@ -79,11 +79,11 @@ development_status:
 
   # Epic 5: Consent, Eligibility & Tone Guardrails
   epic-5: backlog
-  5-1-consent-management-system: backlog
-  5-2-eligibility-filtering-system: backlog
-  5-3-tone-validation-language-safety: backlog
-  5-4-mandatory-disclaimer-system: backlog
-  5-5-guardrails-integration-testing: backlog
+  5-1-consent-management-system: in-progress
+  5-2-eligibility-filtering-system: done
+  5-3-tone-validation-language-safety: done
+  5-4-mandatory-disclaimer-system: done
+  5-5-guardrails-integration-testing: done
   epic-5-retrospective: optional
 
   # Epic 6: Operator View & Oversight Interface
@@ -93,6 +93,7 @@ development_status:
   6-3-persona-assignment-review-interface: backlog
   6-4-recommendation-review-approval-queue: backlog
   6-5-audit-trail-compliance-reporting: backlog
+  6-6-consent-management-interface: backlog
   epic-6-retrospective: optional
 
   # Epic 7: Evaluation Harness & Metrics
