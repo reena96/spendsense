@@ -874,8 +874,11 @@ async def get_recommendations(
     try:
         # Get user's persona (from Epic 3)
         from spendsense.personas.assigner import PersonaAssigner
+        from datetime import date
+
         assigner = PersonaAssigner(str(DB_PATH))
-        persona_result = assigner.assign_persona(user_id)
+        ref_date = date.today()
+        persona_result = assigner.assign_persona(user_id, ref_date, time_window)
 
         if not persona_result:
             raise HTTPException(
@@ -884,48 +887,77 @@ async def get_recommendations(
             )
 
         # Get behavioral signals
-        from spendsense.features.behavioral_summary import generate_behavioral_summary
-        from datetime import date, timedelta
+        from spendsense.features.behavioral_summary import BehavioralSummaryGenerator
 
-        ref_date = date.today()
-        window_days = 30 if time_window == "30d" else 180
+        summary_generator = BehavioralSummaryGenerator(str(DB_PATH))
+        behavioral_summary = summary_generator.generate_summary(user_id, ref_date)
 
-        behavioral_summary = generate_behavioral_summary(
-            db_path=str(DB_PATH),
-            user_id=user_id,
-            reference_date=ref_date,
-            window_days=window_days
-        )
+        # Extract signals from behavioral summary based on time window
+        # Use the appropriate time window data (30d or 180d)
+        credit_data = behavioral_summary.credit_30d if time_window == "30d" else behavioral_summary.credit_180d
+        income_data = behavioral_summary.income_30d if time_window == "30d" else behavioral_summary.income_180d
+        savings_data = behavioral_summary.savings_30d if time_window == "30d" else behavioral_summary.savings_180d
+        subscriptions_data = behavioral_summary.subscriptions_30d if time_window == "30d" else behavioral_summary.subscriptions_180d
 
-        # Extract signals from behavioral summary
         signals = []
-        if behavioral_summary.credit_utilization and behavioral_summary.credit_utilization.high_utilization_detected:
+        # Derive signals from metrics using correct attribute names
+        if credit_data and credit_data.high_utilization_count > 0:
             signals.append("credit_utilization")
-        if behavioral_summary.income and behavioral_summary.income.irregular_income_detected:
+        if income_data and income_data.payment_frequency == "irregular":
             signals.append("irregular_income")
-        if behavioral_summary.savings and behavioral_summary.savings.low_savings_rate:
+        if savings_data and savings_data.emergency_fund_months < 3:
             signals.append("savings_balance")
-        if behavioral_summary.subscriptions and len(behavioral_summary.subscriptions.subscriptions) >= 3:
+        if subscriptions_data and subscriptions_data.subscription_count >= 3:
             signals.append("subscription_count")
 
         # Build user data for eligibility checking
+        # Calculate annualized income from window data
+        annual_income = 50000  # Default
+        if income_data and income_data.total_income > 0:
+            # Annualize based on window size
+            multiplier = 365 / income_data.window_days
+            annual_income = income_data.total_income * multiplier
+
         user_data = {
-            "annual_income": behavioral_summary.income.estimated_annual_income if behavioral_summary.income else 50000,
+            "annual_income": annual_income,
             "credit_score": 700,  # Default - would come from external source
             "existing_accounts": [],
-            "credit_utilization": behavioral_summary.credit_utilization.max_utilization_pct if behavioral_summary.credit_utilization else 0,
+            "credit_utilization": credit_data.aggregate_utilization if credit_data else 0,
             "age": 30,  # Default - would come from profile
             "is_employed": True,  # Default - would come from profile
         }
 
         # Add personalization data for rationales
-        if behavioral_summary.credit_utilization:
-            user_data["credit_max_utilization_pct"] = behavioral_summary.credit_utilization.max_utilization_pct
+        if credit_data:
+            user_data["credit_max_utilization_pct"] = credit_data.aggregate_utilization * 100  # Convert to percentage
             user_data["account_name"] = "Credit Card ****0000"  # Placeholder
 
-        if behavioral_summary.savings:
-            user_data["savings_balance"] = behavioral_summary.savings.total_balance
-            user_data["months_expenses"] = behavioral_summary.savings.months_of_expenses_saved
+        if savings_data:
+            user_data["savings_balance"] = savings_data.total_savings_balance
+            user_data["savings_total_balance"] = savings_data.total_savings_balance  # Alias for templates
+            user_data["months_expenses"] = savings_data.emergency_fund_months
+            user_data["monthly_expenses"] = savings_data.avg_monthly_expenses
+            user_data["monthly_spend"] = savings_data.avg_monthly_expenses  # Alias for templates
+            user_data["emergency_fund_goal"] = savings_data.avg_monthly_expenses * 3  # 3-month goal
+            user_data["three_month_fund_target"] = savings_data.avg_monthly_expenses * 3
+            user_data["target_savings"] = savings_data.avg_monthly_expenses * 6  # 6-month goal
+            user_data["category_count"] = 10  # Default estimate for spending categories
+
+            # Calculate interest projections for high-yield savings offers
+            user_data["current_interest"] = savings_data.total_savings_balance * 0.005  # Assume 0.5% current rate
+            user_data["projected_interest"] = savings_data.total_savings_balance * 0.044  # 4.4% high-yield rate
+
+        if subscriptions_data:
+            user_data["subscription_count"] = subscriptions_data.subscription_count
+            user_data["subscription_share"] = subscriptions_data.subscription_share * 100  # Convert to percentage
+            user_data["monthly_subscription_cost"] = subscriptions_data.monthly_recurring_spend
+            user_data["monthly_subscription_total"] = subscriptions_data.monthly_recurring_spend
+            user_data["annual_subscription_total"] = subscriptions_data.monthly_recurring_spend * 12
+            user_data["potential_savings"] = subscriptions_data.monthly_recurring_spend * 0.3  # Assume 30% savings potential
+            user_data["bill_count"] = subscriptions_data.subscription_count  # Alias for templates
+
+        if income_data:
+            user_data["has_irregular_income"] = income_data.payment_frequency == "irregular"
 
         # Initialize libraries and assembler
         config_dir = Path(__file__).parent.parent / "config"
@@ -936,7 +968,7 @@ async def get_recommendations(
         # Assemble recommendations
         rec_set = assembler.assemble_recommendations(
             user_id=user_id,
-            persona_id=persona_result.persona_id,
+            persona_id=persona_result.assigned_persona_id,
             signals=signals,
             user_data=user_data,
             time_window=time_window,
