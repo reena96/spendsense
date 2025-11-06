@@ -1,0 +1,303 @@
+{
+  "user_id": "user_MASKED_034",
+  "persona_id": "subscription_heavy",
+  "time_window": "180d",
+  "recommendations": [
+    {
+      "item_type": "education",
+      "item_id": "audit_all_subscriptions",
+      "content": {
+        "id": "audit_all_subscriptions",
+        "type": "template",
+        "title": "Conduct a Complete Subscription Audit",
+        "description": "List every subscription you're paying for - streaming, apps, software, memberships, subscription boxes. Review bank/credit card statements for the past 3 months to catch everything. You'll likely find forgotten subscriptions and services you no longer use.",
+        "personas": [
+          "subscription_heavy"
+        ],
+        "triggering_signals": [
+          "subscription_count"
+        ],
+        "category": "action",
+        "priority": 1,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "high",
+        "content_url": "/content/subscription-audit-guide",
+        "personalization_template": "With {subscription_count} active subscriptions consuming {subscription_share}% of your spending, a comprehensive audit could identify significant savings opportunities."
+      },
+      "rationale": "With 30 active subscriptions consuming 89.60% of your spending, a comprehensive audit could identify significant savings opportunities.",
+      "persona_match_reason": "Conduct a Complete Subscription Audit is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": [
+        "Percentage: 89.60%"
+      ]
+    },
+    {
+      "item_type": "education",
+      "item_id": "subscription_management_tool",
+      "content": {
+        "id": "subscription_management_tool",
+        "type": "article",
+        "title": "Use a Subscription Management Tool",
+        "description": "Try tools like Truebill, Rocket Money, or Bobby to track and manage subscriptions automatically. These apps identify all your subscriptions, warn before renewals, and can even negotiate lower rates or cancel services for you. Having visibility prevents unwanted renewals.",
+        "personas": [
+          "subscription_heavy"
+        ],
+        "triggering_signals": [
+          "subscription_count"
+        ],
+        "category": "tip",
+        "priority": 3,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "medium",
+        "content_url": "/content/subscription-tools",
+        "personalization_template": null
+      },
+      "rationale": "We recommend this article because it can help you Try tools like Truebill, Rocket Money, or Bobby to... This is relevant to your current financial situation.",
+      "persona_match_reason": "Use a Subscription Management Tool is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "education",
+      "item_id": "total_monthly_subscription_cost",
+      "content": {
+        "id": "total_monthly_subscription_cost",
+        "type": "calculator",
+        "title": "See Your Total Monthly Subscription Cost",
+        "description": "Calculate your total monthly and annual subscription spending. Seeing the aggregate amount ($200/month = $2,400/year) often surprises people and motivates action. This big-picture view helps you decide which subscriptions truly add value to your life.",
+        "personas": [
+          "subscription_heavy"
+        ],
+        "triggering_signals": [
+          "subscription_count"
+        ],
+        "category": "insight",
+        "priority": 7,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "high",
+        "content_url": "/content/subscription-total-cost",
+        "personalization_template": "Your {subscription_count} subscriptions cost approximately {monthly_subscription_total} per month or {annual_subscription_total} per year."
+      },
+      "rationale": "Your 30 subscriptions cost approximately 3,642.95 per month or 43,715.42 per year.",
+      "persona_match_reason": "See Your Total Monthly Subscription Cost is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "education",
+      "item_id": "cancel_unused_services",
+      "content": {
+        "id": "cancel_unused_services",
+        "type": "template",
+        "title": "Cancel Unused and Redundant Services",
+        "description": "Identify subscriptions you haven't used in 30+ days and cancel them. Look for overlapping services (e.g., multiple streaming platforms, duplicate music services). Most people can save $100-300 per month by cutting services they rarely use. You can always resubscribe if needed.",
+        "personas": [
+          "subscription_heavy"
+        ],
+        "triggering_signals": [
+          "subscription_count"
+        ],
+        "category": "action",
+        "priority": 2,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "high",
+        "content_url": "/content/cancel-subscriptions",
+        "personalization_template": null
+      },
+      "rationale": "We recommend this template because it can help you Identify subscriptions you haven't used in 30+ day... This is relevant to your current financial situation.",
+      "persona_match_reason": "Cancel Unused and Redundant Services is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "education",
+      "item_id": "spending_alerts_recurring",
+      "content": {
+        "id": "spending_alerts_recurring",
+        "type": "article",
+        "title": "Set Alerts for Recurring Charges",
+        "description": "Enable bank/card notifications for recurring charges so you're aware of every subscription payment. This helps catch unwanted renewals immediately. Many people pay for months after deciding to cancel simply because they forgot. Alerts prevent this money leak.",
+        "personas": [
+          "subscription_heavy"
+        ],
+        "triggering_signals": [
+          "subscription_count"
+        ],
+        "category": "tip",
+        "priority": 5,
+        "difficulty": "beginner",
+        "time_commitment": "one-time",
+        "estimated_impact": "low",
+        "content_url": "/content/spending-alerts",
+        "personalization_template": null
+      },
+      "rationale": "We recommend this article because it can help you Enable bank/card notifications for recurring charg... This is relevant to your current financial situation.",
+      "persona_match_reason": "Set Alerts for Recurring Charges is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": []
+    },
+    {
+      "item_type": "partner_offer",
+      "item_id": "rocket_money_subscription_manager",
+      "content": {
+        "id": "rocket_money_subscription_manager",
+        "type": "app",
+        "title": "Rocket Money - Subscription Tracking & Cancellation",
+        "description": "Track all your subscriptions in one place, get alerts before renewals, and cancel unwanted subscriptions with one tap. Rocket Money has helped members save an average of $720/year by identifying and canceling forgotten or unused subscriptions.",
+        "personas": [
+          "subscription_heavy",
+          "cash_flow_optimizer"
+        ],
+        "eligibility": {
+          "min_income": null,
+          "min_credit_score": null,
+          "excluded_accounts": [],
+          "max_credit_utilization": null,
+          "min_age": 18,
+          "employment_required": false
+        },
+        "priority": 1,
+        "provider": "Rocket Money",
+        "offer_url": "https://www.rocketmoney.com/",
+        "key_benefits": [
+          "Track all subscriptions automatically",
+          "Cancel subscriptions with one tap",
+          "Average savings of $720/year",
+          "Price negotiation assistance",
+          "Budget tracking features"
+        ],
+        "rationale_template": "You have ${subscription_count} active subscriptions totaling ${monthly_subscription_cost}/month. Rocket Money can help identify unused services costing you ${potential_savings}/month.",
+        "disclaimer": "Savings data based on Rocket Money user reports. Individual results may vary. Premium features require subscription."
+      },
+      "rationale": "You have $30 active subscriptions totaling $$3,642.95/month. Rocket Money can help identify unused services costing you $$1,092.89/month.",
+      "persona_match_reason": "Rocket Money - Subscription Tracking & Cancellation is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": [
+        "Amount: $30",
+        "Amount: $1,092.89",
+        "Amount: $3,642.95"
+      ]
+    },
+    {
+      "item_type": "partner_offer",
+      "item_id": "truebill_budget_optimizer",
+      "content": {
+        "id": "truebill_budget_optimizer",
+        "type": "app",
+        "title": "Truebill - Smart Budget & Bill Negotiation",
+        "description": "Truebill helps you create smart budgets, track spending by category, and automatically negotiates bills like internet, phone, and cable to lower your monthly costs. Users save an average of $96/year on negotiated bills alone.",
+        "personas": [
+          "subscription_heavy",
+          "cash_flow_optimizer",
+          "young_professional"
+        ],
+        "eligibility": {
+          "min_income": null,
+          "min_credit_score": null,
+          "excluded_accounts": [],
+          "max_credit_utilization": null,
+          "min_age": 18,
+          "employment_required": false
+        },
+        "priority": 2,
+        "provider": "Truebill (Rocket Companies)",
+        "offer_url": "https://www.truebill.com/",
+        "key_benefits": [
+          "Automatic bill negotiation",
+          "Smart budgeting tools",
+          "Subscription tracking",
+          "Spending insights by category",
+          "Average savings of $96/year on bills"
+        ],
+        "rationale_template": "Your monthly spending patterns show potential for optimization. Truebill can analyze ${bill_count} bills and negotiate lower rates automatically.",
+        "disclaimer": "Savings based on average user experience. Truebill takes a percentage of negotiated savings. See Truebill.com for details."
+      },
+      "rationale": "Your monthly spending patterns show potential for optimization. Truebill can analyze $30 bills and negotiate lower rates automatically.",
+      "persona_match_reason": "Truebill - Smart Budget & Bill Negotiation is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": [
+        "Amount: $30"
+      ]
+    },
+    {
+      "item_type": "partner_offer",
+      "item_id": "copilot_money_tracker",
+      "content": {
+        "id": "copilot_money_tracker",
+        "type": "app",
+        "title": "Copilot Money - Premium Budgeting for iOS",
+        "description": "Beautifully designed budgeting app for iPhone and iPad with automatic categorization, spending insights, subscription tracking, and custom budgets. Focused on privacy with bank-level security. No ads, no data selling - just clean financial tracking.",
+        "personas": [
+          "cash_flow_optimizer",
+          "subscription_heavy",
+          "young_professional"
+        ],
+        "eligibility": {
+          "min_income": null,
+          "min_credit_score": null,
+          "excluded_accounts": [],
+          "max_credit_utilization": null,
+          "min_age": 18,
+          "employment_required": false
+        },
+        "priority": 3,
+        "provider": "Copilot Money",
+        "offer_url": "https://copilot.money/",
+        "key_benefits": [
+          "Beautiful, intuitive iOS interface",
+          "Automatic transaction categorization",
+          "Subscription tracking & alerts",
+          "Custom budget categories",
+          "Privacy-focused (no data selling)"
+        ],
+        "rationale_template": "Track ${monthly_spend} in monthly spending across ${category_count} categories with beautiful, privacy-focused iOS app. See exactly where your money goes.",
+        "disclaimer": "iOS only. Subscription required. Free trial available. See Copilot.money for pricing."
+      },
+      "rationale": "Track $4,065.70 in monthly spending across $10 categories with beautiful, privacy-focused iOS app. See exactly where your money goes.",
+      "persona_match_reason": "Copilot Money - Premium Budgeting for iOS is recommended for users with multiple subscriptions based on your current financial behavior.",
+      "signal_citations": [
+        "Amount: $4,065.70",
+        "Amount: $10"
+      ]
+    }
+  ],
+  "disclaimer": "This is educational content, not financial advice. Consult a licensed advisor for personalized guidance.",
+  "metadata": {
+    "total_recommendations": 8,
+    "education_count": 5,
+    "partner_offer_count": 3,
+    "generation_time_ms": 0.16,
+    "time_window": "180d",
+    "signals_detected": [
+      "subscription_count"
+    ],
+    "matching_audit_trail": {
+      "persona_id": "subscription_heavy",
+      "signals": [
+        "subscription_count"
+      ],
+      "excluded_content_count": 0,
+      "excluded_offer_count": 0,
+      "timestamp": "2025-11-06T00:24:24.699777",
+      "persona_content_count": 7,
+      "ranked_content_count": 7,
+      "available_content_count": 7,
+      "selected_education_count": 5,
+      "selected_education_types": [
+        "template",
+        "article",
+        "calculator",
+        "template",
+        "article"
+      ],
+      "persona_offer_count": 3,
+      "eligible_offer_count": 3,
+      "ineligible_offer_count": 0,
+      "ineligibility_reasons": {},
+      "selected_offer_count": 3,
+      "selected_offer_ids": [
+        "rocket_money_subscription_manager",
+        "truebill_budget_optimizer",
+        "copilot_money_tracker"
+      ]
+    }
+  },
+  "generated_at": "2025-11-06T00:24:24.699931"
+}
