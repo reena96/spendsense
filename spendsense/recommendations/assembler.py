@@ -19,7 +19,16 @@ from spendsense.recommendations.models import Recommendation, PartnerOffer
 from spendsense.guardrails.eligibility import EligibilityChecker
 from spendsense.guardrails.tone import ToneValidator
 
+# Database imports for flagging (Epic 6 - Story 6.4)
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from spendsense.config.database import get_db_path
+from spendsense.ingestion.database_writer import FlaggedRecommendation
+
 logger = logging.getLogger(__name__)
+
+# Database path for flagging failed recommendations (centralized configuration)
+DB_PATH = get_db_path()
 
 
 # Mandatory disclaimer per PRD AC4
@@ -141,6 +150,79 @@ class RecommendationAssembler:
 
         logger.info("RecommendationAssembler initialized with eligibility and tone checking")
 
+    def _flag_recommendation_to_database(
+        self,
+        user_id: str,
+        item: Any,
+        item_type: str,
+        rationale: str,
+        flag_reason: str,
+        guardrail_status: Dict[str, Any],
+        decision_trace: Dict[str, Any]
+    ):
+        """
+        Flag failed recommendation to database for manual review (Epic 6 - Story 6.4).
+
+        Completes Epic 5 deferred items:
+        - Story 5.3 AC7: Database flagging for tone violations
+        - Story 5.5 AC5: Database persistence for failed recommendations
+
+        Args:
+            user_id: User identifier
+            item: Recommendation or PartnerOffer object
+            item_type: 'education' or 'partner_offer'
+            rationale: Generated rationale text
+            flag_reason: Reason for flagging ('eligibility_fail', 'tone_fail')
+            guardrail_status: Complete guardrail check results (JSON)
+            decision_trace: Persona and signal information (JSON)
+        """
+        if not DB_PATH.exists():
+            logger.warning("Database not available for flagging recommendation")
+            return
+
+        try:
+            engine = create_engine(f"sqlite:///{str(DB_PATH)}")
+            Session = sessionmaker(bind=engine)
+            session = Session()
+
+            try:
+                # Generate recommendation ID
+                recommendation_id = f"rec_{user_id}_{item.content_id}_{int(time.time())}"
+
+                # Extract content details
+                content_title = item.title if hasattr(item, 'title') else "Unknown"
+                content_id = item.content_id if hasattr(item, 'content_id') else str(item)
+
+                # Create flagged recommendation record
+                flagged_rec = FlaggedRecommendation(
+                    recommendation_id=recommendation_id,
+                    user_id=user_id,
+                    content_id=content_id,
+                    content_title=content_title,
+                    content_type=item_type,
+                    rationale=rationale,
+                    flagged_at=datetime.now(),
+                    flagged_by="system",  # Auto-flagged by guardrail pipeline
+                    flag_reason=flag_reason,
+                    guardrail_status=guardrail_status,
+                    decision_trace=decision_trace,
+                    review_status="pending"
+                )
+
+                session.add(flagged_rec)
+                session.commit()
+
+                logger.info(
+                    f"Flagged recommendation {recommendation_id} to database: {flag_reason}",
+                    extra={"user_id": user_id, "content_id": content_id, "flag_reason": flag_reason}
+                )
+
+            finally:
+                session.close()
+
+        except Exception as e:
+            logger.error(f"Error flagging recommendation to database: {e}", exc_info=True)
+
     def assemble_recommendations(
         self,
         user_id: str,
@@ -226,6 +308,41 @@ class RecommendationAssembler:
                 logger.info(
                     f"Offer {eligibility_result.offer_id} filtered out: {eligibility_result.reasons}"
                 )
+
+                # Flag to database for manual review (Epic 6 - Story 6.4, completes Epic 5 Story 5.5 AC5)
+                rationale = self.rationale_generator.generate_for_offer(
+                    offer=offer_item,
+                    user_data=user_data,
+                    signals=signals,
+                )
+
+                guardrail_status = {
+                    "consent_status": "opted_in",  # Passed consent to get here
+                    "eligibility_passed": False,
+                    "eligibility_failures": eligibility_result.reasons,
+                    "tone_passed": True,  # Not yet checked
+                    "tone_violations": [],
+                    "disclaimer_present": True
+                }
+
+                decision_trace = {
+                    "persona_id": persona_id,
+                    "persona_name": persona_id.replace("_", " ").title(),
+                    "matching_signals": {s: True for s in signals},
+                    "ranking_score": None,
+                    "generation_reason": f"Matched to persona {persona_id} based on signals: {', '.join(signals)}"
+                }
+
+                self._flag_recommendation_to_database(
+                    user_id=user_id,
+                    item=offer_item,
+                    item_type="partner_offer",
+                    rationale=rationale.rendered_text,
+                    flag_reason="eligibility_fail",
+                    guardrail_status=guardrail_status,
+                    decision_trace=decision_trace
+                )
+
                 continue
 
             rationale = self.rationale_generator.generate_for_offer(
@@ -268,6 +385,47 @@ class RecommendationAssembler:
                     f"Recommendation {item_id} filtered by tone validation: {[f.phrase for f in tone_result.flagged_phrases]}"
                 )
 
+                # Flag to database for manual review (Epic 6 - Story 6.4, completes Epic 5 Story 5.3 AC7)
+                guardrail_status = {
+                    "consent_status": "opted_in",  # Passed consent to get here
+                    "eligibility_passed": True,  # Passed eligibility to get here
+                    "eligibility_failures": [],
+                    "tone_passed": False,
+                    "tone_violations": [f.phrase for f in tone_result.flagged_phrases],
+                    "disclaimer_present": True
+                }
+
+                decision_trace = {
+                    "persona_id": persona_id,
+                    "persona_name": persona_id.replace("_", " ").title(),
+                    "matching_signals": {s: True for s in signals},
+                    "ranking_score": None,
+                    "generation_reason": f"Matched to persona {persona_id} based on signals: {', '.join(signals)}"
+                }
+
+                # Extract content details from assembled item (consistent with eligibility flagging pattern)
+                # Create simple object with required attributes
+                @dataclass
+                class FlaggedItem:
+                    """Wrapper for flagged recommendation details."""
+                    content_id: str
+                    title: str
+
+                flagged_item = FlaggedItem(
+                    content_id=item.content.get("content_id", item_id),
+                    title=item.content.get("title", "Unknown")
+                )
+
+                self._flag_recommendation_to_database(
+                    user_id=user_id,
+                    item=flagged_item,
+                    item_type=item.item_type,
+                    rationale=rationale,
+                    flag_reason="tone_fail",
+                    guardrail_status=guardrail_status,
+                    decision_trace=decision_trace
+                )
+
         # Replace assembled_items with validated_items
         assembled_items = validated_items
 
@@ -308,6 +466,30 @@ class RecommendationAssembler:
             f"({metadata['education_count']} education + {metadata['partner_offer_count']} offers) "
             f"in {generation_time_ms:.1f}ms for {user_id}"
         )
+
+        # Epic 6 Story 6.5: Log to audit_log table for compliance reporting
+        try:
+            from spendsense.services.audit_service import AuditService
+            content_ids = [item.item_id for item in assembled_items]
+            guardrail_results = {
+                "eligibility_checks": len(eligibility_results),
+                "eligibility_passed": metadata['offers_eligible'],
+                "eligibility_failed": metadata['offers_filtered'],
+                "tone_checks": metadata['tone_checked'],
+                "tone_passed": metadata['tone_passed'],
+                "tone_failed": metadata['tone_filtered'],
+            }
+            AuditService.log_recommendation_generated(
+                user_id=user_id,
+                recommendation_id=f"rec_{user_id}_{time_window}_{int(time.time())}",
+                persona_id=persona_id,
+                content_ids=content_ids,
+                guardrail_results=guardrail_results,
+                session=None  # Will create its own session
+            )
+        except Exception as e:
+            # Log but don't fail recommendation generation if audit logging fails
+            logger.warning(f"audit_log_failed: {e}", extra={"user_id": user_id})
 
         # AC8: Ensure <5 second performance
         if generation_time_ms > 5000:

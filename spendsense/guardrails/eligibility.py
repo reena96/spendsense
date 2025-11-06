@@ -140,6 +140,29 @@ class EligibilityChecker:
                 user_id=user_data.get("user_id")
             )
 
+        # Epic 6 Story 6.5: Log to audit_log table for compliance reporting
+        try:
+            from spendsense.services.audit_service import AuditService
+            AuditService.log_eligibility_checked(
+                user_id=user_data.get("user_id", "unknown"),
+                recommendation_id=offer_id,  # Using offer_id as recommendation context
+                passed=eligible,
+                failure_reasons=[r for r in reasons if r != "All eligibility checks passed"],
+                thresholds={
+                    "minimum_income": offer.get("minimum_income", 0),
+                    "minimum_credit_score": offer.get("minimum_credit_score", 0)
+                },
+                user_values={
+                    "annual_income": user_data.get("annual_income", 0),
+                    "credit_score": user_data.get("credit_score", 0),
+                    "credit_utilization": user_data.get("credit_utilization", 0)
+                },
+                session=None  # Will create its own session
+            )
+        except Exception as e:
+            # Log but don't fail eligibility check if audit logging fails
+            logger.warning("audit_log_failed", error=str(e), offer_id=offer_id)
+
         return EligibilityResult(
             offer_id=offer_id,
             eligible=eligible,

@@ -25,6 +25,10 @@ from spendsense.generators import (
     generate_synthetic_liabilities,
 )
 from spendsense.api.operator_auth import router as operator_auth_router
+from spendsense.api.operator_signals import router as operator_signals_router
+from spendsense.api.operator_personas import router as operator_personas_router
+from spendsense.api.operator_review import router as operator_review_router
+from spendsense.api.operator_audit import router as operator_audit_router
 from spendsense.auth.rbac import require_role
 from spendsense.auth.tokens import TokenData
 
@@ -32,7 +36,7 @@ from spendsense.auth.tokens import TokenData
 # API Models
 class GenerateProfilesRequest(BaseModel):
     """Request model for profile generation."""
-    num_users: int = Field(ge=50, le=100, default=100, description="Number of profiles to generate (50-100)")
+    num_users: int = Field(ge=50, le=120, default=120, description="Number of profiles to generate (50-120)")
     seed: int = Field(default=42, description="Random seed for reproducibility")
 
 
@@ -146,6 +150,18 @@ app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 # Include operator authentication router (Epic 6 - Story 6.1)
 app.include_router(operator_auth_router)
 
+# Include operator signals router (Epic 6 - Story 6.2)
+app.include_router(operator_signals_router)
+
+# Include operator personas router (Epic 6 - Story 6.3)
+app.include_router(operator_personas_router)
+
+# Include operator review router (Epic 6 - Story 6.4)
+app.include_router(operator_review_router)
+
+# Include operator audit router (Epic 6 - Story 6.5)
+app.include_router(operator_audit_router)
+
 
 @app.get("/")
 async def root():
@@ -199,7 +215,67 @@ async def list_profiles(
     List generated profiles with pagination and filtering.
 
     Returns a paginated list of profiles. Can filter by persona type.
+    Reads from database if available, falls back to JSON file.
     """
+    # Try database first (preferred)
+    if DB_PATH.exists():
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+        from spendsense.ingestion.database_writer import User, Account
+
+        try:
+            engine = create_engine(f'sqlite:///{DB_PATH}')
+            Session = sessionmaker(bind=engine)
+
+            with Session() as session:
+                # Query users
+                query = session.query(User)
+
+                # Filter by persona if specified
+                if persona:
+                    query = query.filter(User.persona == persona)
+
+                # Get total count
+                total = query.count()
+
+                # Apply pagination
+                users = query.order_by(User.user_id).offset(offset).limit(limit).all()
+
+                # Build profile list
+                profiles = []
+                for user in users:
+                    # Get user's accounts
+                    accounts = session.query(Account).filter(Account.user_id == user.user_id).all()
+
+                    account_list = []
+                    for acc in accounts:
+                        account_list.append({
+                            "type": acc.type,
+                            "subtype": acc.subtype,
+                            "initial_balance": float(acc.balance_current or 0),
+                            "limit": float(acc.balance_limit) if acc.balance_limit else None
+                        })
+
+                    profiles.append({
+                        "user_id": user.user_id,
+                        "name": user.name,
+                        "persona": user.persona,
+                        "annual_income": float(user.annual_income) if user.annual_income else 0,
+                        "characteristics": user.characteristics or {},
+                        "accounts": account_list
+                    })
+
+                return ProfileListResponse(
+                    total=total,
+                    profiles=profiles
+                )
+        except Exception as e:
+            # If database read fails, fall through to JSON file
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Database read failed, falling back to JSON: {e}")
+
+    # Fallback to JSON file
     if not DEFAULT_PROFILES_FILE.exists():
         raise HTTPException(
             status_code=404,
@@ -229,7 +305,54 @@ async def get_profile(user_id: str):
     Get a specific profile by user ID.
 
     Returns the full profile details for the specified user.
+    Reads from database if available, falls back to JSON file.
     """
+    # Try database first (preferred)
+    if DB_PATH.exists():
+        from sqlalchemy import create_engine
+        from sqlalchemy.orm import sessionmaker
+        from spendsense.ingestion.database_writer import User, Account
+
+        try:
+            engine = create_engine(f'sqlite:///{DB_PATH}')
+            Session = sessionmaker(bind=engine)
+
+            with Session() as session:
+                # Query user
+                user = session.query(User).filter(User.user_id == user_id).first()
+
+                if not user:
+                    raise HTTPException(status_code=404, detail=f"Profile {user_id} not found")
+
+                # Get user's accounts
+                accounts = session.query(Account).filter(Account.user_id == user.user_id).all()
+
+                account_list = []
+                for acc in accounts:
+                    account_list.append({
+                        "type": acc.type,
+                        "subtype": acc.subtype,
+                        "initial_balance": float(acc.balance_current or 0),
+                        "limit": float(acc.balance_limit) if acc.balance_limit else None
+                    })
+
+                return {
+                    "user_id": user.user_id,
+                    "name": user.name,
+                    "persona": user.persona,
+                    "annual_income": float(user.annual_income) if user.annual_income else 0,
+                    "characteristics": user.characteristics or {},
+                    "accounts": account_list
+                }
+        except HTTPException:
+            raise
+        except Exception as e:
+            # If database read fails, fall through to JSON file
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Database read failed for user {user_id}, falling back to JSON: {e}")
+
+    # Fallback to JSON file
     if not DEFAULT_PROFILES_FILE.exists():
         raise HTTPException(status_code=404, detail="No profiles found")
 
@@ -250,7 +373,77 @@ async def get_stats():
     Get statistics about generated profiles.
 
     Returns persona distribution, income range, and validation status.
+    Reads from database if available, falls back to JSON file.
     """
+    # Try database first (preferred)
+    if DB_PATH.exists():
+        from sqlalchemy import create_engine, func
+        from sqlalchemy.orm import sessionmaker
+        from spendsense.ingestion.database_writer import User
+
+        try:
+            engine = create_engine(f'sqlite:///{DB_PATH}')
+            Session = sessionmaker(bind=engine)
+
+            with Session() as session:
+                # Get total count
+                total = session.query(User).count()
+
+                if total == 0:
+                    raise HTTPException(status_code=404, detail="No profiles found")
+
+                # Get persona distribution
+                persona_counts = session.query(
+                    User.persona,
+                    func.count(User.user_id)
+                ).group_by(User.persona).all()
+
+                persona_distribution = {persona: count for persona, count in persona_counts}
+
+                # Get income range
+                income_stats = session.query(
+                    func.min(User.annual_income),
+                    func.max(User.annual_income)
+                ).first()
+
+                income_range = (float(income_stats[0] or 0), float(income_stats[1] or 0))
+
+                # Validate distribution
+                persona_percentages = {
+                    persona: (count / total) * 100
+                    for persona, count in persona_distribution.items()
+                }
+
+                validation_errors = []
+                # Note: With 6 personas, expected distribution is ~16.7% each, not 20%
+                # We'll use a looser validation for now
+                for persona, percentage in persona_percentages.items():
+                    if percentage < 5.0 or percentage > 30.0:  # Loose bounds
+                        validation_errors.append(
+                            f"Persona {persona} has {percentage:.1f}% (unusual distribution)"
+                        )
+
+                validation = {
+                    "valid": len(validation_errors) == 0,
+                    "errors": validation_errors,
+                    "persona_percentages": persona_percentages
+                }
+
+                return StatsResponse(
+                    total_profiles=total,
+                    persona_distribution=persona_distribution,
+                    income_range=income_range,
+                    validation=validation
+                )
+        except HTTPException:
+            raise
+        except Exception as e:
+            # If database read fails, fall through to JSON file
+            import logging
+            logger = logging.getLogger(__name__)
+            logger.warning(f"Database read failed, falling back to JSON: {e}")
+
+    # Fallback to JSON file
     if not DEFAULT_PROFILES_FILE.exists():
         raise HTTPException(status_code=404, detail="No profiles found")
 

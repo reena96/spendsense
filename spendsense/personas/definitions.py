@@ -229,6 +229,38 @@ PERSONA_CONTROL = PersonaCharacteristics(
     savings_balance_months=Decimal("1.0"),
 )
 
+PERSONA_YOUNG_PROFESSIONAL = PersonaCharacteristics(
+    # Entry-level to early career income
+    min_annual_income=Decimal("25000"),
+    max_annual_income=Decimal("55000"),
+    income_stability="regular",
+    median_pay_gap_days=None,  # Regular paycheck
+
+    # Low credit limits (< $3000 per Epic 3 Story 3.5 criteria)
+    min_credit_limit=Decimal("500"),
+    max_credit_limit=Decimal("2800"),
+    target_credit_utilization_min=Decimal("0.10"),
+    target_credit_utilization_max=Decimal("0.30"),
+
+    # Building savings habit
+    target_savings_monthly_min=Decimal("50"),
+    target_savings_monthly_max=Decimal("250"),
+
+    # Few subscriptions (budget-conscious)
+    subscription_count_min=1,
+    subscription_count_max=4,
+
+    # Basic account structure
+    has_checking=True,
+    has_savings=True,
+    credit_card_count_min=0,  # May not have credit yet
+    credit_card_count_max=1,  # Max 1 starter card
+
+    # Low balances (building from scratch)
+    checking_balance_months=Decimal("0.4"),
+    savings_balance_months=Decimal("0.6"),
+)
+
 
 # Persona Registry - maps persona types to their characteristics
 PERSONA_REGISTRY: dict[PersonaType, PersonaCharacteristics] = {
@@ -236,6 +268,7 @@ PERSONA_REGISTRY: dict[PersonaType, PersonaCharacteristics] = {
     PersonaType.VARIABLE_INCOME: PERSONA_VARIABLE_INCOME,
     PersonaType.SUBSCRIPTION_HEAVY: PERSONA_SUBSCRIPTION_HEAVY,
     PersonaType.SAVINGS_BUILDER: PERSONA_SAVINGS_BUILDER,
+    PersonaType.YOUNG_PROFESSIONAL: PERSONA_YOUNG_PROFESSIONAL,
     PersonaType.CONTROL: PERSONA_CONTROL,
 }
 
@@ -273,6 +306,11 @@ PERSONA_DESCRIPTIONS = {
     PersonaType.SAVINGS_BUILDER: (
         "Strong savings habit with >$200/month contributions. Low credit utilization (<30%). "
         "Good financial health, may benefit from investment and optimization guidance."
+    ),
+    PersonaType.YOUNG_PROFESSIONAL: (
+        "Limited transaction history (<180 days) or low credit limits (<$3000). "
+        "Entry-level income ($25K-$55K), building financial foundation. Needs credit building, "
+        "budgeting basics, and financial literacy guidance."
     ),
     PersonaType.CONTROL: (
         "Mixed financial behaviors that don't strongly align with any single persona. "

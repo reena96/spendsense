@@ -201,6 +201,100 @@ class AuthAuditLog(Base):
     )
 
 
+class FlaggedRecommendation(Base):
+    """
+    Flagged recommendation review queue (Epic 6 - Story 6.4).
+
+    Tracks recommendations that require manual operator review due to guardrail
+    failures (eligibility, tone) or manual flagging. Completes Epic 5 deferred
+    items: Story 5.3 AC7 (tone flagging database) and Story 5.5 AC5 (failed
+    recommendation persistence).
+    """
+    __tablename__ = 'flagged_recommendations'
+
+    recommendation_id = Column(String, primary_key=True)
+    user_id = Column(String, ForeignKey('users.user_id'), nullable=False)
+    content_id = Column(String, nullable=False)
+    content_title = Column(String, nullable=False)
+    content_type = Column(String, nullable=False)  # 'education' or 'partner_offer'
+    rationale = Column(Text, nullable=False)
+
+    # Flagging metadata
+    flagged_at = Column(DateTime, nullable=False)
+    flagged_by = Column(String, nullable=True)  # operator_id or 'system' for auto-flags
+    flag_reason = Column(String, nullable=False)  # 'eligibility_fail', 'tone_fail', 'manual_flag'
+
+    # Guardrail and decision context (stored as JSON)
+    guardrail_status = Column(JSON, nullable=False)  # Full guardrail check results
+    decision_trace = Column(JSON, nullable=False)  # Persona, signals, matching logic
+
+    # Review workflow
+    review_status = Column(String, nullable=False, default='pending')  # 'pending', 'approved', 'overridden', 'escalated'
+    reviewed_at = Column(DateTime, nullable=True)
+    reviewed_by = Column(String, ForeignKey('operators.operator_id'), nullable=True)
+    review_notes = Column(Text, nullable=True)
+
+    # Performance indexes
+    __table_args__ = (
+        Index('idx_flagged_recs_status', 'review_status'),
+        Index('idx_flagged_recs_flagged_at', 'flagged_at'),
+        Index('idx_flagged_recs_user', 'user_id'),
+        Index('idx_flagged_recs_flag_reason', 'flag_reason'),
+    )
+
+
+class AuditLog(Base):
+    """
+    Comprehensive audit log for system decisions and operator actions (Epic 6 - Story 6.5).
+
+    Tracks all significant events for compliance and regulatory requirements
+    with 7-year retention (2 years active + 2-7 years archived).
+
+    Event Types:
+        - recommendation_generated: Recommendation created and filtered
+        - consent_changed: User consent status modified
+        - eligibility_checked: Eligibility guardrail validation
+        - tone_validated: Tone guardrail validation
+        - operator_action: Operator approve/override/flag action
+        - persona_assigned: Persona assignment to user
+        - persona_overridden: Manual persona override by operator
+        - login_attempt: Operator login attempt (success/failure)
+        - unauthorized_access: Unauthorized access attempt
+    """
+    __tablename__ = 'comprehensive_audit_log'
+
+    log_id = Column(String, primary_key=True)
+    event_type = Column(String, nullable=False)
+    user_id = Column(String, ForeignKey('users.user_id'), nullable=True)  # Nullable for operator-only events
+    operator_id = Column(String, ForeignKey('operators.operator_id'), nullable=True)  # Nullable for system events
+    recommendation_id = Column(String, nullable=True)
+    timestamp = Column(DateTime, nullable=False)
+    event_data = Column(Text, nullable=False)  # JSON string with full trace
+    ip_address = Column(String, nullable=True)
+    user_agent = Column(String, nullable=True)
+
+    # Performance indexes for common query patterns
+    __table_args__ = (
+        Index('idx_audit_timestamp', 'timestamp'),
+        Index('idx_audit_event_type', 'event_type'),
+        Index('idx_audit_user', 'user_id'),
+        Index('idx_audit_operator', 'operator_id'),
+    )
+
+    # Valid event types (enforced at application level)
+    VALID_EVENT_TYPES = {
+        'recommendation_generated',
+        'consent_changed',
+        'eligibility_checked',
+        'tone_validated',
+        'operator_action',
+        'persona_assigned',
+        'persona_overridden',
+        'login_attempt',
+        'unauthorized_access',
+    }
+
+
 class DatabaseWriter:
     """
     Database writer for storing validated data in SQLite.

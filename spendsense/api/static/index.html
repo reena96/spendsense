@@ -23,7 +23,6 @@
             <button class="tab" data-tab="recommendations">💡 Recommendations</button>
             <button class="tab" data-tab="stats">Statistics</button>
             <button class="tab" data-tab="personas">Personas</button>
-            <button class="tab" data-tab="future">Future Features</button>
         </nav>
 
         <!-- Generate Tab -->
@@ -34,8 +33,8 @@
 
                 <form id="generate-form" class="form">
                     <div class="form-group">
-                        <label for="num-users">Number of Users (50-100)</label>
-                        <input type="number" id="num-users" min="50" max="100" value="100" required>
+                        <label for="num-users">Number of Users (50-120)</label>
+                        <input type="number" id="num-users" min="50" max="120" value="120" required>
                     </div>
 
                     <div class="form-group">
@@ -229,52 +228,6 @@
                 </div>
 
                 <div id="recommendations-error" class="error hidden"></div>
-            </div>
-        </div>
-
-        <!-- Future Features Tab -->
-        <div id="future" class="tab-content">
-            <div class="card">
-                <h2>Coming Soon</h2>
-                <p>These features will be added in future stories:</p>
-
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <h3>📊 Story 1.4: Transaction Data</h3>
-                        <p>Generate synthetic transactions based on user profiles and personas</p>
-                        <span class="badge">Epic 1</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3>🔍 Epic 2: Signal Detection</h3>
-                        <p>Detect behavioral patterns like high utilization, variable income, etc.</p>
-                        <span class="badge">Epic 2</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3>👤 Epic 3: Persona Assignment</h3>
-                        <p>Match users to personas based on detected signals</p>
-                        <span class="badge">Epic 3</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3>💡 Epic 4: Recommendations</h3>
-                        <p>Generate personalized financial recommendations</p>
-                        <span class="badge">Epic 4</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3>🛡️ Epic 5: Guardrails</h3>
-                        <p>Consent management, eligibility filtering, tone validation</p>
-                        <span class="badge">Epic 5</span>
-                    </div>
-
-                    <div class="feature-item">
-                        <h3>👁️ Epic 6: Operator View</h3>
-                        <p>Dashboard for oversight and approval workflows</p>
-                        <span class="badge">Epic 6</span>
-                    </div>
-                </div>
             </div>
         </div>
 

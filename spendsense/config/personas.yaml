@@ -47,7 +47,7 @@ personas:
   - id: irregular_income
     name: "Variable Income Budgeter"
     description: "Irregular income patterns with cash flow challenges. Focus on budgeting for variable income."
-    priority: 2
+    priority: 3
     criteria:
       operator: "OR"
       conditions:
@@ -74,7 +74,7 @@ personas:
   - id: low_savings
     name: "Low Savings / Emergency Fund Builder"
     description: "Minimal savings buffer (<3 months expenses). Focus on building financial resilience."
-    priority: 3
+    priority: 4
     criteria:
       operator: "AND"
       conditions:
@@ -100,7 +100,7 @@ personas:
   - id: subscription_heavy
     name: "Subscription-Heavy Spending"
     description: "High recurring spend (≥20% of expenses). Focus on subscription optimization."
-    priority: 4
+    priority: 5
     criteria:
       operator: "AND"
       conditions:
@@ -123,7 +123,7 @@ personas:
   - id: cash_flow_optimizer
     name: "Cash Flow Optimizer"
     description: "High liquidity (≥6 months expenses) with low debt usage (<10% utilization). Opportunity for better allocation."
-    priority: 5
+    priority: 6
     criteria:
       operator: "AND"
       conditions:
@@ -153,14 +153,14 @@ personas:
 
   - id: young_professional
     name: "Young Professional / Credit Builder"
-    description: "Limited transaction history (<180 days) or low credit limits (<$3000). Building financial foundation."
-    priority: 6
+    description: "Limited transaction history (<200 days) or low credit limits (<$3000). Building financial foundation."
+    priority: 2
     criteria:
       operator: "OR"
       conditions:
         - signal: "transaction_history_days"
           operator: "<"
-          value: 180
+          value: 200
         - signal: "credit_total_limits"
           operator: "<"
           value: 3000.0
