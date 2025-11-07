@@ -29,7 +29,7 @@ cd /Users/reena/gauntletai/spendsense
 source venv/bin/activate
 
 # Ensure accounts table is populated (required for Epic 2)
-python populate_accounts.py
+python scripts/populate_accounts.py
 
 # Fix credit detection (one-time fix)
 sqlite3 data/processed/spendsense.db "UPDATE liabilities SET liability_type = 'credit_card' WHERE account_id IN (SELECT account_id FROM accounts WHERE type = 'credit');"
@@ -634,7 +634,7 @@ python -m uvicorn spendsense.api.main:app --host 0.0.0.0 --port 8000 --reload
 ### All signals showing zeros?
 This means the accounts table wasn't populated. Run:
 ```bash
-python populate_accounts.py
+python scripts/populate_accounts.py
 # Restart server
 ```
 
@@ -748,8 +748,8 @@ pytest tests/test_time_windows.py \
 - `EPIC_2_UI_VALIDATION.md` - Comprehensive testing guide
 
 **Utility Scripts:**
-- `populate_accounts.py` - Populates accounts table from transactions
-- `test_debug.py`, `test_income_debug.py`, `test_credit_debug.py` - Debug scripts
+- `scripts/populate_accounts.py` - Populates accounts table from transactions
+- `scripts/test_debug.py`, `scripts/test_income_debug.py`, `scripts/test_credit_debug.py` - Debug scripts
 
 ---
 

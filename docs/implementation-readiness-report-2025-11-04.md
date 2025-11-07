@@ -510,7 +510,7 @@ All core requirements (FR1-FR37, NFR1-NFR15) have:
 - ✅ **Epic 6 (Operator View) can run parallel:** UI for operators independent of backend logic (uses APIs)
 - ✅ **Epic 7 (Evaluation) should run last:** Metrics require all systems operational
 
-**Recommended Epic Sequencing (from HANDOFF.md):**
+**Recommended Epic Sequencing (from docs/session-handoff/HANDOFF.md):**
 Epic 1 → 2 → 3 → 5 → 4 → 6 → 7
 
 **Analysis:**
@@ -1149,7 +1149,7 @@ _Minor items for consideration_
 
 **NO SEQUENCING CHANGES REQUIRED** ✅
 
-The recommended epic sequencing from HANDOFF.md is sound:
+The recommended epic sequencing from docs/session-handoff/HANDOFF.md is sound:
 
 **Epic 1 → 2 → 3 → 5 → 4 → 6 → 7**
 

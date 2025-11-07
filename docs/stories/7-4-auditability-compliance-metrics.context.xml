@@ -1,0 +1,287 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>7</epicId>
+    <storyId>4</storyId>
+    <title>Auditability & Compliance Metrics</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/7-4-auditability-compliance-metrics.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>compliance officer</asA>
+    <iWant>verification that all recommendations are fully auditable with complete decision traces</iWant>
+    <soThat>regulatory compliance and ethical transparency can be demonstrated</soThat>
+    <tasks>
+- Task 1: Create auditability metrics module (AC: #1-10)
+- Task 2: Verify decision trace completeness (AC: #1)
+- Task 3: Verify consent compliance (AC: #2)
+- Task 4: Verify eligibility compliance (AC: #3)
+- Task 5: Verify tone compliance (AC: #4)
+- Task 6: Verify disclaimer presence (AC: #5)
+- Task 7: Analyze audit log completeness (AC: #6)
+- Task 8: Categorize compliance failures (AC: #7)
+- Task 9: Generate compliance report (AC: #8)
+- Task 10: Track recommendation ages (AC: #9)
+- Task 11: Verify data retention compliance (AC: #10)
+- Task 12: Create CLI script for auditability evaluation (AC: #1-10)
+- Task 13: Write comprehensive unit tests (AC: #1-10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Auditability metric calculated: % of recommendations with decision traces (target 100%)
+2. Consent compliance verified: 0% processing without consent
+3. Eligibility compliance measured: % of recommendations passing eligibility checks
+4. Tone compliance measured: % of recommendations passing tone validation
+5. Disclaimer presence verified: 100% of recommendations include mandatory disclaimer
+6. Audit log completeness verified: all user actions and system decisions logged
+7. Compliance failures categorized: consent violations, eligibility issues, tone problems
+8. Compliance report generated with pass/fail status per guardrail
+9. Recommendation age tracked: time from generation to delivery
+10. Data retention compliance verified: audit logs persisted per policy
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-7-evaluation-harness-metrics.md</path>
+        <title>Epic 7: Evaluation Harness & Metrics PRD</title>
+        <section>Story 7.4</section>
+        <snippet>Auditability & Compliance Metrics story requiring verification of decision traces, consent compliance (0% violations), eligibility/tone compliance, disclaimer presence (100%), audit log completeness, and compliance reporting.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>PRD - Consent & Guardrail Requirements</title>
+        <section>FR23-FR29</section>
+        <snippet>FR23: Explicit user opt-in required. FR24: Users can revoke consent. FR25: Consent status tracked. FR26: Eligibility checks prevent unqualified recommendations. FR27: Exclude harmful products. FR28: Neutral, empowering tone required. FR29: Mandatory disclaimer on every recommendation.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Architecture - Auditability</title>
+        <section>Ethical Compliance</section>
+        <snippet>Complete decision traces for all recommendations. Mandatory guardrails enforce consent, eligibility, and tone requirements. Auditability and transparency are core design principles.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/7-1-coverage-metrics-calculation.md</path>
+        <title>Story 7.1 Learnings</title>
+        <section>Evaluation Module Patterns</section>
+        <snippet>Established evaluation module structure, JSON output patterns, CLI script conventions.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/7-2-explainability-metrics-calculation.md</path>
+        <title>Story 7.2 Learnings</title>
+        <section>Quality Assessment</section>
+        <snippet>Checklist-based scoring and structured failure case reporting patterns.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/7-3-performance-latency-metrics.md</path>
+        <title>Story 7.3 Learnings</title>
+        <section>System Integration</section>
+        <snippet>Instrumentation patterns and component analysis techniques.</snippet>
+      </doc>
+    </docs>
+
+    <code>
+      <artifact>
+        <path>spendsense/services/audit_service.py</path>
+        <kind>service</kind>
+        <symbol>AuditService</symbol>
+        <lines></lines>
+        <reason>Audit trail system from Epic 6 (Story 6.5) - verify audit log completeness</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/consent.py</path>
+        <kind>guardrail</kind>
+        <symbol>ConsentService</symbol>
+        <lines></lines>
+        <reason>Consent management system (Epic 5, Story 5.1) - verify consent compliance</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/eligibility.py</path>
+        <kind>guardrail</kind>
+        <symbol>EligibilityFilter</symbol>
+        <lines></lines>
+        <reason>Eligibility filtering system (Epic 5, Story 5.2) - verify eligibility compliance</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/tone.py</path>
+        <kind>guardrail</kind>
+        <symbol>ToneValidator</symbol>
+        <lines></lines>
+        <reason>Tone validation system (Epic 5, Story 5.3) - verify tone compliance</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/models.py</path>
+        <kind>models</kind>
+        <symbol>Recommendation</symbol>
+        <lines></lines>
+        <reason>Recommendation data models with disclaimer field (Story 5.4)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/db/models.py</path>
+        <kind>models</kind>
+        <symbol>AuditLog, User</symbol>
+        <lines></lines>
+        <reason>Database models for audit_log and users tables (consent_status column)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>service</kind>
+        <symbol>DatabaseWriter</symbol>
+        <lines></lines>
+        <reason>AuditLog schema definition and audit trail structure</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/services/compliance_metrics.py</path>
+        <kind>service</kind>
+        <symbol>ComplianceMetricsService</symbol>
+        <lines></lines>
+        <reason>Existing compliance metrics from Story 6.5</reason>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <python>
+        <package>sqlalchemy</package>
+        <version>2.0.0+</version>
+        <reason>Database ORM for querying audit_log, users, recommendations tables</reason>
+      </python>
+      <python>
+        <package>pandas</package>
+        <version>2.1.0+</version>
+        <reason>Data processing for compliance metrics and analysis</reason>
+      </python>
+      <python>
+        <package>pydantic</package>
+        <version>2.5.0+</version>
+        <reason>Data validation for compliance reports and metrics</reason>
+      </python>
+      <python>
+        <package>pytest</package>
+        <version>7.4.0+</version>
+        <reason>Test framework for unit and compliance tests</reason>
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <interfaces>
+    <interface>
+      <name>AuditabilityMetrics</name>
+      <kind>dataclass</kind>
+      <signature>@dataclass
+class AuditabilityMetrics:
+    decision_trace_completeness: float
+    consent_compliance_rate: float
+    eligibility_compliance_rate: float
+    tone_compliance_rate: float
+    disclaimer_presence_rate: float
+    audit_log_completeness: float
+    compliance_failures: List[Dict]
+    recommendation_ages: Dict[str, float]
+    data_retention_status: str
+    timestamp: datetime</signature>
+      <path>spendsense/evaluation/auditability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>verify_decision_traces</name>
+      <kind>function</kind>
+      <signature>def verify_decision_traces() -> float:
+    """Verify all recommendations have complete decision traces in audit log."""</signature>
+      <path>spendsense/evaluation/auditability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>check_consent_compliance</name>
+      <kind>function</kind>
+      <signature>def check_consent_compliance() -> float:
+    """Verify 0% processing without consent (target 100% opted-in)."""</signature>
+      <path>spendsense/evaluation/auditability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>check_guardrail_compliance</name>
+      <kind>function</kind>
+      <signature>def check_guardrail_compliance(guardrail_type: str) -> float:
+    """Check compliance rate for eligibility, tone, or disclaimer guardrails."""</signature>
+      <path>spendsense/evaluation/auditability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>analyze_audit_log_completeness</name>
+      <kind>function</kind>
+      <signature>def analyze_audit_log_completeness() -> float:
+    """Verify audit log has all required event types logged."""</signature>
+      <path>spendsense/evaluation/auditability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>AuditLog Table</name>
+      <kind>database</kind>
+      <signature>CREATE TABLE audit_log (
+    event_id TEXT PRIMARY KEY,
+    timestamp TEXT,
+    user_id TEXT,
+    event_type TEXT,
+    event_data TEXT
+)</signature>
+      <path>spendsense/db/models.py</path>
+    </interface>
+    <interface>
+      <name>Users Table (consent)</name>
+      <kind>database</kind>
+      <signature>CREATE TABLE users (
+    user_id TEXT PRIMARY KEY,
+    consent_status TEXT,
+    consent_timestamp TEXT,
+    consent_version TEXT
+)</signature>
+      <path>spendsense/db/models.py</path>
+    </interface>
+    <interface>
+      <name>CLI Script</name>
+      <kind>script</kind>
+      <signature>python scripts/evaluate_auditability.py --dataset synthetic --output-dir docs/eval/ --check-retention</signature>
+      <path>scripts/evaluate_auditability.py</path>
+    </interface>
+  </interfaces>
+
+  <constraints>
+    <constraint>Python 3.10+ with type hints required for all functions</constraint>
+    <constraint>SQLite database access for audit_log, users, recommendations tables</constraint>
+    <constraint>Target: 100% decision trace completeness</constraint>
+    <constraint>Critical requirement: 0% consent violations (100% opted-in users)</constraint>
+    <constraint>Target: 100% eligibility compliance (FR26-FR27)</constraint>
+    <constraint>Target: 100% tone compliance (FR28)</constraint>
+    <constraint>Target: 100% disclaimer presence (FR29)</constraint>
+    <constraint>Audit log must contain all event types: consent_changed, persona_assigned, signals_detected, recommendation_generated, eligibility_checked, tone_validated, operator_action</constraint>
+    <constraint>Compliance failures categorized by severity: CRITICAL (consent), HIGH (eligibility, disclaimer), MEDIUM (tone, traces)</constraint>
+    <constraint>Compliance report format: pass/fail status per guardrail with overall score</constraint>
+    <constraint>JSON output format with ISO 8601 timestamps</constraint>
+    <constraint>Exit code 0 for full compliance, 1 for warnings, 2 for critical failures</constraint>
+    <constraint>Test framework: pytest with ≥10 tests per story</constraint>
+  </constraints>
+
+  <tests>
+    <standards>
+Framework: pytest with ≥10 tests per story. Test categories: unit tests (individual compliance checks), integration tests (end-to-end auditability verification), compliance tests (guardrail enforcement), edge case tests (violation scenarios). Test locations: tests/evaluation/test_auditability_metrics.py. All tests must use type hints and follow existing test patterns.
+    </standards>
+    <locations>
+      <location>tests/evaluation/test_auditability_metrics.py</location>
+    </locations>
+    <ideas>
+      <idea ac="1">Test verify_decision_traces with complete and incomplete traces</idea>
+      <idea ac="2">Test check_consent_compliance with opted-in and opted-out users (critical)</idea>
+      <idea ac="3">Test check_guardrail_compliance for eligibility with qualified/unqualified scenarios</idea>
+      <idea ac="4">Test check_guardrail_compliance for tone with passing/failing text samples</idea>
+      <idea ac="5">Test disclaimer presence detection with various disclaimer formats</idea>
+      <idea ac="6">Test analyze_audit_log_completeness with complete and missing event types</idea>
+      <idea ac="7">Test compliance failure categorization by type and severity</idea>
+      <idea ac="8">Test compliance report generation with pass/fail status per guardrail</idea>
+      <idea ac="9">Test recommendation age tracking for staleness detection</idea>
+      <idea ac="10">Test data retention compliance verification</idea>
+      <idea>Edge case: All recommendations fully compliant (100%)</idea>
+      <idea>Edge case: No recommendations compliant (0%)</idea>
+      <idea>Edge case: Mixed compliance scenarios</idea>
+      <idea>Edge case: Missing audit log entries</idea>
+      <idea>Edge case: Stale recommendations (>30 days old)</idea>
+    </ideas>
+  </tests>
+</story-context>

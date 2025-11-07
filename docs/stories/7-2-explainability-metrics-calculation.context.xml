@@ -1,0 +1,288 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>7</epicId>
+    <storyId>2</storyId>
+    <title>Explainability Metrics Calculation</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/7-2-explainability-metrics-calculation.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>data scientist</asA>
+    <iWant>measurement of recommendation explainability ensuring all outputs have transparent rationales</iWant>
+    <soThat>system transparency can be verified and rationale quality can be assessed</soThat>
+    <tasks>
+- Task 1: Create explainability metrics module (AC: #1-10)
+  - Create `spendsense/evaluation/explainability_metrics.py`
+  - Define `ExplainabilityMetrics` dataclass with fields (rationale_presence_rate, rationale_quality_score, explainability_by_persona, decision_trace_completeness, failure_cases, sample_rationales, improvement_recommendations, timestamp)
+  - Implement `calculate_rationale_presence()` function
+  - Implement `assess_rationale_quality()` function
+  - Implement `verify_decision_traces()` function
+  - Implement `extract_sample_rationales()` function
+
+- Task 2: Implement rationale presence check (AC: #1, #4)
+  - Load all recommendations from database/output files
+  - For each recommendation, check if rationale field is non-empty
+  - Calculate % with rationales (target 100%)
+  - Group by persona and calculate per-persona rates
+  - Identify recommendations missing rationales
+  - Return structured metrics with persona breakdown
+
+- Task 3: Implement rationale quality assessment (AC: #2, #3)
+  - Define quality criteria checklist (contains concrete data citations, includes account identifiers or transaction details, provides numeric specifics, uses plain language, cites specific behavioral signals)
+  - For each rationale, score against checklist (0-5 points)
+  - Calculate average quality score across all rationales
+  - Identify low-quality rationales (score &lt;3)
+  - Generate detailed quality report per recommendation
+
+- Task 4: Verify decision trace completeness (AC: #5)
+  - Load audit logs from database (Epic 6 audit trail)
+  - For each recommendation, verify audit trail exists (persona assignment, behavioral signals, recommendation matching, guardrail checks, final recommendation assembly)
+  - Calculate % with complete decision traces
+  - Identify recommendations with incomplete traces
+  - Return trace completeness metrics
+
+- Task 5: Extract and analyze sample rationales (AC: #7)
+  - Select representative samples (2-3 rationales per persona, high and low quality examples, different recommendation types)
+  - Extract full rationale text
+  - Include metadata: user_id, persona, recommendation_type, quality_score
+  - Format for manual review in JSON output
+  - Highlight quality strengths and weaknesses per sample
+
+- Task 6: Log explainability failures (AC: #6)
+  - For each failure case, record: recommendation_id, user_id, persona, failure_type, details, severity
+  - Group failures by type and persona
+  - Sort by severity for prioritization
+  - Include in JSON output for debugging
+
+- Task 7: Generate improvement recommendations (AC: #10)
+  - Analyze failure patterns and generate actionable recommendations with priority
+  - Reference specific code modules that need attention
+  - Include in JSON output for development team
+
+- Task 8: Implement metrics storage (AC: #8)
+  - Create JSON output format with schema (timestamp, dataset, explainability_metrics, failure_cases, sample_rationales, improvement_recommendations)
+  - Save to `docs/eval/explainability_metrics_{timestamp}.json`
+  - Include sample rationales for manual review
+  - Format for readability and debugging
+
+- Task 9: Create CLI script for explainability evaluation (AC: #1-10)
+  - Create `scripts/evaluate_explainability.py`
+  - Accept CLI args: --dataset, --output-dir, --sample-count
+  - Load recommendations from database or JSON files
+  - Run explainability metric calculations
+  - Save results to JSON
+  - Print summary to console
+  - Exit with code 0 if all targets met, 1 otherwise
+
+- Task 10: Write comprehensive unit tests (AC: #9)
+  - Create `tests/evaluation/test_explainability_metrics.py`
+  - Test all calculation functions with various scenarios
+  - Test quality criteria scoring logic
+  - Test edge cases (100%, 0%, mixed quality, missing traces)
+  - Test JSON serialization
+  - Verify improvement recommendation generation
+
+- Task 11: Integration with existing system (AC: #1-10)
+  - Verify compatibility with recommendation engine (Epic 4)
+  - Verify compatibility with audit trail system (Epic 6, Story 6.5)
+  - Test with full recommendation output dataset
+  - Ensure references to rationale generation module (Story 4.4)
+  - Test with different personas and recommendation types
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Explainability metric calculated: % of recommendations with rationales (target 100%)
+2. Rationale quality check: presence of concrete data citations in each rationale
+3. Rationale completeness check: signal values, account identifiers, numeric specifics included
+4. Explainability by persona calculated: rationale presence across all persona types
+5. Decision trace completeness verified: all recommendations have full audit trail
+6. Explainability failures logged: recommendations missing or incomplete rationales
+7. Sample rationales extracted for manual quality review
+8. Metrics stored in JSON format with examples
+9. Unit tests verify calculation and quality checks
+10. Improvement recommendations generated for low-quality rationales
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-7-evaluation-harness-metrics.md</path>
+        <title>Epic 7: Evaluation Harness &amp; Metrics</title>
+        <section>Story 7.2: Explainability Metrics Calculation</section>
+        <snippet>Goal: Create comprehensive evaluation system measuring recommendation quality, system performance, and ethical compliance. Story 7.2 focuses on measuring recommendation explainability ensuring all outputs have transparent rationales with target of 100% rationale presence.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>FR21-FR22: Rationale and Readability Requirements</section>
+        <snippet>FR21: System shall include a concrete "because" rationale for every recommendation citing specific data signals. FR22: System shall use plain-language explanations with grade-8 readability for all recommendations.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>FR12-FR17: Persona System (6 personas)</section>
+        <snippet>FR12: System shall assign each user to exactly one persona from a maximum of 6 personas. FR13-FR17 define personas: High Utilization, Variable Income Budgeter, Subscription-Heavy, Savings Builder, Cash Flow Optimizer, Young Professional.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Technical Summary and Platform Choice</section>
+        <snippet>Modular monolith architecture built in Python 3.10+ with SQLite for relational data storage. Every recommendation includes transparent rationales citing specific data signals. Complete decision traces logged for all persona assignments and recommendations.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/7-1-coverage-metrics-calculation.md</path>
+        <title>Story 7.1: Coverage Metrics Calculation</title>
+        <section>Learnings from Previous Story</section>
+        <snippet>New Module Created: spendsense/evaluation/ for evaluation harness. JSON Output Pattern: Timestamp, dataset name, metrics, failure cases structure. CLI Script Pattern: scripts/evaluate_*.py with --dataset and --output-dir args. Exit Codes: 0 for success, 1 for failure.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/recommendations/models.py</path>
+        <kind>data-models</kind>
+        <symbol>Recommendation, PartnerOffer</symbol>
+        <lines>1-283</lines>
+        <reason>Defines Recommendation and PartnerOffer models with metadata fields. Need to understand recommendation structure to verify rationale presence and quality.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/rationale_generator.py</path>
+        <kind>service</kind>
+        <symbol>RationaleGenerator, GeneratedRationale</symbol>
+        <lines>1-381</lines>
+        <reason>Core rationale generation logic from Story 4.4. Contains template system, placeholder replacement, data citation extraction, and readability validation. Critical for understanding rationale structure and quality criteria.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/services/audit_service.py</path>
+        <kind>service</kind>
+        <symbol>AuditService</symbol>
+        <lines>1-100</lines>
+        <reason>Audit logging service from Epic 6 Story 6.5. Provides decision trace logging for recommendations. Need to query audit logs to verify decision trace completeness.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/db/models.py</path>
+        <kind>data-models</kind>
+        <symbol>Account, Transaction, CreditCardLiability</symbol>
+        <lines>1-303</lines>
+        <reason>Database models matching Plaid API structure. Defines account and transaction data used in rationales. Need to understand data structure for quality assessment.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database</kind>
+        <symbol>AuditLog</symbol>
+        <lines>N/A</lines>
+        <reason>Database schema for audit_log table. Contains event_type, event_data, user_id, recommendation_id fields needed for decision trace verification.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="pydantic" version="&gt;=2.5.0" usage="Data validation and models"/>
+        <package name="pytest" version="&gt;=7.4.0" usage="Testing framework"/>
+        <package name="pytest-cov" version="&gt;=4.1.0" usage="Test coverage"/>
+        <package name="sqlalchemy" version="&gt;=2.0.0" usage="Database ORM for querying recommendations and audit logs"/>
+        <package name="pandas" version="&gt;=2.1.0" usage="Data analysis for metrics calculation"/>
+        <package name="numpy" version="&gt;=1.24.0" usage="Numerical operations"/>
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Python 3.10+ with type hints required (per architecture.md)</constraint>
+    <constraint>Use Pydantic models for data validation and type safety</constraint>
+    <constraint>SQLite database access for recommendations and audit_log tables</constraint>
+    <constraint>JSON output format with ISO 8601 timestamps</constraint>
+    <constraint>Target: 100% rationale presence rate (per PRD FR21)</constraint>
+    <constraint>Quality criteria: data citations, numeric specifics, account identifiers, grade-8 readability (per PRD FR22)</constraint>
+    <constraint>Decision trace completeness: full audit trail per recommendation (Epic 6 requirement)</constraint>
+    <constraint>Sample extraction: 2-3 rationales per persona for manual review</constraint>
+    <constraint>CLI scripts use --dataset, --output-dir, --sample-count arguments</constraint>
+    <constraint>Exit code 0 for success (targets met), 1 for failure</constraint>
+    <constraint>Test coverage: &gt;=10 tests per story (per architecture.md)</constraint>
+    <constraint>Store output in docs/eval/explainability_metrics_{timestamp}.json</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>ExplainabilityMetrics dataclass</name>
+      <kind>data-model</kind>
+      <signature>
+@dataclass
+class ExplainabilityMetrics:
+    rationale_presence_rate: float
+    rationale_quality_score: float
+    explainability_by_persona: Dict[str, float]
+    decision_trace_completeness: float
+    failure_cases: List[Dict]
+    sample_rationales: List[Dict]
+    improvement_recommendations: List[str]
+    timestamp: datetime
+      </signature>
+      <path>spendsense/evaluation/explainability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>calculate_rationale_presence()</name>
+      <kind>function</kind>
+      <signature>def calculate_rationale_presence(recommendations: List[Dict]) -&gt; Dict[str, Any]</signature>
+      <path>spendsense/evaluation/explainability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>assess_rationale_quality()</name>
+      <kind>function</kind>
+      <signature>def assess_rationale_quality(rationale: str) -&gt; Dict[str, Any]</signature>
+      <path>spendsense/evaluation/explainability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>verify_decision_traces()</name>
+      <kind>function</kind>
+      <signature>def verify_decision_traces(recommendations: List[Dict], audit_logs: List[Dict]) -&gt; Dict[str, Any]</signature>
+      <path>spendsense/evaluation/explainability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>extract_sample_rationales()</name>
+      <kind>function</kind>
+      <signature>def extract_sample_rationales(recommendations: List[Dict], samples_per_persona: int = 3) -&gt; List[Dict]</signature>
+      <path>spendsense/evaluation/explainability_metrics.py</path>
+    </interface>
+    <interface>
+      <name>SQLite recommendations table</name>
+      <kind>database-table</kind>
+      <signature>recommendations(recommendation_id, user_id, persona, content, rationale, created_at)</signature>
+      <path>data/spendsense.db</path>
+    </interface>
+    <interface>
+      <name>SQLite audit_log table</name>
+      <kind>database-table</kind>
+      <signature>audit_log(log_id, event_type, user_id, recommendation_id, event_data, timestamp)</signature>
+      <path>data/spendsense.db</path>
+    </interface>
+    <interface>
+      <name>CLI evaluate_explainability.py</name>
+      <kind>cli-script</kind>
+      <signature>python scripts/evaluate_explainability.py --dataset &lt;name&gt; --output-dir &lt;dir&gt; --sample-count &lt;n&gt;</signature>
+      <path>scripts/evaluate_explainability.py</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Testing framework: pytest with &gt;=10 tests per story. Use pytest-cov for coverage tracking. Test types: unit tests (quality scoring, rationale parsing), integration tests (end-to-end explainability evaluation), edge case tests (missing rationales, incomplete traces), quality assessment tests (scoring against 5-point criteria). Type hints required for all functions. Use Pydantic for data validation in tests.</standards>
+    <locations>
+      <location>tests/evaluation/test_explainability_metrics.py</location>
+      <location>tests/evaluation/__init__.py</location>
+    </locations>
+    <ideas>
+      <test_idea ac="1,4">Test calculate_rationale_presence() with 100% presence, 0% presence, and mixed scenarios. Verify per-persona breakdown calculation.</test_idea>
+      <test_idea ac="2,3">Test assess_rationale_quality() scoring logic: data citations present, numeric specifics included, account identifiers found, plain language verified.</test_idea>
+      <test_idea ac="2,3">Test quality criteria individually: concrete data citations, account identifiers, numeric specifics, grade-8 readability, behavioral signal references.</test_idea>
+      <test_idea ac="5">Test verify_decision_traces() with complete audit trails (persona assignment, signals, matching, guardrails, assembly) and incomplete trails.</test_idea>
+      <test_idea ac="7">Test extract_sample_rationales() selection logic: 2-3 per persona, high/low quality mix, different recommendation types.</test_idea>
+      <test_idea ac="6">Test failure logging: missing rationale, incomplete rationale, low quality rationale, missing decision trace categorization.</test_idea>
+      <test_idea ac="10">Test improvement recommendation generation based on failure patterns: &gt;10% missing rationales, quality score &lt;3, incomplete traces, persona-specific issues.</test_idea>
+      <test_idea ac="8">Test JSON serialization of ExplainabilityMetrics with sample rationales, failure cases, and improvement recommendations.</test_idea>
+      <test_idea ac="9">Test edge cases: all recommendations have rationales (100%), no recommendations have rationales (0%), mixed quality scores (1-5 range), missing decision traces.</test_idea>
+      <test_idea ac="1-10">Integration test: Load recommendations from database, run full explainability evaluation, verify JSON output format and structure.</test_idea>
+    </ideas>
+  </tests>
+</story-context>

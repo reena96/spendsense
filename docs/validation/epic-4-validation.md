@@ -643,7 +643,7 @@ which python
 pip list | grep fastapi
 ```
 
-**Solution:** See `TROUBLESHOOTING_HANDOFF.md`
+**Solution:** See `docs/session-handoff/TROUBLESHOOTING_HANDOFF.md`
 
 ### No Data / 404 Errors
 

@@ -180,7 +180,7 @@ python -m spendsense.api.main
 **Recommendations don't generate:**
 - Check database exists: `ls -lh data/dev.db`
 - Check config files: `ls -lh spendsense/config/*.yaml`
-- See `TROUBLESHOOTING_HANDOFF.md` for detailed debugging
+- See `docs/session-handoff/TROUBLESHOOTING_HANDOFF.md` for detailed debugging
 
 **UI looks broken:**
 - Hard refresh: Cmd+Shift+R (Mac) or Ctrl+Shift+R (Windows)
@@ -250,8 +250,8 @@ python -m spendsense.api.main
 - **Full Demo Guide:** `epic-4-demo-guide.md`
 - **Quick Reference:** `epic-4-quick-reference.md`
 - **Validation Guide:** `docs/validation/epic-4-validation.md`
-- **Technical Docs:** `EPIC_4_COMPLETE.md`
-- **Troubleshooting:** `TROUBLESHOOTING_HANDOFF.md`
+- **Technical Docs:** `docs/session-handoff/EPIC_4_COMPLETE.md`
+- **Troubleshooting:** `docs/session-handoff/TROUBLESHOOTING_HANDOFF.md`
 - **PRD:** `docs/prd/epic-4-recommendation-engine-content-catalog.md`
 
 ---

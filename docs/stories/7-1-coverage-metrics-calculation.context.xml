@@ -1,0 +1,310 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>7</epicId>
+    <storyId>1</storyId>
+    <title>Coverage Metrics Calculation</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>/Users/reena/gauntletai/spendsense/docs/stories/7-1-coverage-metrics-calculation.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>data scientist</asA>
+    <iWant>calculation of user coverage metrics showing persona assignment and behavioral signal detection rates</iWant>
+    <soThat>system completeness and data quality can be quantified</soThat>
+    <tasks>
+- Task 1: Create coverage metrics module (AC: #1-10)
+  - Create `spendsense/evaluation/coverage_metrics.py`
+  - Define `CoverageMetrics` dataclass with fields
+  - Implement `calculate_persona_coverage()` function
+  - Implement `calculate_signal_coverage()` function
+  - Implement `calculate_persona_distribution()` function
+  - Implement `analyze_missing_data()` function
+
+- Task 2: Implement persona assignment coverage calculation (AC: #1, #3)
+  - Query all users from database
+  - Check persona assignment status for each user
+  - Calculate percentage with assigned persona
+  - Group by persona type and count distribution
+  - Validate against 6 persona types from PRD (FR12-FR17)
+  - Return results as structured metrics
+
+- Task 3: Implement behavioral signal coverage calculation (AC: #2, #4)
+  - For each user, count detected behavioral signals
+  - Check both 30-day and 180-day windows
+  - Calculate % users with ≥3 signals (target threshold)
+  - Track completion rates by time window
+  - Identify users below threshold
+  - Return results with window breakdown
+
+- Task 4: Implement missing data analysis (AC: #5, #10)
+  - Identify users without persona assignment
+  - Identify users with <3 behavioral signals
+  - For each missing case, determine reason (insufficient history, no qualifying signals, validation failures, processing errors)
+  - Generate structured report with user_id and reason
+  - Sort by issue severity for prioritization
+
+- Task 5: Implement metrics storage and trend tracking (AC: #6, #7, #8)
+  - Create JSON output format with schema
+  - Save to `docs/eval/coverage_metrics_{timestamp}.json`
+  - If previous runs exist, load and compare for trend analysis
+  - Calculate delta metrics: improvement/regression
+
+- Task 6: Create CLI script for coverage evaluation (AC: #6, #9)
+  - Create `scripts/evaluate_coverage.py`
+  - Accept CLI args: --dataset (synthetic/real), --output-dir
+  - Load user data from database
+  - Run coverage metric calculations
+  - Save results to JSON
+  - Print summary to console
+  - Exit with code 0 if all targets met, 1 otherwise
+
+- Task 7: Write comprehensive unit tests (AC: #9)
+  - Create `tests/evaluation/test_coverage_metrics.py`
+  - Test all calculation functions with mock data
+  - Test edge cases (empty dataset, 100% coverage, 0% coverage, mixed signal counts)
+  - Test JSON serialization and deserialization
+  - Test trend calculation with multiple runs
+  - Verify calculation accuracy with known datasets
+
+- Task 8: Integration with existing data pipeline (AC: #6)
+  - Verify compatibility with synthetic data generator (Epic 1)
+  - Verify compatibility with persona assignment system (Epic 3)
+  - Verify compatibility with signal detection pipeline (Epic 2)
+  - Test with full 50-100 user synthetic dataset
+  - Ensure SQL queries are optimized for larger datasets
+  - Add database indexes if needed for performance
+</tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Coverage metric calculated: % of users with assigned persona (target 100%)
+2. Coverage metric calculated: % of users with ≥3 detected behavioral signals (target 100%)
+3. Coverage by persona calculated: distribution of users across 6 personas
+4. Coverage by time window calculated: 30-day vs. 180-day completion rates
+5. Missing data analysis performed: users with insufficient history
+6. Coverage metrics computed for both synthetic test dataset and any real data
+7. Metrics stored in JSON format with timestamp
+8. Coverage trends tracked over time if multiple evaluation runs
+9. Unit tests verify calculation accuracy
+10. Failure case reporting: list of users missing signals or personas with reasons
+</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-7-evaluation-harness-metrics.md</path>
+        <title>Epic 7: Evaluation Harness &amp; Metrics</title>
+        <section>Story 7.1: Coverage Metrics Calculation</section>
+        <snippet>Goal: Create comprehensive evaluation system measuring recommendation quality, system performance, and ethical compliance. Story 7.1 focuses on calculating user coverage metrics showing persona assignment and behavioral signal detection rates to quantify system completeness and data quality.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Eval Module - Coverage Metrics</section>
+        <snippet>Eval module responsibility: Measure system performance and generate evaluation reports. Key interfaces include calculate_coverage_metrics() returning CoverageMetrics. Technology stack: Python, pandas, matplotlib for visualizations, pytest. Dependencies: SQLite for data, Parquet for analytics.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Database Schema - Tables</section>
+        <snippet>Key tables: users (user_id, persona, consent_status), persona_assignments (assigned_persona_id, qualifying_personas, match_evidence), behavioral_signals (subscription signals, savings signals, credit signals, income signals with time_window 30_day/180_day). Target: 100% persona assignment, ≥3 behavioral signals per user.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Fullstack Architecture Document</title>
+        <section>Personas Module - 6 Personas</section>
+        <snippet>Six personas defined: high_utilization (credit &gt;50%), subscription_heavy (&gt;20% recurring), low_savings (&lt;3 months emergency fund), irregular_income (high variance), cash_flow_optimizer (≥6 months savings, &lt;10% credit use), young_professional (&lt;180 days history, &lt;$3000 credit limit).</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>FR1, FR11, FR12-FR17</section>
+        <snippet>FR1: 50-100 synthetic users. FR11: 30-day and 180-day time windows. FR12-FR17: Six persona types with specific behavioral signal requirements. Target: 100% persona assignment coverage, ≥3 behavioral signals per user for complete data quality.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/db/models.py</path>
+        <kind>data models</kind>
+        <symbol>User, Account, Transaction, Liability models (Pydantic)</symbol>
+        <lines>1-100</lines>
+        <reason>Database schema definitions for querying users, accounts, transactions. Required for coverage metric calculations to count users and analyze data completeness.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/assigner.py</path>
+        <kind>persona assignment logic</kind>
+        <symbol>PersonaAssigner class</symbol>
+        <lines>24-80</lines>
+        <reason>Orchestrates persona assignment workflow. Story 7.1 needs to query persona assignments to calculate % of users with assigned persona (AC #1) and persona distribution (AC #3).</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/behavioral_summary.py</path>
+        <kind>behavioral signal aggregation</kind>
+        <symbol>BehavioralSummary class</symbol>
+        <lines>22-80</lines>
+        <reason>Aggregates all behavioral signals (subscription, savings, credit, income) per user. Story 7.1 needs to count detected signals per user to calculate % with ≥3 signals (AC #2).</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/subscription_detector.py</path>
+        <kind>signal detector</kind>
+        <symbol>SubscriptionDetector</symbol>
+        <lines>N/A</lines>
+        <reason>Detects subscription patterns. One of the four behavioral signal types that contribute to the ≥3 signals coverage target.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/savings_detector.py</path>
+        <kind>signal detector</kind>
+        <symbol>SavingsDetector</symbol>
+        <lines>N/A</lines>
+        <reason>Detects savings behavior patterns. One of the four behavioral signal types that contribute to the ≥3 signals coverage target.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/credit_detector.py</path>
+        <kind>signal detector</kind>
+        <symbol>CreditDetector</symbol>
+        <lines>N/A</lines>
+        <reason>Detects credit utilization patterns. One of the four behavioral signal types that contribute to the ≥3 signals coverage target.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/income_detector.py</path>
+        <kind>signal detector</kind>
+        <symbol>IncomeDetector</symbol>
+        <lines>N/A</lines>
+        <reason>Detects income stability patterns. One of the four behavioral signal types that contribute to the ≥3 signals coverage target.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/ingestion/database_writer.py</path>
+        <kind>database writer</kind>
+        <symbol>PersonaAssignmentRecord, Base (SQLAlchemy models)</symbol>
+        <lines>N/A</lines>
+        <reason>SQLAlchemy models for database schema. Required to query persona_assignments and behavioral_signals tables for coverage calculations.</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/config/database.py</path>
+        <kind>database connection</kind>
+        <symbol>Database connection utilities</symbol>
+        <lines>N/A</lines>
+        <reason>Database connection and session management for querying SQLite database to retrieve user, persona, and signal data.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="pandas" version="2.1.0+">Data processing for aggregating coverage metrics across users</package>
+        <package name="sqlalchemy" version="2.0.0+">Database ORM for querying users, personas, and signals</package>
+        <package name="pydantic" version="2.5.0+">Data validation for CoverageMetrics dataclass</package>
+        <package name="pytest" version="7.4.0+">Unit testing framework</package>
+        <package name="pytest-cov" version="4.1.0+">Code coverage measurement</package>
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Backend: Python 3.10+ with type hints for all functions</constraint>
+    <constraint>Database: SQLite with users, persona_assignments, behavioral_signals tables</constraint>
+    <constraint>Output Format: JSON for structured metrics with ISO 8601 timestamps</constraint>
+    <constraint>File Storage: Local filesystem at docs/eval/ directory</constraint>
+    <constraint>Testing: pytest with ≥10 tests per story covering unit, integration, and edge cases</constraint>
+    <constraint>Target Metrics: 100% persona assignment rate, 100% users with ≥3 signals (from PRD FR12)</constraint>
+    <constraint>Time Windows: 30-day and 180-day windows (from PRD FR11)</constraint>
+    <constraint>Six Personas: high_utilization, variable_income, subscription_heavy, savings_builder, cash_flow_optimizer, young_professional (from architecture.md)</constraint>
+    <constraint>Reproducibility: All metrics must include timestamp for trend tracking across multiple evaluation runs</constraint>
+    <constraint>Module Structure: Create new spendsense/evaluation/ module following existing project patterns</constraint>
+    <constraint>Logging: Use Python logging module with structured context (user_id, operation, timestamp)</constraint>
+    <constraint>Error Handling: Fail fast in development/testing mode (per architecture hybrid error strategy)</constraint>
+    <constraint>Code Standards: Use absolute imports (from spendsense.X), PEP 8 naming, Google-style docstrings</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>CoverageMetrics dataclass</name>
+      <kind>Data structure</kind>
+      <signature>
+class CoverageMetrics:
+    persona_assignment_rate: float
+    behavioral_signal_rate: float
+    persona_distribution: Dict[str, int]
+    window_completion_30d: float
+    window_completion_180d: float
+    missing_data_users: List[Dict]
+    timestamp: datetime
+      </signature>
+      <path>spendsense/evaluation/coverage_metrics.py (to be created)</path>
+    </interface>
+    <interface>
+      <name>calculate_persona_coverage()</name>
+      <kind>Function</kind>
+      <signature>def calculate_persona_coverage(db_path: str) -> Dict[str, Any]</signature>
+      <path>spendsense/evaluation/coverage_metrics.py (to be created)</path>
+    </interface>
+    <interface>
+      <name>calculate_signal_coverage()</name>
+      <kind>Function</kind>
+      <signature>def calculate_signal_coverage(db_path: str, time_window: str) -> Dict[str, Any]</signature>
+      <path>spendsense/evaluation/coverage_metrics.py (to be created)</path>
+    </interface>
+    <interface>
+      <name>BehavioralSummary (existing)</name>
+      <kind>Class</kind>
+      <signature>
+class BehavioralSummary:
+    subscriptions_30d: SubscriptionMetrics
+    subscriptions_180d: SubscriptionMetrics
+    savings_30d: SavingsMetrics
+    savings_180d: SavingsMetrics
+    credit_30d: CreditMetrics
+    credit_180d: CreditMetrics
+    income_30d: IncomeMetrics
+    income_180d: IncomeMetrics
+      </signature>
+      <path>spendsense/features/behavioral_summary.py</path>
+    </interface>
+    <interface>
+      <name>PersonaAssigner.get_assignment() (existing)</name>
+      <kind>Method</kind>
+      <signature>def get_assignment(user_id: str, time_window: str) -> PersonaAssignment</signature>
+      <path>spendsense/personas/assigner.py</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+Testing framework: pytest
+Coverage target: ≥10 tests per story (from architecture.md)
+Test organization: tests/evaluation/ directory mirroring source structure
+Test types:
+  1. Unit tests: Individual metric calculation functions
+  2. Integration tests: End-to-end coverage evaluation with database
+  3. Edge case tests: Empty datasets, 0% coverage, 100% coverage, boundary conditions
+  4. Performance tests: Scalability with 50-100 users
+
+Test patterns from existing tests:
+  - Use pytest fixtures for database setup (see test_persona_assigner.py)
+  - Test with synthetic data following patterns in test_behavioral_summary.py
+  - Verify JSON serialization (see test_content_library.py)
+  - Mock database queries for unit tests (see test_credit_detector.py)
+  - Use pytest.approx() for float comparisons
+
+Critical testing requirements:
+  - Verify calculation accuracy with known datasets
+  - Test missing data analysis identifies correct reasons
+  - Test trend tracking with multiple runs
+  - Test CLI script argument parsing and exit codes
+  - All tests must have type hints and docstrings
+    </standards>
+    <locations>tests/evaluation/ (new directory to create)</locations>
+    <ideas>
+      <idea ac="1,3">Test calculate_persona_coverage() with mock data: 50 users, 49 with personas (98% coverage), distribution across 6 personas. Verify percentage calculation and persona counts match expected values.</idea>
+      <idea ac="2,4">Test calculate_signal_coverage() with users having 0, 1, 2, 3, 4+ signals in both 30d and 180d windows. Verify % with ≥3 signals calculated correctly, window completion rates accurate.</idea>
+      <idea ac="5,10">Test analyze_missing_data() identifies correct reasons: "insufficient transaction history" (user has &lt;30 days data), "no qualifying signals detected" (user has data but signals don't meet thresholds), "data validation failures" (corrupt data).</idea>
+      <idea ac="7,8">Test JSON serialization: Verify output schema matches specification from Task 5. Test trend calculation by creating two coverage runs with different timestamps, verify delta metrics computed correctly.</idea>
+      <idea ac="9">Test edge cases: Empty dataset (0 users) returns 0% coverage gracefully, single user with persona returns 100%, all users missing personas returns 0% with correct missing_data list.</idea>
+      <idea ac="6">Test with both synthetic and real data flags: Verify metrics computed correctly for dataset="synthetic_50_users" and dataset="real_production" (when available).</idea>
+      <idea ac="9">Test CLI script: Mock database, run script with --dataset synthetic --output-dir /tmp/test, verify JSON file created, console output printed, exit code 0 if targets met (100% persona, 100% signals ≥3).</idea>
+      <idea ac="1-10">Integration test: Generate 50 synthetic users, run full pipeline (Epic 1-3), then run coverage metrics, verify 100% persona coverage, 100% signal coverage, all 6 personas represented in distribution.</idea>
+      <idea ac="8">Test trend tracking: Create coverage_metrics_2025-11-01.json and coverage_metrics_2025-11-06.json, verify trend analyzer loads both, calculates improvement (e.g., persona coverage: 95% → 98% = +3% improvement).</idea>
+      <idea ac="4">Test window completion rates: User A has 30d data only (no 180d history) vs User B has full 180d history. Verify 30d completion = 100%, 180d completion = 50% (1 of 2 users).</idea>
+    </ideas>
+  </tests>
+</story-context>

@@ -165,7 +165,7 @@ class PersonaAssignment(BaseModel):
 
 - [Source: docs/prd/epic-3-persona-assignment-system.md#Story-3.3]
 - [Source: docs/architecture.md#Personas-Module (lines 912-947)]
-- [Source: EPIC_3_HANDOFF.md - Story 3.2 completion notes]
+- [Source: docs/session-handoff/EPIC_3_HANDOFF.md - Story 3.2 completion notes]
 - [Source: spendsense/config/personas.yaml - Priority values]
 
 ## Dev Agent Record

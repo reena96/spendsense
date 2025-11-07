@@ -88,7 +88,7 @@ spendsense/
   - Task 4: Created requirements.txt with all specified dependencies and versions
   - Task 5: Created package.json for React frontend in spendsense/ui/
   - Task 6: Created comprehensive README.md with setup instructions, project structure, and commands
-  - Task 7: Created executable setup.sh script for one-command setup
+  - Task 7: Created executable scripts/setup.sh script for one-command setup
   - Task 8: Created pytest.ini with test discovery and coverage configuration
   - Task 9: Created tests/test_example.py with multiple example test cases
   - Task 10: Created spendsense/config/settings.yaml with application configuration
@@ -101,7 +101,7 @@ spendsense/
 - ✅ All 9 acceptance criteria satisfied
 - ✅ Complete project scaffolding established following architecture specifications
 - ✅ Comprehensive test suite created (50+ tests) covering all acceptance criteria
-- ✅ One-command setup via ./setup.sh script
+- ✅ One-command setup via ./scripts/setup.sh script
 - ✅ Documentation complete with README, inline comments, and configuration examples
 - Technical decisions:
   - Used Python 3.10+ compatible syntax throughout
@@ -116,7 +116,7 @@ spendsense/
 - .gitignore (existing, verified)
 - README.md (created)
 - requirements.txt (created)
-- setup.sh (created, executable)
+- scripts/setup.sh (created, executable)
 - pytest.ini (created)
 - spendsense/__init__.py (created)
 - spendsense/ingest/__init__.py (created)
