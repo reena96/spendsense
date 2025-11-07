@@ -29,6 +29,7 @@ from spendsense.api.operator_signals import router as operator_signals_router
 from spendsense.api.operator_personas import router as operator_personas_router
 from spendsense.api.operator_review import router as operator_review_router
 from spendsense.api.operator_audit import router as operator_audit_router
+from spendsense.api.operator_consent import router as operator_consent_router
 from spendsense.auth.rbac import require_role
 from spendsense.auth.tokens import TokenData
 
@@ -161,6 +162,9 @@ app.include_router(operator_review_router)
 
 # Include operator audit router (Epic 6 - Story 6.5)
 app.include_router(operator_audit_router)
+
+# Include operator consent router (Epic 6 - Story 6.6)
+app.include_router(operator_consent_router)
 
 
 @app.get("/")
