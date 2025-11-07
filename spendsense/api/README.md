@@ -8,7 +8,7 @@ A comprehensive web dashboard for testing and exploring SpendSense features.
 
 ```bash
 # From project root
-./run_ui.sh
+./scripts/run_ui.sh
 ```
 
 Then open your browser to **http://localhost:8000**
@@ -142,7 +142,7 @@ For frontend changes (HTML/CSS/JS), just refresh your browser.
 
 ### Manual Testing via UI
 
-1. Start the server: `./run_ui.sh`
+1. Start the server: `./scripts/run_ui.sh`
 2. Open http://localhost:8000
 3. Generate profiles with different settings
 4. Explore profiles and statistics

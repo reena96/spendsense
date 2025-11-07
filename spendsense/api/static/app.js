@@ -803,3 +803,396 @@ function formatSignalName(signal) {
     };
     return names[signal] || signal;
 }
+
+// ===== Evaluation Metrics Tab (Epic 7) =====
+
+let metricsCharts = {};
+
+// Initialize metrics tab
+document.addEventListener('DOMContentLoaded', () => {
+    const metricsRefreshBtn = document.getElementById('metrics-refresh-btn');
+    if (metricsRefreshBtn) {
+        metricsRefreshBtn.addEventListener('click', loadEvaluationMetrics);
+    }
+
+    // Load metrics when tab is activated
+    const metricsTab = document.querySelector('[data-tab="metrics"]');
+    if (metricsTab) {
+        metricsTab.addEventListener('click', () => {
+            setTimeout(loadEvaluationMetrics, 100);
+        });
+    }
+});
+
+async function loadEvaluationMetrics() {
+    const loadingDiv = document.getElementById('metrics-loading');
+    const contentDiv = document.getElementById('metrics-content');
+    const errorDiv = document.getElementById('metrics-error');
+
+    loadingDiv.classList.remove('hidden');
+    contentDiv.classList.add('hidden');
+    errorDiv.classList.add('hidden');
+
+    try {
+        const response = await fetch('/api/operator/metrics/latest');
+
+        if (!response.ok) {
+            throw new Error(`Failed to load metrics: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        displayEvaluationMetrics(data);
+        contentDiv.classList.remove('hidden');
+    } catch (error) {
+        console.error('Error loading metrics:', error);
+        errorDiv.textContent = `Error: ${error.message}`;
+        errorDiv.classList.remove('hidden');
+    } finally {
+        loadingDiv.classList.add('hidden');
+    }
+}
+
+function displayEvaluationMetrics(data) {
+    // Update timestamp
+    const timestamp = new Date(data.timestamp).toLocaleString();
+    document.getElementById('metrics-timestamp').textContent = `Updated: ${timestamp}`;
+
+    // Update overall score
+    const overall = data.overall || {};
+    document.getElementById('overall-score').textContent = overall.score || '--';
+    document.getElementById('overall-grade').textContent = overall.grade || '--';
+
+    const statusBadge = document.getElementById('overall-status');
+    statusBadge.textContent = overall.status || '--';
+    statusBadge.className = 'badge ' + getStatusClass(overall.status);
+
+    // Update individual metrics
+    updateCoverageMetrics(data.coverage, overall.components?.coverage);
+    updateExplainabilityMetrics(data.explainability, overall.components?.explainability);
+    updatePerformanceMetrics(data.performance, overall.components?.performance);
+    updateAuditabilityMetrics(data.auditability, overall.components?.auditability);
+    updateFairnessMetrics(data.fairness, overall.components?.fairness);
+    updateComponentsChart(overall.components);
+}
+
+function updateCoverageMetrics(coverage, componentScore) {
+    if (!coverage || coverage.error) {
+        document.getElementById('coverage-status').textContent = 'N/A';
+        document.getElementById('coverage-persona').textContent = '--';
+        document.getElementById('coverage-signals').textContent = '--';
+        document.getElementById('coverage-score').textContent = '--';
+        return;
+    }
+
+    const personaRate = (coverage.persona_assignment_rate * 100).toFixed(1);
+    const signalRate = (coverage.behavioral_signal_rate * 100).toFixed(1);
+
+    document.getElementById('coverage-persona').textContent = `${personaRate}%`;
+    document.getElementById('coverage-signals').textContent = `${signalRate}%`;
+    document.getElementById('coverage-score').textContent = componentScore ? componentScore.toFixed(1) : '--';
+
+    const status = personaRate >= 90 && signalRate >= 90 ? 'PASS' : 'WARNING';
+    const statusBadge = document.getElementById('coverage-status');
+    statusBadge.textContent = status;
+    statusBadge.className = 'metric-badge ' + getStatusClass(status);
+
+    // Create chart
+    createBarChart('coverage-chart', ['Persona Assignment', 'Signal Detection'],
+        [parseFloat(personaRate), parseFloat(signalRate)]);
+}
+
+function updateExplainabilityMetrics(explainability, componentScore) {
+    if (!explainability || explainability.error) {
+        document.getElementById('explainability-status').textContent = 'N/A';
+        document.getElementById('explainability-presence').textContent = '--';
+        document.getElementById('explainability-quality').textContent = '--';
+        document.getElementById('explainability-score').textContent = '--';
+        return;
+    }
+
+    // Check if data is nested in explainability_metrics
+    const metrics = explainability.explainability_metrics || explainability;
+
+    const presenceRate = metrics.rationale_presence_rate ? (metrics.rationale_presence_rate * 100).toFixed(1) : '--';
+    const qualityScore = metrics.average_quality_score?.toFixed(1) || '--';
+
+    document.getElementById('explainability-presence').textContent = presenceRate !== '--' ? `${presenceRate}%` : '--';
+    document.getElementById('explainability-quality').textContent = qualityScore !== '--' ? `${qualityScore}/5` : '--';
+    document.getElementById('explainability-score').textContent = componentScore ? componentScore.toFixed(1) : '--';
+
+    const status = (presenceRate !== '--' && parseFloat(presenceRate) >= 90) &&
+                   (qualityScore !== '--' && parseFloat(qualityScore) >= 3) ? 'PASS' : 'WARNING';
+    const statusBadge = document.getElementById('explainability-status');
+    statusBadge.textContent = status;
+    statusBadge.className = 'metric-badge ' + getStatusClass(status);
+
+    // Create chart
+    if (presenceRate !== '--') {
+        createDoughnutChart('explainability-chart',
+            ['Has Rationale', 'Missing Rationale'],
+            [parseFloat(presenceRate), 100 - parseFloat(presenceRate)]);
+    }
+}
+
+function updatePerformanceMetrics(performance, componentScore) {
+    if (!performance || performance.error) {
+        document.getElementById('performance-status').textContent = 'N/A';
+        document.getElementById('performance-latency').textContent = '--';
+        document.getElementById('performance-throughput').textContent = '--';
+        document.getElementById('performance-score').textContent = '--';
+        return;
+    }
+
+    const latency = performance.average_latency_per_user?.toFixed(2) || '--';
+    const throughput = performance.throughput_users_per_minute?.toFixed(1) || '--';
+
+    document.getElementById('performance-latency').textContent = `${latency}s`;
+    document.getElementById('performance-throughput').textContent = `${throughput} u/min`;
+    document.getElementById('performance-score').textContent = componentScore ? componentScore.toFixed(1) : '--';
+
+    const status = parseFloat(latency) < 5 ? 'PASS' : 'WARNING';
+    const statusBadge = document.getElementById('performance-status');
+    statusBadge.textContent = status;
+    statusBadge.className = 'metric-badge ' + getStatusClass(status);
+
+    // Create chart
+    const percentiles = performance.latency_percentiles || {};
+    createLineChart('performance-chart',
+        ['p50', 'p95', 'p99'],
+        [percentiles.p50 || 0, percentiles.p95 || 0, percentiles.p99 || 0]);
+}
+
+function updateAuditabilityMetrics(auditability, componentScore) {
+    if (!auditability || auditability.error) {
+        document.getElementById('auditability-status').textContent = 'N/A';
+        document.getElementById('auditability-consent').textContent = '--';
+        document.getElementById('auditability-compliance').textContent = '--';
+        document.getElementById('auditability-score').textContent = '--';
+        return;
+    }
+
+    // Check if data is nested in metrics or compliance_report
+    const metrics = auditability.metrics || auditability;
+    const compliance = auditability.compliance_report || {};
+
+    const consentRate = metrics.consent_compliance_rate ? metrics.consent_compliance_rate.toFixed(1) :
+                       (compliance.consent_adherence?.compliance_rate ? (compliance.consent_adherence.compliance_rate * 100).toFixed(1) : '--');
+    const overallCompliance = metrics.overall_compliance_score?.toFixed(1) || '--';
+
+    document.getElementById('auditability-consent').textContent = consentRate !== '--' ? `${consentRate}%` : '--';
+    document.getElementById('auditability-compliance').textContent = overallCompliance !== '--' ? `${overallCompliance}%` : '--';
+    document.getElementById('auditability-score').textContent = componentScore ? componentScore.toFixed(1) : '--';
+
+    const status = consentRate !== '--' && parseFloat(consentRate) >= 99 ? 'PASS' : 'CRITICAL';
+    const statusBadge = document.getElementById('auditability-status');
+    statusBadge.textContent = status;
+    statusBadge.className = 'metric-badge ' + getStatusClass(status);
+
+    // Create chart
+    const guardrails = metrics.guardrail_compliance || compliance.guardrail_checks || {};
+    const consentVal = guardrails.consent || (compliance.consent_adherence?.compliance_rate ? compliance.consent_adherence.compliance_rate * 100 : 0);
+    const eligibilityVal = guardrails.eligibility || (compliance.eligibility_validation?.compliance_rate ? compliance.eligibility_validation.compliance_rate * 100 : 0);
+    const toneVal = guardrails.tone || (compliance.tone_validation?.compliance_rate ? compliance.tone_validation.compliance_rate * 100 : 0);
+    const disclaimerVal = guardrails.disclaimer || (compliance.disclaimer_presence?.compliance_rate ? compliance.disclaimer_presence.compliance_rate * 100 : 0);
+
+    createRadarChart('auditability-chart',
+        ['Consent', 'Eligibility', 'Tone', 'Disclaimer'],
+        [consentVal, eligibilityVal, toneVal, disclaimerVal]);
+}
+
+function updateFairnessMetrics(fairness, componentScore) {
+    if (!fairness || fairness.error) {
+        document.getElementById('fairness-status').textContent = 'N/A';
+        document.getElementById('fairness-parity').textContent = '--';
+        document.getElementById('fairness-assessment').textContent = '--';
+        document.getElementById('fairness-score').textContent = '--';
+        return;
+    }
+
+    const parityRatio = fairness.demographic_parity_ratio?.toFixed(2) || '--';
+    const assessment = fairness.overall_fairness_assessment || 'N/A';
+
+    document.getElementById('fairness-parity').textContent = parityRatio;
+    document.getElementById('fairness-assessment').textContent = assessment;
+    document.getElementById('fairness-score').textContent = componentScore ? componentScore.toFixed(1) : '--';
+
+    const statusBadge = document.getElementById('fairness-status');
+    statusBadge.textContent = assessment;
+    statusBadge.className = 'metric-badge ' + getStatusClass(assessment);
+
+    // Create chart
+    const biasCount = fairness.bias_indicators_detected || 0;
+    createDoughnutChart('fairness-chart',
+        ['No Bias', 'Bias Detected'],
+        [100 - (biasCount * 10), biasCount * 10]);
+}
+
+function updateComponentsChart(components) {
+    if (!components) return;
+
+    const labels = ['Coverage', 'Explainability', 'Performance', 'Auditability', 'Fairness'];
+    const scores = [
+        components.coverage || 0,
+        components.explainability || 0,
+        components.performance || 0,
+        components.auditability || 0,
+        components.fairness || 0
+    ];
+
+    createBarChart('components-chart', labels, scores, true);
+}
+
+// Chart creation helpers
+function createBarChart(canvasId, labels, data, horizontal = false) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    // Destroy existing chart
+    if (metricsCharts[canvasId]) {
+        metricsCharts[canvasId].destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    metricsCharts[canvasId] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Score',
+                data: data,
+                backgroundColor: 'rgba(99, 102, 241, 0.6)',
+                borderColor: 'rgba(99, 102, 241, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            indexAxis: horizontal ? 'y' : 'x',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { callback: value => value + '%' }
+                }
+            }
+        }
+    });
+}
+
+function createDoughnutChart(canvasId, labels, data) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    if (metricsCharts[canvasId]) {
+        metricsCharts[canvasId].destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    metricsCharts[canvasId] = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    'rgba(99, 102, 241, 0.8)',
+                    'rgba(229, 231, 235, 0.8)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom' }
+            }
+        }
+    });
+}
+
+function createLineChart(canvasId, labels, data) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    if (metricsCharts[canvasId]) {
+        metricsCharts[canvasId].destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    metricsCharts[canvasId] = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Latency (s)',
+                data: data,
+                borderColor: 'rgba(99, 102, 241, 1)',
+                backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+}
+
+function createRadarChart(canvasId, labels, data) {
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+
+    if (metricsCharts[canvasId]) {
+        metricsCharts[canvasId].destroy();
+    }
+
+    const ctx = canvas.getContext('2d');
+    metricsCharts[canvasId] = new Chart(ctx, {
+        type: 'radar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Compliance %',
+                data: data,
+                backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                borderColor: 'rgba(99, 102, 241, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: { callback: value => value + '%' }
+                }
+            }
+        }
+    });
+}
+
+function getStatusClass(status) {
+    if (!status) return '';
+
+    const statusUpper = status.toString().toUpperCase();
+
+    if (statusUpper === 'PASS') return 'status-pass';
+    if (statusUpper === 'WARNING' || statusUpper === 'CONCERN') return 'status-warning';
+    if (statusUpper === 'FAIL' || statusUpper === 'CRITICAL') return 'status-fail';
+
+    return 'status-default';
+}

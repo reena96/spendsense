@@ -373,6 +373,6 @@ if __name__ == '__main__':
     print("✅ Account distribution fixed!")
     print("=" * 70)
     print("\nNext steps:")
-    print("1. Run fix_credit_and_savings.py to link liabilities")
+    print("1. Run scripts/fix_credit_and_savings.py to link liabilities")
     print("2. Restart server and test with random user IDs")
     print("3. Most users should now show credit/savings data")

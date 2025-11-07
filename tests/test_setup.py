@@ -210,23 +210,23 @@ class TestSetupScript:
 
     def test_setup_script_exists(self):
         """Verify setup script exists."""
-        setup_path = PROJECT_ROOT / "setup.sh"
-        assert setup_path.exists(), "setup.sh should exist"
+        setup_path = PROJECT_ROOT / "scripts/setup.sh"
+        assert setup_path.exists(), "scripts/setup.sh should exist"
 
     def test_setup_script_is_executable(self):
         """Verify setup script has execute permissions."""
-        setup_path = PROJECT_ROOT / "setup.sh"
-        assert os.access(setup_path, os.X_OK), "setup.sh should be executable"
+        setup_path = PROJECT_ROOT / "scripts/setup.sh"
+        assert os.access(setup_path, os.X_OK), "scripts/setup.sh should be executable"
 
     def test_setup_script_creates_venv(self):
         """Verify setup script includes venv creation."""
-        setup_path = PROJECT_ROOT / "setup.sh"
+        setup_path = PROJECT_ROOT / "scripts/setup.sh"
         content = setup_path.read_text()
         assert "venv" in content.lower(), "Setup script should create virtual environment"
 
     def test_setup_script_installs_dependencies(self):
         """Verify setup script installs dependencies."""
-        setup_path = PROJECT_ROOT / "setup.sh"
+        setup_path = PROJECT_ROOT / "scripts/setup.sh"
         content = setup_path.read_text()
         assert "pip install" in content, "Setup script should install Python dependencies"
         assert "npm install" in content, "Setup script should install frontend dependencies"
@@ -235,7 +235,7 @@ class TestSetupScript:
         """Verify README documents the setup script."""
         readme_path = PROJECT_ROOT / "README.md"
         content = readme_path.read_text()
-        assert "./setup.sh" in content or "setup.sh" in content
+        assert "./scripts/setup.sh" in content or "scripts/setup.sh" in content
 
 
 @pytest.mark.unit
@@ -326,7 +326,7 @@ class TestSetupIntegration:
             (PROJECT_ROOT / ".gitignore").exists(),
             (PROJECT_ROOT / "README.md").exists(),
             (PROJECT_ROOT / "requirements.txt").exists(),
-            (PROJECT_ROOT / "setup.sh").exists(),
+            (PROJECT_ROOT / "scripts/setup.sh").exists(),
             (PROJECT_ROOT / "pytest.ini").exists(),
             (SPENDSENSE_DIR / "ingest").exists(),
             (SPENDSENSE_DIR / "features").exists(),

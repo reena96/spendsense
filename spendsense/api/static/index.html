@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SpendSense Dashboard</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -21,6 +22,7 @@
             <button class="tab" data-tab="signals">Behavioral Signals</button>
             <button class="tab" data-tab="assignment">Persona Assignment</button>
             <button class="tab" data-tab="recommendations">💡 Recommendations</button>
+            <button class="tab" data-tab="metrics">📊 Evaluation Metrics</button>
             <button class="tab" data-tab="stats">Statistics</button>
             <button class="tab" data-tab="personas">Personas</button>
         </nav>
@@ -228,6 +230,220 @@
                 </div>
 
                 <div id="recommendations-error" class="error hidden"></div>
+            </div>
+        </div>
+
+        <!-- Evaluation Metrics Tab (Epic 7) -->
+        <div id="metrics" class="tab-content">
+            <div class="card">
+                <div class="metrics-header">
+                    <div>
+                        <h2>📊 Evaluation Metrics Dashboard</h2>
+                        <p>Real-time quality metrics across all 5 evaluation dimensions (Epic 7)</p>
+                    </div>
+                    <button id="metrics-refresh-btn" class="btn btn-secondary">↻ Refresh</button>
+                </div>
+
+                <div id="metrics-loading" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Loading evaluation metrics...</p>
+                </div>
+
+                <div id="metrics-content" class="metrics-dashboard hidden">
+                    <!-- Overall Score Card -->
+                    <div class="overall-score-card">
+                        <div class="score-header">
+                            <h3>Overall Quality Score</h3>
+                            <span id="metrics-timestamp" class="timestamp">--</span>
+                        </div>
+                        <div class="score-display">
+                            <div class="score-circle">
+                                <div class="score-value" id="overall-score">--</div>
+                                <div class="score-label">Score</div>
+                            </div>
+                            <div class="score-details">
+                                <div class="score-detail">
+                                    <span class="label">Grade:</span>
+                                    <span class="value" id="overall-grade">--</span>
+                                </div>
+                                <div class="score-detail">
+                                    <span class="label">Status:</span>
+                                    <span class="badge" id="overall-status">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Metrics Grid -->
+                    <div class="eval-metrics-grid">
+                        <!-- Coverage Metrics -->
+                        <div class="eval-metric-card">
+                            <div class="metric-header">
+                                <h3>📋 Coverage
+                                    <span class="info-icon" data-tooltip="Coverage measures how many users receive persona assignments and have behavioral signals detected. High coverage indicates the system is analyzing most users effectively.">ⓘ</span>
+                                </h3>
+                                <span class="metric-badge" id="coverage-status">--</span>
+                            </div>
+                            <div class="metric-body">
+                                <div class="metric-stat">
+                                    <span class="stat-label">Persona Assignment
+                                        <span class="info-icon" data-tooltip="Percentage of users who have been assigned a financial persona (e.g., Young Professional, Low Savings). Target: >95%">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="coverage-persona">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Signal Detection
+                                        <span class="info-icon" data-tooltip="Percentage of users with sufficient behavioral signals (≥3 qualifying signals) for accurate persona classification. Target: >90%">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="coverage-signals">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Component Score
+                                        <span class="info-icon" data-tooltip="Overall coverage score (0-100) combining persona assignment and signal detection rates.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="coverage-score">--</span>
+                                </div>
+                            </div>
+                            <canvas id="coverage-chart" class="metric-chart"></canvas>
+                        </div>
+
+                        <!-- Explainability Metrics -->
+                        <div class="eval-metric-card">
+                            <div class="metric-header">
+                                <h3>💬 Explainability
+                                    <span class="info-icon" data-tooltip="Explainability measures how well the system explains its recommendations to users. Higher scores indicate clearer, more actionable explanations.">ⓘ</span>
+                                </h3>
+                                <span class="metric-badge" id="explainability-status">--</span>
+                            </div>
+                            <div class="metric-body">
+                                <div class="metric-stat">
+                                    <span class="stat-label">Rationale Presence
+                                        <span class="info-icon" data-tooltip="Percentage of recommendations that include a rationale explaining why the recommendation was made. Target: 100%">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="explainability-presence">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Quality Score
+                                        <span class="info-icon" data-tooltip="Average quality of rationales on a 1-5 scale. Evaluates clarity, specificity, and actionability. Target: ≥3.5/5">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="explainability-quality">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Component Score
+                                        <span class="info-icon" data-tooltip="Overall explainability score (0-100) based on rationale presence, quality, and completeness.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="explainability-score">--</span>
+                                </div>
+                            </div>
+                            <canvas id="explainability-chart" class="metric-chart"></canvas>
+                        </div>
+
+                        <!-- Performance Metrics -->
+                        <div class="eval-metric-card">
+                            <div class="metric-header">
+                                <h3>⚡ Performance
+                                    <span class="info-icon" data-tooltip="Performance measures system speed and resource efficiency. Lower latency and higher throughput indicate better scalability.">ⓘ</span>
+                                </h3>
+                                <span class="metric-badge" id="performance-status">--</span>
+                            </div>
+                            <div class="metric-body">
+                                <div class="metric-stat">
+                                    <span class="stat-label">Avg Latency
+                                        <span class="info-icon" data-tooltip="Average time to generate recommendations for one user. Includes signal detection, persona assignment, and recommendation matching. Target: <5 seconds">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="performance-latency">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Throughput
+                                        <span class="info-icon" data-tooltip="Number of users the system can process per minute. Higher is better for scalability.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="performance-throughput">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Component Score
+                                        <span class="info-icon" data-tooltip="Overall performance score (0-100) based on latency, throughput, and bottleneck analysis.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="performance-score">--</span>
+                                </div>
+                            </div>
+                            <canvas id="performance-chart" class="metric-chart"></canvas>
+                        </div>
+
+                        <!-- Auditability Metrics -->
+                        <div class="eval-metric-card">
+                            <div class="metric-header">
+                                <h3>🔒 Auditability
+                                    <span class="info-icon" data-tooltip="Auditability measures regulatory compliance and audit trail completeness. Critical for financial services regulations (GDPR, CCPA, FCRA).">ⓘ</span>
+                                </h3>
+                                <span class="metric-badge" id="auditability-status">--</span>
+                            </div>
+                            <div class="metric-body">
+                                <div class="metric-stat">
+                                    <span class="stat-label">Consent Compliance
+                                        <span class="info-icon" data-tooltip="Percentage of recommendations only shown to users with valid consent. CRITICAL: Must be 100% for regulatory compliance.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="auditability-consent">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Overall Compliance
+                                        <span class="info-icon" data-tooltip="Combined compliance score across consent, eligibility, tone, disclaimers, and audit log completeness. Target: 100%">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="auditability-compliance">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Component Score
+                                        <span class="info-icon" data-tooltip="Overall auditability score showing how well the system maintains compliance with regulations. Red flags require immediate attention.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="auditability-score">--</span>
+                                </div>
+                            </div>
+                            <canvas id="auditability-chart" class="metric-chart"></canvas>
+                        </div>
+
+                        <!-- Fairness Metrics -->
+                        <div class="eval-metric-card">
+                            <div class="metric-header">
+                                <h3>⚖️ Fairness
+                                    <span class="info-icon" data-tooltip="Fairness measures whether recommendations are distributed equitably across demographic groups. Detects potential bias in persona assignment and recommendations.">ⓘ</span>
+                                </h3>
+                                <span class="metric-badge" id="fairness-status">--</span>
+                            </div>
+                            <div class="metric-body">
+                                <div class="metric-stat">
+                                    <span class="stat-label">Parity Ratio
+                                        <span class="info-icon" data-tooltip="Ratio of recommendation rates between demographic groups. Values between 0.8-1.25 indicate fair distribution. N/A means insufficient demographic data.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="fairness-parity">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Assessment
+                                        <span class="info-icon" data-tooltip="Overall fairness assessment: PASS (no bias detected), CONCERN (potential bias), FAIL (significant bias), or N/A (insufficient data).">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="fairness-assessment">--</span>
+                                </div>
+                                <div class="metric-stat">
+                                    <span class="stat-label">Component Score
+                                        <span class="info-icon" data-tooltip="Overall fairness score (0-100). Based on demographic parity, equal opportunity, and statistical significance testing.">ⓘ</span>
+                                    </span>
+                                    <span class="stat-value" id="fairness-score">--</span>
+                                </div>
+                            </div>
+                            <canvas id="fairness-chart" class="metric-chart"></canvas>
+                        </div>
+
+                        <!-- Component Scores Comparison -->
+                        <div class="eval-metric-card full-width">
+                            <div class="metric-header">
+                                <h3>📊 Component Scores Comparison</h3>
+                            </div>
+                            <div class="metric-body">
+                                <canvas id="components-chart" class="metric-chart-large"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="metrics-error" class="result error hidden"></div>
             </div>
         </div>
 

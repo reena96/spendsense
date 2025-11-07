@@ -416,6 +416,6 @@ if __name__ == '__main__':
     print("=" * 80)
     print("\nSee output above for detailed comparison of patterns.")
     print("\nKey files for reference:")
-    print("  - DATA_REALISM_ANALYSIS.md (already created)")
-    print("  - ACCOUNT_DISTRIBUTION_FIX_SUMMARY.md (already created)")
+    print("  - docs/synthetic-data/DATA_REALISM_ANALYSIS.md")
+    print("  - docs/bugfix/ACCOUNT_DISTRIBUTION_FIX_SUMMARY.md")
     print("  - This analysis output (save for documentation)")
