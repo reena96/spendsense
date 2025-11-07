@@ -98,10 +98,10 @@ development_status:
 
   # Epic 7: Evaluation Harness & Metrics
   epic-7: backlog
-  7-1-coverage-metrics-calculation: backlog
-  7-2-explainability-metrics-calculation: backlog
-  7-3-performance-latency-metrics: backlog
-  7-4-auditability-compliance-metrics: backlog
-  7-5-fairness-bias-analysis: backlog
-  7-6-evaluation-report-generation-output: backlog
+  7-1-coverage-metrics-calculation: drafted
+  7-2-explainability-metrics-calculation: drafted
+  7-3-performance-latency-metrics: drafted
+  7-4-auditability-compliance-metrics: drafted
+  7-5-fairness-bias-analysis: drafted
+  7-6-evaluation-report-generation-output: drafted
   epic-7-retrospective: optional
