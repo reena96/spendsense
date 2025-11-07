@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { SignalDashboard } from './pages/SignalDashboard';
 import AuditLog from './pages/AuditLog';
 import ComplianceMetrics from './pages/ComplianceMetrics';
+import { ConsentManagement } from './pages/ConsentManagement';
 import Login from './pages/Login';
 
 // Create React Query client
@@ -78,6 +79,12 @@ function Navigation() {
               >
                 Compliance Metrics
               </Link>
+              <Link
+                to="/consent"
+                className="text-gray-700 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium hover:bg-gray-100 transition-colors"
+              >
+                Consent Management
+              </Link>
             </div>
           </div>
           <div className="flex items-center space-x-4">
@@ -110,6 +117,7 @@ function App() {
             <Route path="/signals" element={<ProtectedRoute><SignalDashboard /></ProtectedRoute>} />
             <Route path="/audit" element={<ProtectedRoute><AuditLog /></ProtectedRoute>} />
             <Route path="/compliance" element={<ProtectedRoute><ComplianceMetrics /></ProtectedRoute>} />
+            <Route path="/consent" element={<ProtectedRoute><ConsentManagement /></ProtectedRoute>} />
           </Routes>
         </div>
       </BrowserRouter>
