@@ -107,8 +107,8 @@ development_status:
   epic-7-retrospective: optional
 
   # Epic 8: End-User Dashboard & Experience
-  epic-8: backlog
-  8-1-user-onboarding-flow: backlog  # UX Journey 1: Consent → Persona Reveal → Dashboard Tour
+  epic-8: in-progress
+  8-1-user-onboarding-flow: done  # UX Journey 1: Consent → Persona Reveal → Dashboard Tour
   8-2-dashboard-layout-navigation: backlog  # Responsive layout, time window toggle, navigation
   8-3-signal-exploration-ui: backlog  # UX Journey 2: Signal cards, detail views, trend charts
   8-4-recommendation-feed-ui: backlog  # UX Journey 3: Rec cards, detail views, rationales
