@@ -98,10 +98,20 @@ development_status:
 
   # Epic 7: Evaluation Harness & Metrics
   epic-7: backlog
-  7-1-coverage-metrics-calculation: backlog
-  7-2-explainability-metrics-calculation: backlog
-  7-3-performance-latency-metrics: backlog
-  7-4-auditability-compliance-metrics: backlog
-  7-5-fairness-bias-analysis: backlog
-  7-6-evaluation-report-generation-output: backlog
+  7-1-coverage-metrics-calculation: review
+  7-2-explainability-metrics-calculation: review
+  7-3-performance-latency-metrics: review
+  7-4-auditability-compliance-metrics: review
+  7-5-fairness-bias-analysis: review
+  7-6-evaluation-report-generation-output: drafted
   epic-7-retrospective: optional
+
+  # Epic 8: End-User Dashboard & Experience
+  epic-8: backlog
+  8-1-user-onboarding-flow: backlog  # UX Journey 1: Consent → Persona Reveal → Dashboard Tour
+  8-2-dashboard-layout-navigation: backlog  # Responsive layout, time window toggle, navigation
+  8-3-signal-exploration-ui: backlog  # UX Journey 2: Signal cards, detail views, trend charts
+  8-4-recommendation-feed-ui: backlog  # UX Journey 3: Rec cards, detail views, rationales
+  8-5-chat-interface: backlog  # UX Journey 4: AI coach, context-aware messaging (requires backend)
+  8-6-settings-consent-management-ui: backlog  # User settings, consent revocation, data controls
+  epic-8-retrospective: optional

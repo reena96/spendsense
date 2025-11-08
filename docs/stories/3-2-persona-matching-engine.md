@@ -170,7 +170,7 @@ class PersonaMatch(BaseModel):
 
 - [Source: docs/prd/epic-3-persona-assignment-system.md#Story-3.2]
 - [Source: docs/architecture.md#Personas-Module (lines 912-947)]
-- [Source: EPIC_3_HANDOFF.md - Story 3.1 completion notes]
+- [Source: docs/session-handoff/EPIC_3_HANDOFF.md - Story 3.1 completion notes]
 - [Source: spendsense/config/personas.yaml - Criteria definitions]
 
 ## Dev Agent Record
@@ -185,7 +185,7 @@ class PersonaMatch(BaseModel):
 
 **From Epic 2:**
 - BehavioralSignal model available from `spendsense.features.behavioral_summary`
-- All signal fields documented in EPIC_3_HANDOFF.md lines 150-163
+- All signal fields documented in docs/session-handoff/EPIC_3_HANDOFF.md lines 150-163
 
 ### Agent Model Used
 

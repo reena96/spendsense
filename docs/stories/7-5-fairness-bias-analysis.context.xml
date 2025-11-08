@@ -1,0 +1,362 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>7</epicId>
+    <storyId>7.5</storyId>
+    <title>Fairness & Bias Analysis</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/7-5-fairness-bias-analysis.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>data scientist</asA>
+    <iWant>analysis of recommendation fairness across demographic groups if applicable</iWant>
+    <soThat>potential bias in persona assignment or recommendations can be detected and mitigated</soThat>
+    <tasks>
+      <task id="1" status="pending">
+        <description>Create fairness metrics module (AC: #1-10)</description>
+        <subtasks>
+          - Create spendsense/evaluation/fairness_metrics.py
+          - Define FairnessMetrics dataclass with all required fields
+          - Implement check_demographic_attributes() function
+          - Implement calculate_demographic_parity() function
+          - Implement calculate_equal_opportunity() function
+          - Implement test_statistical_significance() function
+        </subtasks>
+      </task>
+      <task id="2" status="pending">
+        <description>Check for demographic attributes in data (AC: #1, #8)</description>
+        <subtasks>
+          - Query synthetic user data for demographic fields
+          - Check if demographic attributes exist (age_group, income_bracket, gender, location)
+          - If NO demographic data: document limitation and return early
+          - If demographic data EXISTS: proceed with fairness analysis
+        </subtasks>
+      </task>
+      <task id="3" status="pending">
+        <description>Analyze persona distribution by demographic group (AC: #2)</description>
+        <subtasks>
+          - Group users by demographic attribute
+          - Calculate persona distribution per demographic group
+          - Compare distributions and flag disparities
+        </subtasks>
+      </task>
+      <task id="4" status="pending">
+        <description>Analyze recommendation distribution by demographic group (AC: #3)</description>
+        <subtasks>
+          - Group recommendations by demographic attribute
+          - Analyze recommendation types, topics, and counts per group
+          - Compare distributions and flag treatment disparities
+        </subtasks>
+      </task>
+      <task id="5" status="pending">
+        <description>Calculate demographic parity ratio (AC: #6)</description>
+        <subtasks>
+          - Define positive outcome (Savings Builder or Cash Flow Optimizer persona)
+          - Calculate rate of positive outcomes per demographic group
+          - Calculate parity ratio (min/max across groups)
+          - Flag if ratio &lt; 0.8
+        </subtasks>
+      </task>
+      <task id="6" status="pending">
+        <description>Calculate equal opportunity difference (AC: #6)</description>
+        <subtasks>
+          - Define qualified users (users with qualifying signals)
+          - Calculate true positive rate per demographic group
+          - Calculate max difference in rates
+          - Flag if difference &gt; 0.1
+        </subtasks>
+      </task>
+      <task id="7" status="pending">
+        <description>Test statistical significance (AC: #4)</description>
+        <subtasks>
+          - Use chi-square test for persona distribution differences
+          - Calculate p-values for each demographic attribute
+          - Flag significance if p &lt; 0.05
+        </subtasks>
+      </task>
+      <task id="8" status="pending">
+        <description>Flag potential bias indicators (AC: #5)</description>
+        <subtasks>
+          - Define bias thresholds (parity &lt; 0.8, equal opportunity &gt; 0.1)
+          - Record bias indicators with type, groups, severity, description
+          - Rank by severity for prioritization
+        </subtasks>
+      </task>
+      <task id="9" status="pending">
+        <description>Document limitations and constraints (AC: #8)</description>
+        <subtasks>
+          - Document fairness analysis limitations (synthetic data, sample size)
+          - Document methodology assumptions
+          - Include in output
+        </subtasks>
+      </task>
+      <task id="10" status="pending">
+        <description>Generate mitigation recommendations (AC: #10)</description>
+        <subtasks>
+          - Generate recommendations if bias detected
+          - Generate monitoring recommendations if no bias
+          - Prioritize by impact and feasibility
+        </subtasks>
+      </task>
+      <task id="11" status="pending">
+        <description>Generate fairness visualizations (AC: #9)</description>
+        <subtasks>
+          - Create persona distribution by demographic group chart
+          - Create demographic parity visualization
+          - Create recommendation distribution heatmap
+          - Save charts as PNG to docs/eval/
+        </subtasks>
+      </task>
+      <task id="12" status="pending">
+        <description>Create fairness report (AC: #7, #9)</description>
+        <subtasks>
+          - Generate structured report with executive summary
+          - Include analysis, significance, indicators, limitations
+          - Format as Markdown or PDF
+        </subtasks>
+      </task>
+      <task id="13" status="pending">
+        <description>Create CLI script for fairness evaluation (AC: #1-10)</description>
+        <subtasks>
+          - Create scripts/evaluate_fairness.py
+          - Accept CLI args for dataset, output-dir, demographic-attr
+          - Run fairness analysis and generate outputs
+          - Print summary to console
+        </subtasks>
+      </task>
+      <task id="14" status="pending">
+        <description>Write comprehensive unit tests (AC: #1-10)</description>
+        <subtasks>
+          - Create tests/evaluation/test_fairness_metrics.py
+          - Test all fairness metric calculations
+          - Test edge cases (no data, perfect parity, severe bias)
+          - Mock statistical functions for deterministic tests
+        </subtasks>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="1">Demographic parity calculated if synthetic data includes demographic attributes</criterion>
+    <criterion id="2">Persona distribution analyzed by demographic group</criterion>
+    <criterion id="3">Recommendation distribution analyzed by demographic group</criterion>
+    <criterion id="4">Statistical significance tested for observed differences</criterion>
+    <criterion id="5">Potential bias indicators flagged if disparities exceed threshold</criterion>
+    <criterion id="6">Fairness metrics computed: demographic parity ratio, equal opportunity difference</criterion>
+    <criterion id="7">Bias analysis documented with interpretation of results</criterion>
+    <criterion id="8">Limitations documented: fairness analysis constraints with synthetic data</criterion>
+    <criterion id="9">Fairness report generated with visualizations</criterion>
+    <criterion id="10">Mitigation recommendations provided if bias detected</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/prd/epic-7-evaluation-harness-metrics.md</path>
+        <title>Epic 7: Evaluation Harness &amp; Metrics PRD</title>
+        <section>Story 7.5: Fairness &amp; Bias Analysis</section>
+        <snippet>Defines acceptance criteria for fairness analysis including demographic parity calculation, persona distribution analysis by demographic group, statistical significance testing, bias indicator flagging, and mitigation recommendations.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>SpendSense System Architecture</title>
+        <section>Evaluation Module</section>
+        <snippet>Specifies evaluation module structure with fairness.py for fairness metrics calculation. Includes calculate_fairness_metrics() function returning FairnessMetrics dataclass.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/prd/epic-1-data-foundation-synthetic-data-generation.md</path>
+        <title>Epic 1: Data Foundation &amp; Synthetic Data Generation</title>
+        <section>Story 1.3: Synthetic User Profile Generator</section>
+        <snippet>Describes generation of 50-100 diverse synthetic user profiles with realistic financial characteristics and demographics for testing varied financial behaviors.</snippet>
+      </artifact>
+      <artifact>
+        <path>data/synthetic/users/profiles.json</path>
+        <title>Synthetic User Profiles</title>
+        <section>User Data Schema</section>
+        <snippet>Contains synthetic user data with user_id, name, persona, annual_income, characteristics, and accounts. May include demographic attributes like age_group or income_bracket for fairness analysis.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/stories/7-1-coverage-metrics-calculation.md</path>
+        <title>Story 7.1: Coverage Metrics Calculation</title>
+        <section>Module Structure</section>
+        <snippet>Establishes spendsense/evaluation/ directory structure, JSON output pattern with timestamps, and CLI script pattern (scripts/evaluate_*.py).</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/stories/7-3-performance-latency-metrics.md</path>
+        <title>Story 7.3: Performance &amp; Latency Metrics</title>
+        <section>Visualization Patterns</section>
+        <snippet>Documents matplotlib usage for generating PNG charts saved to docs/eval/ directory, statistical analysis with percentiles and distribution visualization.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/stories/7-4-auditability-compliance-metrics.md</path>
+        <title>Story 7.4: Auditability &amp; Compliance Metrics</title>
+        <section>Compliance Checks</section>
+        <snippet>Shows pattern for pass/fail status with severity levels, structured reporting with remediation recommendations, and failure categorization.</snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>spendsense/personas/matcher.py</path>
+        <kind>service</kind>
+        <symbol>PersonaMatcher</symbol>
+        <lines>all</lines>
+        <reason>Persona assignment logic to analyze for demographic correlations and potential bias in assignment patterns</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/definitions.py</path>
+        <kind>model</kind>
+        <symbol>PersonaDefinition</symbol>
+        <lines>all</lines>
+        <reason>Persona definitions and characteristics to understand what constitutes constructive vs negative personas for demographic parity calculation</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/engine.py</path>
+        <kind>service</kind>
+        <symbol>RecommendationEngine</symbol>
+        <lines>all</lines>
+        <reason>Recommendation generation logic to analyze for demographic disparities in recommendation distribution</reason>
+      </artifact>
+      <artifact>
+        <path>data/processed/spendsense.db</path>
+        <kind>database</kind>
+        <symbol>users table</symbol>
+        <lines>schema</lines>
+        <reason>Users table schema - contains user_id, persona, annual_income. Need to check for demographic attributes (age_group, income_bracket) for fairness analysis</reason>
+      </artifact>
+      <artifact>
+        <path>data/synthetic/users/profiles.json</path>
+        <kind>data</kind>
+        <symbol>user profiles</symbol>
+        <lines>all</lines>
+        <reason>Synthetic user data source - check for demographic attributes availability for fairness analysis</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <python>
+        <package name="scipy" version="&gt;=1.11.0" usage="Statistical tests (chi-square) for significance testing - REQUIRED, add to requirements.txt"/>
+        <package name="matplotlib" version="&gt;=3.8.0" usage="Visualizations (persona distribution, parity charts) - already added in Story 7.3"/>
+        <package name="numpy" version="&gt;=1.24.0" usage="Statistical calculations and array operations - already in requirements.txt"/>
+        <package name="pandas" version="&gt;=2.1.0" usage="Data manipulation for demographic grouping - already in requirements.txt"/>
+        <package name="sqlalchemy" version="&gt;=2.0.0" usage="Database access to query users table - already in requirements.txt"/>
+        <package name="pytest" version="&gt;=7.4.0" usage="Testing framework - already in requirements.txt"/>
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <category>Architecture</category>
+      <description>Python 3.10+ with type hints required for all functions</description>
+    </constraint>
+    <constraint>
+      <category>Data Access</category>
+      <description>Check for demographic data availability before analysis - graceful degradation if demographic attributes missing</description>
+    </constraint>
+    <constraint>
+      <category>Module Structure</category>
+      <description>Create spendsense/evaluation/ directory following pattern from Story 7.1</description>
+    </constraint>
+    <constraint>
+      <category>Output Format</category>
+      <description>JSON for structured metrics with ISO 8601 timestamps, PNG for visualizations saved to docs/eval/</description>
+    </constraint>
+    <constraint>
+      <category>Statistical Standards</category>
+      <description>Use standard fairness metrics - demographic parity ratio (threshold 0.8), equal opportunity difference (threshold 0.1), chi-square test for significance (p &lt; 0.05)</description>
+    </constraint>
+    <constraint>
+      <category>Testing</category>
+      <description>pytest with ≥10 tests per story, including edge cases (no demographics, perfect parity, severe bias)</description>
+    </constraint>
+    <constraint>
+      <category>Transparency</category>
+      <description>Document all limitations with synthetic data, methodology assumptions, and threshold choices</description>
+    </constraint>
+    <constraint>
+      <category>Ethical Design</category>
+      <description>Persona assignment is deterministic based on financial signals, not demographics - verify this assumption doesn't create demographic proxies</description>
+    </constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>FairnessMetrics</name>
+      <kind>dataclass</kind>
+      <signature>
+        @dataclass
+        class FairnessMetrics:
+            demographic_parity_ratio: Optional[float]
+            equal_opportunity_difference: Optional[float]
+            persona_distribution_by_group: Dict[str, Dict[str, int]]
+            recommendation_distribution_by_group: Dict[str, Dict[str, int]]
+            statistical_significance: Dict[str, float]
+            bias_indicators: List[Dict]
+            fairness_assessment: str
+            limitations: List[str]
+            mitigation_recommendations: List[str]
+            timestamp: datetime
+      </signature>
+      <path>spendsense/evaluation/fairness_metrics.py</path>
+    </interface>
+    <interface>
+      <name>check_demographic_attributes</name>
+      <kind>function</kind>
+      <signature>def check_demographic_attributes(db_path: str) -&gt; Dict[str, bool]</signature>
+      <path>spendsense/evaluation/fairness_metrics.py</path>
+    </interface>
+    <interface>
+      <name>calculate_demographic_parity</name>
+      <kind>function</kind>
+      <signature>def calculate_demographic_parity(users: List[Dict], demographic_attr: str) -&gt; float</signature>
+      <path>spendsense/evaluation/fairness_metrics.py</path>
+    </interface>
+    <interface>
+      <name>calculate_equal_opportunity</name>
+      <kind>function</kind>
+      <signature>def calculate_equal_opportunity(users: List[Dict], demographic_attr: str) -&gt; float</signature>
+      <path>spendsense/evaluation/fairness_metrics.py</path>
+    </interface>
+    <interface>
+      <name>test_statistical_significance</name>
+      <kind>function</kind>
+      <signature>def test_statistical_significance(distribution: Dict[str, Dict[str, int]]) -&gt; Tuple[float, float]</signature>
+      <path>spendsense/evaluation/fairness_metrics.py</path>
+    </interface>
+    <interface>
+      <name>users table</name>
+      <kind>database table</kind>
+      <signature>CREATE TABLE users (user_id VARCHAR, name VARCHAR, persona VARCHAR, annual_income FLOAT, characteristics JSON, consent_status TEXT, consent_timestamp TEXT, consent_version TEXT)</signature>
+      <path>data/processed/spendsense.db</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      Testing framework: pytest with coverage tracking. Minimum 10 tests per story required.
+      Type checking: mypy for static type validation.
+      Test types: Unit tests for individual metric calculations, statistical tests for chi-square and parity calculations, edge case tests (no demographics, perfect parity, severe bias), mock tests for deterministic statistical results.
+      Test data: Use mock user data with known demographic distributions to verify calculations.
+      Coverage target: All fairness metric functions, bias detection logic, edge cases.
+    </standards>
+    <locations>
+      tests/evaluation/test_fairness_metrics.py - Main test file for fairness metrics
+      tests/evaluation/ - Evaluation module tests directory (created in Story 7.1)
+    </locations>
+    <ideas>
+      <test ac="1,6" description="Test demographic parity calculation with mock data - verify ratio computation (min/max) and threshold detection (&lt;0.8)"/>
+      <test ac="6" description="Test equal opportunity calculation - verify true positive rate parity across groups and threshold detection (&gt;0.1)"/>
+      <test ac="4" description="Test chi-square statistical significance - verify p-value calculation with scipy.stats.chi2_contingency"/>
+      <test ac="5" description="Test bias indicator flagging - verify thresholds trigger correct warnings with severity levels"/>
+      <test ac="1,8" description="Test check_demographic_attributes() with various data schemas - with and without demographic fields"/>
+      <test ac="2" description="Test persona distribution analysis by demographic group - verify grouping and percentage calculations"/>
+      <test ac="3" description="Test recommendation distribution analysis - verify recommendation type counting per group"/>
+      <test ac="8" description="Test graceful degradation when no demographic data exists - should return limitations and skip analysis"/>
+      <test ac="1,6" description="Edge case: Perfect parity (ratio = 1.0) - should pass all checks"/>
+      <test ac="5" description="Edge case: Severe disparity (ratio &lt; 0.5) - should flag high severity bias"/>
+      <test ac="4" description="Edge case: Single demographic group - chi-square test should handle gracefully (no comparison possible)"/>
+      <test ac="1" description="Edge case: Empty dataset - should handle without errors"/>
+      <test ac="10" description="Test mitigation recommendation generation - verify recommendations differ for bias vs no-bias scenarios"/>
+      <test ac="9" description="Integration test: Full fairness analysis pipeline with mock database and user data"/>
+    </ideas>
+  </tests>
+</story-context>

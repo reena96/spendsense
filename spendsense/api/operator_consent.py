@@ -8,6 +8,7 @@ for compliance officers and administrators.
 from typing import List, Optional
 from datetime import datetime, timedelta
 from pathlib import Path
+import json
 
 from fastapi import APIRouter, HTTPException, Query, Depends
 from pydantic import BaseModel, Field
@@ -299,7 +300,14 @@ async def get_consent_history(
         # Build history
         history = []
         for log in consent_logs:
-            event_data = log.event_data or {}
+            # Parse event_data if it's a JSON string
+            if isinstance(log.event_data, str):
+                try:
+                    event_data = json.loads(log.event_data)
+                except (json.JSONDecodeError, TypeError):
+                    event_data = {}
+            else:
+                event_data = log.event_data or {}
 
             # Get operator name if available
             operator_name = None

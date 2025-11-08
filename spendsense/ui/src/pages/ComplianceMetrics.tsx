@@ -6,7 +6,7 @@
  * Requires admin or compliance role.
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
   PieChart,
@@ -192,28 +192,43 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
 
       {/* Consent Metrics Section */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Consent Metrics</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Consent Metrics
+          <span className="info-icon" data-tooltip="User consent tracking for personalized financial recommendations. Monitors opt-in/opt-out rates and ensures GDPR/CCPA compliance.">ⓘ</span>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Total Users</div>
+            <div className="text-sm text-gray-600">
+              Total Users
+              <span className="info-icon" data-tooltip="Total number of users in the system who can consent to personalized recommendations.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-gray-900 mt-2">
               {data.consent_metrics.total_users.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Opted In</div>
+            <div className="text-sm text-gray-600">
+              Opted In
+              <span className="info-icon" data-tooltip="Number of users who have actively consented to receive personalized recommendations. Only opted-in users receive recommendations.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-green-600 mt-2">
               {data.consent_metrics.opted_in_count.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Opted Out</div>
+            <div className="text-sm text-gray-600">
+              Opted Out
+              <span className="info-icon" data-tooltip="Number of users who have declined or withdrawn consent. These users will not receive any personalized recommendations.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-red-600 mt-2">
               {data.consent_metrics.opted_out_count.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Opt-In Rate</div>
+            <div className="text-sm text-gray-600">
+              Opt-In Rate
+              <span className="info-icon" data-tooltip="Percentage of users who have consented to personalized recommendations. Higher rates indicate better user engagement and trust.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-indigo-600 mt-2">
               {data.consent_metrics.opt_in_rate_pct.toFixed(1)}%
             </div>
@@ -234,7 +249,7 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
                 fill="#8884d8"
                 dataKey="value"
               >
-                {consentData.map((entry, index) => (
+                {consentData.map((_entry, index) => (
                   <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#ef4444'} />
                 ))}
               </Pie>
@@ -247,28 +262,43 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
 
       {/* Eligibility Metrics Section */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Eligibility Metrics</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Eligibility Metrics
+          <span className="info-icon" data-tooltip="Recommendation eligibility validation ensures recommendations are suitable for each user's financial situation. Tracks checks and failure reasons.">ⓘ</span>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Total Checks</div>
+            <div className="text-sm text-gray-600">
+              Total Checks
+              <span className="info-icon" data-tooltip="Total number of eligibility validations performed across all recommendations and users.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-gray-900 mt-2">
               {data.eligibility_metrics.total_checks.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Passed</div>
+            <div className="text-sm text-gray-600">
+              Passed
+              <span className="info-icon" data-tooltip="Number of recommendations that passed eligibility criteria and were shown to users.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-green-600 mt-2">
               {data.eligibility_metrics.passed.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Failed</div>
+            <div className="text-sm text-gray-600">
+              Failed
+              <span className="info-icon" data-tooltip="Number of recommendations blocked due to eligibility failures (e.g., insufficient income, existing debt issues).">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-red-600 mt-2">
               {data.eligibility_metrics.failed.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Pass Rate</div>
+            <div className="text-sm text-gray-600">
+              Pass Rate
+              <span className="info-icon" data-tooltip="Percentage of recommendations passing eligibility checks. Lower rates may indicate overly restrictive criteria or data quality issues.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-indigo-600 mt-2">
               {data.eligibility_metrics.pass_rate_pct.toFixed(1)}%
             </div>
@@ -290,7 +320,7 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
                   fill="#8884d8"
                   dataKey="value"
                 >
-                  {eligibilityData.map((entry, index) => (
+                  {eligibilityData.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={index === 0 ? '#10b981' : '#ef4444'} />
                   ))}
                 </Pie>
@@ -317,28 +347,43 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
 
       {/* Tone Metrics Section */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Tone Validation Metrics</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Tone Validation Metrics
+          <span className="info-icon" data-tooltip="Tone validation ensures recommendations use appropriate, non-manipulative language. Detects fear-mongering, urgency pressure, and guilt tactics.">ⓘ</span>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Total Validations</div>
+            <div className="text-sm text-gray-600">
+              Total Validations
+              <span className="info-icon" data-tooltip="Total number of recommendation texts analyzed for tone compliance.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-gray-900 mt-2">
               {data.tone_metrics.total_validations.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Passed</div>
+            <div className="text-sm text-gray-600">
+              Passed
+              <span className="info-icon" data-tooltip="Number of recommendations with appropriate, professional tone that passed validation.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-green-600 mt-2">
               {data.tone_metrics.passed.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Failed</div>
+            <div className="text-sm text-gray-600">
+              Failed
+              <span className="info-icon" data-tooltip="Number of recommendations flagged for inappropriate tone (e.g., fear-mongering, excessive urgency, guilt tactics).">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-red-600 mt-2">
               {data.tone_metrics.failed.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Pass Rate</div>
+            <div className="text-sm text-gray-600">
+              Pass Rate
+              <span className="info-icon" data-tooltip="Percentage of recommendations passing tone validation. Target: >95% to ensure ethical communication.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-indigo-600 mt-2">
               {data.tone_metrics.pass_rate_pct.toFixed(1)}%
             </div>
@@ -363,28 +408,43 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
 
       {/* Operator Action Metrics Section */}
       <div className="mb-8">
-        <h2 className="text-2xl font-semibold mb-4">Operator Action Metrics</h2>
+        <h2 className="text-2xl font-semibold mb-4">
+          Operator Action Metrics
+          <span className="info-icon" data-tooltip="Human operator interventions for high-risk recommendations. Tracks approvals, overrides, and safety flags for regulatory oversight.">ⓘ</span>
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Total Actions</div>
+            <div className="text-sm text-gray-600">
+              Total Actions
+              <span className="info-icon" data-tooltip="Total number of operator interventions across all recommendation types and risk levels.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-gray-900 mt-2">
               {data.operator_metrics.total_actions.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Approvals</div>
+            <div className="text-sm text-gray-600">
+              Approvals
+              <span className="info-icon" data-tooltip="Number of high-risk recommendations reviewed and approved by human operators before being shown to users.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-green-600 mt-2">
               {data.operator_metrics.approvals.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Overrides</div>
+            <div className="text-sm text-gray-600">
+              Overrides
+              <span className="info-icon" data-tooltip="Operator decisions to override system recommendations (e.g., blocking risky suggestions, adjusting for special cases).">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-orange-600 mt-2">
               {data.operator_metrics.overrides.toLocaleString()}
             </div>
           </div>
           <div className="bg-white rounded-lg shadow p-6">
-            <div className="text-sm text-gray-600">Flags</div>
+            <div className="text-sm text-gray-600">
+              Flags
+              <span className="info-icon" data-tooltip="Recommendations flagged by operators for review, investigation, or escalation due to safety/compliance concerns.">ⓘ</span>
+            </div>
             <div className="text-3xl font-bold text-red-600 mt-2">
               {data.operator_metrics.flags.toLocaleString()}
             </div>
@@ -401,7 +461,7 @@ localStorage.setItem('operator_token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ
                 <YAxis />
                 <Tooltip />
                 <Bar dataKey="value" fill="#3b82f6">
-                  {operatorActionsData.map((entry, index) => (
+                  {operatorActionsData.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Bar>

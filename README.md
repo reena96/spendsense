@@ -33,7 +33,7 @@ SpendSense analyzes financial transaction data to detect behavioral patterns and
 ### One-Command Setup (Recommended)
 
 ```bash
-./setup.sh
+./scripts/setup.sh
 ```
 
 This script will:

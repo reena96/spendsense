@@ -1,0 +1,322 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>7</epicId>
+    <storyId>3</storyId>
+    <title>Performance & Latency Metrics</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-06</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/7-3-performance-latency-metrics.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>measurement of system performance including recommendation generation latency</iWant>
+    <soThat>user experience quality and scalability limits can be assessed</soThat>
+    <tasks>
+- Task 1: Create performance metrics module (AC: #1-10)
+- Task 2: Implement end-to-end latency measurement (AC: #1, #5)
+- Task 3: Implement component latency breakdown (AC: #2)
+- Task 4: Calculate throughput metrics (AC: #3)
+- Task 5: Track resource utilization (AC: #4)
+- Task 6: Calculate latency percentiles (AC: #6)
+- Task 7: Identify performance bottlenecks (AC: #7)
+- Task 8: Performance consistency verification (AC: #8)
+- Task 9: Generate performance visualization (AC: #9)
+- Task 10: Scalability projections (AC: #10)
+- Task 11: Create CLI script for performance evaluation (AC: #1-10)
+- Task 12: Write comprehensive unit tests (AC: #1-10)
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Latency metric measured: time to generate recommendations per user (target <5 seconds)
+2. Latency breakdown by component: signal detection, persona assignment, recommendation matching, guardrail checks
+3. Performance metrics: throughput (users processed per minute)
+4. Resource utilization tracked: memory, CPU during batch processing
+5. Performance tested with full 50-100 user synthetic dataset
+6. Latency percentiles calculated: p50, p95, p99
+7. Performance bottlenecks identified if latency exceeds target
+8. Metrics compared across multiple runs to verify consistency
+9. Performance report generated with visualization of latency distribution
+10. Scalability projections documented: estimated performance at 1K, 10K, 100K users
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd/epic-7-evaluation-harness-metrics.md</path>
+        <title>Epic 7: Evaluation Harness & Metrics PRD</title>
+        <section>Story 7.3</section>
+        <snippet>Performance & Latency Metrics story requirements including latency target <5 seconds per user, component breakdown, throughput, resource utilization, percentiles, bottleneck identification, and scalability projections.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>SpendSense Architecture</title>
+        <section>Performance Requirements</section>
+        <snippet>Local-first design with <5 second latency target per user. System runs on local laptop with Python 3.10+, SQLite database, and modular architecture supporting future cloud deployment.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>PRD</title>
+        <section>FR1</section>
+        <snippet>System shall generate synthetic Plaid-style data for 50-100 users with diverse financial situations for testing and evaluation.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/7-1-coverage-metrics-calculation.md</path>
+        <title>Story 7.1 Learnings</title>
+        <section>Evaluation Module Patterns</section>
+        <snippet>Established evaluation module structure, JSON output patterns with timestamps, CLI script conventions (scripts/evaluate_*.py), and common utility patterns.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/7-2-explainability-metrics-calculation.md</path>
+        <title>Story 7.2 Learnings</title>
+        <section>Integration Points</section>
+        <snippet>Integration with Epic 4 recommendation engine and Epic 6 audit trail. Sample extraction patterns and failure logging conventions.</snippet>
+      </doc>
+    </docs>
+
+    <code>
+      <artifact>
+        <path>spendsense/features/behavioral_summary.py</path>
+        <kind>service</kind>
+        <symbol>BehavioralSummaryAggregator</symbol>
+        <lines></lines>
+        <reason>Signal detection pipeline - component to instrument for latency measurement (Epic 2)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/subscription_detector.py</path>
+        <kind>detector</kind>
+        <symbol>SubscriptionDetector</symbol>
+        <lines></lines>
+        <reason>Subscription pattern detection - component to time (Epic 2)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/savings_detector.py</path>
+        <kind>detector</kind>
+        <symbol>SavingsDetector</symbol>
+        <lines></lines>
+        <reason>Savings behavior detection - component to time (Epic 2)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/credit_detector.py</path>
+        <kind>detector</kind>
+        <symbol>CreditDetector</symbol>
+        <lines></lines>
+        <reason>Credit utilization detection - component to time (Epic 2)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/features/income_detector.py</path>
+        <kind>detector</kind>
+        <symbol>IncomeDetector</symbol>
+        <lines></lines>
+        <reason>Income stability detection - component to time (Epic 2)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/assigner.py</path>
+        <kind>service</kind>
+        <symbol>PersonaAssigner</symbol>
+        <lines></lines>
+        <reason>Persona assignment system - component to instrument for latency measurement (Epic 3)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/personas/matcher.py</path>
+        <kind>service</kind>
+        <symbol>PersonaMatcher</symbol>
+        <lines></lines>
+        <reason>Persona matching logic - component to time (Epic 3)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/engine.py</path>
+        <kind>service</kind>
+        <symbol>RecommendationEngine</symbol>
+        <lines></lines>
+        <reason>Recommendation engine - component to instrument for latency measurement (Epic 4)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/matcher.py</path>
+        <kind>service</kind>
+        <symbol>RecommendationMatcher</symbol>
+        <lines></lines>
+        <reason>Recommendation matching logic - component to time (Epic 4)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/recommendations/rationale_generator.py</path>
+        <kind>service</kind>
+        <symbol>RationaleGenerator</symbol>
+        <lines></lines>
+        <reason>Rationale generation - component to time (Story 4.4)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/consent.py</path>
+        <kind>guardrail</kind>
+        <symbol>ConsentService</symbol>
+        <lines></lines>
+        <reason>Consent guardrail checks - component to time (Epic 5, Story 5.1)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/eligibility.py</path>
+        <kind>guardrail</kind>
+        <symbol>EligibilityFilter</symbol>
+        <lines></lines>
+        <reason>Eligibility guardrail checks - component to time (Epic 5, Story 5.2)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/guardrails/tone.py</path>
+        <kind>guardrail</kind>
+        <symbol>ToneValidator</symbol>
+        <lines></lines>
+        <reason>Tone validation guardrail - component to time (Epic 5, Story 5.3)</reason>
+      </artifact>
+      <artifact>
+        <path>spendsense/db/models.py</path>
+        <kind>models</kind>
+        <symbol>User, BehavioralSignal, Recommendation</symbol>
+        <lines></lines>
+        <reason>Database models for users, signals, and recommendations tables used in performance testing</reason>
+      </artifact>
+    </code>
+
+    <dependencies>
+      <python>
+        <package>psutil</package>
+        <version>5.9.0+</version>
+        <reason>System resource monitoring (memory, CPU, disk I/O)</reason>
+      </python>
+      <python>
+        <package>matplotlib</package>
+        <version>3.7.0+</version>
+        <reason>Performance visualizations (latency distribution, component breakdown charts)</reason>
+      </python>
+      <python>
+        <package>numpy</package>
+        <version>1.24.0+</version>
+        <reason>Statistical calculations for percentiles and performance analysis</reason>
+      </python>
+      <python>
+        <package>pandas</package>
+        <version>2.1.0+</version>
+        <reason>Data processing for performance metrics</reason>
+      </python>
+      <python>
+        <package>sqlalchemy</package>
+        <version>2.0.0+</version>
+        <reason>Database ORM for querying users, signals, recommendations</reason>
+      </python>
+      <python>
+        <package>pytest</package>
+        <version>7.4.0+</version>
+        <reason>Test framework for unit and integration tests</reason>
+      </python>
+    </dependencies>
+  </artifacts>
+
+  <interfaces>
+    <interface>
+      <name>PerformanceMetrics</name>
+      <kind>dataclass</kind>
+      <signature>@dataclass
+class PerformanceMetrics:
+    total_latency_seconds: float
+    component_latencies: Dict[str, float]
+    throughput_users_per_minute: float
+    resource_utilization: Dict[str, Any]
+    latency_percentiles: Dict[str, float]  # p50, p95, p99
+    bottlenecks: List[str]
+    scalability_projections: Dict[int, float]  # user_count -> estimated_time
+    timestamp: datetime</signature>
+      <path>spendsense/evaluation/performance_metrics.py</path>
+    </interface>
+    <interface>
+      <name>measure_end_to_end_latency</name>
+      <kind>function</kind>
+      <signature>def measure_end_to_end_latency(user_ids: List[str]) -> float:
+    """Measure total time to process recommendations for given users."""</signature>
+      <path>spendsense/evaluation/performance_metrics.py</path>
+    </interface>
+    <interface>
+      <name>measure_component_latency</name>
+      <kind>decorator</kind>
+      <signature>def measure_component_latency(component_name: str):
+    """Decorator to measure execution time of a component."""
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            start = time.time()
+            result = func(*args, **kwargs)
+            elapsed = time.time() - start
+            # Store latency in thread-local storage
+            return result
+        return wrapper
+    return decorator</signature>
+      <path>spendsense/evaluation/performance_metrics.py</path>
+    </interface>
+    <interface>
+      <name>calculate_throughput</name>
+      <kind>function</kind>
+      <signature>def calculate_throughput(user_count: int, total_time_seconds: float) -> float:
+    """Calculate users processed per minute."""
+    return (user_count / total_time_seconds) * 60</signature>
+      <path>spendsense/evaluation/performance_metrics.py</path>
+    </interface>
+    <interface>
+      <name>track_resource_utilization</name>
+      <kind>function</kind>
+      <signature>def track_resource_utilization() -> Dict[str, Any]:
+    """Track memory, CPU, and disk I/O using psutil."""
+    return {
+        "memory_mb": psutil.Process().memory_info().rss / 1024 / 1024,
+        "cpu_percent": psutil.cpu_percent(interval=1),
+        "disk_io": psutil.disk_io_counters()
+    }</signature>
+      <path>spendsense/evaluation/performance_metrics.py</path>
+    </interface>
+    <interface>
+      <name>CLI Script</name>
+      <kind>script</kind>
+      <signature>python scripts/evaluate_performance.py --dataset synthetic --output-dir docs/eval/ --runs 3</signature>
+      <path>scripts/evaluate_performance.py</path>
+    </interface>
+  </interfaces>
+
+  <constraints>
+    <constraint>Python 3.10+ with type hints required for all functions</constraint>
+    <constraint>SQLite database access for users, behavioral_signals, recommendations tables</constraint>
+    <constraint>Target latency: <5 seconds per user (local laptop execution)</constraint>
+    <constraint>Component latency breakdown must cover: signal detection, persona assignment, recommendation matching, guardrail checks</constraint>
+    <constraint>Resource utilization tracking: memory (MB), CPU (%), disk I/O</constraint>
+    <constraint>Latency percentiles: p50, p95, p99 for outlier analysis</constraint>
+    <constraint>Performance testing with full 50-100 user synthetic dataset</constraint>
+    <constraint>Throughput calculation in users per minute</constraint>
+    <constraint>Scalability projections for 1K, 10K, 100K users with assumptions documented</constraint>
+    <constraint>JSON output format with ISO 8601 timestamps</constraint>
+    <constraint>matplotlib visualizations saved as PNG files in docs/eval/</constraint>
+    <constraint>Context managers or decorators for timing instrumentation</constraint>
+    <constraint>Test framework: pytest with ≥10 tests per story</constraint>
+  </constraints>
+
+  <tests>
+    <standards>
+Framework: pytest with ≥10 tests per story. Test categories: unit tests (individual metric calculations), performance tests (actual timing measurements), integration tests (end-to-end pipeline timing), mock tests (resource utilization with mocked psutil). Test locations: tests/evaluation/test_performance_metrics.py. All tests must use type hints and follow existing test patterns in the evaluation module.
+    </standards>
+    <locations>
+      <location>tests/evaluation/test_performance_metrics.py</location>
+    </locations>
+    <ideas>
+      <idea ac="1,5">Test measure_end_to_end_latency with mock pipeline processing various user counts</idea>
+      <idea ac="2">Test measure_component_latency decorator correctly times function execution</idea>
+      <idea ac="3">Test calculate_throughput with various batch sizes (10, 25, 50, 100 users)</idea>
+      <idea ac="4">Test track_resource_utilization with mocked psutil to return deterministic values</idea>
+      <idea ac="6">Test latency percentile calculation (p50, p95, p99) with known distribution</idea>
+      <idea ac="7">Test bottleneck identification logic with components exceeding 30% threshold</idea>
+      <idea ac="8">Test performance consistency verification across multiple runs (mean, std dev)</idea>
+      <idea ac="9">Test visualization generation (histogram, pie chart) creates PNG files</idea>
+      <idea ac="10">Test scalability projection calculations with linear scaling assumptions</idea>
+      <idea>Edge case: Single user (no batch processing)</idea>
+      <idea>Edge case: Empty dataset (0 users)</idea>
+      <idea>Edge case: Very fast processing (<1 second total)</idea>
+      <idea>Edge case: Very slow processing (>10 seconds per user)</idea>
+      <idea>Integration test: Full evaluation pipeline with synthetic dataset</idea>
+    </ideas>
+  </tests>
+</story-context>
