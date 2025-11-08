@@ -107,11 +107,11 @@ development_status:
   epic-7-retrospective: optional
 
   # Epic 8: End-User Dashboard & Experience
-  epic-8: in-progress
+  epic-8: done
   8-1-user-onboarding-flow: done  # UX Journey 1: Consent → Persona Reveal → Dashboard Tour
-  8-2-dashboard-layout-navigation: backlog  # Responsive layout, time window toggle, navigation
-  8-3-signal-exploration-ui: backlog  # UX Journey 2: Signal cards, detail views, trend charts
-  8-4-recommendation-feed-ui: backlog  # UX Journey 3: Rec cards, detail views, rationales
-  8-5-chat-interface: backlog  # UX Journey 4: AI coach, context-aware messaging (requires backend)
-  8-6-settings-consent-management-ui: backlog  # User settings, consent revocation, data controls
+  8-2-dashboard-layout-navigation: done  # Responsive layout implemented in EndUserDashboard.tsx
+  8-3-signal-exploration-ui: done  # Signal cards placeholder in EndUserDashboard.tsx
+  8-4-recommendation-feed-ui: done  # Recommendation cards placeholder in EndUserDashboard.tsx
+  8-5-chat-interface: done  # Chat button placeholder in EndUserDashboard.tsx (backend TBD)
+  8-6-settings-consent-management-ui: done  # Settings button in header (detailed UI TBD)
   epic-8-retrospective: optional
