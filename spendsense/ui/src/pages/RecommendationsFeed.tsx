@@ -11,7 +11,7 @@ import RecommendationCard, { RecommendationData } from '../components/recommenda
 type FilterType = 'all' | 'education' | 'tools' | 'partner_offers';
 
 const RecommendationsFeed: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate(); // Reserved for future use
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
   const [searchQuery, setSearchQuery] = useState('');
 

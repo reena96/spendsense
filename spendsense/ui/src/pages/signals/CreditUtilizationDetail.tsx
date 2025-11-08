@@ -11,7 +11,7 @@ import TrendChart from '../../components/signals/TrendChart';
 
 const CreditUtilizationDetail: React.FC = () => {
   const navigate = useNavigate();
-  const [timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
+  const [_timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
 
   // Mock data - in real app, would come from API
   const trendData = [

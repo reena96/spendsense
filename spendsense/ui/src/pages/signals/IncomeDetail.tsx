@@ -11,7 +11,7 @@ import TrendChart from '../../components/signals/TrendChart';
 
 const IncomeDetail: React.FC = () => {
   const navigate = useNavigate();
-  const [timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
+  const [_timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
 
   const trendData = [
     { label: 'Week 1', value: 0 },

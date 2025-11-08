@@ -11,7 +11,7 @@ import TrendChart from '../../components/signals/TrendChart';
 
 const SubscriptionsDetail: React.FC = () => {
   const navigate = useNavigate();
-  const [timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
+  const [_timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
 
   const trendData = [
     { label: 'Jan', value: 118 },
