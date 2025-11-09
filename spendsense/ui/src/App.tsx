@@ -11,6 +11,16 @@ import AuditLog from './pages/AuditLog';
 import ComplianceMetrics from './pages/ComplianceMetrics';
 import { ConsentManagement } from './pages/ConsentManagement';
 import Login from './pages/Login';
+import OnboardingFlow from './pages/onboarding/OnboardingFlow';
+import EndUserDashboard from './pages/EndUserDashboard';
+import CreditUtilizationDetail from './pages/signals/CreditUtilizationDetail';
+import SubscriptionsDetail from './pages/signals/SubscriptionsDetail';
+import SavingsDetail from './pages/signals/SavingsDetail';
+import IncomeDetail from './pages/signals/IncomeDetail';
+import RecommendationsFeed from './pages/RecommendationsFeed';
+import RecommendationDetail from './pages/RecommendationDetail';
+import ChatInterface from './pages/ChatInterface';
+import SettingsPage from './pages/SettingsPage';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -112,12 +122,28 @@ function App() {
           <Navigation />
           {/* Routes */}
           <Routes>
+            {/* End-User Routes (no auth required) */}
+            <Route path="/onboarding/*" element={<OnboardingFlow />} />
+            <Route path="/dashboard" element={<EndUserDashboard />} />
+            <Route path="/dashboard/signals/credit" element={<CreditUtilizationDetail />} />
+            <Route path="/dashboard/signals/subscriptions" element={<SubscriptionsDetail />} />
+            <Route path="/dashboard/signals/savings" element={<SavingsDetail />} />
+            <Route path="/dashboard/signals/income" element={<IncomeDetail />} />
+            <Route path="/dashboard/tips" element={<RecommendationsFeed />} />
+            <Route path="/dashboard/recommendations/:id" element={<RecommendationDetail />} />
+            <Route path="/dashboard/chat" element={<ChatInterface />} />
+            <Route path="/dashboard/settings" element={<SettingsPage />} />
+
+            {/* Operator Routes (auth required) */}
             <Route path="/login" element={<Login />} />
-            <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+            <Route path="/operator" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
             <Route path="/signals" element={<ProtectedRoute><SignalDashboard /></ProtectedRoute>} />
             <Route path="/audit" element={<ProtectedRoute><AuditLog /></ProtectedRoute>} />
             <Route path="/compliance" element={<ProtectedRoute><ComplianceMetrics /></ProtectedRoute>} />
             <Route path="/consent" element={<ProtectedRoute><ConsentManagement /></ProtectedRoute>} />
+
+            {/* Default: redirect to onboarding */}
+            <Route path="/" element={<Navigate to="/onboarding/welcome" replace />} />
           </Routes>
         </div>
       </BrowserRouter>

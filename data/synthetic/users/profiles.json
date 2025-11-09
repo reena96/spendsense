@@ -14,13 +14,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2250.0
+        "initial_balance": 5521.11
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 15000.0
+        "subtype": "credit_card",
+        "initial_balance": 26633.16,
+        "limit": 40974.09
       }
     ]
   },
@@ -40,7 +40,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1562.5
+        "initial_balance": 30051.28
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 18100.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 9099.994150684923,
+        "limit": 13900.0
       }
     ]
   },
@@ -59,18 +70,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5333.33
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 8000.0
+        "initial_balance": 27548.06
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 13000.0
+        "subtype": "credit_card",
+        "initial_balance": 20171.01,
+        "limit": 31032.32
       }
     ]
   },
@@ -89,24 +95,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 13750.0
+        "initial_balance": 49555.9
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 27500.0
+        "initial_balance": 19250.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 11400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7600.0
+        "subtype": "credit_card",
+        "initial_balance": 5249.543265885789,
+        "limit": 15000.0
       }
     ]
   },
@@ -125,12 +125,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2875.0
+        "initial_balance": 22917.44
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 3833.33
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 4118.75751781921,
+        "limit": 13400.0
       }
     ]
   },
@@ -149,13 +150,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2125.0
+        "initial_balance": 5498.26
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 14000.0
+        "subtype": "credit_card",
+        "initial_balance": 23057.02,
+        "limit": 35472.34
       }
     ]
   },
@@ -175,13 +176,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 833.33
+        "initial_balance": 19615.3
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7000.0
+        "subtype": "credit_card",
+        "initial_balance": 15161.86,
+        "limit": 23325.94
       }
     ]
   },
@@ -200,24 +201,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5250.0
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 7875.0
+        "initial_balance": 26741.44
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "subtype": "credit_card",
+        "initial_balance": 21924.55,
+        "limit": 33730.08
       }
     ]
   },
@@ -236,24 +226,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 12875.0
+        "initial_balance": 42147.13
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 28754.09,
+        "limit": 44237.06
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 25750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7800.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5200.0
+        "initial_balance": 19827.5
       }
     ]
   },
@@ -272,18 +256,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4562.5
+        "initial_balance": 27010.75
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 6083.33
+        "initial_balance": 13200.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 12000.0
+        "subtype": "credit_card",
+        "initial_balance": 1625.7711359868104,
+        "limit": 7900.0
       }
     ]
   },
@@ -302,13 +286,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1791.67
+        "initial_balance": 5417.56
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 16000.0
+        "subtype": "credit_card",
+        "initial_balance": 22312.85,
+        "limit": 34327.46
       }
     ]
   },
@@ -328,7 +312,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 916.67
+        "initial_balance": 20859.65
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 2480.20470251756,
+        "limit": 4900.0
       }
     ]
   },
@@ -347,18 +337,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 7000.0
+        "initial_balance": 37631.3
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 28853.78,
+        "limit": 44390.43
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 10500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 8000.0
+        "initial_balance": 31300.0
       }
     ]
   },
@@ -377,18 +367,12 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 11375.0
+        "initial_balance": 43364.23
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 22750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 19000.0
+        "initial_balance": 19110.0
       }
     ]
   },
@@ -407,12 +391,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3250.0
+        "initial_balance": 24347.84
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 4333.33
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 1976.6967315437705,
+        "limit": 5400.0
       }
     ]
   },
@@ -431,13 +416,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1875.0
+        "initial_balance": 5436.48
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 15000.0
+        "subtype": "credit_card",
+        "initial_balance": 21782.21,
+        "limit": 33511.09
       }
     ]
   },
@@ -457,7 +442,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 645.83
+        "initial_balance": 17007.62
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 4410.615998452417,
+        "limit": 6600.0
       }
     ]
   },
@@ -476,24 +467,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4916.67
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 7375.0
+        "initial_balance": 20832.95
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "subtype": "credit_card",
+        "initial_balance": 4698.886637907202,
+        "limit": 12300.0
       }
     ]
   },
@@ -512,18 +492,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 10250.0
+        "initial_balance": 35520.95
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 25218.0,
+        "limit": 38796.92
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 20500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 20000.0
+        "initial_balance": 18655.0
       }
     ]
   },
@@ -542,12 +522,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5312.5
+        "initial_balance": 39565.4
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 7083.33
+        "initial_balance": 22200.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 4686.1665266269165,
+        "limit": 14300.0
       }
     ]
   },
@@ -566,19 +552,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1750.0
+        "initial_balance": 5390.46
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 8400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5600.0
+        "subtype": "credit_card",
+        "initial_balance": 21655.4,
+        "limit": 33316.0
       }
     ]
   },
@@ -598,13 +578,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 645.83
+        "initial_balance": 28257.21
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7000.0
+        "subtype": "credit_card",
+        "initial_balance": 2182.0592313512175,
+        "limit": 3800.0
       }
     ]
   },
@@ -623,24 +603,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 6500.0
+        "initial_balance": 28497.26
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 9750.0
+        "initial_balance": 15100.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "subtype": "credit_card",
+        "initial_balance": 5877.683472388116,
+        "limit": 14900.0
       }
     ]
   },
@@ -659,18 +633,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 12125.0
+        "initial_balance": 33758.23
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 24250.0
+        "initial_balance": 23765.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 20000.0
+        "subtype": "credit_card",
+        "initial_balance": 4554.367359392174,
+        "limit": 22500.0
       }
     ]
   },
@@ -689,24 +663,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4750.0
+        "initial_balance": 30081.29
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 23540.96,
+        "limit": 36216.86
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 6333.33
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4800.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3200.0
+        "initial_balance": 21100.0
       }
     ]
   },
@@ -725,19 +693,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2041.67
+        "initial_balance": 26554.1
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
+        "subtype": "credit_card",
+        "initial_balance": 1145.09,
+        "limit": 1761.67
       }
     ]
   },
@@ -757,7 +719,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 916.67
+        "initial_balance": 22591.03
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 7070.015697933129,
+        "limit": 11800.0
       }
     ]
   },
@@ -776,24 +744,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5666.67
+        "initial_balance": 28709.59
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 20891.44,
+        "limit": 32140.67
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 8500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4200.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 2800.0
+        "initial_balance": 12100.0
       }
     ]
   },
@@ -812,18 +774,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 10375.0
+        "initial_balance": 36320.29
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 20750.0
+        "initial_balance": 21787.5
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 27000.0
+        "subtype": "credit_card",
+        "initial_balance": 7274.904626395854,
+        "limit": 22200.0
       }
     ]
   },
@@ -842,24 +804,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4687.5
+        "initial_balance": 30009.42
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 26276.3,
+        "limit": 40425.08
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 6250.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7200.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4800.0
+        "initial_balance": 18300.0
       }
     ]
   },
@@ -878,19 +834,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2250.0
+        "initial_balance": 27347.66
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6400.0
+        "subtype": "credit_card",
+        "initial_balance": 1064.8,
+        "limit": 1638.16
       }
     ]
   },
@@ -910,7 +860,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1354.17
+        "initial_balance": 29939.1
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 10961.936377300422,
+        "limit": 18500.0
       }
     ]
   },
@@ -929,18 +885,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5250.0
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 7875.0
+        "initial_balance": 26848.07
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 12000.0
+        "subtype": "credit_card",
+        "initial_balance": 21350.72,
+        "limit": 32847.27
       }
     ]
   },
@@ -959,24 +910,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 15750.0
+        "initial_balance": 49285.67
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 34254.69,
+        "limit": 52699.52
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 31500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6400.0
+        "initial_balance": 35280.0
       }
     ]
   },
@@ -995,12 +940,12 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4187.5
+        "initial_balance": 29559.11
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 5583.33
+        "initial_balance": 18800.0
       }
     ]
   },
@@ -1019,13 +964,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2208.33
+        "initial_balance": 5498.93
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 13000.0
+        "subtype": "credit_card",
+        "initial_balance": 20239.93,
+        "limit": 31138.35
       }
     ]
   },
@@ -1045,7 +990,7 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1229.17
+        "initial_balance": 30549.67
       }
     ]
   },
@@ -1064,18 +1009,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5333.33
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 8000.0
+        "initial_balance": 27782.37
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 12000.0
+        "subtype": "credit_card",
+        "initial_balance": 7408.019319082216,
+        "limit": 17200.0
       }
     ]
   },
@@ -1094,18 +1034,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 11250.0
+        "initial_balance": 39056.28
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 23409.28,
+        "limit": 36014.28
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 22500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 15000.0
+        "initial_balance": 26775.0
       }
     ]
   },
@@ -1124,24 +1064,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3125.0
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 4166.67
+        "initial_balance": 24053.44
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4400.0
+        "subtype": "credit_card",
+        "initial_balance": 21365.61,
+        "limit": 32870.17
       }
     ]
   },
@@ -1160,19 +1089,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2291.67
+        "initial_balance": 5547.25
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
+        "subtype": "credit_card",
+        "initial_balance": 24188.76,
+        "limit": 37213.47
       }
     ]
   },
@@ -1192,7 +1115,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1312.5
+        "initial_balance": 25187.69
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 9023.776321037556,
+        "limit": 14100.0
       }
     ]
   },
@@ -1211,18 +1140,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4416.67
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 6625.0
+        "initial_balance": 26896.71
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9000.0
+        "subtype": "credit_card",
+        "initial_balance": 17005.8,
+        "limit": 26162.77
       }
     ]
   },
@@ -1241,18 +1165,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 15875.0
+        "initial_balance": 47035.42
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 37965.24,
+        "limit": 58408.06
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 31750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 24000.0
+        "initial_balance": 40005.0
       }
     ]
   },
@@ -1271,12 +1195,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2125.0
+        "initial_balance": 17795.19
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 2833.33
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 2216.285863195465,
+        "limit": 8900.0
       }
     ]
   },
@@ -1295,13 +1220,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2583.33
+        "initial_balance": 29288.39
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 12000.0
+        "subtype": "credit_card",
+        "initial_balance": 1075.34,
+        "limit": 1654.38
       }
     ]
   },
@@ -1321,13 +1246,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 958.33
+        "initial_balance": 33579.98
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 8000.0
+        "subtype": "credit_card",
+        "initial_balance": 6358.064122329886,
+        "limit": 10600.0
       }
     ]
   },
@@ -1346,18 +1271,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 6916.67
+        "initial_balance": 32790.93
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 34582.49,
+        "limit": 53203.84
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 10375.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 12000.0
+        "initial_balance": 19800.0
       }
     ]
   },
@@ -1376,24 +1301,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 9875.0
+        "initial_balance": 39050.93
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 22227.8,
+        "limit": 34196.61
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 19750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 14400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9600.0
+        "initial_balance": 26267.5
       }
     ]
   },
@@ -1412,24 +1331,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5750.0
+        "initial_balance": 35055.28
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 36501.35,
+        "limit": 56155.93
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 7666.67
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "initial_balance": 32600.0
       }
     ]
   },
@@ -1448,19 +1361,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2333.33
+        "initial_balance": 31388.12
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 8400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5600.0
+        "subtype": "credit_card",
+        "initial_balance": 1664.65,
+        "limit": 2561.01
       }
     ]
   },
@@ -1480,7 +1387,7 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 458.33
+        "initial_balance": 13900.08
       }
     ]
   },
@@ -1499,24 +1406,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5916.67
+        "initial_balance": 24053.28
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 8875.0
+        "initial_balance": 17000.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4400.0
+        "subtype": "credit_card",
+        "initial_balance": 3192.4195197957233,
+        "limit": 10800.0
       }
     ]
   },
@@ -1535,24 +1436,12 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 11375.0
+        "initial_balance": 37604.58
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 22750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 11400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7600.0
+        "initial_balance": 15925.0
       }
     ]
   },
@@ -1571,12 +1460,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2500.0
+        "initial_balance": 21274.37
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 3333.33
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 2135.5238640033454,
+        "limit": 7800.0
       }
     ]
   },
@@ -1595,13 +1485,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1916.67
+        "initial_balance": 5446.87
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 18000.0
+        "subtype": "credit_card",
+        "initial_balance": 26691.56,
+        "limit": 41063.94
       }
     ]
   },
@@ -1621,13 +1511,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 979.17
+        "initial_balance": 20742.91
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7000.0
+        "subtype": "credit_card",
+        "initial_balance": 14947.72,
+        "limit": 22996.49
       }
     ]
   },
@@ -1646,18 +1536,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5333.33
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 8000.0
+        "initial_balance": 29104.67
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 11000.0
+        "subtype": "credit_card",
+        "initial_balance": 23184.05,
+        "limit": 35667.76
       }
     ]
   },
@@ -1676,24 +1561,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 15500.0
+        "initial_balance": 45953.71
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 27613.13,
+        "limit": 42481.73
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 31000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 10800.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 7200.0
+        "initial_balance": 23870.0
       }
     ]
   },
@@ -1712,18 +1591,7 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2750.0
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 3666.67
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 10000.0
+        "initial_balance": 17584.86
       }
     ]
   },
@@ -1742,19 +1610,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2416.67
+        "initial_balance": 29753.84
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
+        "subtype": "credit_card",
+        "initial_balance": 1677.49,
+        "limit": 2580.75
       }
     ]
   },
@@ -1774,7 +1636,7 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1062.5
+        "initial_balance": 23822.82
       }
     ]
   },
@@ -1793,24 +1655,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5250.0
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 7875.0
+        "initial_balance": 26509.11
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4000.0
+        "subtype": "credit_card",
+        "initial_balance": 25743.78,
+        "limit": 39605.81
       }
     ]
   },
@@ -1829,18 +1680,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 9875.0
+        "initial_balance": 35385.68
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 23708.15,
+        "limit": 36474.08
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 19750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 19000.0
+        "initial_balance": 16590.0
       }
     ]
   },
@@ -1859,12 +1710,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3562.5
+        "initial_balance": 26705.7
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 4750.0
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 7709.8773346874,
+        "limit": 16900.0
       }
     ]
   },
@@ -1883,19 +1735,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2041.67
+        "initial_balance": 26615.91
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6400.0
+        "subtype": "credit_card",
+        "initial_balance": 1140.53,
+        "limit": 1754.66
       }
     ]
   },
@@ -1915,7 +1761,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1000.0
+        "initial_balance": 22564.47
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 6025.817721381178,
+        "limit": 10300.0
       }
     ]
   },
@@ -1934,24 +1786,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4750.0
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 7125.0
+        "initial_balance": 24293.75
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "subtype": "credit_card",
+        "initial_balance": 23167.32,
+        "limit": 35642.03
       }
     ]
   },
@@ -1970,18 +1811,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 15750.0
+        "initial_balance": 48822.2
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 31594.15,
+        "limit": 48606.39
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 31500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 22000.0
+        "initial_balance": 28665.0
       }
     ]
   },
@@ -2000,18 +1841,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5250.0
+        "initial_balance": 32951.4
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 29831.16,
+        "limit": 45894.1
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 7000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 11000.0
+        "initial_balance": 30300.0
       }
     ]
   },
@@ -2030,13 +1871,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1708.33
+        "initial_balance": 23175.8
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 15000.0
+        "subtype": "credit_card",
+        "initial_balance": 1568.34,
+        "limit": 2412.83
       }
     ]
   },
@@ -2056,7 +1897,7 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1020.83
+        "initial_balance": 24228.42
       }
     ]
   },
@@ -2075,24 +1916,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 6500.0
+        "initial_balance": 18532.32
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 9750.0
+        "initial_balance": 18200.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4800.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3200.0
+        "subtype": "credit_card",
+        "initial_balance": 6740.746282771628,
+        "limit": 17600.0
       }
     ]
   },
@@ -2111,24 +1946,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 13875.0
+        "initial_balance": 44243.93
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 31334.89,
+        "limit": 48207.53
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 27750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
+        "initial_balance": 27195.0
       }
     ]
   },
@@ -2147,24 +1976,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4187.5
+        "initial_balance": 28317.69
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 22780.88,
+        "limit": 35047.51
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 5583.33
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "initial_balance": 12200.0
       }
     ]
   },
@@ -2183,13 +2006,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2000.0
+        "initial_balance": 5464.34
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 12000.0
+        "subtype": "credit_card",
+        "initial_balance": 21054.11,
+        "limit": 32390.94
       }
     ]
   },
@@ -2209,7 +2032,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1166.67
+        "initial_balance": 25509.02
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 5788.757581895776,
+        "limit": 9900.0
       }
     ]
   },
@@ -2228,18 +2057,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 6666.67
+        "initial_balance": 30641.56
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 10000.0
+        "initial_balance": 29300.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 8000.0
+        "subtype": "credit_card",
+        "initial_balance": 5776.9089574329455,
+        "limit": 19000.0
       }
     ]
   },
@@ -2258,18 +2087,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 14375.0
+        "initial_balance": 43867.78
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 31563.19,
+        "limit": 48558.75
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 28750.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 21000.0
+        "initial_balance": 30187.5
       }
     ]
   },
@@ -2288,24 +2117,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 6250.0
+        "initial_balance": 38050.32
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 34212.29,
+        "limit": 52634.29
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 8333.33
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4400.0
+        "initial_balance": 22800.0
       }
     ]
   },
@@ -2324,13 +2147,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2666.67
+        "initial_balance": 5625.44
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 16000.0
+        "subtype": "credit_card",
+        "initial_balance": 23753.93,
+        "limit": 36544.51
       }
     ]
   },
@@ -2350,7 +2173,7 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1354.17
+        "initial_balance": 31239.11
       }
     ]
   },
@@ -2369,18 +2192,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 7666.67
+        "initial_balance": 35258.34
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 34792.93,
+        "limit": 53527.59
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 11500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 11000.0
+        "initial_balance": 34300.0
       }
     ]
   },
@@ -2399,18 +2222,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 10750.0
+        "initial_balance": 34321.58
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 21500.0
+        "initial_balance": 24080.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 22000.0
+        "subtype": "credit_card",
+        "initial_balance": 5252.434033500676,
+        "limit": 25200.0
       }
     ]
   },
@@ -2429,24 +2252,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3437.5
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 4583.33
+        "initial_balance": 23018.94
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6600.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 4400.0
+        "subtype": "credit_card",
+        "initial_balance": 21385.43,
+        "limit": 32900.66
       }
     ]
   },
@@ -2465,13 +2277,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2166.67
+        "initial_balance": 5518.66
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 17000.0
+        "subtype": "credit_card",
+        "initial_balance": 24903.53,
+        "limit": 38313.13
       }
     ]
   },
@@ -2491,7 +2303,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 812.5
+        "initial_balance": 20717.64
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 4359.522688854918,
+        "limit": 10800.0
       }
     ]
   },
@@ -2510,18 +2328,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 5916.67
+        "initial_balance": 30449.66
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 22795.97,
+        "limit": 35070.72
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 8875.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 10000.0
+        "initial_balance": 20700.0
       }
     ]
   },
@@ -2540,18 +2358,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 9625.0
+        "initial_balance": 38123.47
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 21815.51,
+        "limit": 33562.32
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 19250.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 19000.0
+        "initial_balance": 22907.5
       }
     ]
   },
@@ -2570,12 +2388,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3937.5
+        "initial_balance": 31101.58
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 5250.0
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 2774.2363518873053,
+        "limit": 7400.0
       }
     ]
   },
@@ -2594,19 +2413,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 2375.0
+        "initial_balance": 5635.89
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 8400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5600.0
+        "subtype": "credit_card",
+        "initial_balance": 24424.71,
+        "limit": 37576.48
       }
     ]
   },
@@ -2626,7 +2439,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 500.0
+        "initial_balance": 14636.87
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 2306.811194854305,
+        "limit": 4900.0
       }
     ]
   },
@@ -2645,24 +2464,12 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 6000.0
+        "initial_balance": 26462.47
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 9000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "initial_balance": 15200.0
       }
     ]
   },
@@ -2681,18 +2488,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 10750.0
+        "initial_balance": 37936.87
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 23511.96,
+        "limit": 36172.25
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 21500.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 22000.0
+        "initial_balance": 27090.0
       }
     ]
   },
@@ -2711,12 +2518,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3500.0
+        "initial_balance": 25906.4
       },
       {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 4666.67
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 2753.126410200568,
+        "limit": 10100.0
       }
     ]
   },
@@ -2735,19 +2543,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1916.67
+        "initial_balance": 5428.37
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 9000.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
+        "subtype": "credit_card",
+        "initial_balance": 16505.5,
+        "limit": 25393.08
       }
     ]
   },
@@ -2767,13 +2569,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 1083.33
+        "initial_balance": 21668.32
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 6000.0
+        "subtype": "credit_card",
+        "initial_balance": 20856.23,
+        "limit": 32086.51
       }
     ]
   },
@@ -2792,24 +2594,13 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 4666.67
-      },
-      {
-        "type": "depository",
-        "subtype": "savings",
-        "initial_balance": 7000.0
+        "initial_balance": 25218.59
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 5400.0
-      },
-      {
-        "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 3600.0
+        "subtype": "credit_card",
+        "initial_balance": 21143.24,
+        "limit": 32528.06
       }
     ]
   },
@@ -2828,18 +2619,18 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 15250.0
+        "initial_balance": 50953.53
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 30500.0
+        "initial_balance": 40565.0
       },
       {
         "type": "credit",
-        "subtype": "credit card",
-        "initial_balance": 0.0,
-        "limit": 21000.0
+        "subtype": "credit_card",
+        "initial_balance": 5871.903304361478,
+        "limit": 17300.0
       }
     ]
   },
@@ -2858,12 +2649,513 @@
       {
         "type": "depository",
         "subtype": "checking",
-        "initial_balance": 3687.5
+        "initial_balance": 28569.06
+      },
+      {
+        "type": "credit",
+        "subtype": "credit_card",
+        "initial_balance": 3549.2755827529745,
+        "limit": 16700.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_100",
+    "name": "Allison Hill",
+    "persona": "young_professional",
+    "annual_income": 36000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 1
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1200.0
       },
       {
         "type": "depository",
         "subtype": "savings",
-        "initial_balance": 4916.67
+        "initial_balance": 1800.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_101",
+    "name": "Noah Rhodes",
+    "persona": "young_professional",
+    "annual_income": 32000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1066.6666666666667
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1599.9999999999998
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_102",
+    "name": "Angie Henderson",
+    "persona": "young_professional",
+    "annual_income": 37000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1233.3333333333335
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1850.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 584.7154184360351,
+        "limit": 2100.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_103",
+    "name": "Daniel Wagner",
+    "persona": "young_professional",
+    "annual_income": 30000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 1
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1000.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1500.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 71.2434287833911,
+        "limit": 600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_104",
+    "name": "Cristian Santos",
+    "persona": "young_professional",
+    "annual_income": 42000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1400.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 2100.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 83.86051808239782,
+        "limit": 600.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_105",
+    "name": "Connie Lawrence",
+    "persona": "young_professional",
+    "annual_income": 28000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 933.3333333333335
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_106",
+    "name": "Abigail Shaffer",
+    "persona": "young_professional",
+    "annual_income": 40000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1333.3333333333335
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 2000.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 130.58192518328076,
+        "limit": 500.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_107",
+    "name": "Gina Moore",
+    "persona": "young_professional",
+    "annual_income": 30000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1000.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1500.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_108",
+    "name": "Gabrielle Davis",
+    "persona": "young_professional",
+    "annual_income": 31000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1033.3333333333335
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1550.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_109",
+    "name": "Ryan Munoz",
+    "persona": "young_professional",
+    "annual_income": 36000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1200.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1800.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_110",
+    "name": "Monica Herrera",
+    "persona": "young_professional",
+    "annual_income": 41000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1366.6666666666667
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 2050.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_111",
+    "name": "Jamie Arnold",
+    "persona": "young_professional",
+    "annual_income": 28000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 933.3333333333335
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1400.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 590.2712576130326,
+        "limit": 2400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_112",
+    "name": "Lisa Hensley",
+    "persona": "young_professional",
+    "annual_income": 36000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 1
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1200.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1800.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 294.5713767565035,
+        "limit": 1400.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_113",
+    "name": "Michele Williams",
+    "persona": "young_professional",
+    "annual_income": 33000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 3
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1100.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1650.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 229.24624113537814,
+        "limit": 2100.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_114",
+    "name": "Dylan Miller",
+    "persona": "young_professional",
+    "annual_income": 29000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 966.6666666666666
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1449.9999999999998
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 758.9779237684822,
+        "limit": 2800.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_115",
+    "name": "Brian Ramirez",
+    "persona": "young_professional",
+    "annual_income": 36000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 1
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1200.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1800.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_116",
+    "name": "Holly Wood",
+    "persona": "young_professional",
+    "annual_income": 29000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 4
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 966.6666666666666
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1449.9999999999998
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 226.2470514503895,
+        "limit": 1300.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_117",
+    "name": "Christopher Ross",
+    "persona": "young_professional",
+    "annual_income": 27000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 900.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1350.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_118",
+    "name": "Jason Wilson",
+    "persona": "young_professional",
+    "annual_income": 33000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1100.0
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1650.0
+      }
+    ]
+  },
+  {
+    "user_id": "user_MASKED_119",
+    "name": "Kylie Bailey",
+    "persona": "young_professional",
+    "annual_income": 34000.0,
+    "characteristics": {
+      "income_stability": "regular",
+      "subscription_count": 2
+    },
+    "accounts": [
+      {
+        "type": "depository",
+        "subtype": "checking",
+        "initial_balance": 1133.3333333333335
+      },
+      {
+        "type": "depository",
+        "subtype": "savings",
+        "initial_balance": 1700.0
+      },
+      {
+        "type": "credit",
+        "subtype": "credit card",
+        "initial_balance": 510.6919753658897,
+        "limit": 2100.0
       }
     ]
   }
