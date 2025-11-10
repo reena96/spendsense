@@ -3,7 +3,6 @@
  * Allows switching between 30-day, 180-day, and side-by-side views
  */
 
-import React from 'react';
 import type { TimeWindow } from '../types/signals';
 
 interface TimeWindowToggleProps {

@@ -3,9 +3,9 @@
  * Shows active subscriptions with cost breakdown and overlap detection
  */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Film, Music, Tv, Package, Cloud, Palette, Dumbbell, FileText, ArrowLeft, MessageCircle, Repeat } from 'lucide-react';
+import { Film, Music, Package, Cloud, Palette, Dumbbell, FileText, ArrowLeft, MessageCircle, Repeat } from 'lucide-react';
 import DashboardLayout from '../../components/dashboard/DashboardLayout';
 import TimeWindowToggle, { TimeWindow } from '../../components/dashboard/TimeWindowToggle';
 import TrendChart from '../../components/signals/TrendChart';

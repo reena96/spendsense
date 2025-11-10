@@ -3,7 +3,6 @@
  * Shows side-by-side comparison of 30-day vs 180-day signals
  */
 
-import React from 'react';
 import type { SignalMetrics } from '../types/signals';
 import { formatCurrency, formatPercent } from '../utils/format';
 

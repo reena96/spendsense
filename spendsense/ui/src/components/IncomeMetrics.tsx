@@ -2,7 +2,6 @@
  * Income Metrics Display (Story 6.2 - Task 6, AC #5)
  */
 
-import React from 'react';
 import type { IncomeMetrics } from '../types/signals';
 import { formatCurrency, getPaymentFrequencyLabel } from '../utils/format';
 

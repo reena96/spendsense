@@ -2,7 +2,6 @@
  * Subscription Metrics Display (Story 6.2 - Task 3, AC #2)
  */
 
-import React from 'react';
 import type { SubscriptionMetrics } from '../types/signals';
 import { formatCurrency, formatPercent } from '../utils/format';
 

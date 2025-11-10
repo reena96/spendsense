@@ -10,18 +10,24 @@ export type TimeWindow = '30d' | '180d' | 'compare';
 
 interface TimeWindowToggleProps {
   onChange?: (window: TimeWindow) => void;
+  selected?: TimeWindow;
 }
 
-const TimeWindowToggle: React.FC<TimeWindowToggleProps> = ({ onChange }) => {
-  const [selected, setSelected] = useState<TimeWindow>(() => {
+const TimeWindowToggle: React.FC<TimeWindowToggleProps> = ({ onChange, selected: controlledSelected }) => {
+  const [internalSelected, setInternalSelected] = useState<TimeWindow>(() => {
     const stored = localStorage.getItem('spendsense_time_window');
     return (stored as TimeWindow) || '30d';
   });
 
+  // Use controlled value if provided, otherwise use internal state
+  const selected = controlledSelected !== undefined ? controlledSelected : internalSelected;
+
   useEffect(() => {
-    localStorage.setItem('spendsense_time_window', selected);
-    onChange?.(selected);
-  }, [selected, onChange]);
+    if (controlledSelected === undefined) {
+      localStorage.setItem('spendsense_time_window', internalSelected);
+      onChange?.(internalSelected);
+    }
+  }, [internalSelected, onChange, controlledSelected]);
 
   const options: Array<{ value: TimeWindow; label: string }> = [
     { value: '30d', label: '30-Day View' },
@@ -29,12 +35,19 @@ const TimeWindowToggle: React.FC<TimeWindowToggleProps> = ({ onChange }) => {
     { value: 'compare', label: 'Compare Both' },
   ];
 
+  const handleClick = (value: TimeWindow) => {
+    if (controlledSelected === undefined) {
+      setInternalSelected(value);
+    }
+    onChange?.(value);
+  };
+
   return (
     <div className="inline-flex rounded-lg bg-gray-100 p-1 gap-1" role="group" aria-label="Time window selection">
       {options.map((option) => (
         <button
           key={option.value}
-          onClick={() => setSelected(option.value)}
+          onClick={() => handleClick(option.value)}
           className={`
             px-4 py-2 rounded-md text-sm font-medium transition-colors
             focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-1

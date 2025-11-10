@@ -2,7 +2,6 @@
  * Credit Metrics Display (Story 6.2 - Task 5, AC #4)
  */
 
-import React from 'react';
 import type { CreditMetrics } from '../types/signals';
 import { formatPercent, getUtilizationColor } from '../utils/format';
 

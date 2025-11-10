@@ -3,7 +3,7 @@
  * Comprehensive view of persona assignments with decision trace
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { usePersonaAssignments, usePersonaDefinitions } from '../hooks/usePersonaData';
 import { UserSearch } from '../components/UserSearch';
 import type { UserSearchResult } from '../types/signals';
@@ -11,7 +11,6 @@ import { formatDate } from '../utils/format';
 
 export function PersonaAssignmentView() {
   const [selectedUser, setSelectedUser] = useState<UserSearchResult | null>(null);
-  const [showOverrideModal, setShowOverrideModal] = useState(false);
 
   const { data: assignments, isLoading, error } = usePersonaAssignments(selectedUser?.user_id ?? null);
   const { data: definitions } = usePersonaDefinitions();
@@ -134,7 +133,7 @@ export function PersonaAssignmentView() {
                 <p className="text-sm text-gray-600">{selectedUser.user_id}</p>
               </div>
               <button
-                onClick={() => setShowOverrideModal(true)}
+                onClick={() => console.log('Override modal not implemented yet')}
                 className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors font-medium text-sm"
               >
                 Override Persona (Admin)

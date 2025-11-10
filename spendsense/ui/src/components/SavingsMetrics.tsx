@@ -2,9 +2,8 @@
  * Savings Metrics Display (Story 6.2 - Task 4, AC #3)
  */
 
-import React from 'react';
 import type { SavingsMetrics } from '../types/signals';
-import { formatCurrency, formatPercent, getSavingsColor } from '../utils/format';
+import { formatCurrency, formatPercent } from '../utils/format';
 
 interface SavingsMetricsProps {
   metrics: SavingsMetrics;

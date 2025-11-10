@@ -99,7 +99,7 @@ const PersonaCard: React.FC<PersonaCardProps> = ({ personaKey, onTimeWindowChang
           {/* Time Window Toggle */}
           <div className="flex flex-col items-start lg:items-end gap-2">
             <label className="text-sm font-medium text-gray-700">Time Period</label>
-            <TimeWindowToggle onChange={handleTimeWindowChange} defaultWindow={selectedWindow} />
+            <TimeWindowToggle onChange={handleTimeWindowChange} selected={selectedWindow} />
           </div>
         </div>
       </div>

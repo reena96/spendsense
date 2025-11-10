@@ -3,7 +3,7 @@
  * Allows operators to search for users by ID or name
  */
 
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useUserSearch } from '../hooks/useSignalData';
 import type { UserSearchResult } from '../types/signals';
 

@@ -2,7 +2,7 @@
  * Signal Export Component (Story 6.2 - Task 8, AC #10)
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { exportSignalData } from '../hooks/useSignalData';
 import type { ExportFormat } from '../types/signals';
 

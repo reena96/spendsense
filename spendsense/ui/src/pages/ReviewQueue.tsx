@@ -5,8 +5,6 @@
  * Full implementation would include filters, batch selection, and rich detail views.
  */
 
-import React, { useState } from 'react';
-
 export function ReviewQueue() {
   return (
     <div className="min-h-screen bg-gray-50 py-8">

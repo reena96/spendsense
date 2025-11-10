@@ -3,7 +3,7 @@
  * Comprehensive view of user behavioral signals
  */
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { UserSearch } from '../components/UserSearch';
 import { TimeWindowToggle } from '../components/TimeWindowToggle';
 import { SubscriptionMetricsDisplay } from '../components/SubscriptionMetrics';
