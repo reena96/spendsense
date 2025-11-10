@@ -67,15 +67,7 @@ class SignalsResponse(BaseModel):
 
 # ===== Utility Functions =====
 
-def get_db_session_local():
-    """Get database session using centralized connection utility."""
-    try:
-        return get_db_session()
-    except Exception as e:
-        raise HTTPException(
-            status_code=503,
-            detail=f"Database connection failed: {str(e)}"
-        )
+# Database session now provided by centralized db.connection module
 
 
 def convert_behavioral_summary_to_metrics(summary_dict: dict, time_window: str) -> Dict[str, Any]:
