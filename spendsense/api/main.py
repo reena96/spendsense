@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI, HTTPException, Query, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel, Field
@@ -24,6 +25,7 @@ from spendsense.generators import (
     LiabilityGenerator,
     generate_synthetic_liabilities,
 )
+from spendsense.api.user_auth import router as user_auth_router
 from spendsense.api.operator_auth import router as operator_auth_router
 from spendsense.api.operator_signals import router as operator_signals_router
 from spendsense.api.operator_personas import router as operator_personas_router
@@ -72,6 +74,24 @@ app = FastAPI(
     swagger_ui_parameters={
         "persistAuthorization": True  # Keep authorization between page refreshes
     }
+)
+
+# Configure CORS to allow frontend requests
+import os
+
+# Allow origins from environment variable for production, with sensible defaults for dev
+allowed_origins = os.getenv("ALLOWED_ORIGINS", "").split(",") if os.getenv("ALLOWED_ORIGINS") else [
+    "http://localhost:3000",  # React dev server
+    "http://127.0.0.1:3000",
+    "http://localhost:5173",  # Vite dev server (alternative port)
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
 )
 
 # Configure OpenAPI security scheme for Bearer token authentication
@@ -148,6 +168,9 @@ LIABILITIES_DIR.mkdir(parents=True, exist_ok=True)
 
 # Serve static files for UI
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
+# Include user authentication router (for end-user login)
+app.include_router(user_auth_router)
 
 # Include operator authentication router (Epic 6 - Story 6.1)
 app.include_router(operator_auth_router)
