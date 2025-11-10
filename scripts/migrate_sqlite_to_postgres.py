@@ -69,8 +69,26 @@ postgres_engine = create_engine(POSTGRES_URL)
 sqlite_metadata = MetaData()
 sqlite_metadata.reflect(bind=sqlite_engine)
 
-# Create all tables in PostgreSQL
+# Fix boolean columns for PostgreSQL
+# SQLite uses INTEGER (0/1) for booleans, PostgreSQL needs BOOLEAN type
+from sqlalchemy import Boolean, Integer
+
 print("📋 Creating tables in PostgreSQL...")
+
+for table_name, table in sqlite_metadata.tables.items():
+    for column in table.columns:
+        # Convert INTEGER columns with boolean-like defaults to BOOLEAN
+        if isinstance(column.type, Integer) and column.default is not None:
+            if hasattr(column.default, 'arg') and column.default.arg in (0, 1, '0', '1'):
+                column.type = Boolean()
+                # Update default value: 1 -> True, 0 -> False
+                if column.default.arg in (1, '1'):
+                    from sqlalchemy import text
+                    column.default = text('TRUE')
+                elif column.default.arg in (0, '0'):
+                    from sqlalchemy import text
+                    column.default = text('FALSE')
+
 sqlite_metadata.create_all(postgres_engine)
 print("✓ Tables created\n")
 
