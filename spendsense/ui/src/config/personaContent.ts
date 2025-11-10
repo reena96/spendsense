@@ -10,7 +10,7 @@ export const PERSONA_CONTENT: Record<string, PersonaContent> = {
   'high_utilization_manager': {
     name: 'High Utilization Manager',
     description: "You're actively using credit and could benefit from strategies to optimize utilization and reduce interest costs.",
-    icon: '💳',
+    icon: 'CreditCard',
     focusAreas: [
       'Credit utilization optimization strategies',
       'Debt paydown calculators and timelines',
@@ -21,7 +21,7 @@ export const PERSONA_CONTENT: Record<string, PersonaContent> = {
   'variable_income_budgeter': {
     name: 'Variable Income Budgeter',
     description: "Your income varies month-to-month. You'd benefit from flexible budgeting strategies and cash flow planning.",
-    icon: '📊',
+    icon: 'TrendingUp',
     focusAreas: [
       'Flexible budgeting frameworks',
       'Cash flow forecasting tools',
@@ -32,7 +32,7 @@ export const PERSONA_CONTENT: Record<string, PersonaContent> = {
   'subscription_heavy_spender': {
     name: 'Subscription-Heavy Spender',
     description: 'You have multiple active subscriptions. Discover opportunities to audit and optimize your recurring expenses.',
-    icon: '📱',
+    icon: 'Repeat',
     focusAreas: [
       'Subscription audit checklists',
       'Cost reduction strategies',
@@ -43,7 +43,7 @@ export const PERSONA_CONTENT: Record<string, PersonaContent> = {
   'savings_builder': {
     name: 'Savings Builder',
     description: "You're building financial cushions. Accelerate your progress with targeted savings strategies.",
-    icon: '🏦',
+    icon: 'PiggyBank',
     focusAreas: [
       'Emergency fund acceleration techniques',
       'High-yield savings account comparisons',
@@ -54,7 +54,7 @@ export const PERSONA_CONTENT: Record<string, PersonaContent> = {
   'cash_flow_optimizer': {
     name: 'Cash Flow Optimizer',
     description: 'You have strong liquidity and low debt. Explore advanced optimization strategies.',
-    icon: '💰',
+    icon: 'Wallet',
     focusAreas: [
       'Advanced cash flow optimization',
       'Investment readiness education',
@@ -65,7 +65,7 @@ export const PERSONA_CONTENT: Record<string, PersonaContent> = {
   'young_professional': {
     name: 'Young Professional',
     description: "You're early in your financial journey. Build strong money habits from the start.",
-    icon: '🎯',
+    icon: 'Target',
     focusAreas: [
       'Foundational money management',
       'Credit building strategies',
