@@ -6,11 +6,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from './contexts/AuthContext';
 import { SignalDashboard } from './pages/SignalDashboard';
 import AuditLog from './pages/AuditLog';
 import ComplianceMetrics from './pages/ComplianceMetrics';
 import { ConsentManagement } from './pages/ConsentManagement';
 import Login from './pages/Login';
+import UserLogin from './pages/UserLogin';
 import OnboardingFlow from './pages/onboarding/OnboardingFlow';
 import EndUserDashboard from './pages/EndUserDashboard';
 import CreditUtilizationDetail from './pages/signals/CreditUtilizationDetail';
@@ -21,6 +23,10 @@ import RecommendationsFeed from './pages/RecommendationsFeed';
 import RecommendationDetail from './pages/RecommendationDetail';
 import ChatInterface from './pages/ChatInterface';
 import SettingsPage from './pages/SettingsPage';
+import FAQPage from './pages/FAQPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import HowItWorksPage from './pages/HowItWorksPage';
 
 // Create React Query client
 const queryClient = new QueryClient({
@@ -117,36 +123,45 @@ function Navigation() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <div className="min-h-screen bg-gray-50">
-          <Navigation />
-          {/* Routes */}
-          <Routes>
-            {/* End-User Routes (no auth required) */}
-            <Route path="/onboarding/*" element={<OnboardingFlow />} />
-            <Route path="/dashboard" element={<EndUserDashboard />} />
-            <Route path="/dashboard/signals/credit" element={<CreditUtilizationDetail />} />
-            <Route path="/dashboard/signals/subscriptions" element={<SubscriptionsDetail />} />
-            <Route path="/dashboard/signals/savings" element={<SavingsDetail />} />
-            <Route path="/dashboard/signals/income" element={<IncomeDetail />} />
-            <Route path="/dashboard/tips" element={<RecommendationsFeed />} />
-            <Route path="/dashboard/recommendations/:id" element={<RecommendationDetail />} />
-            <Route path="/dashboard/chat" element={<ChatInterface />} />
-            <Route path="/dashboard/settings" element={<SettingsPage />} />
+      <AuthProvider>
+        <BrowserRouter>
+          <div className="min-h-screen bg-gray-50">
+            <Navigation />
+            {/* Routes */}
+            <Routes>
+              {/* User Authentication */}
+              <Route path="/user-login" element={<UserLogin />} />
 
-            {/* Operator Routes (auth required) */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/operator" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
-            <Route path="/signals" element={<ProtectedRoute><SignalDashboard /></ProtectedRoute>} />
-            <Route path="/audit" element={<ProtectedRoute><AuditLog /></ProtectedRoute>} />
-            <Route path="/compliance" element={<ProtectedRoute><ComplianceMetrics /></ProtectedRoute>} />
-            <Route path="/consent" element={<ProtectedRoute><ConsentManagement /></ProtectedRoute>} />
+              {/* End-User Routes (auth required) */}
+              <Route path="/onboarding/*" element={<OnboardingFlow />} />
+              <Route path="/dashboard" element={<EndUserDashboard />} />
+              <Route path="/dashboard/signals/credit" element={<CreditUtilizationDetail />} />
+              <Route path="/dashboard/signals/subscriptions" element={<SubscriptionsDetail />} />
+              <Route path="/dashboard/signals/savings" element={<SavingsDetail />} />
+              <Route path="/dashboard/signals/income" element={<IncomeDetail />} />
+              <Route path="/dashboard/tips" element={<RecommendationsFeed />} />
+              <Route path="/dashboard/recommendations/:id" element={<RecommendationDetail />} />
+              <Route path="/dashboard/chat" element={<ChatInterface />} />
+              <Route path="/dashboard/settings" element={<SettingsPage />} />
+              <Route path="/faq" element={<FAQPage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+              <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+              <Route path="/how-it-works" element={<HowItWorksPage />} />
 
-            {/* Default: redirect to onboarding */}
-            <Route path="/" element={<Navigate to="/onboarding/welcome" replace />} />
-          </Routes>
-        </div>
-      </BrowserRouter>
+              {/* Operator Routes (auth required) */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/operator" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+              <Route path="/signals" element={<ProtectedRoute><SignalDashboard /></ProtectedRoute>} />
+              <Route path="/audit" element={<ProtectedRoute><AuditLog /></ProtectedRoute>} />
+              <Route path="/compliance" element={<ProtectedRoute><ComplianceMetrics /></ProtectedRoute>} />
+              <Route path="/consent" element={<ProtectedRoute><ConsentManagement /></ProtectedRoute>} />
+
+              {/* Default: redirect to user login */}
+              <Route path="/" element={<Navigate to="/user-login" replace />} />
+            </Routes>
+          </div>
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }

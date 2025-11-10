@@ -6,6 +6,7 @@ export interface UserSearchResult {
   user_id: string;
   name: string;
   persona: string;
+  consent_status: string;
 }
 
 export interface SubscriptionMetrics {

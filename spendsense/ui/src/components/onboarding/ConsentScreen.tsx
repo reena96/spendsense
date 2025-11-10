@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface ConsentScreenProps {
   onConsent?: (userId: string) => Promise<void>;
   onDecline?: () => void;
-  userId?: string;
 }
 
 const ConsentScreen: React.FC<ConsentScreenProps> = ({
   onConsent,
   onDecline,
-  userId = 'demo-user-1' // Default for testing
 }) => {
+  const { user } = useAuth();
+  const userId = user?.userId || 'user_MASKED_000'; // Fallback for demo
   const navigate = useNavigate();
   const [isChecked, setIsChecked] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -27,23 +28,15 @@ const ConsentScreen: React.FC<ConsentScreenProps> = ({
       if (onConsent) {
         await onConsent(userId);
       } else {
-        // Default: call consent API
-        const response = await fetch('/api/consent', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            user_id: userId,
-            consent_status: true,
-            timestamp: new Date().toISOString()
-          })
-        });
+        // For end-user demo flow: Store consent locally
+        // TODO: Backend needs public /api/consent endpoint for end-users (without operator auth)
+        // Currently /api/consent requires admin token, which doesn't match end-user onboarding flow
 
-        if (!response.ok) {
-          throw new Error('Failed to record consent');
-        }
-
-        // Store user_id in localStorage
+        // Store user_id and consent status in localStorage
         localStorage.setItem('spendsense_user_id', userId);
+        localStorage.setItem('spendsense_consent_status', 'opted_in');
+        localStorage.setItem('spendsense_consent_timestamp', new Date().toISOString());
+        localStorage.setItem('spendsense_consent_version', '1.0');
       }
 
       // Navigate to processing screen

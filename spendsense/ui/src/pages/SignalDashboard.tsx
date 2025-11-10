@@ -55,6 +55,13 @@ export function SignalDashboard() {
                 <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-lg font-medium">
                   {selectedUser.persona.replace(/_/g, ' ')}
                 </span>
+                <span className={`px-4 py-2 rounded-lg font-medium ${
+                  selectedUser.consent_status === 'opted_in'
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-red-100 text-red-800'
+                }`}>
+                  {selectedUser.consent_status === 'opted_in' ? '✓ Opted In' : '✗ Opted Out'}
+                </span>
                 <TimeWindowToggle selected={timeWindow} onChange={setTimeWindow} />
               </div>
             </div>

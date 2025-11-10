@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as LucideIcons from 'lucide-react';
 import { getPersonaContent, PERSONA_CONTENT } from '../../config/personaContent';
 
 interface PersonaRevealProps {
@@ -34,6 +35,9 @@ const PersonaReveal: React.FC<PersonaRevealProps> = ({ personaData }) => {
   const personaKey = data.persona_name || data.persona?.name || 'young_professional';
   const persona = getPersonaContent(personaKey);
   const signals = data.signals || data.behavioral_signals || [];
+
+  // Dynamically get the Lucide icon component
+  const IconComponent = LucideIcons[persona.icon as keyof typeof LucideIcons] as React.FC<{ className?: string }>;
 
   // Format signal citations
   const getSignalCitations = () => {
@@ -76,8 +80,8 @@ const PersonaReveal: React.FC<PersonaRevealProps> = ({ personaData }) => {
       <div className="max-w-3xl w-full bg-white rounded-2xl shadow-xl p-8 md:p-12">
         {/* Persona Icon */}
         <div className="text-center mb-8">
-          <div className="text-8xl mb-4" role="img" aria-label={persona.name}>
-            {persona.icon}
+          <div className="flex justify-center mb-4" role="img" aria-label={persona.name}>
+            {IconComponent && <IconComponent className="w-32 h-32 text-cyan-600" />}
           </div>
 
           {/* Headline */}
@@ -165,23 +169,28 @@ const PersonaReveal: React.FC<PersonaRevealProps> = ({ personaData }) => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-6">
-              {Object.entries(PERSONA_CONTENT).map(([key, content]) => (
-                <div
-                  key={key}
-                  className={`border-2 rounded-lg p-6 ${
-                    key === personaKey ? 'border-cyan-600 bg-cyan-50' : 'border-gray-200'
-                  }`}
-                >
-                  <div className="text-5xl mb-3">{content.icon}</div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {content.name}
-                    {key === personaKey && (
-                      <span className="ml-2 text-sm font-normal text-cyan-600">(You)</span>
-                    )}
-                  </h3>
-                  <p className="text-gray-700 text-sm">{content.description}</p>
-                </div>
-              ))}
+              {Object.entries(PERSONA_CONTENT).map(([key, content]) => {
+                const PersonaIcon = LucideIcons[content.icon as keyof typeof LucideIcons] as React.FC<{ className?: string }>;
+                return (
+                  <div
+                    key={key}
+                    className={`border-2 rounded-lg p-6 ${
+                      key === personaKey ? 'border-cyan-600 bg-cyan-50' : 'border-gray-200'
+                    }`}
+                  >
+                    <div className="mb-3">
+                      {PersonaIcon && <PersonaIcon className="w-12 h-12 text-cyan-600" />}
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {content.name}
+                      {key === personaKey && (
+                        <span className="ml-2 text-sm font-normal text-cyan-600">(You)</span>
+                      )}
+                    </h3>
+                    <p className="text-gray-700 text-sm">{content.description}</p>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="mt-6 text-center">

@@ -99,13 +99,14 @@ class CreateOperatorResponse(BaseModel):
 
 def get_db_connection() -> sqlite3.Connection:
     """Get database connection."""
-    db_path = Path("data/processed/spendsense.db")
+    # Get path relative to project root
+    db_path = Path(__file__).parent.parent.parent / "data" / "processed" / "spendsense.db"
     if not db_path.exists():
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Database not found"
+            detail=f"Database not found at {db_path}"
         )
-    return sqlite3.connect(db_path)
+    return sqlite3.connect(str(db_path))
 
 
 def get_client_identifier(request: Request, username: str) -> str:

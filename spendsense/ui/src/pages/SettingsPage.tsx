@@ -163,46 +163,34 @@ const SettingsPage: React.FC = () => {
           <div className="space-y-3">
             <button
               onClick={handleRestartTour}
-              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline"
+              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-left"
             >
               Restart Dashboard Tour
             </button>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('FAQ page would open here');
-              }}
-              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline"
+            <button
+              onClick={() => navigate('/faq')}
+              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-left"
             >
               Frequently Asked Questions
-            </a>
+            </button>
             <a
-              href="mailto:support@spendsense.example.com"
+              href="mailto:support@spendsense.com"
               className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline"
             >
               Contact Support
             </a>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('Privacy Policy would open here');
-              }}
-              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline"
+            <button
+              onClick={() => navigate('/privacy-policy')}
+              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-left"
             >
               Privacy Policy
-            </a>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('Terms of Service would open here');
-              }}
-              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline"
+            </button>
+            <button
+              onClick={() => navigate('/terms-of-service')}
+              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-left"
             >
               Terms of Service
-            </a>
+            </button>
           </div>
         </div>
 
@@ -211,26 +199,42 @@ const SettingsPage: React.FC = () => {
           <h2 className="text-xl font-semibold text-gray-900 mb-4">About SpendSense</h2>
           <div className="space-y-2 text-gray-700">
             <p className="text-sm">Version 1.0.0</p>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('How SpendSense Works explanation would open here');
-              }}
-              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-sm"
+            <button
+              onClick={() => navigate('/how-it-works')}
+              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-sm text-left"
             >
               How SpendSense Works
-            </a>
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                alert('All Personas explanation would open here');
-              }}
-              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-sm"
+            </button>
+            <button
+              onClick={() => setShowAllPersonas(!showAllPersonas)}
+              className="block text-cyan-600 hover:text-cyan-700 font-medium focus:outline-none focus:underline text-sm text-left"
             >
               All Personas Explained
-            </a>
+            </button>
+            {showAllPersonas && (
+              <div className="mt-3 p-4 bg-gray-50 rounded-lg text-sm text-gray-700">
+                <ul className="space-y-3">
+                  <li>
+                    <strong>High Utilization Manager:</strong> High credit card utilization needs attention
+                  </li>
+                  <li>
+                    <strong>Variable Income Budgeter:</strong> Irregular income requires special budgeting
+                  </li>
+                  <li>
+                    <strong>Subscription Heavy Spender:</strong> Many recurring subscriptions to optimize
+                  </li>
+                  <li>
+                    <strong>Savings Builder:</strong> Low emergency fund, focus on savings growth
+                  </li>
+                  <li>
+                    <strong>Cash Flow Optimizer:</strong> Healthy finances, optimize for efficiency
+                  </li>
+                  <li>
+                    <strong>Young Professional:</strong> New to credit, building financial foundation
+                  </li>
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

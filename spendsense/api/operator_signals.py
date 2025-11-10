@@ -27,8 +27,8 @@ from spendsense.ingestion.database_writer import User
 # Router for operator signal endpoints
 router = APIRouter(prefix="/api/operator", tags=["operator-signals"])
 
-# Database path
-DB_PATH = Path(__file__).parent.parent.parent / "data" / "processed" / "spendsense.db"
+# Import database connection utility
+from spendsense.db.connection import get_db_session, get_engine
 
 
 # ===== Response Models =====
@@ -38,6 +38,7 @@ class UserSearchResult(BaseModel):
     user_id: str
     name: str
     persona: str
+    consent_status: str
 
 
 class UserSearchResponse(BaseModel):
@@ -66,17 +67,15 @@ class SignalsResponse(BaseModel):
 
 # ===== Utility Functions =====
 
-def get_db_session():
-    """Get database session."""
-    if not DB_PATH.exists():
+def get_db_session_local():
+    """Get database session using centralized connection utility."""
+    try:
+        return get_db_session()
+    except Exception as e:
         raise HTTPException(
             status_code=503,
-            detail="Database not available. Please run data ingestion first."
+            detail=f"Database connection failed: {str(e)}"
         )
-
-    engine = create_engine(f"sqlite:///{str(DB_PATH)}")
-    Session = sessionmaker(bind=engine)
-    return Session()
 
 
 def convert_behavioral_summary_to_metrics(summary_dict: dict, time_window: str) -> Dict[str, Any]:
@@ -176,7 +175,8 @@ async def search_users(
             UserSearchResult(
                 user_id=user.user_id,
                 name=user.name,
-                persona=user.persona
+                persona=user.persona,
+                consent_status=user.consent_status
             )
             for user in users
         ]

@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import * as LucideIcons from 'lucide-react';
 import { getPersonaContent } from '../../config/personaContent';
 
 interface PersonaDetailsModalProps {
@@ -21,6 +22,9 @@ const PersonaDetailsModal: React.FC<PersonaDetailsModalProps> = ({ personaKey, o
     'Savings account balance covers 2.3 months of expenses',
   ];
 
+  // Dynamically get the Lucide icon component
+  const IconComponent = LucideIcons[persona.icon as keyof typeof LucideIcons] as React.FC<{ className?: string }>;
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50" onClick={onClose}>
       <div
@@ -30,7 +34,7 @@ const PersonaDetailsModal: React.FC<PersonaDetailsModalProps> = ({ personaKey, o
         {/* Header */}
         <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-4xl" aria-hidden="true">{persona.icon}</span>
+            {IconComponent && <IconComponent className="w-10 h-10 text-cyan-600" aria-hidden="true" />}
             <h2 className="text-2xl font-bold text-gray-900">{persona.name}</h2>
           </div>
           <button

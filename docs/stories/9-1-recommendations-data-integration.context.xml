@@ -1,0 +1,155 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>9</epicId>
+    <storyId>1</storyId>
+    <title>Recommendations Data Integration</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-08</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/9-1-recommendations-data-integration.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>end user</asA>
+    <iWant>to see real personalized recommendations based on my actual financial behavior</iWant>
+    <soThat>I receive relevant advice tailored to my situation, not generic mock data</soThat>
+    <tasks>
+### Task 1: Add API Service Methods
+- Create `spendsense/ui/src/services/api.ts` methods
+- Define TypeScript interfaces: RecommendationContent, Recommendation, RecommendationsResponse
+- Implement `fetchRecommendations(userId, timeWindow)`
+- Handle response errors (403 consent, 404 not found, 500 server error)
+- Test API method with real user_id
+
+### Task 2: Update EndUserDashboard.tsx
+- Remove hardcoded recommendations array (lines 195-199)
+- Add state: recommendations, recsLoading, recsError
+- Create useEffect to fetch recommendations on mount
+- Re-fetch when timeWindow changes
+- Slice first 4 recommendations for dashboard display
+- Implement loading state UI, error state UI, empty state UI
+- Map API data to recommendation cards
+- Extract disclaimer from API and display prominently
+
+### Task 3: Update RecommendationsFeed.tsx
+- Remove hardcoded allRecommendations array (lines 19-66)
+- Add state: recommendations, loading, error
+- Create useEffect to fetch on mount
+- Implement filter logic using API data
+- Update search to work with real data structure
+- Map item_type to filter categories
+- Display recommendation count from API
+- Show loading skeleton during fetch
+- Error handling with retry
+
+### Task 4: Update RecommendationCard Component
+- Accept Recommendation prop with full API structure
+- Display content.title, content.description, content.type as badge
+- Display rationale in collapsible section
+- Display persona_match_reason, signal_citations as bullet list
+- Show content.key_benefits if available
+- Show savings estimate for partner offers
+- Map item_type to appropriate icon
+
+### Task 5: Implement Time Window Integration
+- Pass timeWindow state to fetchRecommendations
+- Add dependency to useEffect: [userId, timeWindow]
+- Show time window indicator
+- Prevent redundant fetches with proper dependencies
+
+### Task 6: Implement Disclaimer Display
+- Extract disclaimer from API response
+- Create Disclaimer component or section
+- Style with warning icon and yellow background
+- Display on both dashboard and recommendations feed
+- Ensure WCAG AA contrast compliance
+
+### Task 7: Testing & Validation
+- Test with user_MASKED_000, user_MASKED_001
+- Verify different recommendations for different users
+- Test time window toggle (30d vs 180d)
+- Test filter functionality, search functionality
+- Test loading states, error states, empty state
+- Verify no hardcoded data remains
+- Check console for errors/warnings
+- Test responsive design
+
+### Task 8: Code Cleanup
+- Remove all mock recommendation data
+- Remove "TODO" and "Mock data" comments
+- Add proper TypeScript types, JSDoc comments
+- Format code with Prettier, lint with ESLint
+- Git grep for "mock" - should find nothing
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+1. Dashboard Recommendations Section (EndUserDashboard.tsx) removes hardcoded data
+2. Calls GET /api/recommendations/{user_id}?time_window={timeWindow} on mount
+3. Displays first 4 recommendations (education + partner offers mixed)
+4. Updates when time window changes (30d ↔ 180d toggle)
+5. Loading state while fetching
+6. Error state with retry button
+7. Empty state if no recommendations available
+8. Recommendations Feed Page (RecommendationsFeed.tsx) uses API
+9. Filter by type: All | Education | Tools | Partner Offers
+10. Search functionality across title and description
+11. Mandatory disclaimer displayed from API response
+12. Recommendation cards show: title, description, rationale, persona_match_reason, signal_citations
+13. Partner offer savings estimates displayed
+14. All hardcoded recommendations removed
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc path="docs/prd/epic-9-frontend-backend-integration.md" title="Epic 9 PRD" section="Story 9.1" snippet="Replace hardcoded mock recommendations with real API data from GET /api/recommendations/{user_id}?time_window={timeWindow}" />
+      <doc path="docs/prd/epic-4-recommendation-engine-content-catalog.md" title="Epic 4 PRD" section="Recommendation Engine" snippet="Recommendation engine with educational content and partner offers, includes metadata and rationale generation" />
+      <doc path="docs/architecture.md" title="Architecture" section="React SPA Frontend" snippet="React 18 + TypeScript + TailwindCSS, REST API integration pattern" />
+    </docs>
+    <code>
+      <artifact path="spendsense/ui/src/services/api.ts" kind="service" symbol="fetchUserProfile" lines="41-50" reason="Existing API service pattern - follow same structure for fetchRecommendations" />
+      <artifact path="spendsense/ui/src/pages/EndUserDashboard.tsx" kind="page" symbol="EndUserDashboard" lines="1-234" reason="Main dashboard page - needs to replace hardcoded recommendations with API calls" />
+      <artifact path="spendsense/ui/src/pages/RecommendationsFeed.tsx" kind="page" symbol="RecommendationsFeed" lines="18-66" reason="Full recommendations page - remove mock data array and fetch from API" />
+      <artifact path="spendsense/ui/src/components/recommendations/RecommendationCard.tsx" kind="component" symbol="RecommendationCard" lines="1-126" reason="Recommendation card component - update props to accept API response structure" />
+    </code>
+    <dependencies>
+      <node>
+        <dependency name="react" version="^18.2.0" />
+        <dependency name="react-router-dom" version="^6.20.0" />
+        <dependency name="lucide-react" version="^0.553.0" />
+        <dependency name="@tanstack/react-query" version="^5.12.0" />
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+- Follow existing API service pattern from api.ts (fetchUserProfile)
+- Use React hooks (useState, useEffect) for data fetching
+- Implement loading, error, and empty states for UX
+- Maintain WCAG AA accessibility compliance
+- Use Lucide React icons instead of emoji where possible
+- Follow TypeScript strict typing
+- Preserve responsive design (mobile-first)
+- Display disclaimer prominently from API response
+  </constraints>
+
+  <interfaces>
+    <interface name="GET /api/recommendations/{user_id}" kind="REST endpoint" signature="GET /api/recommendations/{user_id}?time_window=30d|180d" path="spendsense/api/recommendations.py" />
+    <interface name="Recommendation" kind="TypeScript interface" signature="{ item_type: 'education' | 'partner_offer', item_id: string, content: RecommendationContent, rationale: string, persona_match_reason: string, signal_citations: string[] }" path="spendsense/ui/src/services/api.ts" />
+    <interface name="RecommendationsResponse" kind="TypeScript interface" signature="{ user_id: string, persona_id: string, time_window: string, recommendations: Recommendation[], disclaimer: string, metadata: {...} }" path="spendsense/ui/src/services/api.ts" />
+  </interfaces>
+
+  <tests>
+    <standards>React Testing Library for component tests, Jest for unit tests. Focus on user-facing behavior not implementation details. Test loading states, error handling, and data rendering.</standards>
+    <locations>spendsense/ui/src/**/*.test.{ts,tsx}</locations>
+    <ideas>
+- AC1-2: Test API service method fetchRecommendations calls correct endpoint with time_window param
+- AC3-4: Test dashboard displays first 4 recommendations and updates on time window change
+- AC5-7: Test loading spinner, error state with retry, empty state message
+- AC8-10: Test recommendations feed filtering (All, Education, Partner Offers) and search
+- AC11: Test disclaimer displayed from API response
+- AC12-13: Test recommendation card renders all fields (title, description, rationale, citations, savings estimate)
+- AC14: Test no hardcoded recommendations remain (grep test)
+    </ideas>
+  </tests>
+</story-context>

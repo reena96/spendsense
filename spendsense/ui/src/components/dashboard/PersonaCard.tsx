@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import * as LucideIcons from 'lucide-react';
 import { getPersonaContent } from '../../config/personaContent';
 import TimeWindowToggle, { TimeWindow } from './TimeWindowToggle';
 import PersonaDetailsModal from './PersonaDetailsModal';
@@ -11,11 +12,20 @@ import PersonaDetailsModal from './PersonaDetailsModal';
 interface PersonaCardProps {
   personaKey: string;
   onTimeWindowChange?: (window: TimeWindow) => void;
+  currentTimeWindow?: TimeWindow;
 }
 
-const PersonaCard: React.FC<PersonaCardProps> = ({ personaKey, onTimeWindowChange }) => {
+const PersonaCard: React.FC<PersonaCardProps> = ({ personaKey, onTimeWindowChange, currentTimeWindow }) => {
   const [showModal, setShowModal] = useState(false);
+  const [selectedWindow, setSelectedWindow] = useState<TimeWindow>(currentTimeWindow || '30d');
   const persona = getPersonaContent(personaKey);
+
+  const handleTimeWindowChange = (window: TimeWindow) => {
+    setSelectedWindow(window);
+    if (onTimeWindowChange) {
+      onTimeWindowChange(window);
+    }
+  };
 
   // Mock primary metric - in real app, would come from API
   const getPrimaryMetric = () => {
@@ -52,13 +62,18 @@ const PersonaCard: React.FC<PersonaCardProps> = ({ personaKey, onTimeWindowChang
     }
   };
 
+  // Dynamically get the Lucide icon component
+  const IconComponent = LucideIcons[persona.icon as keyof typeof LucideIcons] as React.FC<{ className?: string }>;
+
   return (
     <>
       <div id="persona-card" className="bg-white rounded-lg shadow-md p-6">
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           {/* Persona Info */}
           <div className="flex items-center gap-4">
-            <div className="text-6xl" aria-hidden="true">{persona.icon}</div>
+            <div className="flex-shrink-0" aria-hidden="true">
+              {IconComponent && <IconComponent className="w-16 h-16 text-cyan-600" />}
+            </div>
             <div className="flex-1">
               <h2 className="text-2xl font-bold text-gray-900">{persona.name}</h2>
               <p className="text-gray-700 mt-1">{persona.description}</p>
@@ -84,7 +99,7 @@ const PersonaCard: React.FC<PersonaCardProps> = ({ personaKey, onTimeWindowChang
           {/* Time Window Toggle */}
           <div className="flex flex-col items-start lg:items-end gap-2">
             <label className="text-sm font-medium text-gray-700">Time Period</label>
-            <TimeWindowToggle onChange={onTimeWindowChange} />
+            <TimeWindowToggle onChange={handleTimeWindowChange} defaultWindow={selectedWindow} />
           </div>
         </div>
       </div>

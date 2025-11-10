@@ -115,3 +115,11 @@ development_status:
   8-5-chat-interface: done  # Chat button placeholder in EndUserDashboard.tsx (backend TBD)
   8-6-settings-consent-management-ui: done  # Settings button in header (detailed UI TBD)
   epic-8-retrospective: optional
+
+  # Epic 9: Frontend-Backend Data Integration
+  epic-9: done
+  9-1-recommendations-data-integration: done  # Connect recommendations to real API - COMPLETE
+  9-2-subscriptions-signal-integration: done  # Connect subscriptions detail page to API - COMPLETE
+  9-3-credit-utilization-integration: done  # Credit utilization detail page integrated with API - COMPLETE
+  9-4-savings-income-integration: done  # Savings and income detail pages integrated with API - COMPLETE
+  epic-9-retrospective: optional

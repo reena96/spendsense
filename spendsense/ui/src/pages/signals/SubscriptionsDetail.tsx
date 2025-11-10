@@ -3,15 +3,48 @@
  * Shows active subscriptions with cost breakdown and overlap detection
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Film, Music, Tv, Package, Cloud, Palette, Dumbbell, FileText, ArrowLeft, MessageCircle, Repeat } from 'lucide-react';
 import DashboardLayout from '../../components/dashboard/DashboardLayout';
 import TimeWindowToggle, { TimeWindow } from '../../components/dashboard/TimeWindowToggle';
 import TrendChart from '../../components/signals/TrendChart';
+import { fetchSubscriptionsSignal, DetectedSubscription } from '../../services/api';
 
 const SubscriptionsDetail: React.FC = () => {
   const navigate = useNavigate();
   const [_timeWindow, setTimeWindow] = useState<TimeWindow>('30d');
+  const [subscriptions, setSubscriptions] = useState<DetectedSubscription[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [monthlyRecurringSpend, setMonthlyRecurringSpend] = useState(0);
+  const [subscriptionCount, setSubscriptionCount] = useState(0);
+
+  useEffect(() => {
+    const loadSubscriptions = async () => {
+      const userId = localStorage.getItem('spendsense_user_id');
+      if (!userId) {
+        navigate('/onboarding/welcome');
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchSubscriptionsSignal(userId);
+        setSubscriptions(data.detected_subscriptions);
+        setMonthlyRecurringSpend(data.monthly_recurring_spend);
+        setSubscriptionCount(data.subscription_count);
+      } catch (err) {
+        console.error('Error loading subscriptions:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load subscriptions');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSubscriptions();
+  }, [navigate]);
 
   const trendData = [
     { label: 'Jan', value: 118 },
@@ -20,19 +53,20 @@ const SubscriptionsDetail: React.FC = () => {
     { label: 'Apr', value: 131 },
   ];
 
-  const subscriptions = [
-    { name: 'Netflix', cost: 15.99, logo: '🎬', category: 'Entertainment' },
-    { name: 'Spotify', cost: 10.99, logo: '🎵', category: 'Entertainment' },
-    { name: 'Hulu', cost: 14.99, logo: '📺', category: 'Entertainment' },
-    { name: 'Amazon Prime', cost: 14.99, logo: '📦', category: 'Shopping' },
-    { name: 'iCloud Storage', cost: 9.99, logo: '☁️', category: 'Storage' },
-    { name: 'Adobe Creative Cloud', cost: 54.99, logo: '🎨', category: 'Productivity' },
-    { name: 'Gym Membership', cost: 39.99, logo: '💪', category: 'Health' },
-  ];
+  // Icon mapping for common merchants
+  const getIcon = (merchantName: string) => {
+    const name = merchantName.toLowerCase();
+    if (name.includes('netflix') || name.includes('hulu') || name.includes('disney')) return Film;
+    if (name.includes('spotify') || name.includes('apple music')) return Music;
+    if (name.includes('amazon')) return Package;
+    if (name.includes('icloud') || name.includes('dropbox')) return Cloud;
+    if (name.includes('adobe')) return Palette;
+    if (name.includes('gym') || name.includes('fitness')) return Dumbbell;
+    return Repeat; // Default icon for recurring payments
+  };
 
-  const totalCost = subscriptions.reduce((sum, sub) => sum + sub.cost, 0);
-  const monthlyIncome = 4200; // Mock data
-  const percentOfIncome = ((totalCost / monthlyIncome) * 100).toFixed(1);
+  const monthlyIncome = 4200; // TODO: Get from income signal
+  const percentOfIncome = monthlyRecurringSpend > 0 ? ((monthlyRecurringSpend / monthlyIncome) * 100).toFixed(1) : '0.0';
 
   return (
     <DashboardLayout>
@@ -42,7 +76,7 @@ const SubscriptionsDetail: React.FC = () => {
           onClick={() => navigate('/dashboard')}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mb-4 focus:outline-none focus:ring-2 focus:ring-cyan-500 rounded px-2 py-1"
         >
-          <span>←</span>
+          <ArrowLeft className="w-4 h-4" />
           <span>Back to Dashboard</span>
         </button>
 
@@ -55,21 +89,45 @@ const SubscriptionsDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
-          <p className="text-sm text-gray-600 mb-1">Active Subscriptions</p>
-          <p className="text-2xl font-bold text-gray-900">{subscriptions.length}</p>
+      {/* Loading State */}
+      {loading && (
+        <div className="text-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading subscriptions...</p>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
-          <p className="text-sm text-gray-600 mb-1">Total Monthly Cost</p>
-          <p className="text-2xl font-bold text-gray-900">${totalCost.toFixed(2)}</p>
+      )}
+
+      {/* Error State */}
+      {error && !loading && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
+          <p className="text-red-800 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium"
+          >
+            Retry
+          </button>
         </div>
-        <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
-          <p className="text-sm text-gray-600 mb-1">% of Income</p>
-          <p className="text-2xl font-bold text-yellow-600">{percentOfIncome}%</p>
-        </div>
-      </div>
+      )}
+
+      {/* Content */}
+      {!loading && !error && (
+        <>
+          {/* Key Metrics */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
+              <p className="text-sm text-gray-600 mb-1">Active Subscriptions</p>
+              <p className="text-2xl font-bold text-gray-900">{subscriptionCount}</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
+              <p className="text-sm text-gray-600 mb-1">Total Monthly Cost</p>
+              <p className="text-2xl font-bold text-gray-900">${monthlyRecurringSpend.toFixed(2)}</p>
+            </div>
+            <div className="bg-white rounded-lg shadow-md p-6 border border-gray-100">
+              <p className="text-sm text-gray-600 mb-1">% of Income</p>
+              <p className="text-2xl font-bold text-yellow-600">{percentOfIncome}%</p>
+            </div>
+          </div>
 
       {/* Trend Chart */}
       <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-100">
@@ -83,29 +141,38 @@ const SubscriptionsDetail: React.FC = () => {
         />
       </div>
 
-      {/* Subscriptions List */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-100">
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">Active Subscriptions</h2>
-        <div className="space-y-3">
-          {subscriptions.map((sub, index) => (
-            <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-              <div className="flex items-center gap-3">
-                <span className="text-3xl">{sub.logo}</span>
-                <div>
-                  <p className="font-medium text-gray-900">{sub.name}</p>
-                  <p className="text-sm text-gray-600">{sub.category}</p>
-                </div>
+          {/* Subscriptions List */}
+          <div className="bg-white rounded-lg shadow-md p-6 mb-8 border border-gray-100">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Active Subscriptions</h2>
+            {subscriptions.length > 0 ? (
+              <div className="space-y-3">
+                {subscriptions.map((sub, index) => {
+                  const Icon = getIcon(sub.merchant_name);
+                  return (
+                    <div key={index} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                      <div className="flex items-center gap-3">
+                        <div className="w-12 h-12 bg-cyan-100 rounded-full flex items-center justify-center">
+                          <Icon className="w-6 h-6 text-cyan-600" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-gray-900">{sub.merchant_name}</p>
+                          <p className="text-sm text-gray-600">{sub.cadence} • {sub.transaction_count} charges</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className="font-semibold text-gray-900">${sub.avg_amount.toFixed(2)}</p>
+                        <p className="text-xs text-gray-500">/month</p>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
-              <div className="text-right">
-                <p className="font-semibold text-gray-900">${sub.cost}</p>
-                <p className="text-xs text-gray-500">/month</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+            ) : (
+              <p className="text-gray-600 text-center py-8">No recurring subscriptions detected</p>
+            )}
+          </div>
 
-      {/* Overlap Detection */}
+          {/* Overlap Detection */}
       <div className="bg-yellow-50 rounded-lg p-6 mb-8 border border-yellow-200">
         <h2 className="text-xl font-semibold text-gray-900 mb-3">Overlap Detected</h2>
         <div className="space-y-2 text-gray-700">
@@ -132,7 +199,7 @@ const SubscriptionsDetail: React.FC = () => {
         <h2 className="text-xl font-semibold text-gray-900 mb-4">Related Recommendations</h2>
         <div className="space-y-3">
           <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors">
-            <span className="text-2xl">📋</span>
+            <FileText className="w-6 h-6 text-cyan-600" />
             <div className="flex-1">
               <p className="font-medium text-gray-900">Subscription Audit Checklist</p>
               <p className="text-sm text-gray-600">Step-by-step guide to review your subscriptions</p>
@@ -142,16 +209,18 @@ const SubscriptionsDetail: React.FC = () => {
         </div>
       </div>
 
-      {/* Ask Chat Button */}
-      <div className="mt-8 text-center">
-        <button
-          onClick={() => navigate('/dashboard/chat?context=subscriptions')}
-          className="inline-flex items-center gap-2 bg-cyan-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-cyan-700 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
-        >
-          <span>💬</span>
-          <span>Ask Chat About This</span>
-        </button>
-      </div>
+          {/* Ask Chat Button */}
+          <div className="mt-8 text-center">
+            <button
+              onClick={() => navigate('/dashboard/chat?context=subscriptions')}
+              className="inline-flex items-center gap-2 bg-cyan-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-cyan-700 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+            >
+              <MessageCircle className="w-5 h-5" />
+              <span>Ask Chat About This</span>
+            </button>
+          </div>
+        </>
+      )}
     </DashboardLayout>
   );
 };

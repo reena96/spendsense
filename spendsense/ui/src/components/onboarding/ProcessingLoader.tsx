@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface ProcessingLoaderProps {
-  userId?: string;
   onSuccess?: (data: any) => void;
   onError?: (error: Error) => void;
 }
 
 const ProcessingLoader: React.FC<ProcessingLoaderProps> = ({
-  userId = localStorage.getItem('spendsense_user_id') || 'demo-user-1',
   onSuccess,
   onError
 }) => {
+  const { user } = useAuth();
+  const userId = user?.userId || localStorage.getItem('spendsense_user_id') || 'user_MASKED_000';
   const navigate = useNavigate();
   const [messageIndex, setMessageIndex] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -53,13 +54,25 @@ const ProcessingLoader: React.FC<ProcessingLoaderProps> = ({
           return;
         }
 
-        const data = await response.json();
+        const apiData = await response.json();
 
-        // Store persona data
-        localStorage.setItem('spendsense_persona_data', JSON.stringify(data));
+        // Transform API response to match expected format
+        // API returns: { user_id, assignments: { "30d": { assigned_persona_id, match_evidence, ... } } }
+        // Frontend expects: { persona_name, signals: { ... } }
+        const assignment30d = apiData.assignments?.['30d'];
+        const transformedData = {
+          user_id: apiData.user_id,
+          persona_name: assignment30d?.assigned_persona_id || 'young_professional',
+          signals: assignment30d?.match_evidence || {},
+          all_qualifying_personas: assignment30d?.all_qualifying_personas || [],
+          prioritization_reason: assignment30d?.prioritization_reason || ''
+        };
+
+        // Store transformed persona data
+        localStorage.setItem('spendsense_persona_data', JSON.stringify(transformedData));
 
         if (onSuccess) {
-          onSuccess(data);
+          onSuccess(transformedData);
         }
 
         // Navigate to persona reveal

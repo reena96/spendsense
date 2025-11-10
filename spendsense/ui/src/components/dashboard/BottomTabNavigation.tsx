@@ -6,22 +6,24 @@
 
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { LayoutDashboard, TrendingUp, Lightbulb, MessageCircle, Settings } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export type TabId = 'dashboard' | 'signals' | 'tips' | 'chat' | 'more';
 
 interface Tab {
   id: TabId;
   label: string;
-  icon: string;
+  Icon: LucideIcon;
   path: string;
 }
 
 const tabs: Tab[] = [
-  { id: 'dashboard', label: 'Dashboard', icon: '📊', path: '/dashboard' },
-  { id: 'signals', label: 'Signals', icon: '📈', path: '/dashboard/signals' },
-  { id: 'tips', label: 'Tips', icon: '💡', path: '/dashboard/tips' },
-  { id: 'chat', label: 'Chat', icon: '💬', path: '/dashboard/chat' },
-  { id: 'more', label: 'More', icon: '⚙️', path: '/dashboard/settings' },
+  { id: 'dashboard', label: 'Dashboard', Icon: LayoutDashboard, path: '/dashboard' },
+  { id: 'signals', label: 'Signals', Icon: TrendingUp, path: '/dashboard' }, // Navigate to dashboard where signals are displayed
+  { id: 'tips', label: 'Tips', Icon: Lightbulb, path: '/dashboard/tips' },
+  { id: 'chat', label: 'Chat', Icon: MessageCircle, path: '/dashboard/chat' },
+  { id: 'more', label: 'More', Icon: Settings, path: '/dashboard/settings' },
 ];
 
 const BottomTabNavigation: React.FC = () => {
@@ -67,7 +69,7 @@ const BottomTabNavigation: React.FC = () => {
               aria-label={tab.label}
               aria-current={isActive ? 'page' : undefined}
             >
-              <span className="text-2xl mb-1" aria-hidden="true">{tab.icon}</span>
+              <tab.Icon className="w-6 h-6 mb-1" aria-hidden="true" />
               <span className={`text-xs font-medium ${isActive ? 'font-semibold' : ''}`}>
                 {tab.label}
               </span>
